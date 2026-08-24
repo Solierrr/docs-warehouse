@@ -25,11 +25,6 @@ buildNumber.properties
 # Kotlin
 .kotlin/
 
-# Environment variables
-.env
-.env.*
-!.env.example
-
 # Logs / crash dumps
 *.log
 hs_err_pid*

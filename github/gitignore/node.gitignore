@@ -18,11 +18,6 @@ out/
 .nuxt/
 .output/
 
-# Environment variables
-.env
-.env.*
-!.env.example
-
 # Logs
 logs/
 *.log
