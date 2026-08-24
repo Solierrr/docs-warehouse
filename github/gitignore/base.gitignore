@@ -36,6 +36,9 @@
 # Visual Studio Code / Cursor
 .cursor/
 
+# Claude Code
+.claude/
+
 # Fleet
 .fleet/
 
