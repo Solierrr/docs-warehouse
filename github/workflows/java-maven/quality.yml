@@ -1,0 +1,28 @@
+name: Code Quality
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "21"
+          cache: "maven"
+
+      # violationSeverity=error: google_checks.xml marks nearly everything
+      # as "warning" by default, so "error" here means the build only fails
+      # on genuine problems, not style/indentation nitpicks. Violations are
+      # still reported in the log either way.
+      - name: Lint
+        run: ./mvnw org.apache.maven.plugins:maven-checkstyle-plugin:3.6.0:check -Dcheckstyle.config.location=google_checks.xml -Dcheckstyle.violationSeverity=error -B
