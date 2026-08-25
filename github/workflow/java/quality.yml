@@ -20,5 +20,9 @@ jobs:
           java-version: "21"
           cache: "maven"
 
+      # violationSeverity=error: google_checks.xml marks nearly everything as
+      # "warning" by default, so "error" here means the build only fails on
+      # genuine problems, not style/indentation nitpicks. Violations are
+      # still reported in the log either way.
       - name: Lint
-        run: ./mvnw org.apache.maven.plugins:maven-checkstyle-plugin:3.6.0:check -Dcheckstyle.config.location=google_checks.xml -Dcheckstyle.violationSeverity=warning -B
+        run: ./mvnw org.apache.maven.plugins:maven-checkstyle-plugin:3.6.0:check -Dcheckstyle.config.location=google_checks.xml -Dcheckstyle.violationSeverity=error -B
