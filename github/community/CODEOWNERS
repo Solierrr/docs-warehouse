@@ -1,0 +1,5 @@
+# Sintaxe: <padrão> <@usuario> [@usuario2 ...]
+# > Para múltiplos donos, liste todos na mesma linha, separados por espaço.
+
+# {{FULL_NAME}}
+* @{{github_user}}
