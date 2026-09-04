@@ -61,8 +61,9 @@ Criadas via CLI (`infisical secrets folders create --projectId <id> --env
 <local|qa|prod> --path / --name <pasta>`) nos 3 environments — `auth`,
 `database`, `google`, `redis`, `vite` já existiam (criadas manualmente
 antes); completei com `cloudinary`, `llm`, `otel`, `databricks`,
-`service-urls`, `api-recommendation`, `api-mcp`, `ai-assistant`, `api-auth`,
-`shared` (15 pastas no total, iguais nos 3 ambientes):
+`service-urls`, `shared` e as 4 residuais nomeadas pelo que representam
+(não pelo serviço que consome — `recommendation`, `mcp`, `agent-queue`,
+`outbox`), 15 pastas no total, iguais nos 3 ambientes:
 
 ```
 /auth
@@ -75,10 +76,10 @@ antes); completei com `cloudinary`, `llm`, `otel`, `databricks`,
 /otel
 /databricks
 /service-urls
-/api-recommendation
-/api-mcp
-/ai-assistant
-/api-auth
+/recommendation
+/mcp
+/agent-queue
+/outbox
 /shared
 ```
 

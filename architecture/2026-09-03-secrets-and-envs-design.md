@@ -117,13 +117,18 @@ org-wide) também está no escopo como veículo dos workflows reutilizáveis.
   | `/databricks` | `DATABRICKS_HOST`, `DATABRICKS_HTTP_PATH`, `DATABRICKS_TOKEN`, `DATABRICKS_CATALOG`, `DATABRICKS_SCHEMA_CORE`, `DATABRICKS_SCHEMA_AUTH` | databricks-sync |
   | `/vite` | `VITE_APP_MODE`, `VITE_MOCKS`, `VITE_LOGS`, `VITE_EXCHANGE_API` | web-app |
   | `/service-urls` | endereços entre serviços, um valor diferente por ambiente (`dev`/`qa`/`prod`) — `API_MESSENGER_URL`, `MCP_URL`, `MCP_API_KEY`, `VITE_API_PERSISTENCE`, `JWT_JWK_SET_URI` | quem consome outro serviço interno — ver seção 3 |
-  | `/api-recommendation` | `SYNC_API_KEY`, `RECOMMENDATION_API_KEY`, `SYNC_ON_STARTUP`, `SYNC_BATCH_SIZE`, `SYNC_LOCK_LEASE_SECONDS`, `SYNC_MIN_DOMAIN_RETENTION_RATIO`, `SNAPSHOT_MAX_AGE_SECONDS`, `RECOMMENDATION_RESULT_LIMIT`, `RECOMMENDATION_POOL_LIMIT` | api-recommendation (config de negócio, não credencial — não cabe em nenhuma categoria técnica, fica num folder próprio) |
+  | `/recommendation` | `API_KEY`, `SYNC_API_KEY`, `RECOMMENDATION_API_KEY`, `SYNC_ON_STARTUP`, `SYNC_BATCH_SIZE`, `SYNC_LOCK_LEASE_SECONDS`, `SYNC_MIN_DOMAIN_RETENTION_RATIO`, `SNAPSHOT_MAX_AGE_SECONDS`, `RECOMMENDATION_RESULT_LIMIT`, `RECOMMENDATION_POOL_LIMIT` | api-recommendation (config/chaves do motor de recomendação) |
+  | `/mcp` | `MCP_API_KEY`, `PORT` | api-mcp (chave própria do serviço) |
+  | `/agent-queue` | `AGENT_STREAM_*`, `AGENT_CONSUMER_*`, `AGENT_RESULT_*` | ai-assistant (fila de agentes via Redis Streams) |
+  | `/outbox` | `OUTBOX_*` | api-auth (padrão outbox pra publicar eventos de usuário) |
 
   **Regra geral pra decidir a pasta**: se é credencial/config de uma
   tecnologia usada por 2+ serviços (banco, cache, storage, chaves de
   terceiro), vai numa pasta por tecnologia. Se é config de negócio de um
-  único serviço sem categoria técnica óbvia, vai numa pasta com o nome do
-  próprio serviço (só pra esses casos residuais, não como regra geral).
+  único serviço sem categoria técnica óbvia, vai numa pasta nomeada pelo que
+  a config **representa** (`recommendation`, `mcp`, `agent-queue`,
+  `outbox`), nunca pelo nome do serviço que consome — outro serviço pode vir
+  a reusar o mesmo conceito no futuro.
 
 - Machine Identities — **simplificadas pra 3, compartilhadas entre repos**
   (em vez de uma por repo, já que as pastas agora são por categoria e não
@@ -275,7 +280,7 @@ e taggeia `latest` + `sha` — **sem semver**). Falta:
    jeito (build flavors/`--dart-define`) — confirmar se entra nesse plano ou
    fica de fora.
 5. Confirmar as extrapolações marcadas com "assumido" na seção 1 (pastas
-   `/redis`, `/otel`, `/api-recommendation`, Machine Identities
+   `/redis`, `/otel`, `/recommendation`, Machine Identities
    compartilhadas em vez de por repo, e o formato de `DB_POSTGRES_URI` sem
    nome do banco) — segui o padrão dado, mas são interpretações minhas pros
    casos que você não exemplificou.
@@ -300,8 +305,11 @@ e taggeia `latest` + `sha` — **sem semver**). Falta:
   default em `infra-platform/variables.tf`).
 - As 15 pastas por categoria criadas nos 3 ambientes (`auth`, `database`,
   `google`, `redis`, `vite` já existiam; completei com `cloudinary`, `llm`,
-  `otel`, `databricks`, `service-urls`, `api-recommendation`, `api-mcp`,
-  `ai-assistant`, `api-auth`, `shared`) — ainda sem secrets/valores.
+  `otel`, `databricks`, `service-urls`, `recommendation`, `mcp`,
+  `agent-queue`, `outbox`, `shared`) — ainda sem secrets/valores. As 4
+  residuais foram renomeadas depois: `api-recommendation`→`recommendation`,
+  `api-mcp`→`mcp`, `ai-assistant`→`agent-queue`, `api-auth`→`outbox` (nome
+  pelo que a config representa, não por quem consome — pedido do usuário).
 - Os 3 serviços QA que faltavam (`ai-validation`, `api-recommendation`,
   `api-mcp`) foram criados no Render, no mesmo projeto/ambiente dos outros 5.
 - Corrigido o `ai-assistant` no Render, que estava com start command de
