@@ -154,18 +154,42 @@ org-wide) também está no escopo como veículo dos workflows reutilizáveis.
 ### 3. Resolução de endereço entre serviços por ambiente
 
 O mesmo serviço-alvo tem um endereço diferente dependendo de onde quem
-consome está rodando:
+consome está rodando. Levantei todo par consumidor→alvo que **existe de
+verdade no código hoje** (branch `qa` de cada repo — não inclui integrações
+só planejadas em `.env.example` de branches WIP que o código ainda não usa):
 
-| Consumidor → Alvo | Local | QA (Render) | Prod (GKE) |
-|---|---|---|---|
-| exemplo: ai-assistant → api-messenger | `http://localhost:8080` | `https://api-messenger-qa.onrender.com` | `http://api-messenger:8080` (DNS interno do cluster) |
+| Consumidor → Alvo | Env var | Local | Prod (GKE, DNS interno) | QA (Render) |
+|---|---|---|---|---|
+| api-auth → api-core | `PERSISTENCE_BASE_URL` | `http://localhost:8080` | `http://api-core:8080` | URL pública do serviço `api-core` no Render — **placeholder, só existe quando o serviço QA for criado** |
+| api-core → api-auth | `JWT_JWK_SET_URI` | `http://localhost:8081/.well-known/jwks.json` | `http://api-auth:8081/.well-known/jwks.json` | idem, URL pública do `api-auth` no Render + `/.well-known/jwks.json` |
+| api-messenger → api-auth | `JWT_JWK_SET_URI` | `http://localhost:8081/.well-known/jwks.json` | `http://api-auth:8081/.well-known/jwks.json` | idem |
+| web-app → backend | `VITE_API_PERSISTENCE` | `http://localhost:8080` | `https://api-core.34.70.130.195.sslip.io` (via Kong, IP estático reservado - `infra-platform/main.tf:98`) | URL pública do backend no Render |
 
-Em vez de lógica condicional no código, cada URL de serviço-alvo (ex.:
-`API_MESSENGER_URL`, `MCP_URL`) é uma **secret/config value que já vem
-diferente por ambiente do Infisical**, guardada na pasta `/service-urls`
-(seção 1) — o app só lê a env var, sem saber em qual ambiente está (fora dos
-poucos casos, como `ai-assistant`, que já usam `ENVIRONMENT=LOCAL/QA/PROD`
-pra ajustar comportamento, não endereço).
+**Corrigi em `infra-gitops/services/api-auth/deployment.yaml` um bug real
+encontrado nesse levantamento**: o Deployment setava `CORE_BASE_URL`, mas o
+Spring só lê `PERSISTENCE_BASE_URL` (`api-auth/src/main/resources/application.properties:29`)
+— o nome errado fazia cair no default `localhost:8080` dentro do pod, ou
+seja, a chamada api-auth → api-core nunca funcionaria em produção como
+estava.
+
+**Planejado mas ainda não implementado no código** (aparecia no
+`.env.example` de uma branch de trabalho do `ai-assistant`, mas nenhum
+arquivo `.py` do repo lê essas variáveis hoje — não escrevi wiring de infra
+pra isso pra não inventar comportamento que o app não tem):
+- `ai-assistant → api-messenger` (`API_MESSENGER_URL`)
+- `ai-assistant → api-mcp` (`MCP_URL` + `MCP_API_KEY`)
+
+Quando esse código existir, o padrão é o mesmo da tabela acima: local
+`http://localhost:<porta>`, prod `http://<service>:<porta>` (DNS interno do
+cluster — nunca via Kong, que é só pra entrada externa), QA a URL pública do
+Render.
+
+Em vez de lógica condicional no código, cada URL de serviço-alvo é uma
+**secret/config value que já vem diferente por ambiente do Infisical**,
+guardada na pasta `/service-urls` (seção 1) — o app só lê a env var, sem
+saber em qual ambiente está (fora dos poucos casos, como `ai-assistant`, que
+já usam `ENVIRONMENT=LOCAL/QA/PROD` pra ajustar comportamento, não
+endereço).
 
 ### 4. CLIs
 
