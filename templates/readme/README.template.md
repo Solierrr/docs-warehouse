@@ -71,7 +71,7 @@ Pré-requisitos: <ex: JDK 21 + Maven>, [Infisical CLI](https://infisical.com/doc
 3. Suba o serviço com:
 
    ```bash
-   infisical run --env=dev --path=/ --recursive -- <comando de start, ex: ./mvnw spring-boot:run>
+   infisical run --env=local --path=/ --recursive -- <comando de start, ex: ./mvnw spring-boot:run>
    ```
 
 Não é preciso copiar `.env.example` pra `.env` manualmente — o Infisical injeta as variáveis em runtime.

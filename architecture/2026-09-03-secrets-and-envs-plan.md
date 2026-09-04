@@ -49,30 +49,37 @@ três destinos (local, QA-Render, prod-GKE) num único serviço.
 - Produz: os secret paths por categoria e os IDs de Machine Identity que as
   próximas tasks vão referenciar.
 
-- [ ] **Passo 1: Confirmar os 3 environments do projeto Infisical**
+- [x] **Passo 1: Confirmar os 3 environments do projeto Infisical**
 
-No dashboard do Infisical, confirmar que o projeto já criado tem exatamente
-os slugs `dev`, `qa`, `prod` (ajustar nome se estiver diferente, ex.
-`local`/`production`) — as próximas tasks assumem esses 3 slugs.
+Confirmado via CLI (`infisical secrets folders get`): os slugs são `local`,
+`qa`, `prod` — **não** `dev`. Todos os comandos deste plano já usam
+`--env=local` pro ambiente Local.
 
-- [ ] **Passo 2: Criar as pastas por categoria**
+- [x] **Passo 2: Criar as pastas por categoria**
 
-Dentro de cada um dos 3 environments, criar os folders (estrutura completa
-do catálogo do spec, não só o que o piloto `api-core` usa — é barato criar
-agora e evita retrabalho na Fase 2):
+Criadas via CLI (`infisical secrets folders create --projectId <id> --env
+<local|qa|prod> --path / --name <pasta>`) nos 3 environments — `auth`,
+`database`, `google`, `redis`, `vite` já existiam (criadas manualmente
+antes); completei com `cloudinary`, `llm`, `otel`, `databricks`,
+`service-urls`, `api-recommendation`, `api-mcp`, `ai-assistant`, `api-auth`,
+`shared` (15 pastas no total, iguais nos 3 ambientes):
 
 ```
-/database
-/redis
-/cloudinary
-/google
-/llm
 /auth
+/database
+/google
+/redis
+/vite
+/cloudinary
+/llm
 /otel
 /databricks
-/vite
 /service-urls
 /api-recommendation
+/api-mcp
+/ai-assistant
+/api-auth
+/shared
 ```
 
 - [ ] **Passo 3: Criar a Machine Identity `ci-shared`**
@@ -171,58 +178,58 @@ Valores de `DB_POSTGRES_AUTH` também entram aqui mesmo sendo do `api-auth`
 deixar pronta pra Fase 2:
 
 ```bash
-infisical secrets set DB_POSTGRES_URI="postgresql://postgres:postgres@localhost:5432" --env=dev --path=/database
-infisical secrets set DB_POSTGRES_HOST="localhost" --env=dev --path=/database
-infisical secrets set DB_POSTGRES_PORT="5432" --env=dev --path=/database
-infisical secrets set DB_POSTGRES_USER="postgres" --env=dev --path=/database
-infisical secrets set DB_POSTGRES_PASSWORD="postgres" --env=dev --path=/database
-infisical secrets set DB_POSTGRES_CORE="coredb" --env=dev --path=/database
-infisical secrets set DB_POSTGRES_AUTH="authdb" --env=dev --path=/database
+infisical secrets set DB_POSTGRES_URI="postgresql://postgres:postgres@localhost:5432" --env=local --path=/database
+infisical secrets set DB_POSTGRES_HOST="localhost" --env=local --path=/database
+infisical secrets set DB_POSTGRES_PORT="5432" --env=local --path=/database
+infisical secrets set DB_POSTGRES_USER="postgres" --env=local --path=/database
+infisical secrets set DB_POSTGRES_PASSWORD="postgres" --env=local --path=/database
+infisical secrets set DB_POSTGRES_CORE="coredb" --env=local --path=/database
+infisical secrets set DB_POSTGRES_AUTH="authdb" --env=local --path=/database
 ```
 
 - [ ] **Passo 2: Popular `/redis`**
 
 ```bash
-infisical secrets set UPSTASH_CORE_HOST="localhost" --env=dev --path=/redis
-infisical secrets set UPSTASH_CORE_PORT="6379" --env=dev --path=/redis
-infisical secrets set UPSTASH_CORE_USERNAME="default" --env=dev --path=/redis
-infisical secrets set UPSTASH_CORE_PASSWORD="" --env=dev --path=/redis
+infisical secrets set UPSTASH_CORE_HOST="localhost" --env=local --path=/redis
+infisical secrets set UPSTASH_CORE_PORT="6379" --env=local --path=/redis
+infisical secrets set UPSTASH_CORE_USERNAME="default" --env=local --path=/redis
+infisical secrets set UPSTASH_CORE_PASSWORD="" --env=local --path=/redis
 ```
 
 - [ ] **Passo 3: Popular `/cloudinary`**
 
 ```bash
-infisical secrets set CLOUDINARY_CLOUD_NAME="<valor real>" --env=dev --path=/cloudinary
-infisical secrets set CLOUDINARY_API_KEY="<valor real>" --env=dev --path=/cloudinary
-infisical secrets set CLOUDINARY_API_SECRET="<valor real>" --env=dev --path=/cloudinary
-infisical secrets set CLOUDINARY_FOLDER_PREFIX="solier" --env=dev --path=/cloudinary
+infisical secrets set CLOUDINARY_CLOUD_NAME="<valor real>" --env=local --path=/cloudinary
+infisical secrets set CLOUDINARY_API_KEY="<valor real>" --env=local --path=/cloudinary
+infisical secrets set CLOUDINARY_API_SECRET="<valor real>" --env=local --path=/cloudinary
+infisical secrets set CLOUDINARY_FOLDER_PREFIX="solier" --env=local --path=/cloudinary
 ```
 
 - [ ] **Passo 4: Popular `/google`**
 
 ```bash
-infisical secrets set GOOGLE_TRANSLATE_API_KEY="<valor real>" --env=dev --path=/google
+infisical secrets set GOOGLE_TRANSLATE_API_KEY="<valor real>" --env=local --path=/google
 ```
 
 - [ ] **Passo 5: Popular `/auth`**
 
 ```bash
-infisical secrets set SERVICE_JWT_SECRET="qualquerstringde32letrasaisenaoelepara" --env=dev --path=/auth
+infisical secrets set SERVICE_JWT_SECRET="qualquerstringde32letrasaisenaoelepara" --env=local --path=/auth
 ```
 
 - [ ] **Passo 6: Popular `/otel`**
 
 ```bash
-infisical secrets set OTEL_EXPORTER_OTLP_ENDPOINT="http://localhost:4318" --env=dev --path=/otel
-infisical secrets set SERVICE_VERSION="dev" --env=dev --path=/otel
-infisical secrets set DEPLOYMENT_ENVIRONMENT="local" --env=dev --path=/otel
-infisical secrets set OTEL_TRACES_SAMPLING_PROBABILITY="1.0" --env=dev --path=/otel
+infisical secrets set OTEL_EXPORTER_OTLP_ENDPOINT="http://localhost:4318" --env=local --path=/otel
+infisical secrets set SERVICE_VERSION="dev" --env=local --path=/otel
+infisical secrets set DEPLOYMENT_ENVIRONMENT="local" --env=local --path=/otel
+infisical secrets set OTEL_TRACES_SAMPLING_PROBABILITY="1.0" --env=local --path=/otel
 ```
 
 - [ ] **Passo 7: Validar a leitura recursiva**
 
 ```bash
-infisical secrets --env=dev --path=/ --recursive
+infisical secrets --env=local --path=/ --recursive
 ```
 
 Expected: lista as ~20 chaves das 6 pastas acima com valores mascarados.
@@ -305,7 +312,7 @@ git commit -m "refactor: read db and redis config from infisical var names"
 **Interfaces:**
 - Consumes: as secret keys da Task 3, environment `dev`; `application.properties`
   atualizado na Task 4.
-- Produces: comando `infisical run --env=dev --path=/ --recursive -- <start>`
+- Produces: comando `infisical run --env=local --path=/ --recursive -- <start>`
   documentado, reusado nas próximas fases pra outros repos.
 
 - [ ] **Passo 1: Descobrir o comando de start atual do `api-core`**
@@ -317,7 +324,7 @@ Ler `api-core/README.md` ou `pom.xml`/`build.gradle` pra confirmar o comando
 
 ```bash
 cd Inter/api-core
-infisical run --env=dev --path=/ --recursive -- ./mvnw spring-boot:run
+infisical run --env=local --path=/ --recursive -- ./mvnw spring-boot:run
 ```
 
 (trocar `./mvnw spring-boot:run` pelo comando real encontrado no Passo 1;
@@ -384,7 +391,7 @@ Adicionar em `api-core/README.md`:
 3. Suba o serviço com:
 
    \`\`\`bash
-   infisical run --env=dev --path=/ --recursive -- ./mvnw spring-boot:run
+   infisical run --env=local --path=/ --recursive -- ./mvnw spring-boot:run
    \`\`\`
 
 Não é mais necessário copiar `.env.example` pra `.env` manualmente — o Infisical injeta as variáveis em runtime.

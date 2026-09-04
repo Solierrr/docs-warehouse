@@ -144,8 +144,8 @@ org-wide) também está no escopo como veículo dos workflows reutilizáveis.
 
 - Cada `.env.example` passa a refletir exatamente os nomes usados no
   Infisical (mesma env var, mesmo nome, sem tradução/mapeamento).
-- Bootstrap local vira: `infisical run --env=dev -- <comando de start>` (ou
-  `infisical export --env=dev > .env` pra quem preferir um `.env` de
+- Bootstrap local vira: `infisical run --env=local -- <comando de start>` (ou
+  `infisical export --env=local > .env` pra quem preferir um `.env` de
   verdade) — elimina a necessidade de preencher secrets manualmente pra
   rodar local.
 - README de cada repo ganha uma seção curta "Como rodar local" com o comando
