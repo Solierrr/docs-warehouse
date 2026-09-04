@@ -160,10 +160,30 @@ só planejadas em `.env.example` de branches WIP que o código ainda não usa):
 
 | Consumidor → Alvo | Env var | Local | Prod (GKE, DNS interno) | QA (Render) |
 |---|---|---|---|---|
-| api-auth → api-core | `PERSISTENCE_BASE_URL` | `http://localhost:8080` | `http://api-core:8080` | URL pública do serviço `api-core` no Render — **placeholder, só existe quando o serviço QA for criado** |
-| api-core → api-auth | `JWT_JWK_SET_URI` | `http://localhost:8081/.well-known/jwks.json` | `http://api-auth:8081/.well-known/jwks.json` | idem, URL pública do `api-auth` no Render + `/.well-known/jwks.json` |
-| api-messenger → api-auth | `JWT_JWK_SET_URI` | `http://localhost:8081/.well-known/jwks.json` | `http://api-auth:8081/.well-known/jwks.json` | idem |
-| web-app → backend | `VITE_API_PERSISTENCE` | `http://localhost:8080` | `https://api-core.34.70.130.195.sslip.io` (via Kong, IP estático reservado - `infra-platform/main.tf:98`) | URL pública do backend no Render |
+| api-auth → api-core | `PERSISTENCE_BASE_URL` | `http://localhost:8080` | `http://api-core:8080` | `https://api-core-cqfn.onrender.com` |
+| api-core → api-auth | `JWT_JWK_SET_URI` | `http://localhost:8081/.well-known/jwks.json` | `http://api-auth:8081/.well-known/jwks.json` | `https://api-auth-xw6o.onrender.com/.well-known/jwks.json` |
+| api-messenger → api-auth | `JWT_JWK_SET_URI` | `http://localhost:8081/.well-known/jwks.json` | `http://api-auth:8081/.well-known/jwks.json` | `https://api-auth-xw6o.onrender.com/.well-known/jwks.json` |
+| web-app → backend | `VITE_API_PERSISTENCE` | `http://localhost:8080` | `https://api-core.34.70.130.195.sslip.io` (via Kong, IP estático reservado - `infra-platform/main.tf:98`) | `https://api-core-cqfn.onrender.com` |
+
+### Serviços QA existentes no Render hoje
+
+Projeto **Solaria**, ambiente **QA** (workspace `Solaria Network's workspace`),
+todos branch `qa`, plano `free`, região `oregon`:
+
+| Serviço | Runtime | URL |
+|---|---|---|
+| web-app | static_site | https://web-app-ldi0.onrender.com |
+| ai-assistant | python (nativo — sem Dockerfile, corrigido o start command que estava com placeholder) | https://ai-assistant-5ljd.onrender.com |
+| ai-validation | docker | https://ai-validation-jjb7.onrender.com |
+| api-auth | docker | https://api-auth-xw6o.onrender.com |
+| api-core | docker | https://api-core-cqfn.onrender.com |
+| api-messenger | docker | https://api-messenger-5g2n.onrender.com |
+| api-recommendation | docker | https://api-recommendation-qlml.onrender.com |
+| api-mcp | python (nativo — repo sem Dockerfile) | https://api-mcp-wey6.onrender.com |
+
+`ai-accessibility` (sem código ainda) e `infra-gateway` (Kong, feito pra k8s)
+não têm serviço no Render — nada pra rodar/nenhum ganho num Render service
+ainda.
 
 **Corrigi em `infra-gitops/services/api-auth/deployment.yaml` um bug real
 encontrado nesse levantamento**: o Deployment setava `CORE_BASE_URL`, mas o
@@ -259,3 +279,31 @@ e taggeia `latest` + `sha` — **sem semver**). Falta:
    compartilhadas em vez de por repo, e o formato de `DB_POSTGRES_URI` sem
    nome do banco) — segui o padrão dado, mas são interpretações minhas pros
    casos que você não exemplificou.
+6. Criar as Machine Identities (`ci-shared`, `render-shared`, `gke-sync`) —
+   não existe comando no Infisical CLI pra isso, só dashboard.
+7. Popular os secrets de verdade (valores reais) nas 15 pastas × 3
+   ambientes — só você tem essas credenciais.
+8. Conectar a integração nativa Infisical↔Render (sincronizar `/database`,
+   `/redis` etc. do ambiente `qa` pros 7 serviços já criados no Render).
+9. `api-mcp` e `ai-assistant` no Render usam runtime Python nativo (sem
+   Dockerfile no primeiro, `Dockerfile` corrigido mas não usado pelo Render
+   no segundo) — não dá pra trocar runtime via CLI do Render sem recriar o
+   serviço; deixei como está, funcional, mas os outros 5 serviços usam
+   `docker` — inconsistência a resolver se quiser uniformizar.
+
+## Resolvido nesta sessão (Infisical + Render já configurados de verdade)
+
+- Confirmado via CLI: os slugs dos ambientes são `local`/`qa`/`prod` (não
+  `dev` como eu tinha assumido antes — todos os `--env=dev` deste doc e do
+  plano foram corrigidos pra `--env=local`).
+- Project ID do Infisical: `2296d19c-5f3b-41e1-afa3-fcde39966a71` (já
+  default em `infra-platform/variables.tf`).
+- As 15 pastas por categoria criadas nos 3 ambientes (`auth`, `database`,
+  `google`, `redis`, `vite` já existiam; completei com `cloudinary`, `llm`,
+  `otel`, `databricks`, `service-urls`, `api-recommendation`, `api-mcp`,
+  `ai-assistant`, `api-auth`, `shared`) — ainda sem secrets/valores.
+- Os 3 serviços QA que faltavam (`ai-validation`, `api-recommendation`,
+  `api-mcp`) foram criados no Render, no mesmo projeto/ambiente dos outros 5.
+- Corrigido o `ai-assistant` no Render, que estava com start command de
+  placeholder (`gunicorn your_application.wsgi`, nunca configurado de
+  verdade) — agora aponta pro FastAPI real (`src.api.app:app`).
