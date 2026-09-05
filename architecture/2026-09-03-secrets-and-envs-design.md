@@ -116,7 +116,7 @@ org-wide) também está no escopo como veículo dos workflows reutilizáveis.
   | `/otel` | `OTEL_EXPORTER_OTLP_ENDPOINT`, `SERVICE_VERSION`, `DEPLOYMENT_ENVIRONMENT`, `OTEL_TRACES_SAMPLING_PROBABILITY`, `GRAFANA_CLOUD_OTLP_ENDPOINT`, `GRAFANA_CLOUD_OTLP_AUTH`, `TAIL_SAMPLING_BASELINE_PCT` | api-core (e outros que instrumentarem), infra-otel-collector |
   | `/databricks` | `DATABRICKS_HOST`, `DATABRICKS_HTTP_PATH`, `DATABRICKS_TOKEN`, `DATABRICKS_CATALOG`, `DATABRICKS_SCHEMA_CORE`, `DATABRICKS_SCHEMA_AUTH` | databricks-sync |
   | `/vite` | `VITE_APP_MODE`, `VITE_MOCKS`, `VITE_LOGS`, `VITE_EXCHANGE_API` | web-app |
-  | `/service-urls` | endereços entre serviços, um valor diferente por ambiente (`dev`/`qa`/`prod`) — `API_MESSENGER_URL`, `MCP_URL`, `MCP_API_KEY`, `VITE_API_PERSISTENCE`, `JWT_JWK_SET_URI` | quem consome outro serviço interno — ver seção 3 |
+  | `/service-urls` | endereços entre serviços, um valor diferente por ambiente (`local`/`qa`/`prod`) — `API_MESSENGER_URL`, `MCP_URL`, `PERSISTENCE_BASE_URL`, `VITE_API_PERSISTENCE`, `JWT_JWK_SET_URI` | quem consome outro serviço interno — ver seção 3 |
   | `/recommendation` | `API_KEY`, `SYNC_API_KEY`, `RECOMMENDATION_API_KEY`, `SYNC_ON_STARTUP`, `SYNC_BATCH_SIZE`, `SYNC_LOCK_LEASE_SECONDS`, `SYNC_MIN_DOMAIN_RETENTION_RATIO`, `SNAPSHOT_MAX_AGE_SECONDS`, `RECOMMENDATION_RESULT_LIMIT`, `RECOMMENDATION_POOL_LIMIT` | api-recommendation (config/chaves do motor de recomendação) |
   | `/mcp` | `MCP_API_KEY`, `PORT` | api-mcp (chave própria do serviço) |
   | `/agent-queue` | `AGENT_STREAM_*`, `AGENT_CONSUMER_*`, `AGENT_RESULT_*` | ai-assistant (fila de agentes via Redis Streams) |
