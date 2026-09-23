@@ -24,3 +24,8 @@ Essa divisão espelha a mesma organização por stack já usada em
 [`github/workflow/`](../../../github/workflow/README.md),
 [`templates/docker/`](../../docker/) e
 [`templates/sonar/`](../../sonar/).
+
+Todo repositório também deve partir do contrato em
+[`templates/make/`](../../make/): ele define os alvos comuns de terminal e
+como chamar ferramentas compartilhadas da organização, sem duplicar scripts
+entre projetos.

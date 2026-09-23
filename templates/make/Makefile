@@ -1,0 +1,25 @@
+# Copy this file to a repository root and set SERVICE for that repository.
+SHELL := /bin/sh
+
+ORG_SCRIPTS_DIR ?= $(HOME)/.local/share/solierrr-org-scripts
+ORG_SCRIPTS_POWERSHELL ?= powershell
+EXTRACT_ENV := $(ORG_SCRIPTS_DIR)/scripts/extract-env.ps1
+SERVICE ?= change-me
+ENV ?= local
+OUT ?= .env
+
+.DEFAULT_GOAL := help
+
+.PHONY: help tools-check env
+
+help: ## Show the available commands
+	@awk 'BEGIN {FS = ":.*## "; printf "Usage: make <target>\\n\\n"} /^[a-zA-Z_-]+:.*## / {printf "  %-16s %s\\n", $$1, $$2}' $(MAKEFILE_LIST)
+
+tools-check: ## Verify that the shared organization scripts are installed
+	@test -f "$(EXTRACT_ENV)" || { echo "error: org-scripts was not found at $(ORG_SCRIPTS_DIR). See docs-warehouse/templates/make/README.md"; exit 1; }
+
+env: tools-check ## Generate the local environment file (ENV=local OUT=.env)
+	$(ORG_SCRIPTS_POWERSHELL) -NoProfile -ExecutionPolicy Bypass -File "$(EXTRACT_ENV)" -Service "$(SERVICE)" -Environment "$(ENV)" -OutputPath "$(OUT)"
+
+# Add stack-specific targets below. Do not add repository-agnostic scripts here;
+# place them in Solierrr/org-scripts instead.
