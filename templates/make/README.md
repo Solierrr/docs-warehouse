@@ -31,38 +31,47 @@ fim do Makefile resultante.
 
 ## Instalação da ferramenta compartilhada
 
-No Windows, clone o repositório em um local estável fora de qualquer projeto:
+`make vault-config` (chamado automaticamente por `extract-env`) já clona o
+`infra-scripts` no primeiro uso e atualiza (`git pull --ff-only`) nas
+execuções seguintes — não é preciso clonar manualmente. O repositório é
+público, então nenhuma credencial é necessária para esse passo.
+
+```powershell
+make vault-config
+```
+
+Continua sendo possível instalar manualmente ou sobrescrever o caminho por
+invocação, sem editar o Makefile:
 
 ```powershell
 git clone https://github.com/Solierrr/infra-scripts.git "$env:USERPROFILE/.local/share/solierrr-infra-scripts"
+make vault-config ORG_SCRIPTS_DIR=C:/ferramentas/infra-scripts
 ```
 
-Em ambientes Unix, o diretório equivalente é `~/.local/share/solierrr-infra-scripts`.
-Quem já instalou atualiza deliberadamente, quando desejar receber uma nova
-versão dos scripts:
-
-```powershell
-git -C "$env:USERPROFILE/.local/share/solierrr-infra-scripts" pull --ff-only
-```
-
-É possível sobrescrever o caminho por invocação, sem editar o Makefile:
-
-```powershell
-make tools-check ORG_SCRIPTS_DIR=C:/ferramentas/infra-scripts
-```
+Se `git pull --ff-only` falhar (histórico local divergiu), `vault-config`
+para com um erro explicando o que fazer — ele nunca reescreve histórico
+sozinho.
 
 ## Alvos organizacionais obrigatórios (`base.mk`)
 
 - `make help`: lista os comandos disponíveis.
-- `make tools-check`: confirma que `infra-scripts` está instalado e contém o
-  script chamado pelo repositório.
-- `make env ENV=local`: gera o arquivo de ambiente por meio de
-  `infra-scripts`. O projeto deve informar seu `SERVICE` padrão; `OUT` é
-  opcional e não deve apontar para arquivo versionado.
+- `make vault-config`: garante que `infra-scripts` está clonado e atualizado
+  no path esperado (clona se não existir, `pull --ff-only` se já existir).
+- `make vault-auth`: depende de `vault-config`; confirma que o Infisical CLI
+  está instalado e a sessão (`infisical login`) está ativa — se não estiver,
+  imprime exatamente o comando a rodar e para, sem tentar logar sozinho.
+- `make extract-env ENV=local`: depende de `vault-auth`; gera o arquivo de
+  ambiente por meio de `infra-scripts`. O projeto deve informar seu `SERVICE`
+  padrão; `OUT` é opcional e não deve apontar para arquivo versionado. Falha
+  com mensagem clara se `SERVICE` não estiver definido ou `ENV` for inválido.
+- `make tools-check` / `make env`: aliases mantidos por compatibilidade para
+  `vault-config` / `extract-env`, respectivamente.
 
-O alvo `env` nunca executa login, instala CLIs ou atualiza `infra-scripts`
-automaticamente. Credenciais e atualização de ferramenta são ações explícitas
-do desenvolvedor.
+Rodar só `make extract-env` já encadeia `vault-config` → `vault-auth` →
+`extract-env` sozinho; os três alvos continuam chamáveis individualmente para
+depurar cada etapa. Login no Infisical (`infisical login`) continua sendo uma
+ação explícita do desenvolvedor — `vault-auth` nunca tenta logar sozinho, só
+avisa qual comando rodar.
 
 ## Alvos por stack
 
