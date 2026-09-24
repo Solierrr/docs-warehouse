@@ -1,10 +1,33 @@
 # templates/make/
 
-Contrato para o `Makefile` de repositórios da organização. Copie o
-[`Makefile`](./Makefile) para a raiz de um repositório novo e mantenha nele
-apenas os atalhos locais do projeto. Ferramentas reutilizáveis de terminal
-ficam em [`Solierrr/infra-scripts`](https://github.com/Solierrr/infra-scripts),
+Fragmentos combináveis de `Makefile`. Todo repositório começa com
+[`base.mk`](./base.mk) e acrescenta exatamente um fragmento da sua stack. A
+composição resultante é copiada para a raiz como `Makefile`. Ferramentas
+reutilizáveis de terminal ficam em
+[`Solierrr/infra-scripts`](https://github.com/Solierrr/infra-scripts),
 instalado uma vez por estação de trabalho.
+
+| Fragmento | Uso |
+|---|---|
+| `base.mk` | obrigatório: ajuda, `tools-check` e `env` |
+| `node.mk` | Node/TypeScript/Vite |
+| `python.mk` | Python/venv/Uvicorn |
+| `maven.mk` | Java ou Kotlin com Maven/Spring Boot |
+| `android.mk` | Kotlin/Gradle/Jetpack Compose |
+| `terraform.mk` | Terraform |
+| `argocd.mk` | manifestos GitOps/ArgoCD |
+| `helm.mk` | Helm charts |
+| `kustomize.mk` | manifestos Kustomize |
+
+Exemplo para um serviço Python:
+
+```powershell
+Get-Content base.mk, python.mk | Set-Content Makefile
+```
+
+O fragmento de stack pode ser ajustado somente nos valores de configuração
+explicitamente marcados. Alvos específicos do domínio do repositório ficam no
+fim do Makefile resultante.
 
 ## Instalação da ferramenta compartilhada
 
@@ -28,7 +51,7 @@ git -C "$env:USERPROFILE/.local/share/solierrr-infra-scripts" pull --ff-only
 make tools-check ORG_SCRIPTS_DIR=C:/ferramentas/infra-scripts
 ```
 
-## Alvos organizacionais obrigatórios
+## Alvos organizacionais obrigatórios (`base.mk`)
 
 - `make help`: lista os comandos disponíveis.
 - `make tools-check`: confirma que `infra-scripts` está instalado e contém o
@@ -43,23 +66,10 @@ do desenvolvedor.
 
 ## Alvos por stack
 
-Além do contrato acima, cada repositório expõe somente o que faz sentido para
-sua stack. Prefira `setup`, `dev`, `build`, `test`, `lint`, `check`, `run` e
-`clean`, com descrições no `help`.
-
-- **Python:** `setup` cria/atualiza a virtualenv e instala requirements;
-  `run` inicia o servidor/processo com a virtualenv, sem depender de ativação
-  manual no shell.
-- **Node/TypeScript:** `setup` instala dependências usando o lockfile; `dev`,
-  `test`, `lint` e `build` delegam ao gerenciador de pacotes do projeto.
-- **Maven/Gradle:** use sempre `mvnw`/`gradlew`; não crie instalação global
-  de Maven ou Gradle. Se o wrapper já resolve dependências no primeiro build,
-  `setup` pode ser omitido.
-- **Android:** exponha atalhos para build, testes, lint, dispositivo/emulador
-  e execução, preservando o wrapper Gradle.
-- **Terraform/GitOps:** exponha apenas validações e operações conscientemente
-  aplicáveis. `apply`, alterações de capacidade e sincronização do cluster
-  não pertencem ao template genérico.
+Os fragmentos padronizam `setup`, `dev`, `build`, `test`, `lint`, `check`,
+`run` e `clean` apenas quando eles fazem sentido. Maven e Gradle sempre usam
+seus wrappers. Terraform, ArgoCD, Helm e Kustomize expõem validação/renderização
+e deixam operações reais, como `apply` e sync, intencionalmente explícitas.
 
 ## Limites de responsabilidade
 

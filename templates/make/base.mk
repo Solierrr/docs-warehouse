@@ -1,4 +1,4 @@
-# Copy this file to a repository root and set SERVICE for that repository.
+# Required base fragment. Configure SERVICE before enabling `make env`.
 SHELL := /bin/sh
 
 ORG_SCRIPTS_DIR ?= $(HOME)/.local/share/solierrr-infra-scripts
@@ -21,6 +21,3 @@ tools-check: ## Verify that the shared organization scripts are installed
 env: tools-check ## Generate the local environment file (ENV=local OUT=.env)
 	@test -n "$(SERVICE)" || { echo "error: set SERVICE to the repository service identifier"; exit 1; }
 	$(ORG_SCRIPTS_POWERSHELL) -NoProfile -ExecutionPolicy Bypass -File "$(EXTRACT_ENV)" -Service "$(SERVICE)" -Environment "$(ENV)" -OutputPath "$(OUT)"
-
-# Add stack-specific targets below. Do not add repository-agnostic scripts here;
-# place them in Solierrr/infra-scripts instead.
