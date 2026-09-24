@@ -48,6 +48,10 @@ Pull Requests devem sempre ser mergeadas inicialmente em `qa`, nunca abra Pull R
 
 ## Pull Requests
 
+- O título da Pull Request deve seguir o mesmo padrão Conventional Commits dos
+  commits (`feat:`, `fix:`, `perf:`, `refactor:`, `docs:`, `test:`, `build:`,
+  `ci:`, `style:` ou `chore:`), em inglês, minúsculo e sem escopo entre
+  parênteses. Esse padrão comunica o impacto de versão semântica da mudança.
 - Preencha o template de Pull Request (`.github/pull_request_template.md`) por
   completo.
 - A descrição da Pull Request deve ser em português.
