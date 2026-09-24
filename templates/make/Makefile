@@ -4,7 +4,7 @@ SHELL := /bin/sh
 ORG_SCRIPTS_DIR ?= $(HOME)/.local/share/solierrr-org-scripts
 ORG_SCRIPTS_POWERSHELL ?= powershell
 EXTRACT_ENV := $(ORG_SCRIPTS_DIR)/scripts/extract-env.ps1
-SERVICE ?= change-me
+SERVICE ?=
 ENV ?= local
 OUT ?= .env
 
@@ -19,6 +19,7 @@ tools-check: ## Verify that the shared organization scripts are installed
 	@test -f "$(EXTRACT_ENV)" || { echo "error: org-scripts was not found at $(ORG_SCRIPTS_DIR). See docs-warehouse/templates/make/README.md"; exit 1; }
 
 env: tools-check ## Generate the local environment file (ENV=local OUT=.env)
+	@test -n "$(SERVICE)" || { echo "error: set SERVICE to the repository service identifier"; exit 1; }
 	$(ORG_SCRIPTS_POWERSHELL) -NoProfile -ExecutionPolicy Bypass -File "$(EXTRACT_ENV)" -Service "$(SERVICE)" -Environment "$(ENV)" -OutputPath "$(OUT)"
 
 # Add stack-specific targets below. Do not add repository-agnostic scripts here;
