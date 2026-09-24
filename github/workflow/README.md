@@ -42,3 +42,12 @@ vez de começar do zero.
 
 Repositórios sem código de aplicação (só scaffold/infra, ex: Helm/Terraform)
 não devem ter esses workflows — eles não têm o que testar/analisar.
+
+## QA sync
+
+`qa-sync.yml` chama o workflow reutilizável da organização e deve permanecer
+genérico: ele sincroniza `main` para `qa`, sem conhecer a stack ou o serviço.
+A PR criada automaticamente usa o título
+`chore(sync): synchronize main into qa`. Sua descrição informa que o diff
+contém apenas commits já integrados em `main`, que o efeito é atualizar o
+ambiente de QA após o merge, e que a validação esperada é revisar esse diff.

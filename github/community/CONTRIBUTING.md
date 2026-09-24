@@ -52,6 +52,8 @@ Pull Requests devem sempre ser mergeadas inicialmente em `qa`, nunca abra Pull R
   commits (`feat:`, `fix:`, `perf:`, `refactor:`, `docs:`, `test:`, `build:`,
   `ci:`, `style:` ou `chore:`), em inglês, minúsculo e sem escopo entre
   parênteses. Esse padrão comunica o impacto de versão semântica da mudança.
+  A única exceção é a PR automática de sincronização de ambiente, cujo título
+  é `chore(sync): synchronize main into qa`.
 - Preencha o template de Pull Request (`.github/pull_request_template.md`) por
   completo.
 - A descrição da Pull Request deve ser em português.
