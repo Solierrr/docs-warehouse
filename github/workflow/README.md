@@ -54,14 +54,16 @@ não devem ter esses workflows — eles não têm o que testar/analisar.
 ## QA sync
 
 `qa-sync.yml` **não** dispara mais sozinho a cada push em `main` — o gatilho
-automático foi trocado por um checkbox de 1 clique, pra evitar sincronizar QA
-antes da hora. O fluxo real: quando uma PR pra `main` é mergeada, o próprio
-`qa-sync.yml` do repo (job `post-checkbox`) comenta `- [ ] Sync to QA` nela;
-marcar a caixa (editar o comentário pra `- [x]`) dispara o job `sync`, que aí
-sim chama o workflow reutilizável central e abre a PR `main` → `qa`. Só faz
-sentido em repositórios que têm branch `qa` de verdade — não adicionar em
-repos que fazem merge direto pra `main` (ver `servicos.md` do VersoSpec do
-Solaria pra saber quais).
+automático foi trocado por uma checkbox de 1 clique, pra evitar sincronizar QA
+antes da hora. Quando uma PR pra `main` é mergeada, o próprio `qa-sync.yml` do
+repo publica a checkbox na conversa. Ao marcá-la, o caller cria ou reutiliza a
+PR `main` → `qa`, solicita o auto-merge por squash e atualiza o comentário com
+o estado e o link. O GitHub só conclui o merge depois que as regras da branch
+forem satisfeitas; em caso de conflito, o comentário aponta para a PR de sync.
+O auto-merge precisa estar habilitado nas configurações do repositório. Esse
+fluxo só faz sentido em repositórios que têm branch `qa` de verdade — não
+adicionar em repos que fazem merge direto pra `main` (ver `servicos.md` do
+VersoSpec do Solaria pra saber quais).
 
 A PR criada automaticamente usa o título
 `chore(sync): synchronize main into qa`. Sua descrição informa que o diff
