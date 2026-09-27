@@ -37,6 +37,14 @@ vez de começar do zero.
   o bit de execução (modo `100755`). Confira com
   `git ls-files -s mvnw` / `git ls-files -s gradlew`; corrija com
   `git update-index --chmod=+x mvnw` se aparecer `100644`.
+- **`release.yml`**: precisa do bloco `permissions: { contents: read,
+  pull-requests: write }` no job que chama `docker-publish.yml`. Sem isso, o
+  run falha com `startup_failure` (zero jobs) assim que o reusable workflow
+  central tenta comentar na PR — o token do caller nunca escala além do
+  `default_workflow_permissions` do repo/org (hoje `read`), então o pedido de
+  `pull-requests: write` do reusable é recusado antes mesmo do job começar.
+  Isso ficou quebrado silenciosamente em vários repos por semanas até ser
+  encontrado.
 
 ## Fora do escopo
 
@@ -45,8 +53,16 @@ não devem ter esses workflows — eles não têm o que testar/analisar.
 
 ## QA sync
 
-`qa-sync.yml` chama o workflow reutilizável da organização e deve permanecer
-genérico: ele sincroniza `main` para `qa`, sem conhecer a stack ou o serviço.
+`qa-sync.yml` **não** dispara mais sozinho a cada push em `main` — o gatilho
+automático foi trocado por um checkbox de 1 clique, pra evitar sincronizar QA
+antes da hora. O fluxo real: quando uma PR pra `main` é mergeada, o próprio
+`qa-sync.yml` do repo (job `post-checkbox`) comenta `- [ ] Sync to QA` nela;
+marcar a caixa (editar o comentário pra `- [x]`) dispara o job `sync`, que aí
+sim chama o workflow reutilizável central e abre a PR `main` → `qa`. Só faz
+sentido em repositórios que têm branch `qa` de verdade — não adicionar em
+repos que fazem merge direto pra `main` (ver `servicos.md` do VersoSpec do
+Solaria pra saber quais).
+
 A PR criada automaticamente usa o título
 `chore(sync): synchronize main into qa`. Sua descrição informa que o diff
 contém apenas commits já integrados em `main`, que o efeito é atualizar o
