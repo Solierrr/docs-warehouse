@@ -66,6 +66,8 @@ sozinho.
 
 Rodar só `make extract-env` já encadeia `vault-config` → `vault-auth` →
 `extract-env`; se faltarem serviço ou ambiente, o extrator pergunta em menus.
+No Windows, o helper prioriza `infisical.exe` e passa `SERVICE`, `ENV` e `OUT`
+como parâmetros nomeados ao script compartilhado.
 Os três alvos continuam chamáveis individualmente para
 depurar cada etapa. Login no Infisical (`infisical login`) continua sendo uma
 ação explícita do desenvolvedor — `vault-auth` nunca tenta logar sozinho, só
