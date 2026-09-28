@@ -60,15 +60,13 @@ sozinho.
 - `make vault-auth`: depende de `vault-config`; confirma que o Infisical CLI
   está instalado e a sessão (`infisical login`) está ativa — se não estiver,
   imprime exatamente o comando a rodar e para, sem tentar logar sozinho.
-- `make extract-env ENV=local`: depende de `vault-auth`; gera o arquivo de
-  ambiente por meio de `infra-scripts`. O projeto deve informar seu `SERVICE`
-  padrão; `OUT` é opcional e não deve apontar para arquivo versionado. Falha
-  com mensagem clara se `SERVICE` não estiver definido ou `ENV` for inválido.
+- `make extract-env`: depende de `vault-auth`; sem `SERVICE` ou `ENV`, exibe menus numerados para selecionar serviço e ambiente. Também aceita `SERVICE=... ENV=...`; `OUT` é opcional e não deve apontar para arquivo versionado. Uma pasta sem segredos causa erro e preserva o `.env` existente.
 - `make tools-check` / `make env`: aliases mantidos por compatibilidade para
   `vault-config` / `extract-env`, respectivamente.
 
 Rodar só `make extract-env` já encadeia `vault-config` → `vault-auth` →
-`extract-env` sozinho; os três alvos continuam chamáveis individualmente para
+`extract-env`; se faltarem serviço ou ambiente, o extrator pergunta em menus.
+Os três alvos continuam chamáveis individualmente para
 depurar cada etapa. Login no Infisical (`infisical login`) continua sendo uma
 ação explícita do desenvolvedor — `vault-auth` nunca tenta logar sozinho, só
 avisa qual comando rodar.
