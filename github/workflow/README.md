@@ -69,3 +69,48 @@ A PR criada automaticamente usa o título
 `chore(sync): synchronize main into qa`. Sua descrição informa que o diff
 contém apenas commits já integrados em `main`, que o efeito é atualizar o
 ambiente de QA após o merge, e que a validação esperada é revisar esse diff.
+
+## Arquivos comuns (`common/`)
+
+Arquivos que valem para qualquer stack, copiados para `.github/workflows/` (ou
+para a raiz do repo, no caso do config/manifest):
+
+| Arquivo | Para quê |
+|---|---|
+| `release-please.yml` | Caller do release-please: abre/atualiza a PR de release, aceita `/release` e o checkbox, e finaliza a publicação. Repassa `RELEASE_BOT_TOKEN` ao workflow central. |
+| `release-please-config.json` + `.release-please-manifest.json` | Config e manifest (`release-type: simple`, versão inicial `0.1.0`). Trocar `<nome-do-repo>` em `package-name`. |
+| `pr-welcome.yml` | Comenta na abertura da PR o que vai acontecer depois do merge (checkbox de sync com `qa`, imagem Docker, release). |
+| `environment-status-alive.yml` | `environment-status.yml` para serviços sem QA/PROD (Render sandbox): registra o ambiente `ALIVE` no GitHub por checagem HTTP. |
+
+## Release Please e auto-merge
+
+- Os comentários pós-merge (checkbox de `qa` e checkbox/`/release` de release)
+  vêm dos workflows centrais de `Solierrr/.github`; qualquer repo com os
+  callers `qa-sync.yml`/`release-please.yml` os recebe. O `pr-welcome.yml` só
+  explica o fluxo na abertura da PR.
+- **Allow auto-merge** foi habilitado em todos os repositórios não arquivados
+  da org, exceto `elos-*` (2026-09-30). A opção só permite `gh pr merge --auto`;
+  nenhuma PR manual é mergeada sozinha. Só o sync com `qa` e a release chamam
+  `--auto`.
+- **Sync com `qa`**: a `qa-protection` exige PR e 0 aprovações, então o auto-merge
+  conclui sozinho quando os checks passam.
+- **Release**: a `main-protection` exige 1 aprovação e a PR de release é aberta
+  por `github-actions[bot]`, que não aprova a própria PR. O workflow central
+  `release-please-merge.yml` usa o secret opcional de org `RELEASE_BOT_TOKEN`
+  (PAT/GitHub App de outra identidade, com permissão de escrita) para aprovar e
+  pedir o auto-merge, somente depois de checar que quem comentou tem
+  admin/maintain/write. Sem o secret, o `/release` só liga o auto-merge e a
+  aprovação continua manual. Cada caller precisa repassar o secret:
+  `secrets: { RELEASE_BOT_TOKEN: ${{ secrets.RELEASE_BOT_TOKEN }} }` no job
+  `release-please-merge`.
+- Armadilha: passar um secret que o workflow reutilizável não declara faz o
+  caller falhar; por isso a PR do `.github` (declaração do secret) precisa entrar
+  antes das PRs dos callers.
+
+## Ambiente `ALIVE` (sandbox no Render)
+
+Serviços sem QA/PROD (`web-sandbox`, `databricks-sync`) registram o ambiente
+`ALIVE` com `environment-status-alive.yml` (`workflow_dispatch`, `check: http`).
+O `check: render` chegou a ser tentado, mas o workflow central só suporta `http`
+e `gcloud-cluster`. Em 2026-09-30 os dois receberam esse workflow, o
+release-please e a primeira release (`v0.2.0`).
