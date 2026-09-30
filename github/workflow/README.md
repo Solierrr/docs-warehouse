@@ -114,3 +114,23 @@ Serviços sem QA/PROD (`web-sandbox`, `databricks-sync`) registram o ambiente
 O `check: render` chegou a ser tentado, mas o workflow central só suporta `http`
 e `gcloud-cluster`. Em 2026-09-30 os dois receberam esse workflow, o
 release-please e a primeira release (`v0.2.0`).
+
+## Release Please: primeira release e atraso de versão
+
+- Repos que já tinham conteúdo antes do release-please (manifest `0.1.0`, sem tag)
+  acumulam um PR de release aberto com todo o histórico. Em 2026-09-30 os 18 PRs
+  pendentes foram publicados de uma vez: `web-app` 3.1.0, `api-messenger` 3.1.0,
+  `ai-validation` 3.1.0, `ai-assistant` 3.1.1, `api-core` 3.0.1, `api-auth` 3.0.1,
+  `web-worker` 1.0.1, `ai-operational`/`ai-geographic`/`generic-template` 0.1.1 e
+  `ai-accessibility`, `api-recommendation`, `mcp-database`, `infra-gateway`,
+  `google-registry`, `databricks-stocker`, `infra-scripts`, `mobile-app` 0.2.0.
+- Publicar = mergear o PR de release; o push em `main` faz o release-please criar a
+  tag e a release. Como o `RELEASE_BOT_TOKEN` estava inválido, o merge foi feito
+  com bypass de admin.
+- **Versão inicial**: o release-please partiu do manifest `0.1.0`. Serviços que
+  já rodam em produção e deveriam estar em outra linha de versão (ex.: `1.0.0`)
+  exigem `release-as` no config ou edição do manifest antes da release.
+- Armadilha do secret: `RELEASE_BOT_TOKEN` colado com quebra de linha dá
+  `invalid header field value for "Authorization"`; o `release-please-merge.yml`
+  agora remove espaços em branco. Valor inválido/expirado dá `HTTP 401: Bad
+  credentials` e o fluxo cai no comportamento sem token.
