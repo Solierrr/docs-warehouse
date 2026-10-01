@@ -80,6 +80,7 @@ para a raiz do repo, no caso do config/manifest):
 | `release-please.yml` | Caller do release-please: abre/atualiza a PR de release, aceita `/release` e o checkbox, e finaliza a publicação. Repassa `RELEASE_BOT_TOKEN` ao workflow central. |
 | `release-please-config.json` + `.release-please-manifest.json` | Config e manifest (`release-type: simple`, versão inicial `0.1.0`). Trocar `<nome-do-repo>` em `package-name`. |
 | `pr-welcome.yml` | Comenta na abertura da PR o que vai acontecer depois do merge (checkbox de sync com `qa`, imagem Docker, release). |
+| `npm-publisher.yml` | Publica pacote npm a cada push na `main`, só se a versão do `package.json` ainda não existir no registro. Precisa do secret `NPM_TOKEN` e de `id-token: write` (provenance). |
 | `environment-status-alive.yml` | `environment-status.yml` para serviços sem QA/PROD (Render sandbox): registra o ambiente `ALIVE` no GitHub por checagem HTTP. |
 
 ## Release Please e auto-merge
@@ -114,3 +115,20 @@ Serviços sem QA/PROD (`web-sandbox`, `databricks-sync`) registram o ambiente
 O `check: render` chegou a ser tentado, mas o workflow central só suporta `http`
 e `gcloud-cluster`. Em 2026-09-30 os dois receberam esse workflow, o
 release-please e a primeira release (`v0.2.0`).
+
+## Publicação no npm (`npm-publisher.yml`)
+
+Usado pelo `lib-web` (`@solaria.network/web-lib`). Roda a cada push na `main`, como o
+workflow de Docker, e publica só se `name@version` do `package.json` ainda não existir
+no npm; a versão muda quando a PR do release-please é mergeada.
+
+- Não usa `on: release`: releases criadas pelo release-please com o token padrão do
+  Actions não disparam outros workflows, então o publish nunca rodaria.
+- A consulta distingue pacote inexistente (`E404`, publica) de qualquer outro erro do
+  npm (falha o job), para não publicar às cegas.
+- Secret `NPM_TOKEN`: token granular do npm com Read and write no escopo do pacote
+  (`@solaria.network`). A conta precisa ser owner/membro da organização do escopo; se a
+  conta tiver 2FA para publicação, o token granular precisa ignorar o 2FA.
+- `--provenance` exige `permissions: id-token: write` e que `repository.url` do
+  `package.json` aponte para o repositório que roda o workflow.
+- Ao primeiro merge na `main` o workflow publica a versão que estiver no `package.json`.
