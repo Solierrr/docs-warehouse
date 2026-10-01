@@ -132,3 +132,7 @@ no npm; a versão muda quando a PR do release-please é mergeada.
 - `--provenance` exige `permissions: id-token: write` e que `repository.url` do
   `package.json` aponte para o repositório que roda o workflow.
 - Ao primeiro merge na `main` o workflow publica a versão que estiver no `package.json`.
+- Usado pelo `lib-web`, cujo repositório hoje se chama `web-lib`: `repository.url` precisa ter o **nome atual** do repositório, não um nome antigo que o GitHub redireciona. Com o nome antigo o npm responde `422 Error verifying sigstore provenance bundle: Failed to validate repository information`.
+- Erros vistos na primeira publicação, em ordem: `403 ... bypass 2fa enabled is required` (token granular sem a opção de bypass de 2FA) e `422` do provenance (`repository.url`). Resolvidos os dois, `@solaria.network/web-lib@0.3.0` foi publicado em 2026-10-01 com provenance.
+- O registro pode devolver 404 por alguns minutos depois do `+ pacote@versão` do `npm publish`.
+- O npm recomenda Trusted Publishing (OIDC, sem token) para CI; exige configurar o publisher nas settings do pacote (organização, repositório e nome do arquivo do workflow) e pode exigir a primeira versão publicada manualmente.
