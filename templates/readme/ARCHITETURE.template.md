@@ -27,7 +27,7 @@ Texto de explicação da arquitetura. É esperado parágrafo único / parágrafo
 │   ├── bruno.json
 │   ├── environments/
 │   │   └── local.bru
-│   └── <dominio>/
+│   └── <domain>/
 │       └── NNN-verbo-rota.bru
 ├── CONTRIBUTING.md
 ├── SECURITY.md
