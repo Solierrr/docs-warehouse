@@ -3,7 +3,7 @@
 Use os arquivos por stack quando criar ou atualizar a imagem de um serviço:
 
 - `jvm-maven/`: Dockerfile e `.dockerignore` para aplicações Maven/JVM.
-- `python/`: Dockerfile e `.dockerignore` para serviços Python.
+- `python/`: Dockerfile (`python:3.14-slim`, mesma versão em todos os serviços) e `.dockerignore` para serviços Python. As dependências cravadas ficam em `../python/requirements.txt`.
 - `typescript/`: Dockerfile e `.dockerignore` para serviços TypeScript.
 - `common/`: `.dockerignore` base independente de stack e launcher opcional de runtime para Infisical.
 
