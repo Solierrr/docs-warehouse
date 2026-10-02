@@ -13,3 +13,7 @@ Base de dependências dos serviços Python da org. Todos rodam na mesma versão 
 - Versões sempre cravadas com `==`. Atualização por Dependabot (semanal, só minor e patch, uma PR agrupada); major é decisão manual.
 - Serviços de IA que consomem o corretor de chaves do `google-registry` adicionam `solaria-lib` (pacote do repositório `ai-lib`), também cravado, e não mantêm chaves de LLM próprias.
 - As versões desta lista foram resolvidas juntas em Python 3.14; ao subir uma, rode a suíte do serviço antes de propagar.
+
+## Dependência temporária por git
+
+Enquanto a `solaria-lib` não estiver publicada no PyPI, os serviços a instalam por `solaria-lib @ git+https://github.com/Solierrr/ai-lib.git@<ref>`. Isso exige `git` na imagem, que `python:3.14-slim` não traz; nesse período mantenha a base `python:latest` nos serviços de IA ou instale `git` no build. Depois da publicação, troque por `solaria-lib==<versão>` e nada disso é necessário. Não aponte para uma branch que será apagada ao mesclar a PR: use uma tag.
