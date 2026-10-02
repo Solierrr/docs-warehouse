@@ -19,6 +19,16 @@ Texto de explicação da arquitetura. É esperado parágrafo único / parágrafo
 ├── ARCHITECTURE.md
 ├── RUNNING.md
 ├── DEPLOYMENT.md
+├── Dockerfile
+├── .dockerignore
+├── entrypoint.sh
+├── http/
+│   ├── README.md
+│   ├── bruno.json
+│   ├── environments/
+│   │   └── local.bru
+│   └── <dominio>/
+│       └── NNN-verbo-rota.bru
 ├── CONTRIBUTING.md
 ├── SECURITY.md
 ├── CODE_OF_CONDUCT.md

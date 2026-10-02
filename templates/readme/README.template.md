@@ -39,6 +39,8 @@ Texto de explicação do repositório. É esperado parágrafo único / parágraf
 - {link do arquivo de arquitetura}
 - {link do arquivo de como rodar}
 - {link do arquivo de deployment}
+- Se o serviço usa container, documente a imagem em `Dockerfile` e mantenha `.dockerignore` alinhado à stack. O launcher `entrypoint.sh` é opcional e pode iniciar o comando sob Infisical em runtime quando Universal Auth estiver configurado.
+- Se o repositório tiver uma coleção de chamadas locais, consulte [`http/README.md`](./http/README.md) para executar e manter o cliente HTTP da API.
 
 ## Contribuindo
 
