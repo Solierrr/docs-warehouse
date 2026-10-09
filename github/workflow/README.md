@@ -12,6 +12,11 @@ vez de começar do zero.
 | Kotlin + Maven (Spring Boot) | `kotlin/springboot/` | api-auth |
 | Kotlin + Gradle (Jetpack Compose / Android) | `kotlin/jetpack-compose/` | mobile-app |
 | TypeScript + Node | `typescript/` | web-app |
+| Terraform | `terraform/` | infra-platform |
+| Kubernetes (kubeconform, kustomize, helm) | `kubernetes/` | infra-gitops, infra-otel-collector, infra-gateway |
+| Shell | `shell/` | infra-keepalive |
+| PowerShell | `powershell/` | infra-scripts |
+| SQL (schemas em um PostgreSQL de teste) | `sql/` | database-console |
 
 ## Pegadinhas já resolvidas aqui
 
@@ -136,3 +141,7 @@ no npm; a versão muda quando a PR do release-please é mergeada.
 - Erros vistos na primeira publicação, em ordem: `403 ... bypass 2fa enabled is required` (token granular sem a opção de bypass de 2FA) e `422` do provenance (`repository.url`). Resolvidos os dois, `@solaria.network/web-lib@0.3.0` foi publicado em 2026-10-01 com provenance.
 - O registro pode devolver 404 por alguns minutos depois do `+ pacote@versão` do `npm publish`.
 - O npm recomenda Trusted Publishing (OIDC, sem token) para CI; exige configurar o publisher nas settings do pacote (organização, repositório e nome do arquivo do workflow) e pode exigir a primeira versão publicada manualmente.
+
+## Contrato de checagens
+
+Todo repositório de código tem um workflow `ci.yml` com um job chamado `test` e um `quality.yml` com um job chamado `quality`. Os dois nomes são exigidos pelo ruleset `main-protection` (ver [`../rulesets/`](../rulesets/)). Onde não há testes de unidade, `test` valida o que existe: compila os fontes, faz o build, renderiza os manifestos ou aplica o schema em um banco de teste.
