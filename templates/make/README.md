@@ -18,6 +18,7 @@ instalado uma vez por estação de trabalho.
 | `argocd.mk` | manifestos GitOps/ArgoCD |
 | `helm.mk` | Helm charts |
 | `kustomize.mk` | manifestos Kustomize |
+| `stack.mk` | opcional: sobe vários serviços de uma vez (`make up-stack`) e um cluster Kubernetes local com Argo CD (`make cluster-up`), para quem mantém o `infra-gitops` |
 | `local.mk` | opcional: roda o serviço localmente a partir da imagem do Docker Hub (`make up`) |
 
 Exemplo para um serviço Python:
@@ -115,3 +116,17 @@ Os segredos vêm do login pessoal (`infisical login`), sem credencial de máquin
 Se algo falhar, o comando explica o que verificar e aponta para
 [`helps/TRY-LOCAL.md`](../../helps/TRY-LOCAL.md).
 
+## Vários serviços e cluster local (`stack.mk`)
+
+Fragmento opcional, pensado para o `infra-gitops`. Os comandos usam `infra-scripts/scripts/local.sh` (`stack`) e `infra-scripts/scripts/cluster.sh`.
+
+| Comando | O que faz |
+|---|---|
+| `make up-stack PROFILE=core` | Sobe um grupo de serviços: `core` (api-auth, api-core, api-messenger), `rec` (api-recommendation), `ai` (os cinco serviços de IA) ou `all`. Aceita `DB=local` e `OBS=1` |
+| `make down-stack PROFILE=core` | Para o grupo (`ALL=1` também para os bancos e o Grafana) |
+| `make cluster-up` | Cria um cluster k3d chamado `local` e instala o Argo CD na mesma versão do `infra-platform` |
+| `make cluster-apps APPS="api-core api-auth"` | Aplica as `Application` do `infra-gitops` (`APPS=root` aplica o app of apps) |
+| `make cluster-secrets SERVICES="api-core"` | Cria o secret `<serviço>-secrets` no cluster local a partir do Infisical |
+| `make cluster-status`, `cluster-password`, `cluster-ui`, `cluster-down` | Mostra as aplicações, imprime a senha do admin, abre a interface em `https://localhost:8085` e apaga o cluster |
+
+O cluster usa um kubeconfig próprio e o contexto `k3d-local`: o contexto padrão do `kubectl` (por exemplo o do GKE) nunca é usado nem alterado.
