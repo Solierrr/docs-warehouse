@@ -1,12 +1,12 @@
 {
-  "name": "qa-protection",
+  "name": "main-protection",
   "target": "branch",
   "enforcement": "active",
   "conditions": {
     "ref_name": {
       "exclude": [],
       "include": [
-        "refs/heads/qa"
+        "~DEFAULT_BRANCH"
       ]
     }
   },
@@ -27,10 +27,10 @@
     {
       "type": "pull_request",
       "parameters": {
-        "required_approving_review_count": 0,
-        "dismiss_stale_reviews_on_push": false,
+        "required_approving_review_count": 1,
+        "dismiss_stale_reviews_on_push": true,
         "required_reviewers": [],
-        "require_code_owner_review": false,
+        "require_code_owner_review": true,
         "dismissal_restriction": {
           "enabled": false,
           "allowed_actors": []
@@ -41,6 +41,13 @@
         "allowed_merge_methods": [
           "squash"
         ]
+      }
+    },
+    {
+      "type": "copilot_code_review",
+      "parameters": {
+        "review_on_push": true,
+        "review_draft_pull_requests": false
       }
     },
     {
