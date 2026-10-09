@@ -8,5 +8,6 @@ Repositório central de documentação e arquivos reutilizáveis da Solaria. Os 
 - [`templates/readme/`](./templates/readme/): modelos de README e arquitetura dos repositórios.
 - [`templates/docker/`](./templates/docker/README.md): Dockerfiles e `.dockerignore` por stack, mais launcher de runtime opcional do Infisical.
 - [`github/workflow/`](./github/workflow/): workflows reutilizáveis organizados por stack.
+- [`github/repository-settings.md`](./github/repository-settings.md): padrão de configuração, rulesets, checks e metadados dos repositórios.
 
 Ao copiar um template, adapte exemplos à implementação real do serviço e não versione credenciais ou dados sensíveis.
