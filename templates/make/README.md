@@ -18,6 +18,7 @@ instalado uma vez por estação de trabalho.
 | `argocd.mk` | manifestos GitOps/ArgoCD |
 | `helm.mk` | Helm charts |
 | `kustomize.mk` | manifestos Kustomize |
+| `local.mk` | opcional: roda o serviço localmente a partir da imagem do Docker Hub (`make up`) |
 
 Exemplo para um serviço Python:
 
@@ -89,3 +90,27 @@ efeitos de um repositório de infraestrutura continuam nele: por exemplo,
 
 Um Makefile é uma interface local; workflows reutilizáveis do GitHub Actions
 são a interface de CI. Nenhum substitui o outro.
+
+## Rodar o serviço localmente (`local.mk`)
+
+Fragmento opcional, composto depois do `base.mk` e do fragmento da stack. Todo
+o comportamento está em `infra-scripts/scripts/local.sh`; o repositório do
+serviço só ganha o `include` e, se o nome da pasta não for o nome do serviço,
+`LOCAL_SERVICE`.
+
+| Comando | O que faz |
+|---|---|
+| `make up` | Baixa a imagem `solarianetwork/<serviço>:latest`, lê os segredos do Infisical (`ENV=qa` por padrão) e sobe o serviço |
+| `make up DB=local` | Usa PostgreSQL (e Neo4j) em containers locais, com o schema e o seed do `database-console` |
+| `make up OBS=1` | Sobe também o Grafana local e o Collector e liga a telemetria do serviço |
+| `make up BUILD=1` | Constrói a imagem do `Dockerfile` do repositório em vez de baixar |
+| `make down` | Para o serviço (`ALL=1` para também os bancos e o Grafana) |
+| `make logs` | Segue os logs |
+| `make docker-build` | Constrói a imagem local; só existe se há `Dockerfile` |
+| `make docker-push TAG=dev-nome` | Publica uma imagem de desenvolvimento; recusa `latest` e tags de release |
+| `make compose` | Roda o compose do próprio repositório; só existe se ele tiver um |
+
+Os segredos vêm do login pessoal (`infisical login`), sem credencial de máquina.
+Se algo falhar, o comando explica o que verificar e aponta para
+[`helps/TRY-LOCAL.md`](../../helps/TRY-LOCAL.md).
+
