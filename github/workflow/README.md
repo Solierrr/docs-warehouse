@@ -145,3 +145,17 @@ no npm; a versão muda quando a PR do release-please é mergeada.
 ## Contrato de checagens
 
 Todo repositório de código tem um workflow `ci.yml` com um job chamado `test` e um `quality.yml` com um job chamado `quality`. Os dois nomes são exigidos pelo ruleset `main-protection` (ver [`../rulesets/`](../rulesets/)). Onde não há testes de unidade, `test` valida o que existe: compila os fontes, faz o build, renderiza os manifestos ou aplica o schema em um banco de teste.
+
+## Publicação de imagens e bump no GitOps
+
+O `release.yml` de cada serviço chama o workflow reutilizável `docker-publish.yml` do `Solierrr/.github` a cada push em `main`, que publica `solarianetwork/<serviço>:latest` e `:<sha>`.
+
+Quando o commit é o merge de uma PR de release do release-please (`chore(main): release X.Y.Z`), o mesmo workflow também publica a tag `X.Y.Z` e chama o `gitops-bump.yml`. O bot da organização (`dive-robot`):
+
+1. localiza os manifestos do `infra-gitops` que usam `docker.io/solarianetwork/<serviço>:` e troca a tag por `X.Y.Z`;
+2. abre a PR `chore: bump <serviço> to X.Y.Z` no `infra-gitops` e espera os checks;
+3. faz o merge (o bot é bypass da `main-protection` do `infra-gitops` apenas por PR);
+4. comenta na PR original do serviço com o link da PR de bump e o resultado.
+
+Se nenhum manifesto usa a imagem, o bot só comenta isso e não abre PR. Se os checks falham, a PR de bump fica aberta para revisão.
+
