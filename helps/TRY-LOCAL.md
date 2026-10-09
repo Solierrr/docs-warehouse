@@ -39,6 +39,26 @@ O `make up` baixa a imagem, lê os segredos do ambiente `qa`, sobe o container e
 
 Com `OBS=1`, o `make up` sobe o Grafana (`grafana/otel-lgtm`) e o OpenTelemetry Collector do `infra-otel-collector` na rede `solaria-local`, e liga a telemetria do serviço. Abra `http://localhost:3000` (usuário `admin`, senha `admin`) e veja logs, traces e métricas em **Explore** e nos dashboards da pasta **Solaria**. Os dados ficam só na memória do container e se perdem quando ele para.
 
+## Vários serviços e cluster local
+
+No `infra-gitops` (que inclui o `stack.mk`):
+
+- `make up-stack PROFILE=core` sobe um grupo de serviços (`core`, `rec`, `ai` ou `all`) a partir das imagens do Docker Hub, cada um em uma porta do host (api-core 8080, api-auth 8081, api-messenger 8082, api-recommendation 8000, ai-assistant 8010, ai-validation 8011, ai-geographic 8012, ai-operational 8013, ai-accessibility 8014). Aceita `DB=local` e `OBS=1`. Pare com `make down-stack PROFILE=core`.
+- `make cluster-up` cria um cluster Kubernetes local (k3d) com o Argo CD. Depois, `make cluster-apps APPS="api-core"` aplica a `Application` do `infra-gitops`, `make cluster-secrets SERVICES="api-core"` cria o secret do serviço a partir do Infisical e `make cluster-ui` abre o Argo CD em `https://localhost:8085` (usuário `admin`, senha de `make cluster-password`). O cluster usa um kubeconfig próprio: o contexto padrão do `kubectl` não é alterado.
+
+O Argo CD do cluster local sincroniza a `main` do `infra-gitops` no GitHub, ou seja, o que está no repositório e não o que está no seu disco.
+
+## Memória do Docker
+
+Os "8 GB" são o limite da máquina virtual do Docker Desktop (WSL2), não a memória do computador. Para ver o valor atual, rode `docker info --format '{{.MemTotal}}'`. Subir vários serviços Java, o Grafana local e um cluster ao mesmo tempo pode passar disso. Para aumentar, crie ou edite `%UserProfile%\.wslconfig` com:
+
+```ini
+[wsl2]
+memory=12GB
+```
+
+e rode `wsl --shutdown`, depois reabra o Docker Desktop. Deixe pelo menos 4 GB para o Windows. Sem aumentar o limite, suba por perfil (`PROFILE=core`, depois `PROFILE=ai`) em vez de `all`.
+
 ## Problemas comuns
 
 **"Não foi possível obter os segredos do Infisical."**
