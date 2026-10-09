@@ -3,12 +3,13 @@
 # Requires Docker and `infisical login`. See helps/TRY-LOCAL.md.
 LOCAL_SERVICE ?= $(notdir $(CURDIR))
 LOCAL_SH := $(ORG_SCRIPTS_DIR)/scripts/local.sh
+SECRETS_ENV ?= qa
 DB ?= remote
 OBS ?= 0
 BUILD ?= 0
 ALL ?= 0
 TAG ?=
-LOCAL_ENV := SERVICE=$(LOCAL_SERVICE) ENV=$(or $(ENV),qa) DB=$(DB) OBS=$(OBS) BUILD=$(BUILD) ALL=$(ALL) $(if $(TAG),TAG=$(TAG),) $(if $(ENV_FILE),ENV_FILE=$(ENV_FILE),)
+LOCAL_ENV := SERVICE=$(LOCAL_SERVICE) ENV=$(SECRETS_ENV) DB=$(DB) OBS=$(OBS) BUILD=$(BUILD) ALL=$(ALL) $(if $(TAG),TAG=$(TAG),) $(if $(ENV_FILE),ENV_FILE=$(ENV_FILE),)
 
 .PHONY: up down logs
 

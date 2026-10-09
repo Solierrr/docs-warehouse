@@ -101,6 +101,7 @@ serviço só ganha o `include` e, se o nome da pasta não for o nome do serviço
 | Comando | O que faz |
 |---|---|
 | `make up` | Baixa a imagem `solarianetwork/<serviço>:latest`, lê os segredos do Infisical (`ENV=qa` por padrão) e sobe o serviço |
+| `make up SECRETS_ENV=prod` | Lê os segredos de outro ambiente do Infisical (`qa` por padrão; não usa `ENV`, que o `extract-env` já usa) |
 | `make up DB=local` | Usa PostgreSQL (e Neo4j) em containers locais, com o schema e o seed do `database-console` |
 | `make up OBS=1` | Sobe também o Grafana local e o Collector e liga a telemetria do serviço |
 | `make up BUILD=1` | Constrói a imagem do `Dockerfile` do repositório em vez de baixar |
