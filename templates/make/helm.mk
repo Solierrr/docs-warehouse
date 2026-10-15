@@ -1,11 +1,11 @@
-# Compose after base.mk. Set CHART to the chart directory.
-HELM ?= helm
-CHART ?= .
-
-.PHONY: lint render
-
-lint: ## Lint the Helm chart
-	$(HELM) lint $(CHART)
-
-render: ## Render the Helm chart locally
-	$(HELM) template $(notdir $(CURDIR)) $(CHART)
+# ---- especifico deste repositorio ----
+VAULT_FOLDERS ?=
+CHART_DIR     ?= .
+INSTALL_CMD   ?= helm dependency update $(CHART_DIR)
+DEV_CMD       ?=
+BUILD_CMD     ?= helm template $(CHART_DIR) > /dev/null
+TEST_CMD      ?=
+LINT_CMD      ?= helm lint $(CHART_DIR)
+FORMAT_CMD    ?=
+CLEAN_PATHS   ?=
+DOCTOR_TOOLS  ?= git helm

@@ -1,29 +1,15 @@
-# Compose after base.mk. Override APP_MODULE for FastAPI/Uvicorn applications.
-PYTHON ?= python
-VENV ?= .venv
-VENV_BIN ?= $(VENV)/Scripts
-APP_MODULE ?= app.main:app
-HOST ?= 127.0.0.1
-PORT ?= 8000
-
-.PHONY: setup run test lint check clean
-
-setup: ## Create the virtualenv and install project dependencies
-	$(PYTHON) -m venv $(VENV)
-	$(VENV_BIN)/python -m pip install --upgrade pip
-	@if test -f requirements.txt; then $(VENV_BIN)/python -m pip install -r requirements.txt; fi
-	@if test -f requirements-dev.txt; then $(VENV_BIN)/python -m pip install -r requirements-dev.txt; fi
-
-run: ## Run the Uvicorn application (APP_MODULE=package.module:app)
-	$(VENV_BIN)/python -m uvicorn $(APP_MODULE) --host $(HOST) --port $(PORT) --reload
-
-test: ## Run Python tests
-	$(VENV_BIN)/python -m pytest
-
-lint: ## Run Ruff static analysis
-	$(VENV_BIN)/python -m ruff check .
-
-check: test lint ## Run the local validation suite
-
-clean: ## Remove Python caches
-	@echo "Remove .venv and cache directories manually when required."
+# ---- especifico deste repositorio ----
+VAULT_FOLDERS ?=
+ifeq ($(OS),Windows_NT)
+PY ?= .venv/Scripts/python
+else
+PY ?= .venv/bin/python
+endif
+INSTALL_CMD   ?= python -m venv .venv && $(PY) -m pip install -r requirements.txt ruff pytest
+DEV_CMD       ?= $(PY) -m uvicorn main:app --reload
+BUILD_CMD     ?= $(PY) -m compileall -q -x '(^|[^a-zA-Z0-9_])venv[^a-zA-Z0-9_.]' .
+TEST_CMD      ?= $(PY) -m pytest
+LINT_CMD      ?= $(PY) -m ruff check . && $(PY) -m ruff format --check .
+FORMAT_CMD    ?= $(PY) -m ruff format .
+CLEAN_PATHS   ?= .venv .pytest_cache .ruff_cache .mypy_cache
+DOCTOR_TOOLS  ?= git python

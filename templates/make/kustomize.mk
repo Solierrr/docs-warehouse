@@ -1,11 +1,11 @@
-# Compose after base.mk. Set KUSTOMIZE_DIR to a kustomization directory.
-KUBECTL ?= kubectl
-KUSTOMIZE_DIR ?= .
-
-.PHONY: render validate
-
-render: ## Render the Kustomize manifests
-	$(KUBECTL) kustomize $(KUSTOMIZE_DIR)
-
-validate: ## Validate rendered manifests locally
-	$(KUBECTL) kustomize $(KUSTOMIZE_DIR) | $(KUBECTL) apply --dry-run=client -f -
+# ---- especifico deste repositorio ----
+VAULT_FOLDERS ?=
+KUSTOMIZE_DIRS ?= .
+INSTALL_CMD   ?=
+DEV_CMD       ?=
+BUILD_CMD     ?= for dir in $(KUSTOMIZE_DIRS); do kubectl kustomize $$dir > /dev/null || exit 1; done
+TEST_CMD      ?=
+LINT_CMD      ?= for dir in $(KUSTOMIZE_DIRS); do kubectl kustomize $$dir | kubeconform -ignore-missing-schemas -summary || exit 1; done
+FORMAT_CMD    ?=
+CLEAN_PATHS   ?=
+DOCTOR_TOOLS  ?= git kubectl kubeconform
