@@ -1,83 +1,91 @@
 # TRY-LOCAL: rodar um serviço da Solaria na sua máquina
 
-Este guia explica como subir um serviço localmente com `make up`, sem clonar nada além do próprio repositório. O serviço roda a partir da imagem publicada no Docker Hub (`solarianetwork/<serviço>`), e os segredos vêm do Infisical com a sua conta.
+Este guia explica como rodar um serviço localmente com o `Makefile` padrão do repositório (ver [`templates/make/`](../templates/make/README.md)). Os segredos vêm do Infisical com a sua conta e o serviço roda com a ferramenta da própria stack (Maven, Python, Node e assim por diante). Nada é clonado além do próprio repositório.
 
 ## O que você precisa
 
 | Ferramenta | Para quê | Como conferir |
 |---|---|---|
-| Docker Desktop (com Compose v2) | Rodar a imagem e os bancos locais | `docker compose version` |
+| `make` e `git` | Rodar os comandos | `make --version` |
 | Infisical CLI | Ler os segredos | `infisical --version` |
-| `make` e `git` | Rodar os comandos e atualizar o `infra-scripts` | `make --version` |
-| Acesso ao projeto no Infisical | Ler os segredos do ambiente `qa` | `infisical login` |
+| Acesso ao projeto no Infisical | Ler os segredos do ambiente | `infisical login` |
+| As ferramentas da stack do repositório | Rodar o serviço (por exemplo JDK 21, Python 3.14, Node) | `make doctor` |
+| Docker Desktop (com Compose v2) | Só para o Grafana local e o cluster local | `docker compose version` |
 
 No Windows, rode os comandos pelo Git Bash.
 
 ## Primeiro uso
 
 1. Faça login no Infisical com a sua conta: `infisical login`.
-2. Na pasta do repositório do serviço, rode `make up`.
-
-O `make up` baixa a imagem, lê os segredos do ambiente `qa`, sobe o container e mostra o endereço (por exemplo, `http://localhost:8080`). Os segredos ficam num arquivo temporário com permissão restrita, apagado ao final do comando.
+2. Na pasta do repositório do serviço, rode `make doctor` para conferir as ferramentas.
+3. Rode `make install` para instalar as dependências.
+4. Rode `make vault` para gravar o `.env` com os segredos.
+5. Rode `make dev` para subir o serviço.
 
 ## Comandos
 
 | Comando | O que faz |
 |---|---|
-| `make up` | Sobe o serviço apontando para os bancos remotos de `qa` |
-| `make up DB=local` | Sobe PostgreSQL (e Neo4j para o `api-recommendation`) em containers locais, com o schema e o seed do `database-console` |
-| `make up OBS=1` | Sobe também o Grafana local e o Collector e liga a telemetria do serviço |
-| `make up BUILD=1` | Constrói a imagem a partir do `Dockerfile` do repositório, útil para testar uma mudança antes do release |
-| `make up ENV_FILE=caminho` | Usa um arquivo de variáveis em vez do Infisical (para testar sem login) |
-| `make down` | Para o serviço. `make down ALL=1` também para os bancos e o Grafana |
-| `make logs` | Segue os logs |
-| `make docker-build` | Constrói a imagem local (só em repositórios com `Dockerfile`) |
-| `make docker-push TAG=dev-seunome` | Publica uma imagem de desenvolvimento. `latest` e tags de release são recusadas: produção só recebe imagem pelo CI |
-| `make compose` | Roda o compose do próprio repositório (só se ele tiver um) |
+| `make help` | Lista os comandos do repositório |
+| `make doctor` | Confere as ferramentas necessárias e a sessão do Infisical |
+| `make vault` | Grava o `.env` com os segredos das pastas do Infisical que o repositório usa (ambiente `local` por padrão) |
+| `make vault ENV=qa` | Lê os segredos do ambiente `qa` (aceita `local`, `qa` e `prod`) |
+| `make vault OUT=caminho` | Grava em outro arquivo em vez de `.env` |
+| `make install` | Instala as dependências |
+| `make dev` | Sobe o serviço com a ferramenta da stack |
+| `make lint`, `make test`, `make build` | Rodam o linter, os testes e o build |
+| `make ci` | Roda `lint`, `test` e `build` na ordem do pipeline |
 
-## Grafana local (`OBS=1`)
+Alguns repositórios têm alvos próprios, listados no `make help`. Um alvo sem comando para o repositório avisa `not configured for this repository` em vez de falhar.
 
-Com `OBS=1`, o `make up` sobe o Grafana (`grafana/otel-lgtm`) e o OpenTelemetry Collector do `infra-otel-collector` na rede `solaria-local`, e liga a telemetria do serviço. Abra `http://localhost:3000` (usuário `admin`, senha `admin`) e veja logs, traces e métricas em **Explore** e nos dashboards da pasta **Solaria**. Os dados ficam só na memória do container e se perdem quando ele para.
+## Grafana local
 
-## Vários serviços e cluster local
+No `infra-otel-collector`:
 
-No `infra-gitops` (que inclui o `stack.mk`):
+- `make obs-up` cria a rede `local` se ela não existir e sobe o Grafana (`grafana/otel-lgtm`) e o OpenTelemetry Collector.
+- `make obs-down` derruba os dois.
 
-- `make up-stack PROFILE=core` sobe um grupo de serviços (`core`, `rec`, `ai` ou `all`) a partir das imagens do Docker Hub, cada um em uma porta do host (api-core 8080, api-auth 8081, api-messenger 8082, api-recommendation 8000, ai-assistant 8010, ai-validation 8011, ai-geographic 8012, ai-operational 8013, ai-accessibility 8014). Aceita `DB=local` e `OBS=1`. Pare com `make down-stack PROFILE=core`.
-- `make cluster-up` cria um cluster Kubernetes local (k3d) com o Argo CD. Depois, `make cluster-apps APPS="api-core"` aplica a `Application` do `infra-gitops`, `make cluster-secrets SERVICES="api-core"` cria o secret do serviço a partir do Infisical e `make cluster-ui` abre o Argo CD em `https://localhost:8085` (usuário `admin`, senha de `make cluster-password`). O cluster usa um kubeconfig próprio: o contexto padrão do `kubectl` não é alterado.
+Abra `http://localhost:3000` (usuário `admin`, senha `admin`) e veja logs, traces e métricas em **Explore** e nos dashboards da pasta **Solaria**. O Collector recebe OTLP em `localhost:4317` (gRPC) e `localhost:4318` (HTTP): aponte a telemetria do serviço para lá com as variáveis OTLP que ele já usa. Os dados ficam só na memória do container e se perdem quando ele para.
 
-O Argo CD do cluster local sincroniza a `main` do `infra-gitops` no GitHub, ou seja, o que está no repositório e não o que está no seu disco.
+## Cluster local
+
+No `infra-gitops`:
+
+- `make cluster-up` cria um cluster Kubernetes local (k3d) com o Argo CD.
+- `make cluster-apps APPS="api-core"` aplica a `Application` do `infra-gitops` (`APPS=root` aplica o app of apps).
+- `make cluster-secrets SERVICES="api-core"` cria o secret `<serviço>-secrets` a partir do Infisical (`ENV=qa` por padrão).
+- `make cluster-status` mostra as aplicações, `make cluster-password` imprime a senha do admin e `make cluster-ui` abre o Argo CD em `https://localhost:8085` (usuário `admin`).
+- `make cluster-down` apaga o cluster.
+
+O cluster usa um kubeconfig próprio e o contexto `k3d-local`: o contexto padrão do `kubectl` (por exemplo o do GKE) nunca é usado nem alterado. O Argo CD do cluster local sincroniza a `main` do `infra-gitops` no GitHub, ou seja, o que está no repositório e não o que está no seu disco.
 
 ## Memória do Docker
 
-Os "8 GB" são o limite da máquina virtual do Docker Desktop (WSL2), não a memória do computador. Para ver o valor atual, rode `docker info --format '{{.MemTotal}}'`. Subir vários serviços Java, o Grafana local e um cluster ao mesmo tempo pode passar disso. Para aumentar, crie ou edite `%UserProfile%\.wslconfig` com:
+Os "8 GB" são o limite da máquina virtual do Docker Desktop (WSL2), não a memória do computador. Para ver o valor atual, rode `docker info --format '{{.MemTotal}}'`. Subir o Grafana local e um cluster ao mesmo tempo pode passar disso. Para aumentar, crie ou edite `%UserProfile%\.wslconfig` com:
 
 ```ini
 [wsl2]
 memory=12GB
 ```
 
-e rode `wsl --shutdown`, depois reabra o Docker Desktop. Deixe pelo menos 4 GB para o Windows. Sem aumentar o limite, suba por perfil (`PROFILE=core`, depois `PROFILE=ai`) em vez de `all`.
+e rode `wsl --shutdown`, depois reabra o Docker Desktop. Deixe pelo menos 4 GB para o Windows.
 
 ## Problemas comuns
 
-**"Não foi possível obter os segredos do Infisical."**
+**"Infisical CLI not installed" ou "No active Infisical session".**
+- Instale o CLI (<https://infisical.com/docs/cli/overview>).
 - Rode `infisical login` e tente de novo.
-- Rode `infisical --version` e atualize o CLI se estiver desatualizado.
-- Confirme que a sua conta tem acesso ao projeto da Solaria no Infisical.
 
-**`docker: command not found` ou o daemon não responde.** Abra o Docker Desktop e espere ele ficar pronto.
+**"Failed to extract" ou "No secrets returned" no `make vault`.** Confirme que a sua conta tem acesso ao projeto da Solaria no Infisical, que o `ENV` existe e que a pasta está preenchida. O `.env` existente não é alterado quando a extração falha.
 
-**A porta já está em uso.** Escolha outra com `HOST_PORT=8090 make up`, ou pare o que está usando a porta.
+**"VAULT_FOLDERS is not configured for this repository".** O repositório ainda não declara quais pastas do Infisical usa. Preencha `VAULT_FOLDERS` no bloco específico do `Makefile`.
 
-**O serviço sobe, mas não conecta no banco.** Em `DB=remote`, o banco é o de `qa` (Aiven), e o seu IP precisa estar liberado. Use `DB=local` para não depender da rede.
+**`docker: command not found` ou o daemon não responde.** Abra o Docker Desktop e espere ele ficar pronto (só vale para `make obs-up` e `make cluster-up`).
 
-**`exec ./entrypoint.sh: no such file or directory` ao usar `BUILD=1` no Windows.** O Git converteu o `entrypoint.sh` para fins de linha CRLF e o container não consegue executá-lo. A correção definitiva é incluir `*.sh text eol=lf` (ou `* text=auto eol=lf`, como no `api-recommendation`) no `.gitattributes` do repositório. Para destravar agora, rode `sed -i 's/$//' entrypoint.sh` e tente de novo.
-
-**`make: *** No rule to make target 'up'`.** O Makefile do repositório ainda não inclui o fragmento `local.mk`. Veja [`templates/make/`](../templates/make/README.md).
+**`make: *** No rule to make target`.** O alvo não existe naquele repositório. Rode `make help` para ver os que existem.
 
 ## Como funciona
 
-- O fragmento `templates/make/local.mk` define os comandos. A lógica está em `infra-scripts/scripts/local.sh`, que o `make` clona e atualiza sozinho (`make vault-config`).
-- Os arquivos Compose ficam em `infra-scripts/compose/`.
-- A rede `local` liga o serviço, os bancos e o Grafana.
+- O `Makefile` de cada repositório é o [`templates/make/base.mk`](../templates/make/base.mk) com o bloco específico da stack. Não há ferramenta compartilhada para clonar.
+- `make vault` chama o Infisical CLI direto, para cada pasta de `VAULT_FOLDERS`, e só troca o `.env` se todas devolverem segredos.
+- O Grafana local é do `infra-otel-collector` (`local/compose.yaml`) e o cluster local é do `infra-gitops` (`scripts/cluster.sh`).
