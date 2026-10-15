@@ -41,7 +41,7 @@ manifests.
 
 | Ambiente | Entrega de configuração | Imagem |
 | --- | --- | --- |
-| Local | `make env ENV=local` / `extract-env`; arquivo local ignorado pelo Git | imagem opcional para teste |
+| Local | `make vault` (alias `make env`), com `ENV=local`; arquivo local ignorado pelo Git | imagem opcional para teste |
 | QA (Render) | variáveis do serviço/grupo Render; excepcionalmente Universal Auth no runtime | mesma imagem publicada/validada |
 | Produção (GKE) | `Secret` referenciado por `infra-gitops`; sincronização de provider fica fora do app | mesma imagem, tag imutável |
 

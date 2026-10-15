@@ -26,6 +26,6 @@ Essa divisão espelha a mesma organização por stack já usada em
 [`templates/sonar/`](../../sonar/).
 
 Todo repositório também deve partir do contrato em
-[`templates/make/`](../../make/): ele define os alvos comuns de terminal e
-como chamar ferramentas compartilhadas da organização, sem duplicar scripts
-entre projetos.
+[`templates/make/`](../../make/): o Makefile padrão e o fragmento da stack
+definem os alvos comuns de terminal (`vault`, `dev`, `install`, `lint`,
+`test`, `build`, `ci` e outros), sem duplicar scripts entre projetos.

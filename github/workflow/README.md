@@ -15,7 +15,7 @@ vez de começar do zero.
 | Terraform | `terraform/` | infra-platform |
 | Kubernetes (kubeconform, kustomize, helm) | `kubernetes/` | infra-gitops, infra-otel-collector, infra-gateway |
 | Shell | `shell/` | infra-keepalive |
-| PowerShell | `powershell/` | infra-scripts |
+| PowerShell | `powershell/` | nenhum hoje |
 | SQL (schemas em um PostgreSQL de teste) | `sql/` | database-console |
 
 ## Pegadinhas já resolvidas aqui
