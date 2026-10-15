@@ -4,6 +4,7 @@ Repositório central de documentação e arquivos reutilizáveis da Solaria. Os 
 
 ## Templates
 
+- [`templates/README.md`](./templates/README.md#matriz-por-tipo): matriz de arquivos por tipo de repositório e orientação para adaptar o `generic-template` completo.
 - [`templates/http/`](./templates/http/): cliente HTTP local para documentar e executar chamadas contra APIs em desenvolvimento.
 - [`templates/readme/`](./templates/readme/): modelos de README e arquitetura dos repositórios.
 - [`templates/docker/`](./templates/docker/README.md): Dockerfiles e `.dockerignore` por stack, mais launcher de runtime opcional do Infisical.
