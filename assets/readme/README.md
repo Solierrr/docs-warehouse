@@ -12,7 +12,7 @@ https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/ban
 https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/<stack>.png
 ```
 
-Exemplo de README já montado: [`servicos/api-messenger.md`](../../servicos/api-messenger.md).
+Exemplo de README já montado: [`readme/services/api-messenger.md`](../../readme/services/api-messenger.md).
 
 ## Banners
 
@@ -47,7 +47,7 @@ Exemplo de README já montado: [`servicos/api-messenger.md`](../../servicos/api-
 | `markdown.png` | Markdown |
 | `claude.png` | Claude |
 | `sonarcloud.png` | SonarCloud, identificação a confirmar |
-| `bruno.png` | Bruno, usado na pasta `bruno/` de README reutilizável |
+| `bruno.png` | Bruno, usado na pasta `readme/bruno/` de README reutilizável |
 | `template.png` | Banner dos templates: hexágono com um quadrado translúcido no lugar do logo da stack |
 
 ## Ícones de stack
