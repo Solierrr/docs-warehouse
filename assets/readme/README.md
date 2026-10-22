@@ -8,8 +8,8 @@ Banners e ícones de stack para os READMEs e a documentação dos repositórios 
 Para usar em qualquer repositório, referencie o arquivo pelo link raw, que funciona porque o `docs-warehouse` é público:
 
 ```text
-https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/banners/<stack>.jpg
-https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/<stack>.jpg
+https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/banners/<stack>.png
+https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/<stack>.png
 ```
 
 Exemplo de README já montado: [`readmes/api-messenger`](../../readmes/api-messenger/README.md).
