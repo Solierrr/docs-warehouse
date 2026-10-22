@@ -1,38 +1,22 @@
-# Finalidade do repositório
-
-Texto de explicação do repositório. É esperado parágrafo único / parágrafos em português. Mínimo de 60 palavras.
-
-<p>
-
-[![License](https://img.shields.io/github/license/Solierrr/docs-warehouse)](https://github.com/Solierrr/docs-warehouse/blob/main/LICENSE)
-[![GitHub Last Commit](https://img.shields.io/github/last-commit/Solierrr/docs-warehouse)](https://github.com/Solierrr/docs-warehouse/commits)
-[![GitHub Issues](https://img.shields.io/github/issues/Solierrr/docs-warehouse)](https://github.com/Solierrr/docs-warehouse/issues)
-[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/docs-warehouse)](https://github.com/Solierrr/docs-warehouse/pulls)
-[![GitHub Contributors](https://img.shields.io/github/contributors/Solierrr/docs-warehouse)](https://github.com/Solierrr/docs-warehouse/graphs/contributors)
-[![Release](https://img.shields.io/github/v/release/Solierrr/docs-warehouse)](https://github.com/Solierrr/docs-warehouse/releases)
-
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/banners/{stack-principal}.png" alt="Solaria, {Stack principal}" width="100%">
 </p>
 
-<div align="center">
-
-<p>
-  <a href="https://github.com/syvixor/skills-icons">
-    <img src="https://skills.syvixor.com/api/icons?i=gcp,terraform,docker,kubernetes,argocd,powershell" height="48" alt="Cloud & Infrastructure">
-  </a>
+<!-- Ícones da stack: centralizados, sem texto, um <img> por tecnologia (width="64"), na ordem linguagem, framework, dados, API e testes, observabilidade, entrega. Nomes de arquivo em assets/readme/README.md. -->
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/{stack-1}.png" width="64" alt="{Stack 1}" title="{Stack 1}">
+  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/{stack-2}.png" width="64" alt="{Stack 2}" title="{Stack 2}">
+  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/{stack-3}.png" width="64" alt="{Stack 3}" title="{Stack 3}">
 </p>
 
-<p>
+# {Significado do serviço, no máximo 5 palavras, sem repetir o nome do repositório}
 
-[![Google Cloud](https://img.shields.io/badge/Google_Cloud-4285F4?logo=googlecloud&logoColor=white)](https://cloud.google.com/)
-[![Terraform](https://img.shields.io/badge/Terraform-844FBA?logo=terraform&logoColor=white)](https://www.terraform.io/)
-[![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
-[![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?logo=kubernetes&logoColor=white)](https://kubernetes.io/)
-[![Argo CD](https://img.shields.io/badge/Argo_CD-EF7B4D?logo=argo&logoColor=white)](https://argo-cd.readthedocs.io/)
-[![PowerShell](https://img.shields.io/badge/PowerShell-5391FE?logo=powershell&logoColor=white)](https://learn.microsoft.com/powershell/)
+[![License](https://img.shields.io/github/license/Solierrr/{repositorio})](https://github.com/Solierrr/{repositorio}/blob/main/LICENSE)
+[![GitHub Last Commit](https://img.shields.io/github/last-commit/Solierrr/{repositorio})](https://github.com/Solierrr/{repositorio}/commits)
+[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/{repositorio})](https://github.com/Solierrr/{repositorio}/pulls)
+[![Release](https://img.shields.io/github/v/release/Solierrr/{repositorio})](https://github.com/Solierrr/{repositorio}/releases)
 
-</p>
-
-</div>
+Texto de contexto do serviço em português, legível por quem não é da área técnica: o que o serviço faz, para quem e por que existe. Evite termos técnicos, siglas e nomes de rotas ou tabelas; esses detalhes ficam no `ARCHITECTURE.md`. Mínimo de 60 palavras.
 
 ## Aprofunde-se no Projeto!
 

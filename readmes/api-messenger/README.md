@@ -1,55 +1,28 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/banners/springboot.png" alt="Solaria api-messenger, Spring Boot" width="100%">
+  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/banners/springboot.png" alt="Solaria, Spring Boot" width="100%">
 </p>
 
-# api-messenger
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/java.png" width="64" alt="Java" title="Java">
+  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/springboot.png" width="64" alt="Spring Boot" title="Spring Boot">
+  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/spring-security.png" width="64" alt="Spring Security" title="Spring Security">
+  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/maven.png" width="64" alt="Maven" title="Maven">
+  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/mongodb.png" width="64" alt="MongoDB" title="MongoDB">
+  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/swagger.png" width="64" alt="Swagger" title="Swagger">
+  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/bruno.png" width="64" alt="Bruno" title="Bruno">
+  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/opentelemetry.png" width="64" alt="OpenTelemetry" title="OpenTelemetry">
+  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/docker.png" width="64" alt="Docker" title="Docker">
+  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/github-actions.png" width="64" alt="GitHub Actions" title="GitHub Actions">
+</p>
 
-O `api-messenger` é o serviço de mensageria da Solaria, responsável por armazenar e servir todo o histórico de conversas trocadas na plataforma — tanto conversas usuário-a-usuário quanto conversas usuário-a-chatbot atendidas pelo pipeline de LLM. O serviço modela conversas e mensagens sobre MongoDB, expõe endpoints protegidos por JWT de usuário (emitido pelo `api-auth`) para o fluxo humano, e uma rota interna autenticada por token de serviço M2M para que o pipeline de IA (`ai-assistant`) publique respostas do chatbot e registre observabilidade de cada chamada de LLM/ferramenta (tokens consumidos, latência, especialistas acionados). Também centraliza avaliações (ratings) de profissionais e produtos vinculadas às conversas.
-
-<p>
+# Central de mensagens da Solaria
 
 [![License](https://img.shields.io/github/license/Solierrr/api-messenger)](https://github.com/Solierrr/api-messenger/blob/main/LICENSE)
 [![GitHub Last Commit](https://img.shields.io/github/last-commit/Solierrr/api-messenger)](https://github.com/Solierrr/api-messenger/commits)
-[![GitHub Issues](https://img.shields.io/github/issues/Solierrr/api-messenger)](https://github.com/Solierrr/api-messenger/issues)
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/api-messenger)](https://github.com/Solierrr/api-messenger/pulls)
-[![GitHub Contributors](https://img.shields.io/github/contributors/Solierrr/api-messenger)](https://github.com/Solierrr/api-messenger/graphs/contributors)
 [![Release](https://img.shields.io/github/v/release/Solierrr/api-messenger)](https://github.com/Solierrr/api-messenger/releases)
 
-</p>
-
-## Stack
-
-<table align="center">
-  <tr>
-    <th align="left">Aplicação</th>
-    <td align="center" width="110"><img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/java.png" width="72" alt="Java"><br><sub>Java 21</sub></td>
-    <td align="center" width="110"><img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/springboot.png" width="72" alt="Spring Boot"><br><sub>Spring Boot</sub></td>
-    <td align="center" width="110"><img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/spring-security.png" width="72" alt="Spring Security"><br><sub>Spring Security</sub></td>
-    <td align="center" width="110"><img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/maven.png" width="72" alt="Maven"><br><sub>Maven</sub></td>
-  </tr>
-  <tr>
-    <th align="left">Dados</th>
-    <td align="center" width="110"><img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/mongodb.png" width="72" alt="MongoDB"><br><sub>MongoDB</sub></td>
-    <td colspan="3"></td>
-  </tr>
-  <tr>
-    <th align="left">API e testes</th>
-    <td align="center" width="110"><img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/swagger.png" width="72" alt="Swagger"><br><sub>Swagger</sub></td>
-    <td align="center" width="110"><img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/bruno.png" width="72" alt="Bruno"><br><sub>Bruno</sub></td>
-    <td colspan="2"></td>
-  </tr>
-  <tr>
-    <th align="left">Observabilidade</th>
-    <td align="center" width="110"><img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/opentelemetry.png" width="72" alt="OpenTelemetry"><br><sub>OpenTelemetry</sub></td>
-    <td colspan="3"></td>
-  </tr>
-  <tr>
-    <th align="left">Entrega</th>
-    <td align="center" width="110"><img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/docker.png" width="72" alt="Docker"><br><sub>Docker</sub></td>
-    <td align="center" width="110"><img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/github-actions.png" width="72" alt="GitHub Actions"><br><sub>GitHub Actions</sub></td>
-    <td colspan="2"></td>
-  </tr>
-</table>
+Este serviço guarda e entrega todas as conversas da Solaria. É por ele que clientes e profissionais trocam mensagens, e também onde ficam as conversas com o assistente virtual da plataforma. Ele registra cada mensagem enviada, mantém o histórico disponível para consulta a qualquer momento e reúne as avaliações que as pessoas fazem de profissionais e produtos depois de uma conversa. Os detalhes técnicos, como autenticação, rotas e organização dos dados, ficam na documentação de arquitetura.
 
 ## Aprofunde-se no Projeto!
 
