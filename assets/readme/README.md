@@ -5,6 +5,8 @@ Banners e ícones de stack para os READMEs e a documentação dos repositórios 
 - `banners/`, imagens 1858x740, em PNG com moldura branca e cantos transparentes, com o hexágono da Solaria ao lado do logo da stack principal. Vai no topo do README, escolhido pela stack principal do repositório.
 - `stacks/`, ícones quadrados de 300 px, em PNG com moldura branca e cantos transparentes, um por tecnologia. Vão numa linha centralizada logo abaixo do banner, sem texto, mostrados com `width="100" hspace="8"`.
 
+**Regra:** a linha de ícones nunca repete a stack do banner. Se o banner é FastAPI, o ícone do FastAPI não entra na linha; ela mostra só o restante da stack. Quando sobra só a stack do banner, a linha inteira é omitida.
+
 Para usar em qualquer repositório, referencie o arquivo pelo link raw, que funciona porque o `docs-warehouse` é público:
 
 ```text
@@ -19,8 +21,11 @@ Exemplo de README já montado: [`readme/services/api-messenger.md`](../../readme
 | Arquivo | Stack |
 |---|---|
 | `springboot.png` | Spring Boot |
+| `spring.png` | Spring Framework (a folha) |
 | `java.png` | Java |
 | `fastapi.png` | FastAPI |
+| `fastify.png` | Fastify |
+| `vite.png` | Vite |
 | `react.png` | React |
 | `html.png` | HTML5 |
 | `storybook.png` | Storybook |
@@ -46,7 +51,8 @@ Exemplo de README já montado: [`readme/services/api-messenger.md`](../../readme
 | `kotlin.png` | Kotlin |
 | `markdown.png` | Markdown |
 | `claude.png` | Claude |
-| `sonarcloud.png` | SonarCloud, identificação a confirmar |
+| `infisical.png` | Infisical, usado na documentação de segredos |
+| `langchain.png` | LangChain, usado na arquitetura dos serviços de IA |
 | `bruno.png` | Bruno, usado na pasta `readme/bruno/` de README reutilizável |
 | `template.png` | Banner dos templates: hexágono com um quadrado translúcido no lugar do logo da stack |
 
