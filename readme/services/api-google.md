@@ -21,22 +21,11 @@
 
 Este serviço é a porta de entrada da plataforma para as ferramentas do Google. Em vez de cada serviço guardar as próprias chaves e falar direto com o Google, todos pedem a ele. Hoje ele sugere e valida endereços, avalia se o telhado de um imóvel é bom para energia solar, traduz textos entre português, inglês e espanhol e informa o fuso horário de uma localização. Com isso, as chaves ficam em um só lugar e o restante da plataforma não precisa conhecer os detalhes de cada API do Google.
 
-## Status
-
-- **FastAPI**, arquitetura em camadas (`domain`/`application`/`infrastructure`/`api`), um módulo por capability.
-- **Sem estado**, o serviço só chama o Google (ou lê chaves do ambiente) conforme os parâmetros e devolve o resultado; quem chamou grava onde precisar.
-- **Capability `address`**, sugestão de endereço, detalhes por `place_id`, geocodificação (direta e reversa), validação e `resolve` (Places New, Geocoding e Address Validation).
-- **Capability `solar`**, viabilidade solar de um telhado via Solar API, incluindo os dados do painel de referência.
-- **Capability `i18n`**, detecção de idioma + tradução (Cloud Translation API) de campos de texto para os outros dois entre `en`/`es`/`pt`.
-- **Capability `geo`**, fuso horário por coordenada, calculado localmente.
-- **Autenticação**, JWT RS256 de usuário validado via JWKS do `api-auth` (`app/infrastructure/auth`); ainda não aplicado nos endpoints.
-- **Observabilidade**, logging/tracing/metrics via OpenTelemetry.
-- **Licença Apache 2.0**.
-
 ## Aprofunde-se no Projeto!
 
 - [ARCHITECTURE.md](https://github.com/Solierrr/api-google/blob/main/docs/ARCHITECTURE.md)
 - [RUNNING.md](https://github.com/Solierrr/api-google/blob/main/docs/RUNNING.md)
+- [STATUS.md](https://github.com/Solierrr/api-google/blob/main/docs/STATUS.md), capabilities disponíveis, autenticação e observabilidade.
 
 ## Contribuindo
 
