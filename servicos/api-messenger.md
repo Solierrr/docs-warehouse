@@ -25,7 +25,7 @@ Este serviço guarda e entrega todas as conversas da plataforma. É por ele que 
 
 - [ARCHITECTURE.md](https://github.com/Solierrr/api-messenger/blob/main/docs/ARCHITECTURE.md), camadas do serviço, modelagem no MongoDB, endpoints internos/públicos e árvore real do repositório.
 - [RUNNING.md](https://github.com/Solierrr/api-messenger/blob/main/docs/RUNNING.md), como subir este serviço localmente e impedimentos conhecidos.
-- [DEPLOYMENT.md](https://github.com/Solierrr/.github/blob/main/.github/DEPLOYMENT.md), pipeline de deploy padrão da organização (`main`/`qa`, Docker Hub, ArgoCD).
+- [DEPLOYMENT.md](https://github.com/Solierrr/docs-warehouse/blob/main/.github/DEPLOYMENT.md), pipeline de deploy padrão da organização (`main`/`qa`, Docker Hub, ArgoCD).
 - [`http/README.md`](https://github.com/Solierrr/api-messenger/blob/main/http/README.md), coleção Bruno para executar e manter as chamadas locais da API.
 
 ## Contribuindo
