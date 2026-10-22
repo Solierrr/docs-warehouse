@@ -2,8 +2,8 @@
 
 Banners e ícones de stack para os READMEs e a documentação dos repositórios da Solaria, na identidade visual do projeto (hexágono laranja da Solaria + logo da stack).
 
-- `banners/`, imagens 2063x1074 com o hexágono da Solaria ao lado do logo da stack principal. Vai no topo do README, escolhido pela stack principal do repositório.
-- `stacks/`, ícones quadrados de 565 px, um por tecnologia. Vão na seção `Stack`, mostrados com `width="72"`.
+- `banners/`, imagens 1798x809, sem sombra, com o hexágono da Solaria ao lado do logo da stack principal. Vai no topo do README, escolhido pela stack principal do repositório.
+- `stacks/`, ícones quadrados de 300 px, sem sombra, um por tecnologia. Vão na seção `Stack`, mostrados com `width="72"`.
 
 Para usar em qualquer repositório, referencie o arquivo pelo link raw, que funciona porque o `docs-warehouse` é público:
 
