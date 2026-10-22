@@ -2,8 +2,8 @@
 
 Banners e ícones de stack para os READMEs e a documentação dos repositórios da Solaria, na identidade visual do projeto (hexágono laranja da Solaria + logo da stack).
 
-- `banners/`, imagens 1798x809, sem sombra, com o hexágono da Solaria ao lado do logo da stack principal. Vai no topo do README, escolhido pela stack principal do repositório.
-- `stacks/`, ícones quadrados de 300 px, sem sombra, um por tecnologia. Vão na seção `Stack`, mostrados com `width="72"`.
+- `banners/`, imagens 1798x809, sem sombra, em PNG com cantos transparentes (hoje só `springboot` e `fastapi`; os demais ainda estão em JPG), com o hexágono da Solaria ao lado do logo da stack principal. Vai no topo do README, escolhido pela stack principal do repositório.
+- `stacks/`, ícones quadrados de 300 px, em PNG com fundo transparente, um por tecnologia. Vão na seção `Stack`, mostrados com `width="72"`.
 
 Para usar em qualquer repositório, referencie o arquivo pelo link raw, que funciona porque o `docs-warehouse` é público:
 
@@ -18,9 +18,9 @@ Exemplo de README já montado: [`readmes/api-messenger`](../../readmes/api-messe
 
 | Arquivo | Stack |
 |---|---|
-| `springboot.jpg` | Spring Boot |
+| `springboot.png` | Spring Boot |
 | `java.jpg` | Java |
-| `fastapi.jpg` | FastAPI |
+| `fastapi.png` | FastAPI |
 | `react.jpg` | React |
 | `html.jpg` | HTML5 |
 | `storybook.jpg` | Storybook |
@@ -53,43 +53,43 @@ Exemplo de README já montado: [`readmes/api-messenger`](../../readmes/api-messe
 
 | Arquivo | Stack |
 |---|---|
-| `java.jpg` | Java |
-| `kotlin.jpg` | Kotlin |
-| `python.jpg` | Python |
-| `typescript.jpg` | TypeScript |
-| `javascript.jpg` | JavaScript |
-| `springboot.jpg` | Spring Boot |
-| `spring-security.jpg` | Spring Security |
-| `fastapi.jpg` | FastAPI |
-| `fastify.jpg` | Fastify, identificação a confirmar |
-| `vite.jpg` | Vite |
-| `maven.jpg` | Maven, identificação a confirmar |
-| `gradle.jpg` | Gradle |
-| `tomcat.jpg` | Apache Tomcat |
-| `mongodb.jpg` | MongoDB |
-| `postgresql.jpg` | PostgreSQL |
-| `redis.jpg` | Redis |
-| `qdrant.jpg` | Qdrant |
-| `firebase.jpg` | Firebase |
-| `firestore.jpg` | Cloud Firestore, identificação a confirmar |
-| `docker.jpg` | Docker |
-| `kubernetes.jpg` | Kubernetes |
-| `gke.jpg` | Google Kubernetes Engine, identificação a confirmar |
-| `gcp.jpg` | Google Cloud |
-| `cloudflare.jpg` | Cloudflare |
-| `render.jpg` | Render |
-| `github-actions.jpg` | GitHub Actions |
-| `infisical.jpg` | Infisical |
-| `opentelemetry.jpg` | OpenTelemetry |
-| `storybook.jpg` | Storybook |
-| `swagger.jpg` | Swagger |
-| `bruno.jpg` | Bruno |
-| `api.jpg` | API genérica |
-| `android.jpg` | Android |
-| `cloudinary.jpg` | Cloudinary |
-| `google-calendar.jpg` | Google Calendar |
-| `google-maps.jpg` | Google Maps |
-| `google-translate.jpg` | Google Translate |
-| `gemini.jpg` | Gemini |
-| `openai.jpg` | OpenAI |
-| `groq.jpg` | Groq, identificação a confirmar |
+| `java.png` | Java |
+| `kotlin.png` | Kotlin |
+| `python.png` | Python |
+| `typescript.png` | TypeScript |
+| `javascript.png` | JavaScript |
+| `springboot.png` | Spring Boot |
+| `spring-security.png` | Spring Security |
+| `fastapi.png` | FastAPI |
+| `fastify.png` | Fastify, identificação a confirmar |
+| `vite.png` | Vite |
+| `maven.png` | Maven, identificação a confirmar |
+| `gradle.png` | Gradle |
+| `tomcat.png` | Apache Tomcat |
+| `mongodb.png` | MongoDB |
+| `postgresql.png` | PostgreSQL |
+| `redis.png` | Redis |
+| `qdrant.png` | Qdrant |
+| `firebase.png` | Firebase |
+| `firestore.png` | Cloud Firestore, identificação a confirmar |
+| `docker.png` | Docker |
+| `kubernetes.png` | Kubernetes |
+| `gke.png` | Google Kubernetes Engine, identificação a confirmar |
+| `gcp.png` | Google Cloud |
+| `cloudflare.png` | Cloudflare |
+| `render.png` | Render |
+| `github-actions.png` | GitHub Actions |
+| `infisical.png` | Infisical |
+| `opentelemetry.png` | OpenTelemetry |
+| `storybook.png` | Storybook |
+| `swagger.png` | Swagger |
+| `bruno.png` | Bruno |
+| `api.png` | API genérica |
+| `android.png` | Android |
+| `cloudinary.png` | Cloudinary |
+| `google-calendar.png` | Google Calendar |
+| `google-maps.png` | Google Maps |
+| `google-translate.png` | Google Translate |
+| `gemini.png` | Gemini |
+| `openai.png` | OpenAI |
+| `groq.png` | Groq, identificação a confirmar |

@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/banners/springboot.jpg" alt="Solaria api-messenger, Spring Boot" width="100%">
+  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/banners/springboot.png" alt="Solaria api-messenger, Spring Boot" width="100%">
 </p>
 
 # api-messenger
@@ -22,31 +22,31 @@ O `api-messenger` é o serviço de mensageria da Solaria, responsável por armaz
 <table align="center">
   <tr>
     <th align="left">Aplicação</th>
-    <td align="center" width="110"><img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/java.jpg" width="72" alt="Java"><br><sub>Java 21</sub></td>
-    <td align="center" width="110"><img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/springboot.jpg" width="72" alt="Spring Boot"><br><sub>Spring Boot</sub></td>
-    <td align="center" width="110"><img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/spring-security.jpg" width="72" alt="Spring Security"><br><sub>Spring Security</sub></td>
-    <td align="center" width="110"><img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/maven.jpg" width="72" alt="Maven"><br><sub>Maven</sub></td>
+    <td align="center" width="110"><img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/java.png" width="72" alt="Java"><br><sub>Java 21</sub></td>
+    <td align="center" width="110"><img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/springboot.png" width="72" alt="Spring Boot"><br><sub>Spring Boot</sub></td>
+    <td align="center" width="110"><img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/spring-security.png" width="72" alt="Spring Security"><br><sub>Spring Security</sub></td>
+    <td align="center" width="110"><img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/maven.png" width="72" alt="Maven"><br><sub>Maven</sub></td>
   </tr>
   <tr>
     <th align="left">Dados</th>
-    <td align="center" width="110"><img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/mongodb.jpg" width="72" alt="MongoDB"><br><sub>MongoDB</sub></td>
+    <td align="center" width="110"><img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/mongodb.png" width="72" alt="MongoDB"><br><sub>MongoDB</sub></td>
     <td colspan="3"></td>
   </tr>
   <tr>
     <th align="left">API e testes</th>
-    <td align="center" width="110"><img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/swagger.jpg" width="72" alt="Swagger"><br><sub>Swagger</sub></td>
-    <td align="center" width="110"><img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/bruno.jpg" width="72" alt="Bruno"><br><sub>Bruno</sub></td>
+    <td align="center" width="110"><img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/swagger.png" width="72" alt="Swagger"><br><sub>Swagger</sub></td>
+    <td align="center" width="110"><img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/bruno.png" width="72" alt="Bruno"><br><sub>Bruno</sub></td>
     <td colspan="2"></td>
   </tr>
   <tr>
     <th align="left">Observabilidade</th>
-    <td align="center" width="110"><img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/opentelemetry.jpg" width="72" alt="OpenTelemetry"><br><sub>OpenTelemetry</sub></td>
+    <td align="center" width="110"><img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/opentelemetry.png" width="72" alt="OpenTelemetry"><br><sub>OpenTelemetry</sub></td>
     <td colspan="3"></td>
   </tr>
   <tr>
     <th align="left">Entrega</th>
-    <td align="center" width="110"><img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/docker.jpg" width="72" alt="Docker"><br><sub>Docker</sub></td>
-    <td align="center" width="110"><img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/github-actions.jpg" width="72" alt="GitHub Actions"><br><sub>GitHub Actions</sub></td>
+    <td align="center" width="110"><img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/docker.png" width="72" alt="Docker"><br><sub>Docker</sub></td>
+    <td align="center" width="110"><img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/github-actions.png" width="72" alt="GitHub Actions"><br><sub>GitHub Actions</sub></td>
     <td colspan="2"></td>
   </tr>
 </table>
