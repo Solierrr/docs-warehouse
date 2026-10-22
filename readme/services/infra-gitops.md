@@ -17,13 +17,12 @@
 
 Este repositório descreve como cada serviço da plataforma deve estar rodando no cluster de nuvem. Em vez de alguém aplicar mudanças à mão, o estado desejado fica registrado aqui e uma ferramenta de entrega contínua mantém o cluster sempre igual ao que está escrito. Para publicar um serviço novo basta adicionar um arquivo; para mudar um serviço, basta alterar o arquivo, e a mudança é aplicada automaticamente. Os detalhes de organização das pastas ficam na documentação de arquitetura.
 
-Cada `Application` sob `apps/` (por exemplo `api-core.yaml`, `api-auth.yaml`, `web-app.yaml`) referencia um caminho da pasta `services/` deste mesmo repositório, onde ficam o `Deployment`, o `Service` e (quando exposto externamente) o `Ingress` daquele serviço. O ArgoCD sincroniza automaticamente qualquer divergência entre o que está em `services/<app>` e o estado real do cluster, com `prune` e `selfHeal` habilitados — ou seja, um merge em `main` já é o deploy.
-
 ## Aprofunde-se no Projeto!
 
 - [ARCHITECTURE.md](https://github.com/Solierrr/infra-gitops/blob/main/docs/ARCHITECTURE.md), estrutura de pastas e o padrão app-of-apps em detalhe.
 - [RUNNING.md](https://github.com/Solierrr/infra-gitops/blob/main/docs/RUNNING.md), como validar um manifesto localmente antes de abrir Pull Request.
 - [DEPLOYMENT.md]({a confirmar}), pipeline de deploy da organização (ver [docs-warehouse/.github/DEPLOYMENT.md](https://github.com/Solierrr/docs-warehouse/blob/main/.github/DEPLOYMENT.md)).
+- [HOW_IT_WORKS.md](https://github.com/Solierrr/infra-gitops/blob/main/docs/HOW_IT_WORKS.md), como as aplicações do ArgoCD apontam para os serviços.
 
 ## Contribuindo
 
