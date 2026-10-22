@@ -47,7 +47,8 @@ Exemplo de README já montado: [`servicos/api-messenger.md`](../../servicos/api-
 | `markdown.png` | Markdown |
 | `claude.png` | Claude |
 | `sonarcloud.png` | SonarCloud, identificação a confirmar |
-| `desconhecido-borrado.png` | Imagem borrada, sem logo legível; precisa ser regerada |
+| `bruno.png` | Bruno, usado na pasta `bruno/` de README reutilizável |
+| `template.png` | Banner dos templates: hexágono com um quadrado translúcido no lugar do logo da stack |
 
 ## Ícones de stack
 
