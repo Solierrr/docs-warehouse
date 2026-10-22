@@ -2,7 +2,7 @@
 
 Banners e ícones de stack para os READMEs e a documentação dos repositórios da Solaria, na identidade visual do projeto (hexágono laranja da Solaria + logo da stack).
 
-- `banners/`, imagens 1798x809, sem sombra, em PNG com cantos transparentes (hoje só `springboot` e `fastapi`; os demais ainda estão em JPG), com o hexágono da Solaria ao lado do logo da stack principal. Vai no topo do README, escolhido pela stack principal do repositório.
+- `banners/`, imagens 1798x809, sem sombra, em PNG com cantos transparentes, com o hexágono da Solaria ao lado do logo da stack principal. Vai no topo do README, escolhido pela stack principal do repositório.
 - `stacks/`, ícones quadrados de 300 px, em PNG com fundo transparente, um por tecnologia. Vão na seção `Stack`, mostrados com `width="72"`.
 
 Para usar em qualquer repositório, referencie o arquivo pelo link raw, que funciona porque o `docs-warehouse` é público:
@@ -19,35 +19,35 @@ Exemplo de README já montado: [`readmes/api-messenger`](../../readmes/api-messe
 | Arquivo | Stack |
 |---|---|
 | `springboot.png` | Spring Boot |
-| `java.jpg` | Java |
+| `java.png` | Java |
 | `fastapi.png` | FastAPI |
-| `react.jpg` | React |
-| `html.jpg` | HTML5 |
-| `storybook.jpg` | Storybook |
-| `swagger.jpg` | Swagger |
-| `google.jpg` | Google |
-| `cloudflare-workers.jpg` | Cloudflare Workers |
-| `render.jpg` | Render |
-| `terraform.jpg` | Terraform |
-| `argocd.jpg` | Argo CD |
-| `kong.jpg` | Kong |
-| `grafana.jpg` | Grafana |
-| `k6.jpg` | k6 |
-| `rabbitmq.jpg` | RabbitMQ |
-| `postgresql.jpg` | PostgreSQL |
-| `neo4j.jpg` | Neo4j |
-| `databricks.jpg` | Databricks |
-| `cloudinary.jpg` | Cloudinary |
-| `github-actions.jpg` | GitHub Actions |
-| `github.jpg` | GitHub |
-| `docker.jpg` | Docker |
-| `npm.jpg` | npm |
-| `pypi.jpg` | PyPI |
-| `kotlin.jpg` | Kotlin |
-| `markdown.jpg` | Markdown |
-| `claude.jpg` | Claude |
-| `sonarcloud.jpg` | SonarCloud, identificação a confirmar |
-| `desconhecido-borrado.jpg` | Imagem borrada, sem logo legível; precisa ser regerada |
+| `react.png` | React |
+| `html.png` | HTML5 |
+| `storybook.png` | Storybook |
+| `swagger.png` | Swagger |
+| `google.png` | Google |
+| `cloudflare-workers.png` | Cloudflare Workers |
+| `render.png` | Render |
+| `terraform.png` | Terraform |
+| `argocd.png` | Argo CD |
+| `kong.png` | Kong |
+| `grafana.png` | Grafana |
+| `k6.png` | k6 |
+| `rabbitmq.png` | RabbitMQ |
+| `postgresql.png` | PostgreSQL |
+| `neo4j.png` | Neo4j |
+| `databricks.png` | Databricks |
+| `cloudinary.png` | Cloudinary |
+| `github-actions.png` | GitHub Actions |
+| `github.png` | GitHub |
+| `docker.png` | Docker |
+| `npm.png` | npm |
+| `pypi.png` | PyPI |
+| `kotlin.png` | Kotlin |
+| `markdown.png` | Markdown |
+| `claude.png` | Claude |
+| `sonarcloud.png` | SonarCloud, identificação a confirmar |
+| `desconhecido-borrado.png` | Imagem borrada, sem logo legível; precisa ser regerada |
 
 ## Ícones de stack
 
