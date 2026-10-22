@@ -17,42 +17,13 @@
 
 Este repositório guarda a configuração do gateway da plataforma, a porta de entrada por onde chegam as requisições aos serviços. Há dois ambientes: em produção, o gateway roda dentro do cluster de nuvem; no ambiente de testes, que não tem cluster, ele oferece um endereço único e direciona cada requisição ao serviço certo pelo caminho, no mesmo formato de produção. Assim quem usa os serviços não precisa saber onde cada um está hospedado.
 
-| Ambiente | Onde roda | Arquivos |
-|---|---|---|
-| Produção | Kong como ingress do cluster GKE, instalado pelo `infra-platform` com o Helm chart `kong/ingress` | `helm/` |
-| QA | Kong em modo DB-less, como Web Service Docker no Render | `Dockerfile`, `kong/kong.qa.yml` |
+## Aprofunde-se no Projeto!
 
-## QA
+- [qa-render.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/qa-render.md), deploy de QA no Render.
+- [ENVIRONMENTS.md](https://github.com/Solierrr/infra-gateway/blob/main/docs/ENVIRONMENTS.md), como o gateway roda em QA e em produção.
 
-O QA não tem cluster: cada serviço roda no Render com a própria URL pública. O Kong de QA dá um ponto de entrada único, no mesmo formato de produção, com roteamento por caminho:
+## Contribuindo
 
-```text
-https://<url do gateway no Render>/api-core/...        ->  https://api-core-cqfn.onrender.com/...
-https://<url do gateway no Render>/api-auth/...        ->  https://api-auth-xw6o.onrender.com/...
-```
-
-- `kong/kong.qa.yml` é a configuração declarativa: um serviço e uma rota por API de QA (`/<nome do serviço>`, com o prefixo removido antes de chegar ao serviço), a rota `/health` do próprio gateway e o plugin `correlation-id` (cabeçalho `X-Request-Id`).
-- O modo DB-less não usa banco: o Kong lê o arquivo na subida e não tem Admin API (`KONG_ADMIN_LISTEN=off`). Para mudar uma rota, edite o arquivo; o Render refaz o deploy.
-- O `Dockerfile` usa `kong:3.9.3`, copia o arquivo e o `docker-cmd.sh` faz o Kong escutar na porta 8000 e em `$PORT` (10000 por padrão, a porta que o Render usa).
-- O serviço dorme no free tier após alguns minutos sem tráfego. O primeiro acesso pode levar cerca de 30 segundos.
-
-Para testar localmente:
-
-```bash
-docker build -t kong-qa .
-docker run --rm -p 8000:8000 kong-qa
-curl localhost:8000/health
-curl localhost:8000/api-recommendation/health/live
-```
-
-Para validar a configuração sem subir o Kong:
-
-```bash
-docker run --rm -v "$PWD/kong:/kong" -e KONG_DATABASE=off kong:3.9.3 kong config parse /kong/kong.qa.yml
-```
-
-Ao criar um serviço novo no Render, acrescente o par `services` e `routes` correspondente em `kong/kong.qa.yml`.
-
-## Produção
-
-Os valores do Helm estão em `helm/` (`values-base.yaml`, `values-dev.yaml` e `values-prod.yaml`), lidos pelo Terraform do `infra-platform`. O Kong de produção também é DB-less e roteia por host (`<serviço>.solarianetwork.site`), a partir dos `Ingress` do `infra-gitops`.
+- [CONTRIBUTING.md](https://github.com/Solierrr/.github/blob/main/.github/CONTRIBUTING.md), convenções de commit, branch e Pull Request.
+- [CODE_OF_CONDUCT.md](https://github.com/Solierrr/.github/blob/main/CODE_OF_CONDUCT.md), código de conduta do projeto.
+- [SECURITY.md](https://github.com/Solierrr/.github/blob/main/SECURITY.md), como reportar vulnerabilidades de segurança.
