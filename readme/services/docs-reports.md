@@ -9,37 +9,15 @@
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/docs-reports)](https://github.com/Solierrr/docs-reports/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/docs-reports)](https://github.com/Solierrr/docs-reports/releases)
 
-Este repositório produz relatórios, documentos e manuais de instrução em HTML, escritos com a ajuda de agentes de inteligência artificial. Os modelos já trazem a identidade visual da plataforma, e o agente só precisa escrever o conteúdo por cima. Assim os documentos saem padronizados e prontos para compartilhar. As instruções de uso e a organização das pastas estão nas seções abaixo.
+Este repositório produz relatórios, documentos e manuais de instrução em HTML, escritos com a ajuda de agentes de inteligência artificial. Os modelos já trazem a identidade visual da plataforma, e o agente só precisa escrever o conteúdo por cima. Assim os documentos saem padronizados e prontos para compartilhar. As instruções de uso e a organização das pastas estão nos documentos da seção Aprofunde-se.
 
-## Detalhes técnicos
+## Aprofunde-se no Projeto!
 
-Repositório para produzir **relatórios, documentos e manuais de instrução da plataforma em HTML**, com agentes de IA. Os modelos já trazem a identidade visual; o agente escreve o conteúdo por cima.
+- [USAGE.md](https://github.com/Solierrr/docs-reports/blob/main/docs/USAGE.md), como gerar um documento e como as pastas se organizam.
+- [WORKFLOW.md](https://github.com/Solierrr/docs-reports/blob/main/docs/WORKFLOW.md), convenções de commit e licença.
 
-## Como usar
+## Contribuindo
 
-1. Abra uma sessão de um assistente de IA (Claude Code, Gemini, Codex...) na raiz do repositório. Ele lê o [AGENTS.md](https://github.com/Solierrr/docs-reports/blob/main/AGENTS.md) e assume o papel de orquestrador.
-2. Diga o que precisa: um relatório, um manual ou um documento. O orquestrador conduz uma entrevista (grilling) e grava uma especificação.
-3. **Aprove a especificação.** Nada é gerado antes disso.
-4. O orquestrador despacha os agentes (pesquisa, redação, diagramação) e uma revisão independente, e repete até aprovar ou atingir 3 ciclos.
-5. O resultado fica em `documents/<nome>/<nome>.html`.
-
-## Estrutura
-
-| Caminho | Conteúdo |
-| --- | --- |
-| [AGENTS.md](https://github.com/Solierrr/docs-reports/blob/main/AGENTS.md) | Fonte única de instruções. `CLAUDE.md` e `GEMINI.md` apontam para ele |
-| [.claude/agents/](https://github.com/Solierrr/docs-reports/tree/main/.claude/agents) | Agentes: orquestrador, pesquisador, redator, diagramador e revisor, com suas personas (lentes) |
-| [.claude/skills/grilling/](https://github.com/Solierrr/docs-reports/blob/main/.claude/skills/grilling/SKILL.md) | Skill obrigatória de entrevista antes de gerar |
-| [templates/](https://github.com/Solierrr/docs-reports/blob/main/templates/README.md) | `report.html`, `manual.html` e `document.html` com identidade e espaços `data-slot` |
-| [design-system/](https://github.com/Solierrr/docs-reports/blob/main/design-system/README.md) | Identidade plataforma: tokens, logos, fontes, diretrizes |
-| [editorial.md](https://github.com/Solierrr/docs-reports/blob/main/editorial.md) | Convenções editoriais |
-| [documents/](https://github.com/Solierrr/docs-reports/blob/main/documents/README.md) | Entregáveis |
-| `.runs/<nome>/` | Trabalho local ignorado pelo Git |
-
-Não há aplicação, build, workflow nem dependências. HTML e PDF (sob pedido, pela impressão do navegador) em A4 retrato; o PDF não é o entregável padrão.
-
-## Contribuição e licença
-
-Commits em inglês, minúsculos, no formato `tipo: descrição`, sem escopo entre parênteses. Publicar a branch; abrir PR e mergear somente quando solicitado. Não versionar `.runs/`, credenciais ou registros intermediários. Neste repositório os arquivos de configuração de IA (`AGENTS.md`, `.claude/agents/`, skills) são versionados de propósito.
-
-Licença: [CC0 1.0 Universal](https://github.com/Solierrr/docs-reports/blob/main/LICENSE).
+- [CONTRIBUTING.md](https://github.com/Solierrr/.github/blob/main/.github/CONTRIBUTING.md), convenções de commit, branch e Pull Request.
+- [CODE_OF_CONDUCT.md](https://github.com/Solierrr/.github/blob/main/CODE_OF_CONDUCT.md), código de conduta do projeto.
+- [SECURITY.md](https://github.com/Solierrr/.github/blob/main/SECURITY.md), como reportar vulnerabilidades de segurança.
