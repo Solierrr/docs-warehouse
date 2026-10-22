@@ -2,6 +2,6 @@
   <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/banners/bruno.png" alt="Bruno" width="100%">
 </p>
 
-# Bruno collection
+# Coleção Bruno
 
-Reusable README. Under construction: waiting for the standard for this type of document.
+README reutilizável. Em construção: o padrão deste tipo de documento ainda será montado.

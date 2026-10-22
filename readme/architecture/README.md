@@ -1,3 +1,3 @@
-# Architecture document
+# Documento de arquitetura
 
-Reusable README. Under construction: waiting for the banner to build the standard for this type of document.
+README reutilizável. Em construção: aguardando o banner para montar o padrão deste tipo de documento.

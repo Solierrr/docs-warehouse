@@ -1,3 +1,3 @@
-# Running the project
+# Como rodar o projeto
 
-Reusable README. Under construction: waiting for the banner to build the standard for this type of document.
+README reutilizável. Em construção: aguardando o banner para montar o padrão deste tipo de documento.
