@@ -3,7 +3,6 @@
 </p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/kotlin.png" width="100" hspace="8" alt="Kotlin" title="Kotlin">
   <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/android.png" width="100" hspace="8" alt="Android" title="Android">
   <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/gradle.png" width="100" hspace="8" alt="Gradle" title="Gradle">
   <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/firebase.png" width="100" hspace="8" alt="Firebase" title="Firebase">

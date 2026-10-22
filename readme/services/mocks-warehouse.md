@@ -2,10 +2,6 @@
   <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/banners/cloudinary.png" alt="Cloudinary" width="100%">
 </p>
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/cloudinary.png" width="100" hspace="8" alt="Cloudinary" title="Cloudinary">
-</p>
-
 # Acervo de imagens de exemplo
 
 [![License](https://img.shields.io/github/license/Solierrr/mocks-warehouse)](https://github.com/Solierrr/mocks-warehouse/blob/main/LICENSE)

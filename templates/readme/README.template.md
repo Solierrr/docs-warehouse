@@ -2,7 +2,7 @@
   <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/banners/{stack-principal}.png" alt="{Stack principal}" width="100%">
 </p>
 
-<!-- Ícones da stack: centralizados, sem texto, um <img> por tecnologia (width="100" hspace="8", o `hspace` é o único jeito de espaçar, porque o GitHub remove `style`), na ordem linguagem, framework, dados, API e testes, observabilidade, entrega. Todo repositório `api-` leva os ícones swagger e bruno. Docker, GitHub Actions e OpenTelemetry só em repositório `infra-`. Nomes de arquivo em assets/readme/README.md. -->
+<!-- Ícones da stack: nunca repetem a stack do banner (banner FastAPI, sem ícone do FastAPI na linha; se não sobrar nada, omita o bloco). Centralizados, sem texto, um <img> por tecnologia (width="100" hspace="8", o `hspace` é o único jeito de espaçar, porque o GitHub remove `style`), na ordem linguagem, framework, dados, API e testes, observabilidade, entrega. Todo repositório `api-` leva os ícones swagger e bruno. Docker, GitHub Actions e OpenTelemetry só em repositório `infra-`. Nomes de arquivo em assets/readme/README.md. -->
 <p align="center">
   <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/{stack-1}.png" width="100" hspace="8" alt="{Stack 1}" title="{Stack 1}">
   <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/{stack-2}.png" width="100" hspace="8" alt="{Stack 2}" title="{Stack 2}">
