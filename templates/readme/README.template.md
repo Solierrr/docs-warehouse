@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/banners/{stack-principal}.png" alt="Solaria, {Stack principal}" width="100%">
+  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/banners/{stack-principal}.png" alt="{Stack principal}" width="100%">
 </p>
 
 <!-- Ícones da stack: centralizados, sem texto, um <img> por tecnologia (width="64"), na ordem linguagem, framework, dados, API e testes, observabilidade, entrega. Nomes de arquivo em assets/readme/README.md. -->
@@ -16,7 +16,7 @@
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/{repositorio})](https://github.com/Solierrr/{repositorio}/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/{repositorio})](https://github.com/Solierrr/{repositorio}/releases)
 
-Texto de contexto do serviço em português, legível por quem não é da área técnica: o que o serviço faz, para quem e por que existe. Evite termos técnicos, siglas e nomes de rotas ou tabelas; esses detalhes ficam no `ARCHITECTURE.md`. Mínimo de 60 palavras.
+Texto de contexto do serviço em português, legível por quem não é da área técnica: o que o serviço faz, para quem e por que existe. Evite termos técnicos, siglas e nomes de rotas ou tabelas, e nunca escreva o nome do projeto nem da organização (use "o projeto", "a plataforma", "a organização" ou "o repositório"); esses detalhes ficam no `ARCHITECTURE.md`. Mínimo de 60 palavras.
 
 ## Aprofunde-se no Projeto!
 
