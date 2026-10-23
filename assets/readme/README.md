@@ -103,3 +103,12 @@ Exemplo de README já montado: [`readme/services/api-messenger/README.md`](../..
 | `gemini.png` | Gemini |
 | `openai.png` | OpenAI |
 | `groq.png` | Groq, identificação a confirmar |
+| `tailwind.png` | Tailwind CSS |
+| `jwt.png` | JWT |
+| `pydantic.png` | Pydantic |
+| `nginx.png` | Nginx |
+| `helm.png` | Helm |
+| `kubernetes-service.png` | Kubernetes, recurso Service |
+| `kubernetes-pod.png` | Kubernetes, recurso Pod |
+| `kubernetes-deployment.png` | Kubernetes, recurso Deployment |
+| `kubernetes-secret.png` | Kubernetes, recurso Secret |
