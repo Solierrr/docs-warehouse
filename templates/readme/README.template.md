@@ -16,7 +16,7 @@
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/{repositorio})](https://github.com/Solierrr/{repositorio}/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/{repositorio})](https://github.com/Solierrr/{repositorio}/releases)
 
-<!-- Contexto: um ou dois parágrafos formais, em português, para quem não conhece o projeto: o que o repositório faz, para quem e por que existe. Mínimo de 60 palavras. Sem rotas, endpoints, nomes de arquivos, tabelas ou siglas internas; sem tom de suspense ou promessa; descreva o que existe hoje. Nunca escreva o nome do projeto nem da organização (use "o projeto", "a plataforma", "a organização" ou "o repositório"). Não mencione a seção "Aprofunde-se" no texto. -->
+<!-- Contexto: um ou dois parágrafos formais, em português, para quem não conhece o projeto: o que o repositório faz, para quem e por que existe. Mínimo de 60 palavras. Sem rotas, endpoints, nomes de arquivos, tabelas ou siglas internas; sem tom de suspense ou promessa; descreva o que existe hoje. Nunca escreva o nome do projeto nem da organização (use "o projeto", "a plataforma", "a organização" ou "o repositório"). Não mencione a seção "Aprofunde-se" no texto. Evite dois-pontos e ponto e vírgula, prefira frases curtas com ponto final. -->
 {Parágrafo de contexto.}
 
 ## Aprofunde-se no Projeto!
