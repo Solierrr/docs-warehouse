@@ -10,7 +10,7 @@
 
 # Publicação de pacotes
 
-README reutilizável. Bibliotecas não são implantadas: elas são publicadas num registro de pacotes e os outros repositórios as instalam por versão. Não há `Dockerfile`, imagem nem ambiente de QA. O deploy aqui é a **release**.
+Bibliotecas não são implantadas: elas são publicadas num registro de pacotes e os outros repositórios as instalam por versão. Não há `Dockerfile`, imagem nem ambiente de QA. O deploy aqui é a **release**.
 
 | Biblioteca | Registro | Workflow |
 |---|---|---|

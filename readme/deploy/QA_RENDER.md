@@ -10,7 +10,7 @@
 
 # Deploy de QA no Render
 
-README reutilizável. O ambiente de QA roda no [Render](https://render.com) e é atualizado sozinho a cada commit na branch `qa`. Não há passo manual: quem sobe o commit já está fazendo o deploy. Serve para validar uma versão antes que ela siga para a produção.
+O ambiente de QA roda no [Render](https://render.com) e é atualizado sozinho a cada commit na branch `qa`. Não há passo manual: quem sobe o commit já está fazendo o deploy. Serve para validar uma versão antes que ela siga para a produção.
 
 ## Como funciona
 

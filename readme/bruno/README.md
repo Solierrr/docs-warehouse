@@ -9,7 +9,7 @@
 
 # Coleção Bruno
 
-README reutilizável. Todo repositório `api-` tem uma pasta `http/` com uma coleção do [Bruno](https://www.usebruno.com), um cliente HTTP que guarda as chamadas como arquivos de texto no próprio repositório. Ela serve para executar à mão as chamadas da API local, revisá-las em Pull Request e mantê-las junto do código. Não substitui testes automatizados nem a especificação OpenAPI (o Swagger).
+Todo repositório `api-` tem uma pasta `http/` com uma coleção do [Bruno](https://www.usebruno.com), um cliente HTTP que guarda as chamadas como arquivos de texto no próprio repositório. Ela serve para executar à mão as chamadas da API local, revisá-las em Pull Request e mantê-las junto do código. Não substitui testes automatizados nem a especificação OpenAPI (o Swagger).
 
 ## Como usar
 

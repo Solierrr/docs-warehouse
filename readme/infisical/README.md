@@ -10,7 +10,7 @@
 
 # Segredos e variáveis de ambiente
 
-README reutilizável. Explica onde ficam os segredos da plataforma, quem os lê em cada ambiente e como um repositório novo passa a usá-los. A ferramenta é o [Infisical](https://infisical.com), um cofre de segredos com plano gratuito. Como o cluster de produção é efêmero (sobe e desce conforme o custo), os segredos não podem morar dentro dele nem em arquivos versionados: eles ficam num cofre externo e cada ambiente os recebe do seu jeito.
+Explica onde ficam os segredos da plataforma, quem os lê em cada ambiente e como um repositório novo passa a usá-los. A ferramenta é o [Infisical](https://infisical.com), um cofre de segredos com plano gratuito. Como o cluster de produção é efêmero (sobe e desce conforme o custo), os segredos não podem morar dentro dele nem em arquivos versionados: eles ficam num cofre externo e cada ambiente os recebe do seu jeito.
 
 ## Como o cofre está organizado
 

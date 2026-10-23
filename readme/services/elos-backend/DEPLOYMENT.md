@@ -33,4 +33,4 @@ Antes de publicar qualquer imagem:
 
 ## Para entrar no padrão da organização
 
-Ver os documentos de deploy reutilizáveis: [QA no Render](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/QA_RENDER.md) e [produção no GKE](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/PROD_GKE_ARGOCD.md). Isso exigiria, no mínimo, os workflows de CI e de release, a branch `qa` e a leitura das credenciais por variáveis de ambiente.
+Ver os documentos de deploy da organização: [QA no Render](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/QA_RENDER.md) e [produção no GKE](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/PROD_GKE_ARGOCD.md). Isso exigiria, no mínimo, os workflows de CI e de release, a branch `qa` e a leitura das credenciais por variáveis de ambiente.

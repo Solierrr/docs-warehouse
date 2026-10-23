@@ -13,7 +13,7 @@
 
 # Deploy de produção no GKE com ArgoCD
 
-README reutilizável. A produção roda num cluster Kubernetes no Google Cloud (GKE) e é atualizada pelo [ArgoCD](https://argoproj.github.io/cd/): o merge na `main` publica a imagem e o ArgoCD sincroniza o cluster com a versão nova, sem intervenção manual. O cluster é efêmero para controlar custo, então o primeiro passo é saber se ele está no ar.
+A produção roda num cluster Kubernetes no Google Cloud (GKE) e é atualizada pelo [ArgoCD](https://argoproj.github.io/cd/): o merge na `main` publica a imagem e o ArgoCD sincroniza o cluster com a versão nova, sem intervenção manual. O cluster é efêmero para controlar custo, então o primeiro passo é saber se ele está no ar.
 
 ## Pipeline
 
