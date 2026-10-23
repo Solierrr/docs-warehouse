@@ -14,7 +14,7 @@ https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/ban
 https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/<stack>.png
 ```
 
-Exemplo de README já montado: [`readme/services/api-messenger.md`](../../readme/services/api-messenger.md).
+Exemplo de README já montado: [`readme/services/api-messenger/README.md`](../../readme/services/api-messenger/README.md).
 
 ## Banners
 
