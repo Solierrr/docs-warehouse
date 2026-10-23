@@ -15,7 +15,16 @@
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/api-email)](https://github.com/Solierrr/api-email/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/api-email)](https://github.com/Solierrr/api-email/releases)
 
-Este serviço envia os e-mails automáticos da plataforma, como a confirmação de cadastro, a redefinição de senha e os convites para empresas e projetos. Os outros serviços pedem o envio a ele, que monta a mensagem pronta, no idioma certo, e a entrega ao servidor de e-mail. Também é possível ver uma prévia da mensagem antes de enviar. Ele não guarda histórico nem tenta reenviar por conta própria, então o aceite do servidor de e-mail não garante que a mensagem chegou à caixa de entrada de quem a recebe. As rotas e os modelos de mensagem estão descritos nos documentos da seção Aprofunde-se.
+Este serviço envia os e-mails automáticos da plataforma, como a confirmação de cadastro, a redefinição de senha e os convites para empresas e projetos. Os outros serviços solicitam o envio, e ele monta a mensagem no idioma correto e a entrega ao servidor de e-mail. Também permite visualizar a mensagem antes do envio. O serviço não mantém histórico nem faz novas tentativas por conta própria; por isso, a confirmação do servidor de e-mail não garante a entrega na caixa de entrada.
+
+## Ficha técnica
+
+- **Tipo:** serviço HTTP interno.
+- **Stack:** TypeScript, Node.js e Fastify.
+- **Modelos de mensagem:** React Email.
+- **Envio:** SMTP com Nodemailer.
+- **Dados:** não armazena mensagens.
+- **Ambientes:** QA no Render; ainda sem produção.
 
 ## Aprofunde-se no Projeto!
 

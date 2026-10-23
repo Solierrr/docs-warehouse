@@ -19,7 +19,16 @@
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/api-google)](https://github.com/Solierrr/api-google/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/api-google)](https://github.com/Solierrr/api-google/releases)
 
-Este serviço é a porta de entrada da plataforma para as ferramentas do Google. Em vez de cada serviço guardar as próprias chaves e falar direto com o Google, todos pedem a ele. Hoje ele sugere e valida endereços, avalia se o telhado de um imóvel é bom para energia solar, traduz textos entre português, inglês e espanhol e informa o fuso horário de uma localização. Com isso, as chaves ficam em um só lugar e o restante da plataforma não precisa conhecer os detalhes de cada API do Google.
+Este serviço concentra o acesso da plataforma às ferramentas do Google. Em vez de cada serviço manter as próprias chaves e chamar o Google diretamente, todos fazem o pedido a ele. Hoje ele sugere e valida endereços, avalia se o telhado de um imóvel é adequado para energia solar, traduz textos entre português, inglês e espanhol e informa o fuso horário de uma localização. Assim, as chaves ficam em um único lugar.
+
+## Ficha técnica
+
+- **Tipo:** serviço HTTP sem estado.
+- **Stack:** Python e FastAPI.
+- **APIs do Google:** Places, Geocoding, Address Validation, Solar e Cloud Translation.
+- **Autenticação:** validação do JWT do `api-auth` preparada, ainda não aplicada às rotas.
+- **Observabilidade:** OpenTelemetry.
+- **Ambientes:** QA no Render e produção no GKE.
 
 ## Aprofunde-se no Projeto!
 

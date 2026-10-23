@@ -18,7 +18,16 @@
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/web-app)](https://github.com/Solierrr/web-app/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/web-app)](https://github.com/Solierrr/web-app/releases)
 
-Esta é a aplicação web da plataforma, o marketplace de energia solar. Por ela, usuários, profissionais instaladores e empresas do setor se cadastram, buscam painéis solares, publicam e consultam anúncios, montam perfis públicos e trocam mensagens em um chat integrado. A aplicação está disponível em português, inglês e espanhol e roda direto no navegador. Os detalhes técnicos de organização e de como rodar o projeto ficam na documentação do repositório.
+Esta é a aplicação web da plataforma, o marketplace de energia solar. Nela, usuários, profissionais instaladores e empresas do setor se cadastram, buscam painéis solares, publicam e consultam anúncios, mantêm perfis públicos e trocam mensagens por um chat integrado. A aplicação está disponível em português, inglês e espanhol e funciona no navegador. Pessoas que ainda não entraram na conta podem navegar pelas recomendações públicas do marketplace.
+
+## Ficha técnica
+
+- **Tipo:** aplicação web de página única.
+- **Stack:** React 19, TypeScript e Vite, com Tailwind CSS.
+- **Componentes:** documentados no Storybook.
+- **Dados:** APIs da plataforma, com modo de dados simulados para desenvolvimento, e Firebase para recursos em tempo real.
+- **Idiomas:** português, inglês e espanhol.
+- **Ambientes:** QA no Render, como site estático, e produção no GKE, servido por Nginx.
 
 ## Aprofunde-se no Projeto!
 

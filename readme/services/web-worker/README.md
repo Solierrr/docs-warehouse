@@ -14,7 +14,16 @@
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/web-worker)](https://github.com/Solierrr/web-worker/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/web-worker)](https://github.com/Solierrr/web-worker/releases)
 
-Este serviço fica na frente do site principal e atende as pessoas antes mesmo de a requisição chegar ao servidor da aplicação. Ele encaminha cada acesso e, se a aplicação estiver fora do ar, mostra uma página temporária explicando o problema, em vez de um erro genérico. Também escolhe o idioma da página de acordo com a preferência de cada visitante e bloqueia acessos de robôs que tentam endereços que nenhuma pessoa de verdade visitaria. A configuração e o funcionamento de cada parte estão nos documentos da seção Aprofunde-se.
+Este serviço é executado na borda da rede, na frente do site principal, e trata cada acesso antes que ele chegue à aplicação. Ele encaminha as requisições e, quando a aplicação está indisponível, exibe uma página temporária que informa o problema em vez de um erro genérico. Também define o idioma da página conforme a preferência do visitante e bloqueia acessos automatizados a endereços usados em ataques.
+
+## Ficha técnica
+
+- **Tipo:** Cloudflare Worker.
+- **Stack:** TypeScript, publicado pelo `wrangler`.
+- **Idiomas:** português, inglês e espanhol.
+- **Segurança:** rotas isca que colocam o IP numa lista da Cloudflare com desafio, nunca bloqueio permanente.
+- **Telemetria:** logs da Cloudflare e envio opcional ao coletor de observabilidade.
+- **Ambientes:** Cloudflare, publicado pela integração com o GitHub.
 
 ## Aprofunde-se no Projeto!
 

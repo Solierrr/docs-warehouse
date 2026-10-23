@@ -18,7 +18,14 @@
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/infra-gitops)](https://github.com/Solierrr/infra-gitops/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/infra-gitops)](https://github.com/Solierrr/infra-gitops/releases)
 
-Este repositório descreve como cada serviço da plataforma deve estar rodando no cluster de nuvem. Em vez de alguém aplicar mudanças à mão, o estado desejado fica registrado aqui e uma ferramenta de entrega contínua mantém o cluster sempre igual ao que está escrito. Para publicar um serviço novo basta adicionar um arquivo; para mudar um serviço, basta alterar o arquivo, e a mudança é aplicada automaticamente. Os detalhes de organização das pastas ficam na documentação de arquitetura.
+Este repositório descreve como cada serviço da plataforma deve estar em execução no cluster na nuvem. Em vez de aplicar mudanças manualmente, o estado desejado fica registrado aqui, e uma ferramenta de entrega contínua mantém o cluster igual ao que está descrito. Publicar um serviço novo ou alterar um existente consiste em adicionar ou modificar um arquivo neste repositório. Todo o histórico de mudanças fica registrado no próprio repositório.
+
+## Ficha técnica
+
+- **Tipo:** infraestrutura declarativa (GitOps).
+- **Ferramenta:** Argo CD, com sincronização automática, remoção do que sai do repositório e correção de divergências.
+- **Por serviço:** Application do Argo CD, Deployment, Service e, quando exposto, Ingress.
+- **Ambientes:** produção no GKE.
 
 ## Aprofunde-se no Projeto!
 

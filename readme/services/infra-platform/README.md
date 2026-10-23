@@ -14,7 +14,15 @@
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/infra-platform)](https://github.com/Solierrr/infra-platform/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/infra-platform)](https://github.com/Solierrr/infra-platform/releases)
 
-Este repositório define, em código, a infraestrutura básica da plataforma na nuvem: a rede, o cluster onde os serviços rodam e as ferramentas instaladas nele para publicar e proteger os serviços. Como a nuvem cobra pelo tempo em que o cluster fica ligado, ele foi pensado para ser desligado quando não está em uso e religado sob demanda, sem perder a configuração. Mudanças aqui têm custo real e afetam todos os serviços, por isso exigem cuidado.
+Este repositório define em código a infraestrutura básica da plataforma na nuvem: a rede, o cluster onde os serviços são executados e as ferramentas instaladas nele para publicar e proteger os serviços. Como a nuvem cobra pelo tempo em que o cluster permanece ligado, a infraestrutura foi planejada para ser desligada quando não está em uso e religada sob demanda, sem perda de configuração. Alterações neste repositório têm custo e afetam todos os serviços.
+
+## Ficha técnica
+
+- **Tipo:** infraestrutura como código.
+- **Stack:** Terraform no Google Cloud (GKE).
+- **Segredos:** criados no cluster a partir do Terraform.
+- **Operação:** script para zerar os nodes do cluster sem destruí-lo.
+- **Ambientes:** produção; as mudanças são aplicadas manualmente.
 
 ## Aprofunde-se no Projeto!
 

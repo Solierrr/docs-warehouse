@@ -15,7 +15,14 @@
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/infra-otel-collector)](https://github.com/Solierrr/infra-otel-collector/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/infra-otel-collector)](https://github.com/Solierrr/infra-otel-collector/releases)
 
-Este repositório define o ponto único que recebe os dados de funcionamento de todos os serviços, como tempo de resposta, erros e registros do que aconteceu. Em vez de cada serviço enviar essas informações direto para uma ferramenta externa, todos mandam para este ponto, que protege dados sensíveis, reduz o volume e repassa o resultado para a plataforma de monitoramento. Assim a configuração de monitoramento fica em um só lugar e pode ser ajustada para cada ambiente.
+Este repositório define o ponto único que recebe os dados de funcionamento dos serviços, como tempo de resposta, erros e registros de eventos. Em vez de cada serviço enviar essas informações diretamente a uma ferramenta externa, todos as enviam para este ponto, que remove dados sensíveis, reduz o volume e repassa o resultado à plataforma de monitoramento. Dessa forma, a configuração de monitoramento fica centralizada e pode ser ajustada por ambiente.
+
+## Ficha técnica
+
+- **Tipo:** infraestrutura de observabilidade.
+- **Stack:** OpenTelemetry Collector, aplicado com Kustomize.
+- **Destino:** Grafana Cloud.
+- **Ambientes:** GKE.
 
 ## Aprofunde-se no Projeto!
 

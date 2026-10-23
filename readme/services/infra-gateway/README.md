@@ -16,7 +16,15 @@
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/infra-gateway)](https://github.com/Solierrr/infra-gateway/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/infra-gateway)](https://github.com/Solierrr/infra-gateway/releases)
 
-Este repositório guarda a configuração do gateway da plataforma, a porta de entrada por onde chegam as requisições aos serviços. Há dois ambientes: em produção, o gateway roda dentro do cluster de nuvem; no ambiente de testes, que não tem cluster, ele oferece um endereço único e direciona cada requisição ao serviço certo pelo caminho, no mesmo formato de produção. Assim quem usa os serviços não precisa saber onde cada um está hospedado.
+Este repositório guarda a configuração do gateway da plataforma, o ponto de entrada das requisições destinadas aos serviços. Em produção, o gateway roda dentro do cluster na nuvem; no ambiente de testes, que não possui cluster, ele oferece um endereço único e encaminha cada requisição ao serviço correspondente, no mesmo formato de produção. Assim, quem consome os serviços não precisa saber onde cada um está hospedado.
+
+## Ficha técnica
+
+- **Tipo:** infraestrutura.
+- **Gateway:** Kong.
+- **Produção:** ingress do GKE, instalado pelo `infra-platform` com o Helm chart do Kong.
+- **QA:** Kong sem banco de dados, como serviço Docker no Render.
+- **Ambientes:** Render a partir da `main` e GKE.
 
 ## Aprofunde-se no Projeto!
 

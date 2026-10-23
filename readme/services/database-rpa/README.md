@@ -13,7 +13,15 @@
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/database-rpa)](https://github.com/Solierrr/database-rpa/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/database-rpa)](https://github.com/Solierrr/database-rpa/releases)
 
-Esta rotina trouxe usuários e dados de um banco de dados antigo para o banco principal da plataforma. Ela lê o banco antigo sem alterá-lo, ajusta as informações para o formato novo e preenche com dados fictícios o que o banco antigo não tinha. Ela pode ser repetida sem duplicar registros. Por enquanto não há publicação conhecida em nenhum ambiente, e só deve ser usada contra um banco real depois de revisar os dados. Os detalhes do que é migrado e dos limites conhecidos estão nos documentos da seção Aprofunde-se.
+Esta rotina migrou usuários e dados de um banco de dados antigo para o banco principal da plataforma. Ela lê o banco antigo sem alterá-lo, converte as informações para o formato novo e completa com dados fictícios os campos que o banco antigo não possuía. A execução pode ser repetida sem duplicar registros. Não há publicação conhecida em nenhum ambiente, e o uso contra um banco real exige revisão prévia dos dados.
+
+## Ficha técnica
+
+- **Tipo:** rotina de migração.
+- **Stack:** Python e SQLAlchemy.
+- **Dados:** lê o banco legado e grava no `coredb` (PostgreSQL).
+- **Compatibilidade:** adaptada à versão V29 do schema do `coredb`.
+- **Ambientes:** sem deploy.
 
 ## Aprofunde-se no Projeto!
 

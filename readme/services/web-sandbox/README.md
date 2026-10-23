@@ -15,7 +15,15 @@
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/web-sandbox)](https://github.com/Solierrr/web-sandbox/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/web-sandbox)](https://github.com/Solierrr/web-sandbox/releases)
 
-Esta aplicação é a interface usada para testar manualmente os serviços no ambiente de QA. A pessoa entra com a própria conta e, a partir daí, usa as telas de teste para ver como os serviços respondem, com os mesmos componentes visuais compartilhados das demais aplicações web. Ela também reúne o acesso à documentação das APIs, servindo de apoio ao time durante a validação. As instruções para executar e validar estão nos documentos da seção Aprofunde-se.
+Esta aplicação apoia o time na validação do ambiente de testes. Após o login, ela reúne um catálogo dos repositórios da plataforma, com links para o código, para a documentação das APIs e para cada serviço, e uma tela para reativar os serviços de testes que ficam inativos quando não são usados. A aplicação é de uso interno e não é destinada às pessoas que utilizam a plataforma.
+
+## Ficha técnica
+
+- **Tipo:** aplicação web interna.
+- **Stack:** React, TypeScript e Vite, com Tailwind CSS.
+- **Componentes:** biblioteca `lib-web`.
+- **Autenticação:** `api-auth` de QA, com modo simulado para desenvolvimento local.
+- **Ambientes:** Render, como site estático, a partir da `main`.
 
 ## Aprofunde-se no Projeto!
 

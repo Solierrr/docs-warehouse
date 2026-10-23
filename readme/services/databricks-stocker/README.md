@@ -9,7 +9,15 @@
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/databricks-stocker)](https://github.com/Solierrr/databricks-stocker/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/databricks-stocker)](https://github.com/Solierrr/databricks-stocker/releases)
 
-Este repositório guarda o trabalho de análise de dados da plataforma. Ele pega os dados brutos já copiados do banco principal e os organiza em etapas: primeiro limpa e padroniza as informações e depois calcula indicadores, como contagens, estoque, serviços e avaliações. Os painéis para exibir esses indicadores ainda são uma etapa futura. A cópia inicial dos dados do banco principal é feita por outro serviço e não faz parte deste repositório.
+Este repositório reúne o trabalho de análise de dados da plataforma. Ele parte dos dados já copiados do banco principal e os organiza em etapas: primeiro limpa e padroniza as informações e, em seguida, calcula indicadores como contagens, estoque, serviços e avaliações. A cópia inicial dos dados é feita por outro repositório. Cada etapa é recalculada a partir da anterior, o que permite refazer os indicadores sempre que os dados de origem mudam.
+
+## Ficha técnica
+
+- **Tipo:** Git folder do Databricks.
+- **Camadas:** Bronze (origem), Silver (limpeza e padronização) e Gold (indicadores).
+- **Processamento:** pipelines em SQL, executadas sob demanda.
+- **Integrações:** `databricks-sync` carrega a camada Bronze.
+- **Ambientes:** workspace do Databricks.
 
 ## Aprofunde-se no Projeto!
 

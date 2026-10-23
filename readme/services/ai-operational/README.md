@@ -18,7 +18,17 @@
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/ai-operational)](https://github.com/Solierrr/ai-operational/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/ai-operational)](https://github.com/Solierrr/ai-operational/releases)
 
-Este serviço é um assistente que ajuda as pessoas a usar o sistema da plataforma, sejam fornecedores, demandantes ou administradores de empresa. Ele indica a tela certa para o que a pessoa quer fazer e, quando ela pede, propõe uma ação, como cadastrar uma oferta de placa solar, explicando em uma mensagem o que vai acontecer. Nada é executado sem o aceite da pessoa: se ela recusar, nada é gravado. Ele é acionado pelo assistente virtual principal sempre que o pedido envolve fazer algo no sistema.
+Este serviço é um assistente que orienta o uso do sistema da plataforma por fornecedores, demandantes e administradores de empresa. Ele indica a tela adequada para cada tarefa e, quando solicitado, propõe uma ação, como cadastrar uma oferta de placa solar, descrevendo antes o que será feito. Nenhuma ação é executada sem a confirmação da pessoa. O serviço é acionado pelo assistente virtual principal sempre que o pedido envolve uma operação no sistema.
+
+## Ficha técnica
+
+- **Tipo:** serviço HTTP de inteligência artificial.
+- **Stack:** Python, LangChain e LangGraph.
+- **Modelos:** Gemini e Groq.
+- **Dados:** MongoDB e Redis.
+- **Integrações:** acionado pelo `ai-assistant`.
+- **Decisões:** toda ação que grava dados exige confirmação explícita da pessoa.
+- **Ambientes:** QA no Render; ainda sem produção.
 
 ## Aprofunde-se no Projeto!
 

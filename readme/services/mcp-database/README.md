@@ -15,7 +15,16 @@
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/mcp-database)](https://github.com/Solierrr/mcp-database/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/mcp-database)](https://github.com/Solierrr/mcp-database/releases)
 
-Este serviço dá aos assistentes de inteligência artificial da plataforma acesso seguro a informações de negócio, como ofertas de placas solares, profissionais e fornecedores. Em vez de consultar o banco de dados diretamente, o assistente usa consultas prontas oferecidas por este serviço, que só lê as informações, nunca as altera, e exige uma chave de acesso. Isso protege o banco e dá aos assistentes uma forma padronizada de buscar o que precisam. As consultas disponíveis e as instruções de uso estão nos documentos da seção Aprofunde-se.
+Este serviço oferece aos assistentes de inteligência artificial da plataforma acesso controlado a informações de negócio, como ofertas de placas solares, profissionais e fornecedores. Em vez de consultar o banco de dados diretamente, o assistente usa consultas predefinidas, que apenas leem as informações e exigem uma chave de acesso. Isso protege o banco e padroniza a forma como os assistentes obtêm os dados.
+
+## Ficha técnica
+
+- **Tipo:** servidor MCP (Model Context Protocol).
+- **Stack:** Python.
+- **Dados:** PostgreSQL, somente leitura.
+- **Autenticação:** chave de acesso.
+- **Consumidor:** `ai-assistant`.
+- **Ambientes:** QA no Render e produção no GKE.
 
 ## Aprofunde-se no Projeto!
 

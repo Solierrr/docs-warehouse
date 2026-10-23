@@ -9,7 +9,13 @@
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/generic-template)](https://github.com/Solierrr/generic-template/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/generic-template)](https://github.com/Solierrr/generic-template/releases)
 
-Este repositório é o ponto de partida para novos serviços da organização. Ao criar um projeto a partir dele, o time troca os textos de exemplo, preenche as configurações da aplicação e mantém a documentação alinhada ao que o serviço realmente oferece. Ele já traz a estrutura dos documentos de arquitetura, execução e deploy e uma pasta com requisições de exemplo para chamar a API localmente. Os arquivos e as orientações de cada parte estão descritos nos documentos da seção Aprofunde-se.
+Este repositório é o ponto de partida para novos repositórios da organização. Ao criar um projeto a partir dele, o time substitui os textos de exemplo, preenche as configurações da aplicação e mantém a documentação alinhada ao que o serviço oferece. Ele já traz a estrutura de documentação, a configuração de container e exemplos de chamadas à API. Os arquivos que o tipo do novo repositório não utiliza são removidos após a criação.
+
+## Ficha técnica
+
+- **Tipo:** modelo de repositório.
+- **Conteúdo:** Dockerfile, launcher opcional para segredos em runtime, coleção Bruno, `.env.example`, Makefile e workflows.
+- **Decisões:** o modelo é completo de propósito; cada repositório novo remove o que o seu tipo não usa.
 
 ## Aprofunde-se no Projeto!
 

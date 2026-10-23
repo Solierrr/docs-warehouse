@@ -14,7 +14,14 @@
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/lib-web)](https://github.com/Solierrr/lib-web/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/lib-web)](https://github.com/Solierrr/lib-web/releases)
 
-Esta biblioteca reúne os componentes visuais compartilhados das aplicações web da plataforma, como botões, formulários, layouts e modelos de e-mail, junto com as cores, fontes e espaçamentos do sistema de design. Com ela, as telas ficam consistentes entre si, e uma melhoria feita aqui chega a todas as aplicações que a usam. Ela é publicada como pacote para ser instalada nos projetos. As instruções de instalação, uso e publicação estão nos documentos da seção Aprofunde-se.
+Esta biblioteca reúne os componentes visuais compartilhados pelas aplicações web da plataforma, como botões, formulários, layouts e modelos de e-mail, além das cores, fontes e espaçamentos do sistema de design. Com ela, as telas mantêm a mesma aparência, e uma melhoria feita aqui chega a todas as aplicações que a utilizam. É distribuída como pacote npm. Os componentes são documentados com exemplos visuais, o que facilita conferir cada um antes de usá-lo.
+
+## Ficha técnica
+
+- **Tipo:** biblioteca de componentes.
+- **Stack:** TypeScript, React e Vite.
+- **Documentação dos componentes:** Storybook.
+- **Publicação:** npm, a cada release.
 
 ## Aprofunde-se no Projeto!
 

@@ -16,7 +16,16 @@
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/ai-validation)](https://github.com/Solierrr/ai-validation/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/ai-validation)](https://github.com/Solierrr/ai-validation/releases)
 
-Este serviço confere automaticamente documentos enviados por profissionais e empresas parceiras. Ele lê, a partir de uma imagem, certificados de treinamento de segurança em instalações elétricas e trabalho em altura, e verifica se estão dentro do prazo, se a carga horária é suficiente e se o nome do aluno confere nos dois documentos. Também verifica se o CNPJ de uma empresa parceira está ativo na Receita Federal e se a atividade dela é compatível com o setor de energia solar e elétrica. Os dois fluxos combinam consultas externas, inteligência artificial e regras fixas para reduzir resultados errados.
+Este serviço confere documentos enviados por profissionais e empresas parceiras. A partir de uma imagem, ele lê certificados de treinamento em segurança para instalações elétricas e para trabalho em altura e verifica a validade, a carga horária e a correspondência do nome do aluno entre os documentos. Também confirma se o CNPJ de uma empresa parceira está ativo e se a atividade registrada é compatível com o setor de energia solar e elétrica.
+
+## Ficha técnica
+
+- **Tipo:** serviço HTTP de inteligência artificial.
+- **Stack:** Python, FastAPI, LangChain e LangGraph.
+- **Modelos:** Gemini e Groq.
+- **Documentos:** certificados NR-10 e NR-35 e situação cadastral do CNPJ na Receita Federal.
+- **Decisões:** combina consultas externas, inteligência artificial e regras fixas para reduzir resultados incorretos.
+- **Ambientes:** QA no Render e produção no GKE.
 
 ## Aprofunde-se no Projeto!
 

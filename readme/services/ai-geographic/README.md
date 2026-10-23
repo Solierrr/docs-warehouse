@@ -19,7 +19,17 @@
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/ai-geographic)](https://github.com/Solierrr/ai-geographic/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/ai-geographic)](https://github.com/Solierrr/ai-geographic/releases)
 
-Este serviço é um assistente para o profissional de energia solar que trabalha em campo, como técnicos, instaladores e engenheiros, usado pelo aplicativo móvel da plataforma. Ele ajuda a planejar o caminho até a casa do cliente, a decidir se vale a pena ir a uma região em determinada data, considerando chuva, vento e horas de luz do dia, e a ter uma ideia aproximada do potencial solar do local. Quando a dúvida é sobre produtos, ele pede ajuda ao assistente virtual principal da plataforma, repassando a identificação do profissional.
+Este serviço é um assistente para profissionais de energia solar que trabalham em campo, como técnicos, instaladores e engenheiros, e é usado pelo aplicativo móvel da plataforma. Ele ajuda a planejar o deslocamento até o cliente, a avaliar se vale a pena visitar uma região em determinada data, com base em chuva, vento e horas de luz do dia, e a estimar o potencial solar do local. Perguntas sobre produtos são encaminhadas ao assistente virtual principal.
+
+## Ficha técnica
+
+- **Tipo:** serviço HTTP de inteligência artificial.
+- **Stack:** Python, LangChain e LangGraph.
+- **Modelos:** Gemini e Groq.
+- **Dados:** MongoDB e Redis.
+- **Integrações:** Google Maps e `ai-assistant`.
+- **Consumidor:** aplicativo móvel.
+- **Ambientes:** QA no Render; ainda sem produção.
 
 ## Aprofunde-se no Projeto!
 

@@ -17,7 +17,16 @@
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/api-recommendation)](https://github.com/Solierrr/api-recommendation/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/api-recommendation)](https://github.com/Solierrr/api-recommendation/releases)
 
-Este serviço decide o que aparece nas telas de recomendação do marketplace: quais profissionais, ofertas de placas solares e fornecedores são mostrados e em que ordem. Ele usa as relações entre esses itens para montar a lista mais relevante e, quando essa base de relações não está disponível, ainda responde com uma seleção de itens elegíveis, para que a tela nunca fique vazia. Ele só lê as informações, nunca as altera. Os detalhes técnicos ficam nos documentos da seção Aprofunde-se e na documentação de arquitetura.
+Este serviço define o que aparece nas telas de recomendação do marketplace: quais profissionais, ofertas de placas solares e fornecedores são exibidos e em que ordem. Ele usa as relações entre esses itens para montar a lista mais relevante e, quando essa base de relações não está disponível, responde com uma seleção de itens elegíveis. O serviço apenas lê informações e não altera nenhum dado.
+
+## Ficha técnica
+
+- **Tipo:** serviço HTTP somente leitura.
+- **Stack:** Python 3.12 e FastAPI.
+- **Dados:** Neo4j para as relações e PostgreSQL para a leitura direta e a alternativa sem grafo.
+- **Integrações:** chamado pelo `api-core`; o grafo é montado pelo `database-bootstrap`.
+- **Decisões:** feeds públicos sem chave, servidos com cache de borda, e resposta alternativa quando o grafo está indisponível.
+- **Ambientes:** QA no Render e produção no GKE.
 
 ## Aprofunde-se no Projeto!
 

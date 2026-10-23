@@ -13,7 +13,15 @@
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/elos-frontend)](https://github.com/Solierrr/elos-frontend/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/elos-frontend)](https://github.com/Solierrr/elos-frontend/releases)
 
-Este repositório reúne as páginas visuais do projeto, a parte que as pessoas veem e usam no navegador: a página inicial, que apresenta a proposta de ligar quem compra a quem fornece equipamentos fotovoltaicos, e as telas de entrada, recuperação de senha, sobre nós e gerenciamento de usuários. São páginas simples, sem etapa de instalação ou de construção: abrir os arquivos num servidor estático já mostra o resultado. Parte das telas ainda está em branches de trabalho, e a tela de gerenciamento conversa com o serviço de cadastros. Os detalhes de organização e de execução ficam nos documentos da seção Aprofunde-se.
+Este repositório reúne as páginas do projeto exibidas no navegador: a página inicial, que apresenta a proposta de conectar compradores e fornecedores de equipamentos fotovoltaicos, e as telas de entrada, recuperação de senha, apresentação da equipe e gerenciamento de usuários. As páginas são estáticas e não exigem instalação nem etapa de construção. Parte das telas ainda está em desenvolvimento em branches separadas.
+
+## Ficha técnica
+
+- **Tipo:** páginas web estáticas.
+- **Stack:** HTML, CSS e JavaScript, sem framework.
+- **Integrações:** `elos-backend`, na tela de gerenciamento de usuários.
+- **Ambientes:** ainda não definidos.
+- **Padrões:** fora dos padrões de CI, release e templates da organização.
 
 ## Aprofunde-se no Projeto!
 

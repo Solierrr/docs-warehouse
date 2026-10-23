@@ -19,7 +19,17 @@
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/api-messenger)](https://github.com/Solierrr/api-messenger/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/api-messenger)](https://github.com/Solierrr/api-messenger/releases)
 
-Este serviço guarda e entrega todas as conversas da plataforma. É por ele que clientes e profissionais trocam mensagens, e também onde ficam as conversas com o assistente virtual. Ele registra cada mensagem enviada, mantém o histórico disponível para consulta a qualquer momento e reúne as avaliações que as pessoas fazem de profissionais e produtos depois de uma conversa. Os detalhes técnicos, como autenticação, rotas e organização dos dados, ficam na documentação de arquitetura.
+Este serviço armazena e entrega as conversas da plataforma. É por ele que clientes e profissionais trocam mensagens, e é nele que ficam as conversas com o assistente virtual. O serviço registra cada mensagem, mantém o histórico disponível para consulta e reúne as avaliações que as pessoas fazem de profissionais e produtos após uma conversa. Apenas os participantes de uma conversa podem consultar as mensagens dela.
+
+## Ficha técnica
+
+- **Tipo:** serviço HTTP.
+- **Stack:** Java 21 e Spring Boot 4.
+- **Dados:** MongoDB.
+- **Autenticação:** JWT de usuário emitido pelo `api-auth` nas rotas públicas e token de serviço nas rotas internas.
+- **Integrações:** `ai-assistant`, que grava as respostas do assistente e os registros de uso dos modelos.
+- **Erros:** formato padrão RFC 7807.
+- **Ambientes:** QA no Render e produção no GKE.
 
 ## Aprofunde-se no Projeto!
 

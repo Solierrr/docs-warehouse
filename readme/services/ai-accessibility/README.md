@@ -16,7 +16,16 @@
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/ai-accessibility)](https://github.com/Solierrr/ai-accessibility/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/ai-accessibility)](https://github.com/Solierrr/ai-accessibility/releases)
 
-Este serviço analisa as imagens enviadas na plataforma antes de elas serem publicadas. Ele verifica se o conteúdo é adequado e, quando a imagem é aprovada, escreve uma descrição curta que pode ser lida por leitores de tela, ajudando pessoas com deficiência visual a entender o que a imagem mostra. O resultado informa se a imagem foi aprovada, se precisa da revisão de uma pessoa ou se foi recusada. Ele não guarda nem publica nenhuma imagem: apenas analisa e responde. Os detalhes técnicos e as instruções para testar ficam nos documentos da seção Aprofunde-se.
+Este serviço analisa as imagens enviadas à plataforma antes da publicação. Ele verifica se o conteúdo é adequado e, quando a imagem é aprovada, gera uma descrição curta que pode ser lida por leitores de tela, o que torna o conteúdo acessível a pessoas com deficiência visual. O resultado indica se a imagem foi aprovada, se precisa de revisão humana ou se foi recusada. O serviço não armazena nem publica imagens: ele apenas analisa e responde.
+
+## Ficha técnica
+
+- **Tipo:** serviço HTTP de inteligência artificial.
+- **Stack:** Python, FastAPI, LangChain e LangGraph.
+- **Modelos:** Gemini e Groq.
+- **Resultado:** aprovada, revisão humana ou recusada, com a descrição acessível quando aprovada.
+- **Dados:** não armazena imagens nem resultados.
+- **Ambientes:** QA no Render; ainda sem produção.
 
 ## Aprofunde-se no Projeto!
 

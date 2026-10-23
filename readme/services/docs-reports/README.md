@@ -9,7 +9,15 @@
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/docs-reports)](https://github.com/Solierrr/docs-reports/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/docs-reports)](https://github.com/Solierrr/docs-reports/releases)
 
-Este repositório produz relatórios, documentos e manuais de instrução em HTML, escritos com a ajuda de agentes de inteligência artificial. Os modelos já trazem a identidade visual da plataforma, e o agente só precisa escrever o conteúdo por cima. Assim os documentos saem padronizados e prontos para compartilhar. As instruções de uso e a organização das pastas estão nos documentos da seção Aprofunde-se.
+Este repositório produz relatórios, documentos e manuais de instrução em HTML com o apoio de agentes de inteligência artificial. Os modelos já trazem a identidade visual da plataforma, e o agente escreve apenas o conteúdo. Dessa forma, os documentos seguem um padrão único e ficam prontos para compartilhamento. Antes de qualquer geração, a pessoa responsável aprova uma especificação do documento, e o resultado passa por uma revisão independente.
+
+## Ficha técnica
+
+- **Tipo:** documentação.
+- **Formato:** HTML.
+- **Processo:** especificação aprovada antes da geração, agentes de pesquisa, redação e diagramação e revisão independente, em até três ciclos.
+- **Licença:** CC0 1.0.
+- **Ambientes:** sem deploy.
 
 ## Aprofunde-se no Projeto!
 

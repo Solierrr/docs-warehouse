@@ -13,7 +13,13 @@
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/infra-broker)](https://github.com/Solierrr/infra-broker/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/infra-broker)](https://github.com/Solierrr/infra-broker/releases)
 
-Este repositório será o broker de mensagens da plataforma, a peça que permite aos serviços trocarem avisos entre si sem depender de estarem disponíveis ao mesmo tempo. Por enquanto ele ainda não tem código próprio: contém só o modelo-base de estrutura da organização, que será preenchido conforme o serviço for implementado. {a confirmar: o responsável ainda vai descrever a finalidade e a tecnologia deste repositório}
+Este repositório é destinado ao broker de mensagens da plataforma, o componente que permite aos serviços trocar avisos entre si sem depender de estarem disponíveis ao mesmo tempo. No momento, ele contém apenas a estrutura-base de repositório da organização, sem código próprio. Ainda não há definição registrada da tecnologia nem dos serviços que vão utilizá-lo. Os arquivos do modelo de criação foram mantidos de propósito e serão substituídos quando o serviço for implementado.
+
+## Ficha técnica
+
+- **Tipo:** infraestrutura, ainda sem código.
+- **Tecnologia:** {a confirmar}
+- **Ambientes:** nenhum.
 
 ## Aprofunde-se no Projeto!
 

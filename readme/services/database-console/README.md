@@ -14,7 +14,16 @@
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/database-console)](https://github.com/Solierrr/database-console/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/database-console)](https://github.com/Solierrr/database-console/releases)
 
-Este repositório reúne tudo o que é preciso para criar, atualizar e consultar os bancos de dados da plataforma: os scripts que montam as tabelas e as regras, as mudanças de versão e os dados de exemplo usados em desenvolvimento. Com comandos simples é possível subir uma cópia local dos bancos para testar outros serviços sem depender de ambientes compartilhados. Ele também documenta de quem é cada parte do banco e quem pode ler cada informação. Os comandos e os detalhes técnicos estão nos documentos da seção Aprofunde-se.
+Este repositório reúne o necessário para criar, atualizar e consultar os bancos de dados da plataforma: os scripts que montam as tabelas e as regras, as mudanças de versão e os dados de exemplo usados em desenvolvimento. Ele permite subir uma cópia local dos bancos para testar outros serviços sem depender de ambientes compartilhados e registra a responsabilidade por cada parte do banco e as permissões de leitura de cada serviço.
+
+## Ficha técnica
+
+- **Tipo:** scripts e migrações de banco de dados.
+- **Stack:** SQL, Python e Docker para o ambiente local.
+- **Bancos:** PostgreSQL (`coredb`, `authdb` e `analyticsdb`) e Redis local.
+- **Decisões:** o schema do `coredb` tem fonte única aqui; o do `authdb` pertence ao `api-auth` e é espelhado.
+- **Acesso:** cada consumidor que lê o `coredb` diretamente tem um papel somente leitura próprio.
+- **Ambientes:** sem deploy; os comandos são executados pelo `Makefile`.
 
 ## Aprofunde-se no Projeto!
 

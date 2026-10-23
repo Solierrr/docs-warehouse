@@ -16,7 +16,15 @@
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/lib-ai)](https://github.com/Solierrr/lib-ai/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/lib-ai)](https://github.com/Solierrr/lib-ai/releases)
 
-Esta biblioteca reúne os blocos de código que os serviços de inteligência artificial da plataforma compartilham, para que cada serviço não precise reescrever as mesmas peças. Ela cuida, por exemplo, de alternar o uso das chaves dos modelos de linguagem, de proteger dados pessoais e barrar instruções maliciosas nas conversas, de medir custo e tempo de cada resposta e de permitir que um assistente peça ajuda a outro. É publicada como pacote Python para ser instalada pelos serviços.
+Esta biblioteca reúne o código compartilhado pelos serviços de inteligência artificial da plataforma, para que cada serviço não precise reescrever as mesmas partes. Ela alterna o uso das chaves dos modelos de linguagem, protege dados pessoais, bloqueia instruções maliciosas nas conversas, mede o custo e o tempo de cada resposta e permite que um assistente solicite ajuda a outro. É distribuída como pacote Python.
+
+## Ficha técnica
+
+- **Tipo:** biblioteca.
+- **Stack:** Python.
+- **Modelos:** Gemini, Groq e OpenAI.
+- **Consumidores:** serviços de inteligência artificial.
+- **Publicação:** PyPI, a cada release.
 
 ## Aprofunde-se no Projeto!
 

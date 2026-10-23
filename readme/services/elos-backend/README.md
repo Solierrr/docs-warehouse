@@ -16,7 +16,16 @@
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/elos-backend)](https://github.com/Solierrr/elos-backend/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/elos-backend)](https://github.com/Solierrr/elos-backend/releases)
 
-Este serviço guarda os cadastros do projeto: pessoas usuárias, profissionais, fornecedores e empresas que procuram equipamentos fotovoltaicos, junto com os endereços e telefones de cada uma. Ele permite criar, consultar, alterar e excluir esses registros, confere se os dados informados fazem sentido (como e-mail, senha forte e tamanho dos campos) e mostra mensagens claras quando algo está errado. Os dados ficam num banco de dados relacional e a tela de gerenciamento é aberta pelo navegador. Os detalhes técnicos, as rotas e as instruções de execução ficam nos documentos da seção Aprofunde-se.
+Este serviço mantém os cadastros do projeto: pessoas usuárias, profissionais, fornecedores e empresas que procuram equipamentos fotovoltaicos, com os respectivos endereços e telefones. Ele permite criar, consultar, alterar e excluir esses registros, valida os dados informados, como e-mail, força da senha e tamanho dos campos, e exibe mensagens claras quando há algum problema. A tela de gerenciamento é acessada pelo navegador.
+
+## Ficha técnica
+
+- **Tipo:** aplicação web Java empacotada como WAR.
+- **Stack:** Java 25, Servlets e JSP (Jakarta EE 10) no Tomcat 11.
+- **Dados:** PostgreSQL, por JDBC.
+- **Build:** Maven e imagem Docker.
+- **Ambientes:** ainda não definidos.
+- **Padrões:** fora dos padrões de CI, release e templates da organização.
 
 ## Aprofunde-se no Projeto!
 

@@ -14,7 +14,15 @@
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/database-bootstrap)](https://github.com/Solierrr/database-bootstrap/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/database-bootstrap)](https://github.com/Solierrr/database-bootstrap/releases)
 
-Esta rotina monta e reconstrói o banco de relações usado nas recomendações da plataforma, a partir dos dados do banco principal. Ela não é um serviço que fica no ar: roda sob demanda, faz o trabalho e termina. Como o banco principal é a fonte oficial das informações, o banco de relações pode ser apagado e recriado a qualquer momento, e esta rotina o preenche de novo com os dados atuais. O funcionamento, os códigos de saída e a configuração estão nos documentos da seção Aprofunde-se.
+Esta rotina monta e reconstrói o banco de relações usado nas recomendações da plataforma a partir dos dados do banco principal. Ela não permanece em execução: roda sob demanda, conclui o trabalho e termina. Como o banco principal é a fonte oficial das informações, o banco de relações pode ser apagado e recriado a qualquer momento, e esta rotina o preenche novamente com os dados atuais.
+
+## Ficha técnica
+
+- **Tipo:** rotina executada sob demanda.
+- **Stack:** Python 3.12.
+- **Dados:** lê o PostgreSQL e grava o Neo4j.
+- **Integrações:** nenhuma API da aplicação.
+- **Ambientes:** Job no GKE.
 
 ## Aprofunde-se no Projeto!
 

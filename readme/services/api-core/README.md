@@ -8,6 +8,7 @@
   <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/jwt.png" width="100" hspace="8" alt="JWT" title="JWT">
   <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/postgresql.png" width="100" hspace="8" alt="PostgreSQL" title="PostgreSQL">
   <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/redis.png" width="100" hspace="8" alt="Redis" title="Redis">
+  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/cloudinary.png" width="100" hspace="8" alt="Cloudinary" title="Cloudinary">
   <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/swagger.png" width="100" hspace="8" alt="Swagger" title="Swagger">
   <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/bruno.png" width="100" hspace="8" alt="Bruno" title="Bruno">
 </p>
@@ -19,7 +20,17 @@
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/api-core)](https://github.com/Solierrr/api-core/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/api-core)](https://github.com/Solierrr/api-core/releases)
 
-Este serviço é o cadastro central da plataforma: é nele que ficam guardadas as informações de empresas, usuários, técnicos, fornecedores, propostas, contratos de serviço, faturas de energia e certificações. Tudo o que sustenta a operação de instalação e manutenção de sistemas de energia solar passa por aqui. Os outros serviços e aplicativos consultam e atualizam esses dados por ele, com controle de quem pode ver e alterar cada informação. Os detalhes técnicos ficam na documentação de arquitetura.
+Este serviço é o cadastro central da plataforma. Nele ficam as informações de empresas, usuários, técnicos, fornecedores, propostas, contratos de serviço, faturas de energia e certificações, que sustentam a operação de instalação e manutenção de sistemas de energia solar. Os outros serviços e aplicativos consultam e atualizam esses dados por meio dele, com controle de quem pode ver e alterar cada informação.
+
+## Ficha técnica
+
+- **Tipo:** serviço HTTP.
+- **Stack:** Java 21 e Spring Boot 4.
+- **Dados:** PostgreSQL (`coredb`) e Redis.
+- **Integrações:** Cloudinary para imagens e Google Translate para traduções.
+- **Autenticação:** JWT de usuário emitido pelo `api-auth`.
+- **Decisões:** o schema do `coredb` é mantido no `database-console`, não neste repositório.
+- **Ambientes:** QA no Render e produção no GKE.
 
 ## Aprofunde-se no Projeto!
 

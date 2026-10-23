@@ -13,7 +13,14 @@
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/infra-stress)](https://github.com/Solierrr/infra-stress/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/infra-stress)](https://github.com/Solierrr/infra-stress/releases)
 
-Este repositório reúne os testes de carga da plataforma, que simulam muitos acessos ao mesmo tempo para descobrir até onde o sistema aguenta. Há dois alvos prontos, a camada de borda que fica na frente do domínio principal e a aplicação web, cada um com um teste rápido de sanidade e um teste de estresse. Os testes são executados à mão, quando necessário, e este repositório não é um serviço no ar. As instruções de uso e os limites a respeitar estão nos documentos da seção Aprofunde-se.
+Este repositório reúne os testes de carga da plataforma, que simulam muitos acessos simultâneos para medir até onde o sistema suporta. Há dois alvos configurados, a camada que fica na frente do domínio principal e a aplicação web, cada um com um teste rápido de verificação e um teste de estresse. Os testes são executados manualmente, quando necessário. Por gerarem tráfego real, os testes de estresse devem ser executados com cuidado para não afetar quem usa a plataforma.
+
+## Ficha técnica
+
+- **Tipo:** testes de carga.
+- **Stack:** k6 com TypeScript.
+- **Alvos:** `web-worker` e `web-app`.
+- **Ambientes:** sem deploy; execução manual.
 
 ## Aprofunde-se no Projeto!
 
