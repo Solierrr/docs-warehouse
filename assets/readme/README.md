@@ -26,12 +26,15 @@ Exemplo de README já montado: [`readme/services/api-messenger/README.md`](../..
 | `fastapi.png` | FastAPI |
 | `fastify.png` | Fastify |
 | `vite.png` | Vite |
+| `python.png` | Python |
+| `gke.png` | Google Kubernetes Engine |
 | `react.png` | React |
 | `html.png` | HTML5 |
 | `storybook.png` | Storybook |
 | `swagger.png` | Swagger |
 | `google.png` | Google |
 | `cloudflare-workers.png` | Cloudflare Workers |
+| `cloudflare.png` | Cloudflare |
 | `render.png` | Render |
 | `terraform.png` | Terraform |
 | `argocd.png` | Argo CD |
