@@ -19,15 +19,6 @@
 
 Este serviço define o que aparece nas telas de recomendação do marketplace: quais profissionais, ofertas de placas solares e fornecedores são exibidos e em que ordem. Ele usa as relações entre esses itens para montar a lista mais relevante e, quando essa base de relações não está disponível, responde com uma seleção de itens elegíveis. O serviço apenas lê informações e não altera nenhum dado.
 
-## Ficha técnica
-
-- **Tipo:** serviço HTTP somente leitura.
-- **Stack:** Python 3.12 e FastAPI.
-- **Dados:** Neo4j para as relações e PostgreSQL para a leitura direta e a alternativa sem grafo.
-- **Integrações:** chamado pelo `api-core`; o grafo é montado pelo `database-bootstrap`.
-- **Decisões:** feeds públicos sem chave, servidos com cache de borda, e resposta alternativa quando o grafo está indisponível.
-- **Ambientes:** QA no Render e produção no GKE.
-
 ## Aprofunde-se no Projeto!
 
 - [ARCHITECTURE.md](https://github.com/Solierrr/api-recommendation/blob/main/docs/ARCHITECTURE.md)

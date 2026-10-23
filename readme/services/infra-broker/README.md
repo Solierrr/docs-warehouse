@@ -15,12 +15,6 @@
 
 Este repositório é destinado ao broker de mensagens da plataforma, o componente que permite aos serviços trocar avisos entre si sem depender de estarem disponíveis ao mesmo tempo. No momento, ele contém apenas a estrutura-base de repositório da organização, sem código próprio. Ainda não há definição registrada da tecnologia nem dos serviços que vão utilizá-lo. Os arquivos do modelo de criação foram mantidos de propósito e serão substituídos quando o serviço for implementado.
 
-## Ficha técnica
-
-- **Tipo:** infraestrutura, ainda sem código.
-- **Tecnologia:** {a confirmar}
-- **Ambientes:** nenhum.
-
 ## Aprofunde-se no Projeto!
 
 - [STRUCTURE.md](https://github.com/Solierrr/infra-broker/blob/main/docs/STRUCTURE.md), arquivos do molde, cliente HTTP local e inicialização no Render.

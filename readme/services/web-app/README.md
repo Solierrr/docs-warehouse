@@ -20,15 +20,6 @@
 
 Esta é a aplicação web da plataforma, o marketplace de energia solar. Nela, usuários, profissionais instaladores e empresas do setor se cadastram, buscam painéis solares, publicam e consultam anúncios, mantêm perfis públicos e trocam mensagens por um chat integrado. A aplicação está disponível em português, inglês e espanhol e funciona no navegador. Pessoas que ainda não entraram na conta podem navegar pelas recomendações públicas do marketplace.
 
-## Ficha técnica
-
-- **Tipo:** aplicação web de página única.
-- **Stack:** React 19, TypeScript e Vite, com Tailwind CSS.
-- **Componentes:** documentados no Storybook.
-- **Dados:** APIs da plataforma, com modo de dados simulados para desenvolvimento, e Firebase para recursos em tempo real.
-- **Idiomas:** português, inglês e espanhol.
-- **Ambientes:** QA no Render, como site estático, e produção no GKE, servido por Nginx.
-
 ## Aprofunde-se no Projeto!
 
 - [ARCHITECTURE.md](https://github.com/Solierrr/web-app/blob/main/docs/ARCHITECTURE.md), estrutura de pastas e decisões de arquitetura do frontend.

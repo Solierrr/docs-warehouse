@@ -17,13 +17,6 @@
 
 Este repositório define o ponto único que recebe os dados de funcionamento dos serviços, como tempo de resposta, erros e registros de eventos. Em vez de cada serviço enviar essas informações diretamente a uma ferramenta externa, todos as enviam para este ponto, que remove dados sensíveis, reduz o volume e repassa o resultado à plataforma de monitoramento. Dessa forma, a configuração de monitoramento fica centralizada e pode ser ajustada por ambiente.
 
-## Ficha técnica
-
-- **Tipo:** infraestrutura de observabilidade.
-- **Stack:** OpenTelemetry Collector, aplicado com Kustomize.
-- **Destino:** Grafana Cloud.
-- **Ambientes:** GKE.
-
 ## Aprofunde-se no Projeto!
 
 - [ARCHITECTURE.md](https://github.com/Solierrr/infra-otel-collector/blob/main/docs/ARCHITECTURE.md), estrutura do repositório e detalhamento dos receivers/processors/exporters configurados no pipeline.

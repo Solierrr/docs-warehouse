@@ -18,15 +18,6 @@
 
 Este serviço mantém os cadastros do projeto: pessoas usuárias, profissionais, fornecedores e empresas que procuram equipamentos fotovoltaicos, com os respectivos endereços e telefones. Ele permite criar, consultar, alterar e excluir esses registros, valida os dados informados, como e-mail, força da senha e tamanho dos campos, e exibe mensagens claras quando há algum problema. A tela de gerenciamento é acessada pelo navegador.
 
-## Ficha técnica
-
-- **Tipo:** aplicação web Java empacotada como WAR.
-- **Stack:** Java 25, Servlets e JSP (Jakarta EE 10) no Tomcat 11.
-- **Dados:** PostgreSQL, por JDBC.
-- **Build:** Maven e imagem Docker.
-- **Ambientes:** ainda não definidos.
-- **Padrões:** fora dos padrões de CI, release e templates da organização.
-
 ## Aprofunde-se no Projeto!
 
 - [ARCHITECTURE.md](https://github.com/Solierrr/elos-backend/blob/main/docs/ARCHITECTURE.md), camadas do serviço, modelo de dados, validação e árvore real do repositório.

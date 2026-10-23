@@ -15,13 +15,6 @@
 
 Este repositório reúne os testes de carga da plataforma, que simulam muitos acessos simultâneos para medir até onde o sistema suporta. Há dois alvos configurados, a camada que fica na frente do domínio principal e a aplicação web, cada um com um teste rápido de verificação e um teste de estresse. Os testes são executados manualmente, quando necessário. Por gerarem tráfego real, os testes de estresse devem ser executados com cuidado para não afetar quem usa a plataforma.
 
-## Ficha técnica
-
-- **Tipo:** testes de carga.
-- **Stack:** k6 com TypeScript.
-- **Alvos:** `web-worker` e `web-app`.
-- **Ambientes:** sem deploy; execução manual.
-
 ## Aprofunde-se no Projeto!
 
 - [ARCHITECTURE.md](https://github.com/Solierrr/infra-stress/blob/main/docs/ARCHITECTURE.md), arquitetura do repositório e estrutura de pastas.

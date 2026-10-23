@@ -16,15 +16,6 @@
 
 Este repositório reúne o necessário para criar, atualizar e consultar os bancos de dados da plataforma: os scripts que montam as tabelas e as regras, as mudanças de versão e os dados de exemplo usados em desenvolvimento. Ele permite subir uma cópia local dos bancos para testar outros serviços sem depender de ambientes compartilhados e registra a responsabilidade por cada parte do banco e as permissões de leitura de cada serviço.
 
-## Ficha técnica
-
-- **Tipo:** scripts e migrações de banco de dados.
-- **Stack:** SQL, Python e Docker para o ambiente local.
-- **Bancos:** PostgreSQL (`coredb`, `authdb` e `analyticsdb`) e Redis local.
-- **Decisões:** o schema do `coredb` tem fonte única aqui; o do `authdb` pertence ao `api-auth` e é espelhado.
-- **Acesso:** cada consumidor que lê o `coredb` diretamente tem um papel somente leitura próprio.
-- **Ambientes:** sem deploy; os comandos são executados pelo `Makefile`.
-
 ## Aprofunde-se no Projeto!
 
 - ARCHITECTURE.md {a confirmar: ainda não existe neste repositório}, documento de arquitetura dos bancos.

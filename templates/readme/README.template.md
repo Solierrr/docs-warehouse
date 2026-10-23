@@ -19,16 +19,6 @@
 <!-- Contexto: um ou dois parágrafos formais, em português, para quem não conhece o projeto: o que o repositório faz, para quem e por que existe. Mínimo de 60 palavras. Sem rotas, endpoints, nomes de arquivos, tabelas ou siglas internas; sem tom de suspense ou promessa; descreva o que existe hoje. Nunca escreva o nome do projeto nem da organização (use "o projeto", "a plataforma", "a organização" ou "o repositório"). Não mencione a seção "Aprofunde-se" no texto. -->
 {Parágrafo de contexto.}
 
-<!-- Ficha técnica: bullets curtos no formato **Rótulo:** valor. É aqui que entram os termos técnicos e as decisões do repositório. Use só os rótulos que se aplicam. -->
-## Ficha técnica
-
-- **Tipo:** {serviço HTTP, biblioteca, rotina, infraestrutura, documentação...}
-- **Stack:** {linguagem, framework e versões relevantes}
-- **Dados:** {bancos e armazenamentos que lê ou grava}
-- **Integrações:** {serviços e APIs que chama ou que o chamam}
-- **Ambientes:** {onde roda e como chega lá}
-- **Decisões:** {escolhas técnicas que valem registrar, em uma frase cada}
-
 ## Aprofunde-se no Projeto!
 
 <!-- Um bullet por arquivo, com o nome do arquivo como link e uma descrição curta. Só arquivos que existem. -->

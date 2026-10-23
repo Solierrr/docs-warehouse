@@ -15,14 +15,6 @@
 
 Esta rotina migrou usuários e dados de um banco de dados antigo para o banco principal da plataforma. Ela lê o banco antigo sem alterá-lo, converte as informações para o formato novo e completa com dados fictícios os campos que o banco antigo não possuía. A execução pode ser repetida sem duplicar registros. Não há publicação conhecida em nenhum ambiente, e o uso contra um banco real exige revisão prévia dos dados.
 
-## Ficha técnica
-
-- **Tipo:** rotina de migração.
-- **Stack:** Python e SQLAlchemy.
-- **Dados:** lê o banco legado e grava no `coredb` (PostgreSQL).
-- **Compatibilidade:** adaptada à versão V29 do schema do `coredb`.
-- **Ambientes:** sem deploy.
-
 ## Aprofunde-se no Projeto!
 
 - [ARCHITECTURE.md](https://github.com/Solierrr/database-rpa/blob/main/docs/ARCHITECTURE.md), arquitetura do repositório e estrutura de pastas.

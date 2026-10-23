@@ -17,15 +17,6 @@
 
 Este serviço envia os e-mails automáticos da plataforma, como a confirmação de cadastro, a redefinição de senha e os convites para empresas e projetos. Os outros serviços solicitam o envio, e ele monta a mensagem no idioma correto e a entrega ao servidor de e-mail. Também permite visualizar a mensagem antes do envio. O serviço não mantém histórico nem faz novas tentativas por conta própria; por isso, a confirmação do servidor de e-mail não garante a entrega na caixa de entrada.
 
-## Ficha técnica
-
-- **Tipo:** serviço HTTP interno.
-- **Stack:** TypeScript, Node.js e Fastify.
-- **Modelos de mensagem:** React Email.
-- **Envio:** SMTP com Nodemailer.
-- **Dados:** não armazena mensagens.
-- **Ambientes:** QA no Render; ainda sem produção.
-
 ## Aprofunde-se no Projeto!
 
 - [ARCHITECTURE.md](https://github.com/Solierrr/api-email/blob/main/docs/ARCHITECTURE.md), arquitetura do serviço.

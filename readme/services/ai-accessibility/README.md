@@ -18,15 +18,6 @@
 
 Este serviço analisa as imagens enviadas à plataforma antes da publicação. Ele verifica se o conteúdo é adequado e, quando a imagem é aprovada, gera uma descrição curta que pode ser lida por leitores de tela, o que torna o conteúdo acessível a pessoas com deficiência visual. O resultado indica se a imagem foi aprovada, se precisa de revisão humana ou se foi recusada. O serviço não armazena nem publica imagens: ele apenas analisa e responde.
 
-## Ficha técnica
-
-- **Tipo:** serviço HTTP de inteligência artificial.
-- **Stack:** Python, FastAPI, LangChain e LangGraph.
-- **Modelos:** Gemini e Groq.
-- **Resultado:** aprovada, revisão humana ou recusada, com a descrição acessível quando aprovada.
-- **Dados:** não armazena imagens nem resultados.
-- **Ambientes:** QA no Render; ainda sem produção.
-
 ## Aprofunde-se no Projeto!
 
 - [ARCHITECTURE.md](https://github.com/Solierrr/ai-accessibility/blob/main/docs/ARCHITECTURE.md), arquitetura do repositório e estrutura de pastas.

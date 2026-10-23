@@ -18,14 +18,6 @@
 
 Esta biblioteca reúne o código compartilhado pelos serviços de inteligência artificial da plataforma, para que cada serviço não precise reescrever as mesmas partes. Ela alterna o uso das chaves dos modelos de linguagem, protege dados pessoais, bloqueia instruções maliciosas nas conversas, mede o custo e o tempo de cada resposta e permite que um assistente solicite ajuda a outro. É distribuída como pacote Python.
 
-## Ficha técnica
-
-- **Tipo:** biblioteca.
-- **Stack:** Python.
-- **Modelos:** Gemini, Groq e OpenAI.
-- **Consumidores:** serviços de inteligência artificial.
-- **Publicação:** PyPI, a cada release.
-
 ## Aprofunde-se no Projeto!
 
 - [ARCHITECTURE.md](https://github.com/Solierrr/lib-ai/blob/main/docs/ARCHITECTURE.md), arquitetura do repositório e estrutura de pastas.

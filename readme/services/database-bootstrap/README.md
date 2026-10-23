@@ -16,14 +16,6 @@
 
 Esta rotina monta e reconstrói o banco de relações usado nas recomendações da plataforma a partir dos dados do banco principal. Ela não permanece em execução: roda sob demanda, conclui o trabalho e termina. Como o banco principal é a fonte oficial das informações, o banco de relações pode ser apagado e recriado a qualquer momento, e esta rotina o preenche novamente com os dados atuais.
 
-## Ficha técnica
-
-- **Tipo:** rotina executada sob demanda.
-- **Stack:** Python 3.12.
-- **Dados:** lê o PostgreSQL e grava o Neo4j.
-- **Integrações:** nenhuma API da aplicação.
-- **Ambientes:** Job no GKE.
-
 ## Aprofunde-se no Projeto!
 
 - [ARCHITECTURE.md](https://github.com/Solierrr/database-bootstrap/blob/main/docs/ARCHITECTURE.md), arquitetura do serviço.

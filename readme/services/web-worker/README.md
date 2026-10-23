@@ -16,15 +16,6 @@
 
 Este serviço é executado na borda da rede, na frente do site principal, e trata cada acesso antes que ele chegue à aplicação. Ele encaminha as requisições e, quando a aplicação está indisponível, exibe uma página temporária que informa o problema em vez de um erro genérico. Também define o idioma da página conforme a preferência do visitante e bloqueia acessos automatizados a endereços usados em ataques.
 
-## Ficha técnica
-
-- **Tipo:** Cloudflare Worker.
-- **Stack:** TypeScript, publicado pelo `wrangler`.
-- **Idiomas:** português, inglês e espanhol.
-- **Segurança:** rotas isca que colocam o IP numa lista da Cloudflare com desafio, nunca bloqueio permanente.
-- **Telemetria:** logs da Cloudflare e envio opcional ao coletor de observabilidade.
-- **Ambientes:** Cloudflare, publicado pela integração com o GitHub.
-
 ## Aprofunde-se no Projeto!
 
 - [ARCHITECTURE.md](https://github.com/Solierrr/web-worker/blob/main/docs/ARCHITECTURE.md), arquitetura do repositório e estrutura de pastas.

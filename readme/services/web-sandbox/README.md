@@ -17,14 +17,6 @@
 
 Esta aplicação apoia o time na validação do ambiente de testes. Após o login, ela reúne um catálogo dos repositórios da plataforma, com links para o código, para a documentação das APIs e para cada serviço, e uma tela para reativar os serviços de testes que ficam inativos quando não são usados. A aplicação é de uso interno e não é destinada às pessoas que utilizam a plataforma.
 
-## Ficha técnica
-
-- **Tipo:** aplicação web interna.
-- **Stack:** React, TypeScript e Vite, com Tailwind CSS.
-- **Componentes:** biblioteca `lib-web`.
-- **Autenticação:** `api-auth` de QA, com modo simulado para desenvolvimento local.
-- **Ambientes:** Render, como site estático, a partir da `main`.
-
 ## Aprofunde-se no Projeto!
 
 - [ARCHITECTURE.md](https://github.com/Solierrr/web-sandbox/blob/main/docs/ARCHITECTURE.md), arquitetura do repositório e estrutura de pastas.

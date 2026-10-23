@@ -21,15 +21,6 @@
 
 Este serviço controla o acesso das pessoas à plataforma. Ele registra novos usuários, confirma a identidade no login, mantém as sessões ativas e permite renovar o acesso sem solicitar a senha novamente. Além do login com e-mail e senha, aceita o acesso por conta externa e oferece uma segunda etapa de verificação. Os demais serviços confiam nele para identificar quem faz cada requisição e conferem essa identidade de forma independente.
 
-## Ficha técnica
-
-- **Tipo:** serviço HTTP.
-- **Stack:** Kotlin, Spring Boot 4 e Java 21.
-- **Dados:** PostgreSQL (`authdb`) e Redis.
-- **Tokens:** JWT assinado com RS256; as chaves públicas são publicadas para que os outros serviços validem os tokens sozinhos.
-- **Integrações:** Firebase para o login por conta externa e `api-core` para os dados de cadastro.
-- **Ambientes:** QA no Render e produção no GKE.
-
 ## Aprofunde-se no Projeto!
 
 - [ARCHITECTURE.md](https://github.com/Solierrr/api-auth/blob/main/docs/ARCHITECTURE.md), camadas do serviço, padrão de outbox e árvore real do repositório.

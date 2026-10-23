@@ -22,17 +22,6 @@
 
 Este serviço é o assistente virtual da plataforma para quem procura soluções de energia solar. Ele conversa com a pessoa, identifica a necessidade e ajuda a encontrar placas solares, itens de fixação, profissionais e empresas adequados a cada caso. O assistente mantém o histórico das conversas, inclusive de atendimentos anteriores, e encaminha a outros assistentes da plataforma os pedidos que fogem do seu papel, como operar telas do sistema ou planejar rotas.
 
-## Ficha técnica
-
-- **Tipo:** serviço HTTP de inteligência artificial, com vários agentes.
-- **Stack:** Python, FastAPI, LangChain e LangGraph.
-- **Modelos:** Gemini e Groq.
-- **Dados:** MongoDB para a memória das conversas, Redis para cache e fila de agentes e Qdrant para a busca de contexto.
-- **Integrações:** `api-messenger` (histórico), `mcp-database` (dados de negócio), `ai-operational` e `ai-geographic`.
-- **Autenticação:** JWT de usuário emitido pelo `api-auth`.
-- **Observabilidade:** LangSmith.
-- **Ambientes:** QA no Render e produção no GKE.
-
 ## Aprofunde-se no Projeto!
 
 - [ARCHITECTURE.md](https://github.com/Solierrr/ai-assistant/blob/main/docs/ARCHITECTURE.md), arquitetura do repositório e estrutura de pastas.

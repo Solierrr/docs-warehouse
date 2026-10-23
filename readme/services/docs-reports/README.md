@@ -11,14 +11,6 @@
 
 Este repositório produz relatórios, documentos e manuais de instrução em HTML com o apoio de agentes de inteligência artificial. Os modelos já trazem a identidade visual da plataforma, e o agente escreve apenas o conteúdo. Dessa forma, os documentos seguem um padrão único e ficam prontos para compartilhamento. Antes de qualquer geração, a pessoa responsável aprova uma especificação do documento, e o resultado passa por uma revisão independente.
 
-## Ficha técnica
-
-- **Tipo:** documentação.
-- **Formato:** HTML.
-- **Processo:** especificação aprovada antes da geração, agentes de pesquisa, redação e diagramação e revisão independente, em até três ciclos.
-- **Licença:** CC0 1.0.
-- **Ambientes:** sem deploy.
-
 ## Aprofunde-se no Projeto!
 
 - [ARCHITECTURE.md](https://github.com/Solierrr/docs-reports/blob/main/docs/ARCHITECTURE.md), arquitetura do repositório e estrutura de pastas.

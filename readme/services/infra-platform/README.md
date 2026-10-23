@@ -16,14 +16,6 @@
 
 Este repositório define em código a infraestrutura básica da plataforma na nuvem: a rede, o cluster onde os serviços são executados e as ferramentas instaladas nele para publicar e proteger os serviços. Como a nuvem cobra pelo tempo em que o cluster permanece ligado, a infraestrutura foi planejada para ser desligada quando não está em uso e religada sob demanda, sem perda de configuração. Alterações neste repositório têm custo e afetam todos os serviços.
 
-## Ficha técnica
-
-- **Tipo:** infraestrutura como código.
-- **Stack:** Terraform no Google Cloud (GKE).
-- **Segredos:** criados no cluster a partir do Terraform.
-- **Operação:** script para zerar os nodes do cluster sem destruí-lo.
-- **Ambientes:** produção; as mudanças são aplicadas manualmente.
-
 ## Aprofunde-se no Projeto!
 
 - [ARCHITECTURE.md](https://github.com/Solierrr/infra-platform/blob/main/docs/ARCHITECTURE.md), estrutura do repositório e explicação dos recursos definidos em cada arquivo `.tf`.

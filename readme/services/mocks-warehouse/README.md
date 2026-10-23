@@ -11,14 +11,6 @@
 
 Este repositório guarda o acervo de imagens usado nos dados de exemplo e nos ambientes de teste, junto com um catálogo que descreve cada imagem. É um conjunto de arquivos compartilhado por quem precisa de fotos para simular a plataforma e não executa nenhum serviço. As imagens ficam publicadas num serviço de hospedagem de imagens, e o catálogo registra os atributos de cada uma, o que permite escolher fotos adequadas para cada tipo de dado simulado.
 
-## Ficha técnica
-
-- **Tipo:** acervo de arquivos.
-- **Hospedagem das imagens:** Cloudinary.
-- **Consumidores:** dados simulados do `web-app` e cargas de exemplo dos bancos.
-- **Licença:** Unlicense.
-- **Ambientes:** sem deploy.
-
 ## Aprofunde-se no Projeto!
 
 - [ARCHITECTURE.md](https://github.com/Solierrr/mocks-warehouse/blob/main/docs/ARCHITECTURE.md), arquitetura do repositório e estrutura de pastas.

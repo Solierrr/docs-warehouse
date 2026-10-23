@@ -15,14 +15,6 @@
 
 Este repositório reúne as páginas do projeto exibidas no navegador: a página inicial, que apresenta a proposta de conectar compradores e fornecedores de equipamentos fotovoltaicos, e as telas de entrada, recuperação de senha, apresentação da equipe e gerenciamento de usuários. As páginas são estáticas e não exigem instalação nem etapa de construção. Parte das telas ainda está em desenvolvimento em branches separadas.
 
-## Ficha técnica
-
-- **Tipo:** páginas web estáticas.
-- **Stack:** HTML, CSS e JavaScript, sem framework.
-- **Integrações:** `elos-backend`, na tela de gerenciamento de usuários.
-- **Ambientes:** ainda não definidos.
-- **Padrões:** fora dos padrões de CI, release e templates da organização.
-
 ## Aprofunde-se no Projeto!
 
 - [ARCHITECTURE.md](https://github.com/Solierrr/elos-frontend/blob/main/docs/ARCHITECTURE.md), organização das páginas, estilos e scripts, e como a tela de gerenciamento fala com o serviço de cadastros.

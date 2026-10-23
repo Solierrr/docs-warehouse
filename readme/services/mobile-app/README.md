@@ -18,13 +18,6 @@
 
 Este é o aplicativo Android da plataforma. A interface inclui a tela inicial, projetos, conversas, chamados, agenda, mapa, perfis e configurações. Na versão principal, as telas ainda usam dados de demonstração, sem conexão com os serviços reais. O código separa o que a pessoa vê, o estado de cada tela e a origem dos dados. O aplicativo é distribuído como arquivo de instalação, sem publicação em loja.
 
-## Ficha técnica
-
-- **Tipo:** aplicativo Android.
-- **Stack:** Kotlin e Jetpack Compose, com Gradle.
-- **Integrações:** Firebase.
-- **Distribuição:** APK, sem publicação automática.
-
 ## Aprofunde-se no Projeto!
 
 - [ARCHITECTURE.md](https://github.com/Solierrr/mobile-app/blob/main/docs/ARCHITECTURE.md), arquitetura e estrutura de pastas do projeto.

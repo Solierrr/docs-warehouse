@@ -20,13 +20,6 @@
 
 Este repositório descreve como cada serviço da plataforma deve estar em execução no cluster na nuvem. Em vez de aplicar mudanças manualmente, o estado desejado fica registrado aqui, e uma ferramenta de entrega contínua mantém o cluster igual ao que está descrito. Publicar um serviço novo ou alterar um existente consiste em adicionar ou modificar um arquivo neste repositório. Todo o histórico de mudanças fica registrado no próprio repositório.
 
-## Ficha técnica
-
-- **Tipo:** infraestrutura declarativa (GitOps).
-- **Ferramenta:** Argo CD, com sincronização automática, remoção do que sai do repositório e correção de divergências.
-- **Por serviço:** Application do Argo CD, Deployment, Service e, quando exposto, Ingress.
-- **Ambientes:** produção no GKE.
-
 ## Aprofunde-se no Projeto!
 
 - [ARCHITECTURE.md](https://github.com/Solierrr/infra-gitops/blob/main/docs/ARCHITECTURE.md), estrutura de pastas e o padrão app-of-apps em detalhe.

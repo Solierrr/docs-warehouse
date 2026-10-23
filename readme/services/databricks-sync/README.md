@@ -18,14 +18,6 @@
 
 Este serviço leva os dados da plataforma para o ambiente de análise e traz de volta os indicadores calculados. Quando acionado, ele copia os dados do banco principal para o ambiente de análise e, depois que os indicadores ficam prontos, exporta os resultados para o banco que alimenta os painéis. O serviço é acionado apenas por quem possui a chave de acesso e não executa em horários fixos.
 
-## Ficha técnica
-
-- **Tipo:** serviço HTTP acionado sob demanda.
-- **Stack:** Python e FastAPI.
-- **Dados:** lê o PostgreSQL e grava no Databricks e no banco dos painéis.
-- **Integrações:** `databricks-stocker`, que calcula os indicadores.
-- **Ambientes:** Render, a partir da branch `main`.
-
 ## Aprofunde-se no Projeto!
 
 - [ARCHITECTURE.md](https://github.com/Solierrr/databricks-sync/blob/main/docs/ARCHITECTURE.md), fluxo de sincronização.

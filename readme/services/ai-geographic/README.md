@@ -21,16 +21,6 @@
 
 Este serviço é um assistente para profissionais de energia solar que trabalham em campo, como técnicos, instaladores e engenheiros, e é usado pelo aplicativo móvel da plataforma. Ele ajuda a planejar o deslocamento até o cliente, a avaliar se vale a pena visitar uma região em determinada data, com base em chuva, vento e horas de luz do dia, e a estimar o potencial solar do local. Perguntas sobre produtos são encaminhadas ao assistente virtual principal.
 
-## Ficha técnica
-
-- **Tipo:** serviço HTTP de inteligência artificial.
-- **Stack:** Python, LangChain e LangGraph.
-- **Modelos:** Gemini e Groq.
-- **Dados:** MongoDB e Redis.
-- **Integrações:** Google Maps e `ai-assistant`.
-- **Consumidor:** aplicativo móvel.
-- **Ambientes:** QA no Render; ainda sem produção.
-
 ## Aprofunde-se no Projeto!
 
 - [ARCHITECTURE.md](https://github.com/Solierrr/ai-geographic/blob/main/docs/ARCHITECTURE.md)

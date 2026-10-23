@@ -22,16 +22,6 @@
 
 Este serviço é o cadastro central da plataforma. Nele ficam as informações de empresas, usuários, técnicos, fornecedores, propostas, contratos de serviço, faturas de energia e certificações, que sustentam a operação de instalação e manutenção de sistemas de energia solar. Os outros serviços e aplicativos consultam e atualizam esses dados por meio dele, com controle de quem pode ver e alterar cada informação.
 
-## Ficha técnica
-
-- **Tipo:** serviço HTTP.
-- **Stack:** Java 21 e Spring Boot 4.
-- **Dados:** PostgreSQL (`coredb`) e Redis.
-- **Integrações:** Cloudinary para imagens e Google Translate para traduções.
-- **Autenticação:** JWT de usuário emitido pelo `api-auth`.
-- **Decisões:** o schema do `coredb` é mantido no `database-console`, não neste repositório.
-- **Ambientes:** QA no Render e produção no GKE.
-
 ## Aprofunde-se no Projeto!
 
 - [ARCHITECTURE.md](https://github.com/Solierrr/api-core/blob/main/docs/ARCHITECTURE.md), estrutura de pastas, camadas e padrões usados no repositório.

@@ -21,15 +21,6 @@
 
 Este serviço concentra o acesso da plataforma às ferramentas do Google. Em vez de cada serviço manter as próprias chaves e chamar o Google diretamente, todos fazem o pedido a ele. Hoje ele sugere e valida endereços, avalia se o telhado de um imóvel é adequado para energia solar, traduz textos entre português, inglês e espanhol e informa o fuso horário de uma localização. Assim, as chaves ficam em um único lugar.
 
-## Ficha técnica
-
-- **Tipo:** serviço HTTP sem estado.
-- **Stack:** Python e FastAPI.
-- **APIs do Google:** Places, Geocoding, Address Validation, Solar e Cloud Translation.
-- **Autenticação:** validação do JWT do `api-auth` preparada, ainda não aplicada às rotas.
-- **Observabilidade:** OpenTelemetry.
-- **Ambientes:** QA no Render e produção no GKE.
-
 ## Aprofunde-se no Projeto!
 
 - [ARCHITECTURE.md](https://github.com/Solierrr/api-google/blob/main/docs/ARCHITECTURE.md)

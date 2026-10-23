@@ -18,15 +18,6 @@
 
 Este serviço confere documentos enviados por profissionais e empresas parceiras. A partir de uma imagem, ele lê certificados de treinamento em segurança para instalações elétricas e para trabalho em altura e verifica a validade, a carga horária e a correspondência do nome do aluno entre os documentos. Também confirma se o CNPJ de uma empresa parceira está ativo e se a atividade registrada é compatível com o setor de energia solar e elétrica.
 
-## Ficha técnica
-
-- **Tipo:** serviço HTTP de inteligência artificial.
-- **Stack:** Python, FastAPI, LangChain e LangGraph.
-- **Modelos:** Gemini e Groq.
-- **Documentos:** certificados NR-10 e NR-35 e situação cadastral do CNPJ na Receita Federal.
-- **Decisões:** combina consultas externas, inteligência artificial e regras fixas para reduzir resultados incorretos.
-- **Ambientes:** QA no Render e produção no GKE.
-
 ## Aprofunde-se no Projeto!
 
 - [ARCHITECTURE.md](https://github.com/Solierrr/ai-validation/blob/main/docs/ARCHITECTURE.md), estrutura de pastas, camadas e padrões arquiteturais do serviço.

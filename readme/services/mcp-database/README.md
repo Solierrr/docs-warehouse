@@ -17,15 +17,6 @@
 
 Este serviço oferece aos assistentes de inteligência artificial da plataforma acesso controlado a informações de negócio, como ofertas de placas solares, profissionais e fornecedores. Em vez de consultar o banco de dados diretamente, o assistente usa consultas predefinidas, que apenas leem as informações e exigem uma chave de acesso. Isso protege o banco e padroniza a forma como os assistentes obtêm os dados.
 
-## Ficha técnica
-
-- **Tipo:** servidor MCP (Model Context Protocol).
-- **Stack:** Python.
-- **Dados:** PostgreSQL, somente leitura.
-- **Autenticação:** chave de acesso.
-- **Consumidor:** `ai-assistant`.
-- **Ambientes:** QA no Render e produção no GKE.
-
 ## Aprofunde-se no Projeto!
 
 - [Arquitetura](https://github.com/Solierrr/mcp-database/blob/main/docs/ARCHITECTURE.md)

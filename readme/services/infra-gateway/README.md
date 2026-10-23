@@ -18,14 +18,6 @@
 
 Este repositório guarda a configuração do gateway da plataforma, o ponto de entrada das requisições destinadas aos serviços. Em produção, o gateway roda dentro do cluster na nuvem; no ambiente de testes, que não possui cluster, ele oferece um endereço único e encaminha cada requisição ao serviço correspondente, no mesmo formato de produção. Assim, quem consome os serviços não precisa saber onde cada um está hospedado.
 
-## Ficha técnica
-
-- **Tipo:** infraestrutura.
-- **Gateway:** Kong.
-- **Produção:** ingress do GKE, instalado pelo `infra-platform` com o Helm chart do Kong.
-- **QA:** Kong sem banco de dados, como serviço Docker no Render.
-- **Ambientes:** Render a partir da `main` e GKE.
-
 ## Aprofunde-se no Projeto!
 
 - [ARCHITECTURE.md](https://github.com/Solierrr/infra-gateway/blob/main/docs/ARCHITECTURE.md), arquitetura do repositório e estrutura de pastas.
