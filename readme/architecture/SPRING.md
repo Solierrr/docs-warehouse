@@ -67,6 +67,6 @@ Em serviços Kotlin a árvore é a mesma, com `src/main/kotlin`.
 
 ## Veja também
 
-- [Como rodar um serviço Java](../running/java.md) e [Kotlin](../running/kotlin-springboot.md)
+- [Como rodar um serviço Java](../running/JAVA.md) e [Kotlin](../running/KOTLIN_SPRINGBOOT.md)
 - [Coleção Bruno](../bruno/README.md)
-- [Deploy de QA](../deploy/qa-render.md) e [de produção](../deploy/prod-gke-argocd.md)
+- [Deploy de QA](../deploy/QA_RENDER.md) e [de produção](../deploy/PROD_GKE_ARGOCD.md)

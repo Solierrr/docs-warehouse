@@ -53,5 +53,5 @@ Não há `Dockerfile` nem `.env.example`: as variáveis locais ficam em `.dev.va
 
 ## Veja também
 
-- [Deploy de um Worker na Cloudflare](../deploy/cloudflare-worker.md)
+- [Deploy de um Worker na Cloudflare](../deploy/CLOUDFLARE_WORKER.md)
 - [Segredos e variáveis](../infisical/README.md)

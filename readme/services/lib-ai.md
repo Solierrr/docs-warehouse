@@ -20,7 +20,7 @@ Esta biblioteca reúne os blocos de código que os serviços de inteligência ar
 
 ## Aprofunde-se no Projeto!
 
-- [package-release.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/package-release.md), como o pacote é publicado no registro.
+- [PACKAGE_RELEASE.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/PACKAGE_RELEASE.md), como o pacote é publicado no registro.
 - [OVERVIEW.md](https://github.com/Solierrr/lib-ai/blob/main/docs/OVERVIEW.md), o que a biblioteca contém.
 - [USAGE.md](https://github.com/Solierrr/lib-ai/blob/main/docs/USAGE.md), configuração e exemplos de uso.
 - [DEVELOPMENT.md](https://github.com/Solierrr/lib-ai/blob/main/docs/DEVELOPMENT.md), como desenvolver e testar.

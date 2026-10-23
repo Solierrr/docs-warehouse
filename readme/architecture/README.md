@@ -8,10 +8,10 @@ README reutilizável. O `ARCHITECTURE.md` de cada repositório explica como o c�
 
 | Família | Documento | Banner | Repositórios |
 |---|---|---|---|
-| Spring Boot (Java e Kotlin) | [spring.md](./spring.md) | Spring Boot | `api-auth`, `api-core`, `api-messenger` |
-| Serviços de IA (Python, LangChain e LangGraph) | [ai.md](./ai.md) | LangChain | `ai-assistant`, `ai-validation`, `ai-accessibility`, `ai-geographic`, `ai-operational` |
-| Aplicações web (React) | [web.md](./web.md) | React | `web-app`, `web-sandbox`, `lib-web` |
-| Workers da Cloudflare | [worker.md](./worker.md) | Cloudflare Workers | `web-worker` |
+| Spring Boot (Java e Kotlin) | [SPRING.md](./SPRING.md) | Spring Boot | `api-auth`, `api-core`, `api-messenger` |
+| Serviços de IA (Python, LangChain e LangGraph) | [AI.md](./AI.md) | LangChain | `ai-assistant`, `ai-validation`, `ai-accessibility`, `ai-geographic`, `ai-operational` |
+| Aplicações web (React) | [WEB.md](./WEB.md) | React | `web-app`, `web-sandbox`, `lib-web` |
+| Workers da Cloudflare | [WORKER.md](./WORKER.md) | Cloudflare Workers | `web-worker` |
 
 Outras famílias (Fastify, FastAPI sem agentes, infraestrutura, dados, mobile) seguem o modelo genérico em [`templates/readme/ARCHITETURE.template.md`](../../templates/readme/ARCHITETURE.template.md) até ganharem um documento próprio.
 

@@ -85,4 +85,4 @@ Essas duas credenciais são as únicas permitidas nessa exceção, e valem **só
 
 - [Como rodar um serviço localmente](../../helps/TRY-LOCAL.md)
 - [Design de segredos e ambientes](../../architecture/2026-09-03-secrets-and-envs-design.md)
-- [Deploy em QA no Render](../deploy/qa-render.md) e [deploy em produção no GKE](../deploy/prod-gke-argocd.md)
+- [Deploy em QA no Render](../deploy/QA_RENDER.md) e [deploy em produção no GKE](../deploy/PROD_GKE_ARGOCD.md)

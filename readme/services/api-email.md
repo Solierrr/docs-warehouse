@@ -22,7 +22,7 @@ Este serviço envia os e-mails automáticos da plataforma, como a confirmação 
 - [ARCHITECTURE.md](https://github.com/Solierrr/api-email/blob/main/docs/ARCHITECTURE.md), arquitetura do serviço.
 - [RUNNING.md](https://github.com/Solierrr/api-email/blob/main/docs/RUNNING.md), como rodar localmente.
 - [`http/README.md`](https://github.com/Solierrr/api-email/blob/main/http/README.md), coleção Bruno para executar e manter as chamadas locais da API.
-- [qa-render.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/qa-render.md), deploy de QA no Render.
+- [QA_RENDER.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/QA_RENDER.md), deploy de QA no Render.
 - [CONTRACT.md](https://github.com/Solierrr/api-email/blob/main/docs/CONTRACT.md), rotas, contrato de envio e quem consome o serviço.
 - [DEVELOPMENT.md](https://github.com/Solierrr/api-email/blob/main/docs/DEVELOPMENT.md), como desenvolver e testar localmente.
 

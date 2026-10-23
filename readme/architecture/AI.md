@@ -61,6 +61,6 @@ Serviços menores (`ai-validation`, `ai-accessibility`) têm só parte dessas pa
 
 ## Veja também
 
-- [Como rodar um serviço Python](../running/python.md)
+- [Como rodar um serviço Python](../running/PYTHON.md)
 - [Segredos e variáveis](../infisical/README.md), para as chaves de modelos
-- [Deploy de QA](../deploy/qa-render.md)
+- [Deploy de QA](../deploy/QA_RENDER.md)

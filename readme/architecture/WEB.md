@@ -55,6 +55,6 @@ README reutilizável, usado como base do `ARCHITECTURE.md` das aplicações fron
 
 ## Veja também
 
-- [Como rodar um projeto TypeScript](../running/typescript.md)
+- [Como rodar um projeto TypeScript](../running/TYPESCRIPT.md)
 - [Segredos e variáveis](../infisical/README.md)
-- [Deploy de QA](../deploy/qa-render.md) e [de produção](../deploy/prod-gke-argocd.md)
+- [Deploy de QA](../deploy/QA_RENDER.md) e [de produção](../deploy/PROD_GKE_ARGOCD.md)

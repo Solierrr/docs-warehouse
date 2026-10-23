@@ -19,7 +19,7 @@ Este repositório guarda a configuração do gateway da plataforma, a porta de e
 
 ## Aprofunde-se no Projeto!
 
-- [qa-render.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/qa-render.md), deploy de QA no Render.
+- [QA_RENDER.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/QA_RENDER.md), deploy de QA no Render.
 - [ENVIRONMENTS.md](https://github.com/Solierrr/infra-gateway/blob/main/docs/ENVIRONMENTS.md), como o gateway roda em QA e em produção.
 
 ## Contribuindo

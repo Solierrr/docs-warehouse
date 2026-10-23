@@ -18,7 +18,7 @@ Esta aplicação é a interface usada para testar manualmente os serviços no am
 
 ## Aprofunde-se no Projeto!
 
-- [qa-render.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/qa-render.md), deploy de QA no Render.
+- [QA_RENDER.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/QA_RENDER.md), deploy de QA no Render.
 - [DEVELOPMENT.md](https://github.com/Solierrr/web-sandbox/blob/main/docs/DEVELOPMENT.md), como executar, o modo mock, a biblioteca local e a validação.
 - [SCREENS.md](https://github.com/Solierrr/web-sandbox/blob/main/docs/SCREENS.md), telas de teste disponíveis.
 

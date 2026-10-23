@@ -22,7 +22,7 @@ Este serviço é o assistente virtual da plataforma para quem procura soluções
 
 ## Aprofunde-se no Projeto!
 
-- [qa-render.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/qa-render.md), deploy de QA no Render.
+- [QA_RENDER.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/QA_RENDER.md), deploy de QA no Render.
 - [docs/nps.md](https://github.com/Solierrr/ai-assistant/blob/main/docs/nps.md): avaliação da conversa (`messenger_conversation_id`)
 - [docs/observability-cost.md](https://github.com/Solierrr/ai-assistant/blob/main/docs/observability-cost.md) e [docs/observability-langsmith.md](https://github.com/Solierrr/ai-assistant/blob/main/docs/observability-langsmith.md)
 - [docs/long-term-memory-limitations.md](https://github.com/Solierrr/ai-assistant/blob/main/docs/long-term-memory-limitations.md)

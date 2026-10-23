@@ -18,7 +18,7 @@ Este serviço fica na frente do site principal e atende as pessoas antes mesmo d
 
 ## Aprofunde-se no Projeto!
 
-- [cloudflare-worker.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/cloudflare-worker.md), como o Worker é publicado na Cloudflare.
+- [CLOUDFLARE_WORKER.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/CLOUDFLARE_WORKER.md), como o Worker é publicado na Cloudflare.
 - [OVERVIEW.md](https://github.com/Solierrr/web-worker/blob/main/docs/OVERVIEW.md), como o Worker encaminha a origem e o que precisa estar configurado.
 - [LANGUAGE.md](https://github.com/Solierrr/web-worker/blob/main/docs/LANGUAGE.md), escolha de idioma e normalização de rotas.
 - [HONEYPOT.md](https://github.com/Solierrr/web-worker/blob/main/docs/HONEYPOT.md), rotas isca, ban e limpeza.

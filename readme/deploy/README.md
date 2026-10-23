@@ -10,12 +10,12 @@ README reutilizável. O deploy da organização é automático a partir de duas 
 
 | Tipo | Documento | Repositórios |
 |---|---|---|
-| Serviço de aplicação, QA no Render e produção no GKE | [QA no Render](./qa-render.md) e [produção no GKE](./prod-gke-argocd.md) | `api-auth`, `api-core`, `api-messenger`, `api-recommendation`, `ai-assistant`, `ai-validation`, `mcp-database`, `web-app`, `google-registry` |
-| Serviço de aplicação só com QA por enquanto | [QA no Render](./qa-render.md) | `ai-accessibility`, `ai-geographic`, `ai-operational`, `api-email` |
-| Serviço independente no Render (`main`) | [QA no Render](./qa-render.md), seção de serviços independentes | `infra-gateway`, `databricks-sync`, `web-sandbox` |
-| Worker da Cloudflare | [Worker na Cloudflare](./cloudflare-worker.md) | `web-worker` |
-| Biblioteca publicada em registro de pacotes | [Pacotes](./package-release.md) | `lib-web`, `lib-ai` |
-| Infraestrutura declarativa | [Produção no GKE](./prod-gke-argocd.md) | `infra-platform`, `infra-gitops`, `infra-otel-collector` |
+| Serviço de aplicação, QA no Render e produção no GKE | [QA no Render](./QA_RENDER.md) e [produção no GKE](./PROD_GKE_ARGOCD.md) | `api-auth`, `api-core`, `api-messenger`, `api-recommendation`, `ai-assistant`, `ai-validation`, `mcp-database`, `web-app`, `google-registry` |
+| Serviço de aplicação só com QA por enquanto | [QA no Render](./QA_RENDER.md) | `ai-accessibility`, `ai-geographic`, `ai-operational`, `api-email` |
+| Serviço independente no Render (`main`) | [QA no Render](./QA_RENDER.md), seção de serviços independentes | `infra-gateway`, `databricks-sync`, `web-sandbox` |
+| Worker da Cloudflare | [Worker na Cloudflare](./CLOUDFLARE_WORKER.md) | `web-worker` |
+| Biblioteca publicada em registro de pacotes | [Pacotes](./PACKAGE_RELEASE.md) | `lib-web`, `lib-ai` |
+| Infraestrutura declarativa | [Produção no GKE](./PROD_GKE_ARGOCD.md) | `infra-platform`, `infra-gitops`, `infra-otel-collector` |
 | Sem deploy | nenhum | `docs-warehouse`, `docs-reports`, `mocks-warehouse`, `database-console`, `database-rpa`, `infra-stress`, `mobile-app` (APK distribuído à mão) |
 
 ## O que é igual para todos

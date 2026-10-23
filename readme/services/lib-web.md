@@ -18,7 +18,7 @@ Esta biblioteca reúne os componentes visuais compartilhados das aplicações we
 
 ## Aprofunde-se no Projeto!
 
-- [package-release.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/package-release.md), como o pacote é publicado no registro.
+- [PACKAGE_RELEASE.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/PACKAGE_RELEASE.md), como o pacote é publicado no registro.
 - [USAGE.md](https://github.com/Solierrr/lib-web/blob/main/docs/USAGE.md), instalação e uso dos componentes.
 - [EMAIL.md](https://github.com/Solierrr/lib-web/blob/main/docs/EMAIL.md), modelos de e-mail e teste local com o `api-email`.
 - [DEVELOPMENT.md](https://github.com/Solierrr/lib-web/blob/main/docs/DEVELOPMENT.md), como desenvolver, testar e publicar o pacote.

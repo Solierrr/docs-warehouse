@@ -21,7 +21,7 @@ README reutilizável. A produção roda num cluster Kubernetes no Google Cloud (
 2. **Release.** O push em `main` dispara o `release.yml`, que constrói a imagem a partir do `Dockerfile` do repositório e publica no Docker Hub da organização.
 3. **ArgoCD.** A tag nova chega ao manifesto do `infra-gitops` e o ArgoCD sincroniza o cluster. A produção usa **tag imutável**, nunca `latest`.
 
-A imagem publicada é a mesma que passou pela [QA no Render](./qa-render.md); só a configuração muda.
+A imagem publicada é a mesma que passou pela [QA no Render](./QA_RENDER.md); só a configuração muda.
 
 ## O cluster precisa estar no ar
 
