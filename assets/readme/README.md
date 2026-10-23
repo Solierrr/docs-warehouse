@@ -5,6 +5,8 @@ Banners e ícones de stack para os READMEs e a documentação dos repositórios 
 - `banners/`, imagens 1858x740, em PNG com moldura branca e cantos transparentes, com o hexágono da Solaria ao lado do logo da stack principal. Vai no topo do README, escolhido pela stack principal do repositório.
 - `stacks/`, ícones quadrados de 300 px, em PNG com moldura branca e cantos transparentes, um por tecnologia. Vão numa linha centralizada logo abaixo do banner, sem texto, mostrados com `width="100" hspace="8"`.
 
+**Regra de estabilidade:** um arquivo publicado em `banners/` ou `stacks/` nunca é renomeado nem apagado, porque os READMEs de todos os repositórios apontam para ele pelo link raw da `main`. Para trocar uma imagem, substitua o arquivo mantendo o mesmo nome.
+
 **Regra:** a linha de ícones nunca repete a stack do banner. Se o banner é FastAPI, o ícone do FastAPI não entra na linha; ela mostra só o restante da stack. Quando sobra só a stack do banner, a linha inteira é omitida.
 
 Para usar em qualquer repositório, referencie o arquivo pelo link raw, que funciona porque o `docs-warehouse` é público:
@@ -116,3 +118,4 @@ Exemplo de README já montado: [`readme/services/api-messenger/README.md`](../..
 | `kubernetes-deployment.png` | Kubernetes, recurso Deployment |
 | `kubernetes-secret.png` | Kubernetes, recurso Secret |
 | `github-copilot.png` | GitHub Copilot, usado na documentação dos rulesets |
+| `mailpit.png` | Mailpit, caixa de e-mail local usada pelo `api-email` |
