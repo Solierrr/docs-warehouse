@@ -58,8 +58,8 @@ Exemplo de README já montado: [`readme/services/api-messenger/README.md`](../..
 | `mcp.png` | Model Context Protocol (MCP), usado no `mcp-database` |
 | `infisical.png` | Infisical, usado na documentação de segredos |
 | `langchain.png` | LangChain, usado na arquitetura dos serviços de IA |
-| `bruno.png` | Bruno, usado na pasta `readme/bruno/` de README reutilizável |
-| `template.png` | Banner dos templates: hexágono com um quadrado translúcido no lugar do logo da stack |
+| `bruno.png` | Bruno, usado em `readme/bruno/` |
+| `template.png` | Banner exclusivo do `generic-template`: hexágono com um quadrado translúcido no lugar do logo da stack |
 
 ## Ícones de stack
 
