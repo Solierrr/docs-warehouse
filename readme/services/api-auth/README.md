@@ -19,13 +19,15 @@
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/api-auth)](https://github.com/Solierrr/api-auth/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/api-auth)](https://github.com/Solierrr/api-auth/releases)
 
-Este serviço controla o acesso das pessoas à plataforma. Ele registra novos usuários, confirma a identidade no login, mantém as sessões ativas e permite renovar o acesso sem solicitar a senha novamente. Além do login com e-mail e senha, aceita o acesso por conta externa e oferece uma segunda etapa de verificação. Os demais serviços confiam nele para identificar quem faz cada requisição e conferem essa identidade de forma independente.
+Este serviço é responsável pelo acesso das pessoas à plataforma. Ele foi idealizado para concentrar em um único lugar a criação de contas, a entrada com e-mail e senha ou com uma conta externa, a confirmação do e-mail e a recuperação de senha, inclusive para quem usa o aplicativo móvel. Dessa forma, os demais serviços não guardam senhas nem repetem essas regras e confiam nele para saber quem está usando o sistema.
+
+A entrada com contas externas usa o Firebase, que confirma a identidade da pessoa antes de o serviço emitir o próprio acesso. Esse acesso é entregue em tokens JWT assinados com chave privada, e a chave pública fica disponível para que os outros serviços validem cada token sem consultar este serviço. O token de acesso tem validade curta e é renovado por um token de longa duração, que é trocado a cada uso. As contas ficam em um banco PostgreSQL próprio, criado na mesma instância usada pelo cadastro central da plataforma. O Redis funciona como fila de eventos, e cada conta nova gera um evento que cria o perfil correspondente no cadastro central, com novas tentativas automáticas quando esse serviço está indisponível.
 
 ## Aprofunde-se no Projeto!
 
-- [ARCHITECTURE.md](https://github.com/Solierrr/api-auth/blob/main/docs/ARCHITECTURE.md), camadas do serviço, padrão de outbox e árvore real do repositório.
-- [RUNNING.md](https://github.com/Solierrr/api-auth/blob/main/docs/RUNNING.md), como subir o `api-auth` localmente e impedimentos conhecidos.
-- [DEPLOYMENT.md](https://github.com/Solierrr/docs-warehouse/blob/main/.github/DEPLOYMENT.md), pipeline de deploy padrão da organização (`main`/`qa`, Docker Hub, ArgoCD).
+- [ARCHITECTURE.md](https://github.com/Solierrr/api-auth/blob/main/docs/ARCHITECTURE.md), organização do código, fluxo de eventos e estrutura do repositório.
+- [RUNNING.md](https://github.com/Solierrr/api-auth/blob/main/docs/RUNNING.md), como executar o serviço localmente e impedimentos conhecidos.
+- [DEPLOYMENT.md](https://github.com/Solierrr/docs-warehouse/blob/main/.github/DEPLOYMENT.md), processo de publicação nos ambientes de testes e de produção.
 
 ## Contribuindo
 
