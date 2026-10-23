@@ -110,6 +110,7 @@ Exemplo de README já montado: [`readme/services/api-messenger/README.md`](../..
 | `nginx.png` | Nginx |
 | `helm.png` | Helm |
 | `kubernetes-service.png` | Kubernetes, recurso Service |
+| `kubernetes-ingress.png` | Kubernetes, recurso Ingress |
 | `kubernetes-pod.png` | Kubernetes, recurso Pod |
 | `kubernetes-deployment.png` | Kubernetes, recurso Deployment |
 | `kubernetes-secret.png` | Kubernetes, recurso Secret |
