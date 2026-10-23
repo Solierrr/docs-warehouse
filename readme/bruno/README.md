@@ -50,4 +50,3 @@ http/
 ## Veja também
 
 - [Segredos e variáveis de ambiente](../infisical/README.md), de onde vêm as credenciais usadas no login local.
-- [Como rodar o projeto](../running/README.md), para subir a API antes de chamar a coleção.
