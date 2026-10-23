@@ -16,16 +16,18 @@
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/api-email)](https://github.com/Solierrr/api-email/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/api-email)](https://github.com/Solierrr/api-email/releases)
 
-Este serviço envia os e-mails automáticos da plataforma, como a confirmação de cadastro, a redefinição de senha e os convites para empresas e projetos. Os outros serviços solicitam o envio, e ele monta a mensagem no idioma correto e a entrega ao servidor de e-mail. Também permite visualizar a mensagem antes do envio. O serviço não mantém histórico nem faz novas tentativas por conta própria; por isso, a confirmação do servidor de e-mail não garante a entrega na caixa de entrada.
+Este serviço envia os e-mails automáticos da plataforma. Ele foi idealizado para que os outros serviços não precisem montar nem enviar mensagens por conta própria. Basta pedir o envio de um dos modelos prontos, como a confirmação de cadastro, a redefinição de senha, os convites para empresas e projetos e os avisos de aprovação de cadastros e de produtos, e o serviço entrega a mensagem com a identidade visual da plataforma, no idioma da pessoa.
+
+Os modelos são escritos com React Email e enviados por SMTP com Nodemailer. Cada pedido é conferido antes do envio, e só são aceitos modelos conhecidos, com os dados obrigatórios de cada um e com links que apontam para endereços autorizados da plataforma. O acesso exige uma chave compartilhada entre os serviços, e também é possível visualizar a mensagem montada sem enviá-la. As mensagens estão disponíveis em português, inglês e espanhol. O serviço não guarda histórico nem refaz tentativas, então a confirmação do servidor de e-mail indica apenas que a mensagem foi aceita para entrega. No ambiente local, as mensagens chegam a uma caixa de testes do Mailpit.
 
 ## Aprofunde-se no Projeto!
 
-- [ARCHITECTURE.md](https://github.com/Solierrr/api-email/blob/main/docs/ARCHITECTURE.md), arquitetura do serviço.
-- [RUNNING.md](https://github.com/Solierrr/api-email/blob/main/docs/RUNNING.md), como rodar localmente.
-- [`http/README.md`](https://github.com/Solierrr/api-email/blob/main/http/README.md), coleção Bruno para executar e manter as chamadas locais da API.
-- [QA_RENDER.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/QA_RENDER.md), deploy de QA no Render.
-- [CONTRACT.md](https://github.com/Solierrr/api-email/blob/main/docs/CONTRACT.md), rotas, contrato de envio e quem consome o serviço.
-- [DEVELOPMENT.md](https://github.com/Solierrr/api-email/blob/main/docs/DEVELOPMENT.md), como desenvolver e testar localmente.
+- [ARCHITECTURE.md](https://github.com/Solierrr/api-email/blob/main/docs/ARCHITECTURE.md), organização do código e estrutura do repositório.
+- [RUNNING.md](https://github.com/Solierrr/api-email/blob/main/docs/RUNNING.md), como executar o serviço localmente.
+- [`http/README.md`](https://github.com/Solierrr/api-email/blob/main/http/README.md), coleção de chamadas para testar o serviço localmente.
+- [QA_RENDER.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/QA_RENDER.md), processo de publicação no ambiente de testes.
+- [CONTRACT.md](https://github.com/Solierrr/api-email/blob/main/docs/CONTRACT.md), contrato de envio e serviços que usam o envio de e-mails.
+- [DEVELOPMENT.md](https://github.com/Solierrr/api-email/blob/main/docs/DEVELOPMENT.md), como desenvolver e testar o serviço.
 
 ## Contribuindo
 
