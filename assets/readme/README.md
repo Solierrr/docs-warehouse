@@ -52,6 +52,7 @@ Exemplo de README já montado: [`readme/services/api-messenger/README.md`](../..
 | `npm.png` | npm |
 | `pypi.png` | PyPI |
 | `kotlin.png` | Kotlin |
+| `jetpack-compose.png` | Jetpack Compose |
 | `markdown.png` | Markdown |
 | `claude.png` | Claude |
 | `mcp.png` | Model Context Protocol (MCP), usado no `mcp-database` |
