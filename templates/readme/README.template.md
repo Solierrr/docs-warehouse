@@ -16,15 +16,24 @@
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/{repositorio})](https://github.com/Solierrr/{repositorio}/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/{repositorio})](https://github.com/Solierrr/{repositorio}/releases)
 
-Texto de contexto do serviço em português, legível por quem não é da área técnica: o que o serviço faz, para quem e por que existe. Evite termos técnicos, siglas e nomes de rotas ou tabelas, e nunca escreva o nome do projeto nem da organização (use "o projeto", "a plataforma", "a organização" ou "o repositório"); esses detalhes ficam no `ARCHITECTURE.md`. Mínimo de 60 palavras.
+<!-- Contexto: um ou dois parágrafos formais, em português, para quem não conhece o projeto: o que o repositório faz, para quem e por que existe. Mínimo de 60 palavras. Sem rotas, endpoints, nomes de arquivos, tabelas ou siglas internas; sem tom de suspense ou promessa; descreva o que existe hoje. Nunca escreva o nome do projeto nem da organização (use "o projeto", "a plataforma", "a organização" ou "o repositório"). Não mencione a seção "Aprofunde-se" no texto. -->
+{Parágrafo de contexto.}
+
+<!-- Ficha técnica: bullets curtos no formato **Rótulo:** valor. É aqui que entram os termos técnicos e as decisões do repositório. Use só os rótulos que se aplicam. -->
+## Ficha técnica
+
+- **Tipo:** {serviço HTTP, biblioteca, rotina, infraestrutura, documentação...}
+- **Stack:** {linguagem, framework e versões relevantes}
+- **Dados:** {bancos e armazenamentos que lê ou grava}
+- **Integrações:** {serviços e APIs que chama ou que o chamam}
+- **Ambientes:** {onde roda e como chega lá}
+- **Decisões:** {escolhas técnicas que valem registrar, em uma frase cada}
 
 ## Aprofunde-se no Projeto!
 
-- {link do arquivo de arquitetura}
-- {link do arquivo de como rodar}
-- {link do arquivo de deployment}
-- Se o serviço usa container, documente a imagem em `Dockerfile` e mantenha `.dockerignore` alinhado à stack. O launcher `entrypoint.sh` é opcional e pode iniciar o comando sob Infisical em runtime quando Universal Auth estiver configurado.
-- Se o repositório tiver uma coleção de chamadas locais, consulte [`http/README.md`](./http/README.md) para executar e manter o cliente HTTP da API.
+<!-- Um bullet por arquivo, com o nome do arquivo como link e uma descrição curta. Só arquivos que existem. -->
+- [ARCHITECTURE.md](./docs/ARCHITECTURE.md), {descrição curta}.
+- [RUNNING.md](./docs/RUNNING.md), {descrição curta}.
 
 ## Contribuindo
 
