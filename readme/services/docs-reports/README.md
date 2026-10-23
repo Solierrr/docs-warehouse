@@ -21,6 +21,7 @@ Este repositório produz relatórios, documentos e manuais de instrução em HTM
 
 ## Aprofunde-se no Projeto!
 
+- [ARCHITECTURE.md](https://github.com/Solierrr/docs-reports/blob/main/docs/ARCHITECTURE.md), arquitetura do repositório e estrutura de pastas.
 - [USAGE.md](https://github.com/Solierrr/docs-reports/blob/main/docs/USAGE.md), como gerar um documento e como as pastas se organizam.
 - [WORKFLOW.md](https://github.com/Solierrr/docs-reports/blob/main/docs/WORKFLOW.md), convenções de commit e licença.
 

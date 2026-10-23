@@ -25,6 +25,7 @@ Esta rotina migrou usuários e dados de um banco de dados antigo para o banco pr
 
 ## Aprofunde-se no Projeto!
 
+- [ARCHITECTURE.md](https://github.com/Solierrr/database-rpa/blob/main/docs/ARCHITECTURE.md), arquitetura do repositório e estrutura de pastas.
 - [STATUS.md](https://github.com/Solierrr/database-rpa/blob/main/docs/STATUS.md), o que é migrado, limites conhecidos e arquivos.
 
 ## Contribuindo

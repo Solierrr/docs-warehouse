@@ -24,6 +24,7 @@ Este repositório reúne os testes de carga da plataforma, que simulam muitos ac
 
 ## Aprofunde-se no Projeto!
 
+- [ARCHITECTURE.md](https://github.com/Solierrr/infra-stress/blob/main/docs/ARCHITECTURE.md), arquitetura do repositório e estrutura de pastas.
 - [HOW_IT_WORKS.md](https://github.com/Solierrr/infra-stress/blob/main/docs/HOW_IT_WORKS.md), alvos, perfis de teste e estrutura.
 - [USAGE.md](https://github.com/Solierrr/infra-stress/blob/main/docs/USAGE.md), comandos, limites a respeitar e testes por lista de URLs.
 

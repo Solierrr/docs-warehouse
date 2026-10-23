@@ -15,12 +15,13 @@ Este repositório reúne o trabalho de análise de dados da plataforma. Ele part
 
 - **Tipo:** Git folder do Databricks.
 - **Camadas:** Bronze (origem), Silver (limpeza e padronização) e Gold (indicadores).
-- **Processamento:** pipelines em SQL, executadas sob demanda.
+- **Processamento:** pipelines do Databricks, executadas sob demanda.
 - **Integrações:** `databricks-sync` carrega a camada Bronze.
 - **Ambientes:** workspace do Databricks.
 
 ## Aprofunde-se no Projeto!
 
+- [ARCHITECTURE.md](https://github.com/Solierrr/databricks-stocker/blob/main/docs/ARCHITECTURE.md), arquitetura do repositório e estrutura de pastas.
 - [HOW_IT_WORKS.md](https://github.com/Solierrr/databricks-stocker/blob/main/docs/HOW_IT_WORKS.md), fluxo de dados e estrutura do Git folder.
 - [ROADMAP.md](https://github.com/Solierrr/databricks-stocker/blob/main/docs/ROADMAP.md), dashboards e etapas futuras.
 

@@ -25,6 +25,7 @@ Esta biblioteca reúne os componentes visuais compartilhados pelas aplicações 
 
 ## Aprofunde-se no Projeto!
 
+- [ARCHITECTURE.md](https://github.com/Solierrr/lib-web/blob/main/docs/ARCHITECTURE.md), arquitetura do repositório e estrutura de pastas.
 - [PACKAGE_RELEASE.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/PACKAGE_RELEASE.md), como o pacote é publicado no registro.
 - [USAGE.md](https://github.com/Solierrr/lib-web/blob/main/docs/USAGE.md), instalação e uso dos componentes.
 - [EMAIL.md](https://github.com/Solierrr/lib-web/blob/main/docs/EMAIL.md), modelos de e-mail e teste local com o `api-email`.

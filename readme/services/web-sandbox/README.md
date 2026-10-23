@@ -27,6 +27,7 @@ Esta aplicação apoia o time na validação do ambiente de testes. Após o logi
 
 ## Aprofunde-se no Projeto!
 
+- [ARCHITECTURE.md](https://github.com/Solierrr/web-sandbox/blob/main/docs/ARCHITECTURE.md), arquitetura do repositório e estrutura de pastas.
 - [QA_RENDER.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/QA_RENDER.md), deploy de QA no Render.
 - [DEVELOPMENT.md](https://github.com/Solierrr/web-sandbox/blob/main/docs/DEVELOPMENT.md), como executar, o modo mock, a biblioteca local e a validação.
 - [SCREENS.md](https://github.com/Solierrr/web-sandbox/blob/main/docs/SCREENS.md), telas de teste disponíveis.

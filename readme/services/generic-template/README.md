@@ -20,7 +20,7 @@ Este repositório é o ponto de partida para novos repositórios da organizaçã
 ## Aprofunde-se no Projeto!
 
 - [`http/README.md`](https://github.com/Solierrr/generic-template/blob/main/http/README.md), coleção Bruno para executar e manter as chamadas locais da API.
-- [STRUCTURE.md](https://github.com/Solierrr/generic-template/blob/main/docs/STRUCTURE.md), arquivos do molde, cliente HTTP local e inicialização no Render.
+- [ARCHITECTURE.md](https://github.com/Solierrr/generic-template/blob/main/docs/ARCHITECTURE.md), arquivos do modelo, cliente HTTP local e inicialização no Render.
 
 ## Contribuindo
 

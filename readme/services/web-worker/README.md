@@ -27,6 +27,7 @@ Este serviço é executado na borda da rede, na frente do site principal, e trat
 
 ## Aprofunde-se no Projeto!
 
+- [ARCHITECTURE.md](https://github.com/Solierrr/web-worker/blob/main/docs/ARCHITECTURE.md), arquitetura do repositório e estrutura de pastas.
 - [CLOUDFLARE_WORKER.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/CLOUDFLARE_WORKER.md), como o Worker é publicado na Cloudflare.
 - [OVERVIEW.md](https://github.com/Solierrr/web-worker/blob/main/docs/OVERVIEW.md), como o Worker encaminha a origem e o que precisa estar configurado.
 - [LANGUAGE.md](https://github.com/Solierrr/web-worker/blob/main/docs/LANGUAGE.md), escolha de idioma e normalização de rotas.

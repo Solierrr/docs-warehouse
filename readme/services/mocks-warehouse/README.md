@@ -21,6 +21,7 @@ Este repositório guarda o acervo de imagens usado nos dados de exemplo e nos am
 
 ## Aprofunde-se no Projeto!
 
+- [ARCHITECTURE.md](https://github.com/Solierrr/mocks-warehouse/blob/main/docs/ARCHITECTURE.md), arquitetura do repositório e estrutura de pastas.
 - [ASSETS.md](https://github.com/Solierrr/mocks-warehouse/blob/main/docs/ASSETS.md), organização das pastas, atributos, como adicionar imagens e licença.
 - [VALIDATION.md](https://github.com/Solierrr/mocks-warehouse/blob/main/docs/VALIDATION.md), como validar o acervo e a automação.
 - [INTEGRATIONS.md](https://github.com/Solierrr/mocks-warehouse/blob/main/docs/INTEGRATIONS.md), uso nos mocks locais do `web-app`, nos seeds e no Cloudinary.

@@ -28,6 +28,7 @@ Este repositório guarda a configuração do gateway da plataforma, o ponto de e
 
 ## Aprofunde-se no Projeto!
 
+- [ARCHITECTURE.md](https://github.com/Solierrr/infra-gateway/blob/main/docs/ARCHITECTURE.md), arquitetura do repositório e estrutura de pastas.
 - [QA_RENDER.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/QA_RENDER.md), deploy de QA no Render.
 - [ENVIRONMENTS.md](https://github.com/Solierrr/infra-gateway/blob/main/docs/ENVIRONMENTS.md), como o gateway roda em QA e em produção.
 

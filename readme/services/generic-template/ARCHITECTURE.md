@@ -2,7 +2,7 @@
   <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/banners/template.png" alt="Template" width="100%">
 </p>
 
-# Estrutura do molde
+# Arquitetura do Repositório
 
 ## Estrutura inicial
 

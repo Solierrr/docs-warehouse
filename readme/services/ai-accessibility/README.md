@@ -29,6 +29,7 @@ Este serviço analisa as imagens enviadas à plataforma antes da publicação. E
 
 ## Aprofunde-se no Projeto!
 
+- [ARCHITECTURE.md](https://github.com/Solierrr/ai-accessibility/blob/main/docs/ARCHITECTURE.md), arquitetura do repositório e estrutura de pastas.
 - [QA_RENDER.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/QA_RENDER.md), deploy de QA no Render.
 - [STATUS.md](https://github.com/Solierrr/ai-accessibility/blob/main/docs/STATUS.md), o que o serviço analisa e em que estado está.
 - [API.md](https://github.com/Solierrr/ai-accessibility/blob/main/docs/API.md), contrato da API de análise de imagens.
