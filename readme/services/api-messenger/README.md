@@ -19,14 +19,16 @@
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/api-messenger)](https://github.com/Solierrr/api-messenger/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/api-messenger)](https://github.com/Solierrr/api-messenger/releases)
 
-Este serviço armazena e entrega as conversas da plataforma. É por ele que clientes e profissionais trocam mensagens, e é nele que ficam as conversas com o assistente virtual. O serviço registra cada mensagem, mantém o histórico disponível para consulta e reúne as avaliações que as pessoas fazem de profissionais e produtos após uma conversa. Apenas os participantes de uma conversa podem consultar as mensagens dela.
+Este serviço concentra as conversas da plataforma. Ele foi idealizado para que clientes, profissionais e empresas conversem sem sair da plataforma, em conversas individuais, em grupos e na comunidade de cada projeto, e para guardar também as conversas com o assistente virtual. O histórico fica disponível para consulta, e as pessoas podem avaliar profissionais e produtos e dar uma nota ao atendimento do assistente.
+
+As mensagens chegam em tempo real por WebSocket, que também mostra quando alguém está digitando ou conectado, e cada pessoa tem um limite de conexões simultâneas. O acesso das pessoas é validado pelo token JWT emitido pelo serviço de acesso, conferido pela chave pública dele. As rotas usadas por outros serviços, como o assistente virtual ao gravar as suas respostas e os registros de uso dos modelos de linguagem, exigem um token de serviço emitido pelo próprio serviço. As conversas ficam no MongoDB, e nas comunidades de projeto o serviço consulta o cadastro central para saber quem pode participar.
 
 ## Aprofunde-se no Projeto!
 
-- [ARCHITECTURE.md](https://github.com/Solierrr/api-messenger/blob/main/docs/ARCHITECTURE.md), camadas do serviço, modelagem no MongoDB, endpoints internos/públicos e árvore real do repositório.
-- [RUNNING.md](https://github.com/Solierrr/api-messenger/blob/main/docs/RUNNING.md), como subir este serviço localmente e impedimentos conhecidos.
-- [DEPLOYMENT.md](https://github.com/Solierrr/docs-warehouse/blob/main/.github/DEPLOYMENT.md), pipeline de deploy padrão da organização (`main`/`qa`, Docker Hub, ArgoCD).
-- [`http/README.md`](https://github.com/Solierrr/api-messenger/blob/main/http/README.md), coleção Bruno para executar e manter as chamadas locais da API.
+- [ARCHITECTURE.md](https://github.com/Solierrr/api-messenger/blob/main/docs/ARCHITECTURE.md), organização do código, modelo de dados e estrutura do repositório.
+- [RUNNING.md](https://github.com/Solierrr/api-messenger/blob/main/docs/RUNNING.md), como executar o serviço localmente e impedimentos conhecidos.
+- [DEPLOYMENT.md](https://github.com/Solierrr/docs-warehouse/blob/main/.github/DEPLOYMENT.md), processo de publicação nos ambientes de testes e de produção.
+- [`http/README.md`](https://github.com/Solierrr/api-messenger/blob/main/http/README.md), coleção de chamadas para testar o serviço localmente.
 
 ## Contribuindo
 
