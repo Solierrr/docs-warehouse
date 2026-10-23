@@ -13,20 +13,16 @@
   <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/groq.png" width="100" hspace="8" alt="Groq" title="Groq">
 </p>
 
-# Arquitetura de um serviço de IA
+# Arquitetura do Repositório
 
-README reutilizável, usado como base do `ARCHITECTURE.md` dos serviços de IA (`ai-assistant`, `ai-validation`, `ai-accessibility`, `ai-geographic`, `ai-operational`). São serviços Python que expõem uma API FastAPI e orquestram um ou mais agentes com LangChain e LangGraph: a rota recebe a mensagem, um fluxo de trabalho decide qual agente ou ferramenta responde, e o resultado volta pela API. O que muda de um serviço para outro é o conjunto de agentes e de ferramentas; a divisão em camadas é a mesma. Escreva o documento em português, em parágrafos corridos, com no mínimo 60 palavras na introdução e quatro bullets de decisões.
+Os serviços de IA são aplicações Python que expõem uma API FastAPI e orquestram agentes com LangChain e LangGraph: a rota recebe a mensagem, um fluxo de trabalho decide qual agente ou ferramenta responde e o resultado volta pela API. O `ai-assistant` é o mais completo, com agentes especialistas, memória e recuperação de contexto; os demais (`ai-validation`, `ai-accessibility`, `ai-geographic` e `ai-operational`) seguem a mesma divisão em camadas, numa versão menor.
 
-## O que descrever
-
-- **API.** As rotas (`/chat`, `/health` e as específicas do serviço), os esquemas Pydantic de entrada e saída e os middlewares (autenticação, correlação, limites).
-- **Agentes e fluxo.** Quais agentes existem (base, especialistas), como o grafo do LangGraph liga cada nó, qual nó decide o próximo passo e onde o fluxo termina. Diga se há mais de um agente e como eles se coordenam.
-- **Ferramentas.** O que cada ferramenta faz e a quem chama: outro serviço da plataforma, o MCP (`mcp-database`), uma API externa ou o banco vetorial. Ferramentas que gravam dados exigem confirmação antes de gravar.
-- **Modelos de linguagem.** Quais provedores (Gemini, Groq, OpenAI), como o modelo é escolhido, o que acontece quando um provedor falha e como as chaves são lidas (ver [segredos e variáveis](../infisical/README.md)).
-- **Memória e contexto.** Checkpointer do LangGraph (MongoDB), cache e filas (Redis) e recuperação de contexto (RAG sobre o Qdrant).
-- **Guardrails.** Validações de entrada e saída, limites de tamanho e de custo, e o que o serviço recusa responder.
-- **Observabilidade.** Rastreamento das chamadas no LangSmith, métricas de tokens, custo e latência, e como uma conversa é reconstruída a partir dos registros.
-- **Integrações.** Com o `api-messenger` (histórico e observabilidade) e com os demais serviços de IA e de dados.
+- **API:** as rotas de conversa e de saúde, os esquemas Pydantic de entrada e saída e os middlewares (autenticação e correlação) ficam em `api/`.
+- **Agentes e fluxo:** `agents/` reúne o agente base, a fábrica, os componentes compartilhados e os especialistas, e `workflow/` monta o grafo do LangGraph que liga os nós e decide o próximo passo.
+- **Ferramentas:** em `tools/`, e os clientes de outros serviços em `infra/` (por exemplo o `api-messenger` e o MCP do `mcp-database`). Ferramentas que gravam dados exigem confirmação antes de gravar.
+- **Modelos de linguagem:** Gemini e Groq, escolhidos em `core/llm`. As chaves são lidas do ambiente (ver [segredos e variáveis](../infisical/README.md)).
+- **Memória e contexto:** o checkpointer do LangGraph usa o MongoDB, o Redis serve de cache e de fila, e a recuperação de contexto (RAG) usa o Qdrant.
+- **Guardrails e observabilidade:** `core/guardrails` valida entrada e saída, e as chamadas são rastreadas no LangSmith, com métricas de tokens, custo e latência.
 
 ## Estrutura típica
 
@@ -51,17 +47,10 @@ README reutilizável, usado como base do `ARCHITECTURE.md` dos serviços de IA (
 └── README.md
 ```
 
-Serviços menores (`ai-validation`, `ai-accessibility`) têm só parte dessas pastas. Documente apenas as que existem.
-
-## Checklist antes de abrir o Pull Request
-
-- O diagrama do fluxo (agentes e ferramentas) corresponde ao grafo do código.
-- Cada ferramenta que grava dados diz como a confirmação é pedida.
-- Nenhuma chave de modelo ou de API aparece no texto.
-- Limites e custos citados vêm da configuração real, não de estimativa.
+Os serviços menores têm só parte dessas pastas.
 
 ## Veja também
 
 - [Como rodar um serviço Python](../running/PYTHON.md)
-- [Segredos e variáveis](../infisical/README.md), para as chaves de modelos
+- [Segredos e variáveis](../infisical/README.md)
 - [Deploy de QA](../deploy/QA_RENDER.md)

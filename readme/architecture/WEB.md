@@ -10,20 +10,18 @@
   <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/firebase.png" width="100" hspace="8" alt="Firebase" title="Firebase">
 </p>
 
-# Arquitetura de uma aplicação web
+# Arquitetura do Repositório
 
-README reutilizável, usado como base do `ARCHITECTURE.md` das aplicações front-end (`web-app`, `web-sandbox`) e da biblioteca de componentes (`lib-web`). São aplicações de página única em React com TypeScript, servidas pelo Vite. O código se separa por responsabilidade: as telas roteadas ficam em `pages/`, as peças de interface reutilizáveis em `components/`, o acesso aos dados de cada assunto em `features/` e a infraestrutura comum (idioma, Firebase, logs, mocks) em `config/`. Escreva o documento em português, em parágrafos corridos, com no mínimo 60 palavras na introdução e quatro bullets de decisões.
+As aplicações web são aplicações de página única em React com TypeScript, servidas pelo Vite. O código se separa por responsabilidade: as telas roteadas ficam em `pages/`, as peças de interface reutilizáveis em `components/`, o acesso aos dados de cada assunto em `features/` e a infraestrutura comum (idioma, Firebase, logs e mocks) em `config/`. Cada camada de acesso à API já nasce com um caminho de fallback para dados simulados, o que permite desenvolver a interface sem o backend no ar.
 
-## O que descrever
-
-- **Rotas.** Onde são declaradas, como se aplicam os idiomas (`/pt-BR/...`, `/en-US/...`, `/es-ES/...`) e quais rotas são públicas ou exigem sessão.
-- **Dados por assunto.** Cada domínio tem seu `*.service.ts` com as chamadas HTTP, os tipos e, quando houver, os mocks. Descreva a camada HTTP fina que padroniza erro e log.
-- **Modo mock.** A variável `VITE_MOCKS` (`ALWAYS`, `FALLBACK` ou `DEACTIVATED`) decide se a chamada vai à API real ou volta um dado simulado, o que permite desenvolver sem o backend no ar.
-- **Idioma.** Biblioteca de tradução, onde ficam os dicionários por assunto e como o idioma é resolvido a partir da URL.
-- **Componentes.** Como se organizam (primitivos de interface, layout, feedback, sobreposições, marca), o que vem da biblioteca compartilhada e o que é local, e onde cada um é documentado no Storybook.
-- **Autenticação e Firebase.** Como a sessão é guardada, o que usa Firestore (por exemplo o indicador de digitação no chat) e quais chaves são públicas.
-- **Testes.** Vitest com Testing Library, arquivos ao lado do código e o projeto de testes do Storybook.
-- **Entrega.** Como é publicada: imagem Nginx no GKE ou site estático no Render.
+- **Rotas:** declaradas num único lugar, como listas de definições, e multiplicadas para cada idioma suportado (`/pt-BR/...`, `/en-US/...`, `/es-ES/...`), sem duplicar componentes.
+- **Dados por assunto:** cada domínio tem o seu `*.service.ts` com as chamadas HTTP, os tipos e, quando houver, os mocks. Um cliente HTTP fino padroniza erro e log.
+- **Modo mock:** a variável `VITE_MOCKS` (`ALWAYS`, `FALLBACK` ou `DEACTIVATED`) decide se a chamada vai à API real ou volta um dado simulado, inclusive quando a API real falha.
+- **Idioma:** `i18next` com dicionários por idioma e por assunto; o idioma é resolvido a partir da URL.
+- **Componentes:** organizados por categoria (primitivos de interface, layout, feedback, sobreposições e marca), estilizados com Tailwind e documentados no Storybook.
+- **Autenticação e Firebase:** a sessão é guardada no navegador, e o Firestore atende o que precisa de tempo real, como o indicador de digitação do chat.
+- **Testes:** Vitest com Testing Library, com os arquivos ao lado do código, e um projeto de testes do Storybook.
+- **Variáveis públicas:** tudo que começa com `VITE_` vai para o navegador, então nenhuma chave interna entra ali.
 
 ## Estrutura típica
 
@@ -46,13 +44,6 @@ README reutilizável, usado como base do `ARCHITECTURE.md` das aplicações fron
 ├── vite.config.ts
 └── README.md
 ```
-
-## Checklist antes de abrir o Pull Request
-
-- A árvore do documento bate com as pastas reais.
-- Variáveis `VITE_*` citadas existem no `.env.example` e **nenhuma é chave interna**, porque vão para o navegador.
-- A lista de rotas e de idiomas corresponde ao código de roteamento.
-- Pontos que o código não confirma estão marcados como `{a confirmar: ...}`.
 
 ## Veja também
 
