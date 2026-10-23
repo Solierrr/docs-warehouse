@@ -54,6 +54,7 @@ Exemplo de README já montado: [`readme/services/api-messenger/README.md`](../..
 | `kotlin.png` | Kotlin |
 | `markdown.png` | Markdown |
 | `claude.png` | Claude |
+| `mcp.png` | Model Context Protocol (MCP), usado no `mcp-database` |
 | `infisical.png` | Infisical, usado na documentação de segredos |
 | `langchain.png` | LangChain, usado na arquitetura dos serviços de IA |
 | `bruno.png` | Bruno, usado na pasta `readme/bruno/` de README reutilizável |
@@ -112,3 +113,4 @@ Exemplo de README já montado: [`readme/services/api-messenger/README.md`](../..
 | `kubernetes-pod.png` | Kubernetes, recurso Pod |
 | `kubernetes-deployment.png` | Kubernetes, recurso Deployment |
 | `kubernetes-secret.png` | Kubernetes, recurso Secret |
+| `github-copilot.png` | GitHub Copilot, usado na documentação dos rulesets |
