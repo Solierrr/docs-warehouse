@@ -17,13 +17,15 @@
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/api-recommendation)](https://github.com/Solierrr/api-recommendation/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/api-recommendation)](https://github.com/Solierrr/api-recommendation/releases)
 
-Este serviço define o que aparece nas telas de recomendação do marketplace: quais profissionais, ofertas de placas solares e fornecedores são exibidos e em que ordem. Ele usa as relações entre esses itens para montar a lista mais relevante e, quando essa base de relações não está disponível, responde com uma seleção de itens elegíveis. O serviço apenas lê informações e não altera nenhum dado.
+Este serviço escolhe o que aparece nas vitrines de recomendação do marketplace. Ele foi idealizado para mostrar a cada empresa os profissionais, as ofertas de placas solares e os fornecedores mais adequados, em uma ordem que faça sentido para ela. A lista pode seguir critérios diferentes, como os profissionais mais bem avaliados, as ofertas com melhor custo-benefício ou os fornecedores mais próximos, e quem ainda não entrou na conta também vê recomendações públicas.
+
+As recomendações saem de um grafo no Neo4j, que guarda as relações entre empresas, profissionais, ofertas e fornecedores e é montado a partir do banco principal por outra rotina. Quando o grafo está indisponível ou ainda não foi montado, o serviço responde com uma seleção de itens elegíveis lida diretamente do PostgreSQL. O serviço apenas lê dados e nunca os altera. As listas de quem está autenticado são pedidas pelo cadastro central com uma chave de acesso que não chega ao navegador, e as listas públicas não exigem chave e ficam em cache na Cloudflare.
 
 ## Aprofunde-se no Projeto!
 
-- [ARCHITECTURE.md](https://github.com/Solierrr/api-recommendation/blob/main/docs/ARCHITECTURE.md)
-- [RUNNING.md](https://github.com/Solierrr/api-recommendation/blob/main/docs/RUNNING.md)
-- [FEEDS.md](https://github.com/Solierrr/api-recommendation/blob/main/docs/FEEDS.md), feeds, fallback, cache de borda e saúde do serviço.
+- [ARCHITECTURE.md](https://github.com/Solierrr/api-recommendation/blob/main/docs/ARCHITECTURE.md), organização do código e estrutura do repositório.
+- [RUNNING.md](https://github.com/Solierrr/api-recommendation/blob/main/docs/RUNNING.md), como executar o serviço localmente.
+- [FEEDS.md](https://github.com/Solierrr/api-recommendation/blob/main/docs/FEEDS.md), listas de recomendação, critérios, resposta sem o grafo e cache.
 
 ## Contribuindo
 
