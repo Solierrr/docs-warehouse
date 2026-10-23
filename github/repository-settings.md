@@ -1,3 +1,12 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/banners/github.png" alt="GitHub" width="100%">
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/github-copilot.png" width="100" hspace="8" alt="GitHub Copilot" title="GitHub Copilot">
+  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/github-actions.png" width="100" hspace="8" alt="GitHub Actions" title="GitHub Actions">
+</p>
+
 # github/repository-settings.md
 
 Padrão de configuração dos repositórios da organização. Vale para todo repositório novo e é a referência para auditar os existentes. Os repositórios `elos-*` estão fora do padrão.
