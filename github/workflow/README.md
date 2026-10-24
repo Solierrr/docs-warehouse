@@ -84,9 +84,32 @@ para a raiz do repo, no caso do config/manifest):
 |---|---|
 | `release-please.yml` | Caller do release-please: abre/atualiza a PR de release, aceita `/release` e o checkbox, e finaliza a publicação. Repassa `RELEASE_BOT_TOKEN` ao workflow central. |
 | `release-please-config.json` + `.release-please-manifest.json` | Config e manifest (`release-type: simple`, versão inicial `0.1.0`). Trocar `<nome-do-repo>` em `package-name`. |
+| `release-please-config.maven.json`, `.python.json`, `.node.json` | Config por stack, que também atualiza a versão do `pom.xml`, do `version.txt` e `pyproject.toml` ou do `package.json`. Copiar como `release-please-config.json`. Ver [versão e release](../../docs/standards/VERSIONING.md#templates-do-release-please). |
+| `openapi-lint.yml` | Caller do lint do contrato OpenAPI: gera o contrato com `export-command`, falha se o `openapi.yaml` versionado não bater com o código e roda o Spectral com o ruleset da organização. Ver [OpenAPI e Swagger](../../docs/standards/OPENAPI.md#qualidade). |
 | `pr-welcome.yml` | Comenta na abertura da PR o que vai acontecer depois do merge (checkbox de sync com `qa`, imagem Docker, release). |
 | `npm-publisher.yml` | Publica pacote npm a cada push na `main`, só se a versão do `package.json` ainda não existir no registro. Precisa do secret `NPM_TOKEN` e de `id-token: write` (provenance). |
 | `environment-status-alive.yml` | `environment-status.yml` para serviços sem QA/PROD (Render sandbox): registra o ambiente `ALIVE` no GitHub por checagem HTTP. |
+
+## Workflows reutilizáveis deste repositório
+
+Dois workflows ficam em [`.github/workflows/`](../../.github/workflows/) deste repositório como reutilizáveis (`workflow_call`), porque dependem de arquivos daqui:
+
+| Workflow | Caller | Para quê |
+|---|---|---|
+| `openapi-lint.yml` | [`common/openapi-lint.yml`](./common/openapi-lint.yml) | Lint do contrato com o ruleset [`github/openapi/spectral.yaml`](../openapi/spectral.yaml) e conferência de drift do `openapi.yaml`. |
+| `storybook.yml` | [`typescript/storybook.yml`](./typescript/storybook.yml) | Build e testes das histórias em toda PR; publicação no GitHub Pages (ambiente `STORYBOOK`) no push da `main`. Substitui o `storybook.yml` próprio do `web-app` e do `lib-web`. |
+
+Entradas do `openapi-lint.yml`:
+
+| Entrada | Padrão | Uso |
+|---|---|---|
+| `contract` | `openapi.yaml` | contrato versionado |
+| `export-command` | vazio | comando que gera o contrato; vazio pula a conferência de drift |
+| `java-version` | vazio | Spring: `"21"` |
+| `python-version` | vazio | FastAPI: `"3.12"`, com a instalação das dependências no próprio `export-command` (`pip install -r requirements.txt && python scripts/export_openapi.py`) |
+| `ruleset-ref` | `main` | ref do ruleset neste repositório |
+
+Entradas do `storybook.yml`: `node-version` (padrão `"24"`), `test` (padrão `true`), `test-command` (padrão `npm run test:storybook`) e `publish` (padrão `false`). O caller precisa conceder `pages: write` e `id-token: write` para publicar.
 
 ## Release Please e auto-merge
 

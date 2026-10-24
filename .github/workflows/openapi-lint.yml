@@ -1,0 +1,81 @@
+name: OpenAPI Lint
+
+on:
+  workflow_call:
+    inputs:
+      contract:
+        description: Caminho do contrato exportado e versionado.
+        type: string
+        default: openapi.yaml
+      export-command:
+        description: Comando que gera o contrato a partir do código. Vazio pula a conferência de drift.
+        type: string
+        default: ""
+      java-version:
+        description: Versão do Java para o comando de exportação. Vazio não instala.
+        type: string
+        default: ""
+      python-version:
+        description: Versão do Python para o comando de exportação. Vazio não instala.
+        type: string
+        default: ""
+      ruleset-ref:
+        description: Ref do docs-warehouse de onde vem o ruleset.
+        type: string
+        default: main
+
+permissions:
+  contents: read
+
+jobs:
+  openapi-lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        if: inputs.java-version != ''
+        with:
+          distribution: temurin
+          java-version: ${{ inputs.java-version }}
+          cache: maven
+
+      - uses: actions/setup-python@v5
+        if: inputs.python-version != ''
+        with:
+          python-version: ${{ inputs.python-version }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Export contract
+        if: inputs.export-command != ''
+        env:
+          EXPORT_COMMAND: ${{ inputs.export-command }}
+        run: bash -c "$EXPORT_COMMAND"
+
+      - name: Check contract drift
+        if: inputs.export-command != ''
+        env:
+          CONTRACT: ${{ inputs.contract }}
+        run: |
+          if [ -n "$(git status --porcelain -- "$CONTRACT")" ]; then
+            git --no-pager diff -- "$CONTRACT"
+            echo "::error file=$CONTRACT::O contrato versionado não bate com o código. Rode o comando de exportação e versione o resultado."
+            exit 1
+          fi
+
+      - uses: actions/checkout@v4
+        with:
+          repository: Solierrr/docs-warehouse
+          ref: ${{ inputs.ruleset-ref }}
+          path: .docs-warehouse
+          sparse-checkout: github/openapi
+          persist-credentials: false
+
+      - name: Lint contract
+        env:
+          CONTRACT: ${{ inputs.contract }}
+        run: npx --yes @stoplight/spectral-cli@6 lint "$CONTRACT" --ruleset .docs-warehouse/github/openapi/spectral.yaml --fail-severity error

@@ -1,0 +1,70 @@
+name: Storybook
+
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        description: Versão do Node.
+        type: string
+        default: "24"
+      test:
+        description: Roda os testes das histórias.
+        type: boolean
+        default: true
+      test-command:
+        description: Comando dos testes das histórias.
+        type: string
+        default: npm run test:storybook
+      publish:
+        description: Publica o build no GitHub Pages.
+        type: boolean
+        default: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.node-version }}
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browser
+        if: inputs.test
+        run: npx playwright install --with-deps chromium
+
+      - name: Test stories
+        if: inputs.test
+        env:
+          TEST_COMMAND: ${{ inputs.test-command }}
+        run: bash -c "$TEST_COMMAND"
+
+      - name: Build Storybook
+        run: npm run build-storybook
+
+      - uses: actions/configure-pages@v5
+        if: inputs.publish
+
+      - uses: actions/upload-pages-artifact@v3
+        if: inputs.publish
+        with:
+          path: storybook-static
+
+  deploy:
+    if: inputs.publish
+    needs: build
+    runs-on: ubuntu-latest
+
+    environment:
+      name: STORYBOOK
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
