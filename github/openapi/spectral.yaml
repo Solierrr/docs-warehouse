@@ -1,0 +1,163 @@
+extends:
+  - [spectral:oas, recommended]
+
+rules:
+  info-contact: error
+  info-description: error
+  info-license: error
+  license-url: error
+  operation-operationId: error
+  operation-operationId-unique: error
+  operation-tags: error
+  operation-tag-defined: error
+  tag-description: error
+  oas3-api-servers: error
+
+  solaria-info-title:
+    description: O título segue o formato "Solaria — <repositório>".
+    severity: error
+    given: $.info
+    then:
+      field: title
+      function: pattern
+      functionOptions:
+        match: "^Solaria — [a-z0-9]+(-[a-z0-9]+)*$"
+
+  solaria-info-version:
+    description: A versão é a do release (X.Y.Z), nunca fixa como v1.
+    severity: error
+    given: $.info
+    then:
+      field: version
+      function: pattern
+      functionOptions:
+        match: "^\\d+\\.\\d+\\.\\d+$"
+
+  solaria-global-security:
+    description: A segurança padrão é declarada na raiz do contrato; rotas públicas usam security vazio.
+    severity: error
+    given: $
+    then:
+      field: security
+      function: truthy
+
+  solaria-security-schemes:
+    description: Os esquemas de segurança usam só os nomes bearerAuth e serviceKey.
+    severity: error
+    given: $.components.securitySchemes
+    then:
+      field: "@key"
+      function: enumeration
+      functionOptions:
+        values: [bearerAuth, serviceKey]
+
+  solaria-bearer-auth:
+    description: bearerAuth é HTTP bearer com JWT.
+    severity: error
+    given: $.components.securitySchemes.bearerAuth
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          required: [type, scheme, bearerFormat]
+          properties:
+            type: { const: http }
+            scheme: { const: bearer }
+            bearerFormat: { const: JWT }
+
+  solaria-service-key:
+    description: serviceKey é apiKey no cabeçalho X-Service-Key.
+    severity: error
+    given: $.components.securitySchemes.serviceKey
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          required: [type, in, name]
+          properties:
+            type: { const: apiKey }
+            in: { const: header }
+            name: { const: X-Service-Key }
+
+  solaria-operation-id-camel-case:
+    description: operationId em inglês e camelCase.
+    severity: error
+    given: $.paths[*][get,put,post,delete,patch,options,head,trace]
+    then:
+      field: operationId
+      function: casing
+      functionOptions:
+        type: camel
+
+  solaria-operation-summary:
+    description: Toda operação tem summary.
+    severity: error
+    given: $.paths[*][get,put,post,delete,patch,options,head,trace]
+    then:
+      field: summary
+      function: truthy
+
+  solaria-operation-error-response:
+    description: Toda operação documenta ao menos uma resposta de erro (4xx ou 5xx).
+    severity: error
+    given: $.paths[*][get,put,post,delete,patch,options,head,trace].responses
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          not:
+            propertyNames:
+              pattern: "^[123]"
+
+  solaria-error-problem-json:
+    description: Respostas de erro usam application/problem+json.
+    severity: error
+    given: $.paths[*][get,put,post,delete,patch,options,head,trace].responses[?(@property.match(/^[45]/))]
+    then:
+      field: content
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          required: [application/problem+json]
+
+  solaria-error-problem-detail:
+    description: O corpo de erro tem os campos do ProblemDetail.
+    severity: error
+    given: $.paths[*][get,put,post,delete,patch,options,head,trace].responses[?(@property.match(/^[45]/))].content.application/problem+json.schema
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          required: [properties]
+          properties:
+            properties:
+              type: object
+              required: [type, title, status, errorCode, detail, instance, timestamp]
+
+  solaria-problem-detail-schema:
+    description: O esquema ProblemDetail é declarado em components.schemas.
+    severity: error
+    given: $
+    then:
+      field: components.schemas.ProblemDetail
+      function: truthy
+
+  solaria-internal-service-key:
+    description: Rotas /internal/ exigem o esquema serviceKey.
+    severity: error
+    given: $.paths[?(@property.match(/^\/internal\//))][get,put,post,delete,patch,options,head,trace]
+    then:
+      field: security
+      function: schema
+      functionOptions:
+        schema:
+          type: array
+          minItems: 1
+          items:
+            type: object
+            required: [serviceKey]
