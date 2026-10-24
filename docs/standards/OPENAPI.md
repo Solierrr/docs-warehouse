@@ -40,7 +40,7 @@ Os mesmos caminhos em todas as stacks. O `web-sandbox` lê `/openapi.json` de ca
 | `description` | um parágrafo com o que o serviço faz (o mesmo da finalidade do README em `readme/services/`), mais como autenticar |
 | `version` | a versão do release, lida do build ([versão e release](./VERSIONING.md)); nunca fixa |
 | `contact` | `name: Solaria`, `url: https://github.com/Solierrr` |
-| `license` | `name: Apache-2.0`, `url: https://www.apache.org/licenses/LICENSE-2.0` |
+| `license` | `name: CC0-1.0`, `url: https://creativecommons.org/publicdomain/zero/1.0/` |
 | `servers` | local (`http://localhost:<porta>`) e QA (URL real do serviço no Render), cada um com `description` |
 
 ## Segurança
@@ -147,7 +147,7 @@ public class OpenApiConfig {
                         .description("Envia notificações push e guarda o histórico de cada usuário. Autentique com o JWT do api-auth.")
                         .version(build.getVersion())
                         .contact(new Contact().name("Solaria").url("https://github.com/Solierrr"))
-                        .license(new License().name("Apache-2.0").url("https://www.apache.org/licenses/LICENSE-2.0")))
+                        .license(new License().name("CC0-1.0").url("https://creativecommons.org/publicdomain/zero/1.0/")))
                 .servers(List.of(
                         new Server().url("http://localhost:8080").description("Local"),
                         new Server().url("https://<servico>.onrender.com").description("QA")))
@@ -182,7 +182,7 @@ app = FastAPI(
     description="Consulta rotas, clima e tradução no Google. Autentique com o JWT do api-auth.",
     version=VERSION,
     contact={"name": "Solaria", "url": "https://github.com/Solierrr"},
-    license_info={"name": "Apache-2.0", "url": "https://www.apache.org/licenses/LICENSE-2.0"},
+    license_info={"name": "CC0-1.0", "url": "https://creativecommons.org/publicdomain/zero/1.0/"},
     servers=[
         {"url": "http://localhost:8000", "description": "Local"},
         {"url": "https://<servico>.onrender.com", "description": "QA"},
@@ -239,7 +239,7 @@ await app.register(swagger, {
       description: "Envia e-mails transacionais a partir de modelos. Autentique com a chave de serviço.",
       version: packageJson.version,
       contact: { name: "Solaria", url: "https://github.com/Solierrr" },
-      license: { name: "Apache-2.0", url: "https://www.apache.org/licenses/LICENSE-2.0" },
+      license: { name: "CC0-1.0", url: "https://creativecommons.org/publicdomain/zero/1.0/" },
     },
     servers: [
       { url: "http://localhost:3000", description: "Local" },
