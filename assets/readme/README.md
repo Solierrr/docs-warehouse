@@ -34,6 +34,7 @@ Exemplo de README já montado: [`readme/services/api-messenger/README.md`](../..
 | `html.png` | HTML5 |
 | `storybook.png` | Storybook |
 | `swagger.png` | Swagger |
+| `openapi.png` | OpenAPI |
 | `google.png` | Google |
 | `cloudflare-workers.png` | Cloudflare Workers |
 | `cloudflare.png` | Cloudflare |
@@ -97,6 +98,7 @@ Exemplo de README já montado: [`readme/services/api-messenger/README.md`](../..
 | `opentelemetry.png` | OpenTelemetry |
 | `storybook.png` | Storybook |
 | `swagger.png` | Swagger |
+| `openapi.png` | OpenAPI |
 | `bruno.png` | Bruno |
 | `api.png` | API genérica |
 | `android.png` | Android |
