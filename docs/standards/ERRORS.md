@@ -89,6 +89,7 @@ O `ProblemDetailFactory` e o `GlobalExceptionHandler` do `api-core`, do `api-aut
 public ProblemDetail create(HttpStatusCode status, String detail, String errorCode,
                             Map<String, Object> properties, HttpServletRequest request) {
     ProblemDetail problem = ProblemDetail.forStatusAndDetail(status, detail);
+    problem.setType(URI.create("about:blank"));
     problem.setTitle(errorCode);
     if (request != null) {
         problem.setInstance(URI.create(request.getRequestURI()));
@@ -106,7 +107,7 @@ public ProblemDetail create(HttpStatusCode status, String detail, String errorCo
 }
 ```
 
-- `type` fica no padrão do Spring (`about:blank`); não montar URL própria.
+- `type` é sempre `about:blank`; não montar URL própria. No Spring Framework 7 (Boot 4) o `ProblemDetail` não serializa `type` quando ele não foi definido, então a fábrica define `about:blank` explicitamente.
 - `MethodArgumentNotValidException` e `HandlerMethodValidationException` respondem 422 `VALIDATION_FAILED` com `errors` no formato `{field, errorCode, detail}`.
 
 ### FastAPI

@@ -9,6 +9,7 @@ Vale para os serviços Spring (springdoc), FastAPI e Fastify (`@fastify/swagger`
 - O contrato é gerado do código. Nenhum `openapi.yaml` escrito à mão.
 - O contrato exportado fica versionado na raiz do repositório como `openapi.yaml`, gerado por um comando do próprio repositório (`make openapi`) e conferido no CI: se o arquivo versionado não bate com o que o código gera, o CI falha.
 - O comando de exportação não depende de banco, fila nem segredo: sobe só a camada web, com as dependências externas desligadas ou simuladas.
+- O `openapi.yaml` traz `info.version`, então a PR de release precisa atualizá-lo junto com a versão do projeto, ou o check de drift quebra depois do release. A linha da versão leva a marca `# x-release-please-version` (escrita pelo próprio comando de exportação) e o arquivo entra no `release-please-config.json` como `extra-files` do tipo `generic`. Não usar o updater `yaml`: ele reformata o arquivo inteiro e o drift quebra do mesmo jeito ([versão e release](./VERSIONING.md#templates-do-release-please)).
 
 ## Caminhos
 
@@ -23,13 +24,14 @@ Os mesmos caminhos em todas as stacks. O `web-sandbox` lê `/openapi.json` de ca
 
 - Local e QA: Swagger e contrato abertos.
 - PROD: desligados. A variável `DOCS_ENABLED` liga e desliga os dois; o padrão no código é `true` e os manifestos de PROD no `infra-gitops` definem `DOCS_ENABLED=false`.
-- O login de pessoas no Swagger é feito só pelo `web-sandbox`, que roda no QA: a pessoa entra uma vez com o login do `api-auth` de QA, e o sandbox renderiza o Swagger UI a partir do `/openapi.json` de cada API e injeta o JWT em toda chamada. Cada serviço aceita CORS da origem do sandbox no QA.
+- O login de pessoas no Swagger é feito só pelo `web-sandbox`, que roda no QA: a pessoa entra uma vez com o login do `api-auth` de QA, e o sandbox renderiza o Swagger UI a partir do `/openapi.json` de cada API e injeta o JWT em toda chamada. Cada serviço aceita CORS da origem do sandbox no QA: a lista de origens vem da variável `CORS_ALLOWED_ORIGINS` (separada por vírgula), com as origens locais (`http://localhost:3000,http://localhost:5173`) como padrão no código. No QA ela inclui `https://web-sandbox-7ug0.onrender.com` e fica no Infisical da `qa`, junto dos outros segredos do serviço; definida só no painel do Render, ela já se perdeu uma vez.
 
 ## Rotas internas
 
 - As rotas `/internal/**` ficam fora do Swagger que as pessoas abrem: o contrato servido em `/openapi.json` não as inclui.
 - O `openapi.yaml` exportado inclui as rotas internas, com o esquema `serviceKey`. É a documentação delas para os serviços chamadores.
 - Na prática, o serviço remove os caminhos `/internal/` ao servir o contrato, e o comando de exportação gera sem esse filtro.
+- O mesmo filtro remove as tags que ficaram sem operação (como `Interno`), para o Swagger não listar uma seção vazia.
 - Serviço que só atende outros serviços (como o `api-email`) não usa `/internal/`: todas as rotas aparecem no Swagger com o esquema `serviceKey` ([autenticação entre serviços](./SERVICE_AUTH.md#regras)).
 
 ## Metadados (`info`)
@@ -37,11 +39,11 @@ Os mesmos caminhos em todas as stacks. O `web-sandbox` lê `/openapi.json` de ca
 | Campo | Valor |
 |---|---|
 | `title` | `Solaria — <repositório>`, por exemplo `Solaria — api-core` |
-| `description` | um parágrafo com o que o serviço faz (o mesmo da finalidade do README em `readme/services/`), mais como autenticar |
+| `description` | um parágrafo com o que o serviço faz (o mesmo da finalidade do README em `readme/services/`; se o serviço ainda não tem README lá, a do README do repositório), mais como autenticar |
 | `version` | a versão do release, lida do build ([versão e release](./VERSIONING.md)); nunca fixa |
 | `contact` | `name: Solaria`, `url: https://github.com/Solierrr` |
 | `license` | `name: CC0-1.0`, `url: https://creativecommons.org/publicdomain/zero/1.0/` |
-| `servers` | local (`http://localhost:<porta>`) e QA (URL real do serviço no Render), cada um com `description` |
+| `servers` | QA (URL real do serviço no Render) primeiro e local (`http://localhost:<porta>`) depois, cada um com `description`. O primeiro é o que o Swagger UI seleciona: com o local primeiro, o "Try it out" do QA chama `localhost` |
 
 ## Segurança
 
@@ -51,7 +53,8 @@ Os mesmos caminhos em todas as stacks. O `web-sandbox` lê `/openapi.json` de ca
 | `serviceKey` | `apiKey`, `in: header`, `name: X-Service-Key` | rotas `/internal/**` ([autenticação entre serviços](./SERVICE_AUTH.md)) |
 
 - A segurança padrão é declarada na raiz do contrato (`security`).
-- Rotas públicas (login, cadastro, JWKS, health, catálogo aberto) declaram `security: []` explicitamente.
+- Rotas públicas (login, cadastro, JWKS, catálogo aberto, e o `/health` e o `/ready` das stacks que os servem como rotas próprias) declaram `security: []` explicitamente.
+- No Spring, o Actuator fica fora do contrato (o padrão do springdoc; não ligar `springdoc.show-actuator`): health e info são da plataforma, não da API.
 - Com o login pelo `web-sandbox`, os atalhos `POST /dev/login` deixam de existir.
 
 ## Organização
@@ -65,7 +68,7 @@ Os mesmos caminhos em todas as stacks. O `web-sandbox` lê `/openapi.json` de ca
 
 - DTOs com nome próprio (`ProjectResponse`), nunca entidades JPA ou dicionários soltos. No FastAPI, `response_model` em toda rota.
 - Campos com `description`, `required`, `format` (`uuid`, `date-time`, `email`), enums nomeados e exemplos realistas, sem dados reais.
-- Paginação no formato do Spring em todas as stacks:
+- Paginação no formato do Spring em todas as stacks, com os cinco campos (inclusive `totalPages`):
 
 ```json
 { "content": [], "page": 0, "size": 20, "totalElements": 0, "totalPages": 0 }
@@ -75,7 +78,7 @@ Os mesmos caminhos em todas as stacks. O `web-sandbox` lê `/openapi.json` de ca
 
 - Esquema `ProblemDetail` compartilhado, no formato do [contrato de erro](./ERRORS.md), declarado em `components.schemas` e referenciado em toda resposta de erro com o media type `application/problem+json`.
 - Respostas de erro por operação: 400 e 422, 401, 403, 404 e 409 quando se aplicam, e 500.
-- Os `errorCode` que cada serviço emite ficam no [catálogo](./ERROR_CODES.md). Na operação, a extensão `x-error-codes` lista os códigos específicos dela, para o front saber quais traduzir.
+- Os `errorCode` que cada serviço emite ficam no [catálogo](./ERROR_CODES.md). Na operação, a extensão `x-error-codes` lista todos os códigos que ela pode emitir, genéricos incluídos (`UNAUTHENTICATED`, `VALIDATION_FAILED`, `NOT_FOUND`), para o front saber quais traduzir.
 
 ```yaml
 components:
@@ -111,7 +114,7 @@ components:
 
 - Lint do contrato no CI com o Spectral e o ruleset da organização ([`github/openapi/spectral.yaml`](../../github/openapi/spectral.yaml)), pelo workflow reutilizável [`openapi-lint.yml`](../../.github/workflows/openapi-lint.yml). O caller fica em [`github/workflow/common/openapi-lint.yml`](../../github/workflow/common/openapi-lint.yml).
 - O ruleset confere: título no padrão, contato e licença, versão semântica, `servers`, segurança declarada, `operationId` único em camelCase, `summary` em toda operação, tags declaradas e descritas, toda operação com resposta de erro, erros em `application/problem+json`, esquema `ProblemDetail` presente e rotas `/internal/` com `serviceKey`.
-- Mesma versão do springdoc nos serviços Spring.
+- Mesma versão do springdoc nos serviços Spring: a linha 3.x nos serviços em Spring Boot 4 (hoje `3.1.0`, a do piloto e do `api-auth`). Ela loga avisos `Json Processing Exception` ao gerar o contrato para parâmetros com `@Pattern` ou `@Min`, sem efeito no resultado.
 
 ## Exemplos por stack
 
@@ -149,24 +152,58 @@ public class OpenApiConfig {
                         .contact(new Contact().name("Solaria").url("https://github.com/Solierrr"))
                         .license(new License().name("CC0-1.0").url("https://creativecommons.org/publicdomain/zero/1.0/")))
                 .servers(List.of(
-                        new Server().url("http://localhost:8080").description("Local"),
-                        new Server().url("https://<servico>.onrender.com").description("QA")))
+                        new Server().url("https://<servico>.onrender.com").description("QA"),
+                        new Server().url("http://localhost:8080").description("Local")))
                 .addSecurityItem(new SecurityRequirement().addList("bearerAuth"));
     }
 
     @Bean
     @Profile("!openapi-export")
     OpenApiCustomizer hideInternalRoutes() {
-        return openApi -> openApi.getPaths().keySet().removeIf(path -> path.startsWith("/internal/"));
+        return openApi -> {
+            openApi.getPaths().keySet().removeIf(path -> path.startsWith("/internal/"));
+            Set<String> used = openApi.getPaths().values().stream()
+                    .flatMap(path -> path.readOperations().stream())
+                    .flatMap(operation -> Optional.ofNullable(operation.getTags()).orElse(List.of()).stream())
+                    .collect(Collectors.toSet());
+            if (openApi.getTags() != null) {
+                openApi.getTags().removeIf(tag -> !used.contains(tag.getName()));
+            }
+        };
+    }
+
+    // Toda resposta 4xx/5xx documentada usa o ProblemDetail do contrato de erro; toda operação documenta o 500
+    @Bean
+    OpenApiCustomizer problemDetailResponses() {
+        return openApi -> {
+            if (openApi.getComponents() == null) {
+                openApi.setComponents(new Components());
+            }
+            ModelConverters.getInstance().readAll(new AnnotatedType(ProblemDetailSchema.class))
+                    .forEach(openApi.getComponents()::addSchemas);
+            Content problem = new Content().addMediaType("application/problem+json", new MediaType()
+                    .schema(new Schema<>().$ref("#/components/schemas/" + ProblemDetailSchema.NAME)));
+            openApi.getPaths().values().forEach(path -> path.readOperations().forEach(operation -> {
+                operation.getResponses().putIfAbsent("500", new ApiResponse().description("Erro interno inesperado"));
+                operation.getResponses().forEach((code, response) -> {
+                    if (code.startsWith("4") || code.startsWith("5")) {
+                        response.setContent(problem);
+                    }
+                });
+            }));
+        };
     }
 }
 ```
 
+- `ProblemDetailSchema` é um record só de documentação, com o nome `ProblemDetail` e os campos do esquema acima (e um `ProblemFieldError` para `errors`). Com o customizer, as anotações das operações ficam só com o código e a descrição de cada resposta (`@ApiResponse(responseCode = "404", description = "...")`), sem repetir o `content` em cada uma.
+
 - `BuildProperties` vem do goal `build-info` do `spring-boot-maven-plugin`.
 - Rotas internas: `@SecurityRequirement(name = "serviceKey")` no controller ou na interface `*OpenApi`.
 - Rotas públicas: `@SecurityRequirements` vazio na operação.
-- O `SecurityConfig` libera `/docs`, `/swagger-ui/**` e `/openapi.json/**`.
-- Exportação: um teste com o perfil `openapi-export` que lê `/openapi.json.yaml` pelo `MockMvc` e grava `openapi.yaml`; o alvo `make openapi` roda só esse teste.
+- O `SecurityConfig` libera `/docs`, `/swagger-ui/**`, `/openapi.json`, `/openapi.json/**` e `/openapi.json.yaml` (o YAML não casa com `/openapi.json/**`).
+- Exportação: um teste com o perfil `openapi-export` que lê `/openapi.json.yaml` pelo `MockMvc`, põe a marca `# x-release-please-version` na linha de `info.version` e grava `openapi.yaml`; o alvo `make openapi` roda só esse teste (`OPENAPI_CMD` no [Makefile padrão](../../templates/make/maven.mk)).
+- Se o repositório tem um `application.properties` de teste, ele substitui o principal: as propriedades `springdoc.*` ficam nos dois, ou o contrato exportado sai diferente do que o serviço serve.
 
 ### FastAPI
 
