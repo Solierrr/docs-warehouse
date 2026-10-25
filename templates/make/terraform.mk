@@ -6,5 +6,6 @@ BUILD_CMD     ?= terraform validate
 TEST_CMD      ?=
 LINT_CMD      ?= terraform fmt -check -recursive
 FORMAT_CMD    ?= terraform fmt -recursive
+OPENAPI_CMD   ?=
 CLEAN_PATHS   ?= .terraform
 DOCTOR_TOOLS  ?= git terraform

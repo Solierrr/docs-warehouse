@@ -6,5 +6,6 @@ BUILD_CMD     ?= uv build
 TEST_CMD      ?= uv run pytest
 LINT_CMD      ?= uv run ruff check . && uv run ruff format --check .
 FORMAT_CMD    ?= uv run ruff format .
+OPENAPI_CMD   ?=
 CLEAN_PATHS   ?= .venv dist .pytest_cache .ruff_cache
 DOCTOR_TOOLS  ?= git python uv
