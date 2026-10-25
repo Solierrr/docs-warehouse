@@ -26,6 +26,8 @@ Todo serviço responde "estou vivo" e "estou pronto" nos mesmos caminhos. O pron
 | vivo, ou pronto | 200 | `{"status":"UP"}` |
 | não pronto | 503 | `{"status":"DOWN"}` |
 
+- No contrato OpenAPI (FastAPI e Fastify), o `/ready` documenta o 503 com `application/json` e o mesmo esquema do 200 (`{"status"}`), não com `ProblemDetail`. O ruleset do Spectral isenta `/health` e `/ready` da regra de erro em `application/problem+json`.
+
 - Sem detalhes internos (nomes de dependência, mensagens, versões de banco) em ambiente público.
 - O `/health` pode incluir a versão do serviço (`{"status":"UP","version":"1.4.0"}`), lida da mesma fonte da [versão do release](./VERSIONING.md).
 

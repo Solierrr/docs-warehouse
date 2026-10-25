@@ -113,9 +113,9 @@ rules:
               pattern: "^[123]"
 
   solaria-error-problem-json:
-    description: Respostas de erro usam application/problem+json.
+    description: Respostas de erro usam application/problem+json (exceto /health e /ready, que respondem {"status"} pelo padrão de health).
     severity: error
-    given: $.paths[*][get,put,post,delete,patch,options,head,trace].responses[?(@property.match(/^[45]/))]
+    given: $.paths[?(!@property.match(/^\/(health|ready)$/))][get,put,post,delete,patch,options,head,trace].responses[?(@property.match(/^[45]/))]
     then:
       field: content
       function: schema
@@ -127,7 +127,7 @@ rules:
   solaria-error-problem-detail:
     description: O corpo de erro tem os campos do ProblemDetail.
     severity: error
-    given: $.paths[*][get,put,post,delete,patch,options,head,trace].responses[?(@property.match(/^[45]/))].content.application/problem+json.schema
+    given: $.paths[?(!@property.match(/^\/(health|ready)$/))][get,put,post,delete,patch,options,head,trace].responses[?(@property.match(/^[45]/))].content.application/problem+json.schema
     then:
       function: schema
       functionOptions:
