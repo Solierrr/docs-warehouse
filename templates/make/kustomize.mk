@@ -7,5 +7,6 @@ BUILD_CMD     ?= for dir in $(KUSTOMIZE_DIRS); do kubectl kustomize $$dir > /dev
 TEST_CMD      ?=
 LINT_CMD      ?= for dir in $(KUSTOMIZE_DIRS); do kubectl kustomize $$dir | kubeconform -ignore-missing-schemas -summary || exit 1; done
 FORMAT_CMD    ?=
+OPENAPI_CMD   ?=
 CLEAN_PATHS   ?=
 DOCTOR_TOOLS  ?= git kubectl kubeconform

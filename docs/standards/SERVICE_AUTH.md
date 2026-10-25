@@ -11,7 +11,7 @@ Referência de implementação: `ServiceKeyAuthFilter` e `ServiceKeyProperties` 
 - Chave com no mínimo 32 caracteres. O serviço valida isso na partida e não sobe com chave curta.
 - Destino sem nenhuma chave configurada recusa tudo; nunca libera por falta de configuração.
 - Autorização por rota: cada rota declara quais chamadores aceita. Chave válida de um chamador que a rota não aceita é 403.
-- Erros no [contrato de erro](./ERRORS.md): 401 `UNAUTHENTICATED` para chave ausente ou inválida e 403 `FORBIDDEN` para chamador não aceito na rota.
+- Erros no [contrato de erro](./ERRORS.md): 401 `UNAUTHENTICATED` para chave ausente ou inválida e 403 `FORBIDDEN` para chamador não aceito na rota. O `detail` do 401 nas rotas `/internal/**` fala da chave ("Chave de serviço ausente ou inválida."), não do token: no Spring, o `AuthenticationEntryPoint` da chain interna é próprio, separado do da chain do JWT.
 - Num serviço que atende pessoas e serviços, as rotas chamadas só por serviço ficam em `/internal/**`, fora do Swagger e dentro do contrato exportado, com o esquema `serviceKey` ([OpenAPI e Swagger](./OPENAPI.md#rotas-internas)).
 - Num serviço que só atende outros serviços (como o `api-email`), as rotas mantêm os caminhos atuais, aparecem no Swagger e todas declaram o esquema `serviceKey`.
 - A chave nunca aparece em log, resposta, URL nem mensagem de erro.

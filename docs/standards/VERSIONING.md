@@ -35,6 +35,7 @@ Em [`github/workflow/common/`](../../github/workflow/common/), copiados para a r
 | Node e webs | `release-please-config.node.json` | `package.json` e `package-lock.json` |
 | Outros (infra, docs) | `release-please-config.json` | só changelog e tag |
 
+- Serviço com API HTTP versiona também o `openapi.yaml`, que traz `info.version`: ele entra em `extra-files` com `"type": "generic"` e a linha da versão leva a marca `# x-release-please-version` ([OpenAPI](./OPENAPI.md#fonte-única)). O updater `yaml` não serve: reformata o arquivo e o check de drift quebra.
 - No Maven, o `xpath` usa `local-name()` porque o `pom.xml` declara o namespace padrão do Maven, e um `xpath` simples (`//project/version`) não encontra o nó.
 - No Python sem `pyproject.toml`, remover a entrada `toml` do template.
 - O `version.txt` precisa existir antes do primeiro release: o release-please atualiza, mas não cria.

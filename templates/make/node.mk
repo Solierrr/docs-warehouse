@@ -6,5 +6,6 @@ BUILD_CMD     ?= npm run build
 TEST_CMD      ?= npm test
 LINT_CMD      ?= npm run lint
 FORMAT_CMD    ?= npm run format
+OPENAPI_CMD   ?=
 CLEAN_PATHS   ?= dist
 DOCTOR_TOOLS  ?= git node npm

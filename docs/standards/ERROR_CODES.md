@@ -22,6 +22,9 @@ Podem ser emitidos por qualquer serviço.
 | `FORBIDDEN` | 403 | todos | autenticado, sem permissão para a ação | ativo |
 | `NOT_FOUND` | 404 | todos | recurso ou rota inexistente | ativo |
 | `CONFLICT` | 409 | todos | conflito de estado sem código mais específico | ativo |
+| `METHOD_NOT_ALLOWED` | 405 | todos | método HTTP não aceito na rota | ativo |
+| `NOT_ACCEPTABLE` | 406 | todos | o `Accept` pedido não pode ser atendido | ativo |
+| `UNSUPPORTED_MEDIA_TYPE` | 415 | todos | `Content-Type` do corpo não aceito | ativo |
 | `RATE_LIMITED` | 429 | todos | limite de requisições atingido | ativo |
 | `INTERNAL_ERROR` | 500 | todos | erro inesperado | ativo |
 | `DEPENDENCY_UNAVAILABLE` | 502, 503 | todos | dependência externa fora do ar ou com resposta inválida, sem código mais específico | ativo |
