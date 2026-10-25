@@ -113,7 +113,7 @@ components:
 ## Qualidade
 
 - Lint do contrato no CI com o Spectral e o ruleset da organização ([`github/openapi/spectral.yaml`](../../github/openapi/spectral.yaml)), pelo workflow reutilizável [`openapi-lint.yml`](../../.github/workflows/openapi-lint.yml). O caller fica em [`github/workflow/common/openapi-lint.yml`](../../github/workflow/common/openapi-lint.yml).
-- O ruleset confere: título no padrão, contato e licença, versão semântica, `servers`, segurança declarada, `operationId` único em camelCase, `summary` em toda operação, tags declaradas e descritas, toda operação com resposta de erro, erros em `application/problem+json`, esquema `ProblemDetail` presente e rotas `/internal/` com `serviceKey`.
+- O ruleset confere: título no padrão, contato e licença, versão semântica, `servers`, segurança declarada, `operationId` único em camelCase, `summary` em toda operação, tags declaradas e descritas, toda operação com resposta de erro, erros em `application/problem+json` (fora `/health` e `/ready`), esquema `ProblemDetail` presente e rotas `/internal/` com `serviceKey`.
 - Mesma versão do springdoc nos serviços Spring: a linha 3.x nos serviços em Spring Boot 4 (hoje `3.1.0`, a do piloto e do `api-auth`). Ela loga avisos `Json Processing Exception` ao gerar o contrato para parâmetros com `@Pattern` ou `@Min`, sem efeito no resultado.
 
 ## Exemplos por stack
@@ -221,8 +221,8 @@ app = FastAPI(
     contact={"name": "Solaria", "url": "https://github.com/Solierrr"},
     license_info={"name": "CC0-1.0", "url": "https://creativecommons.org/publicdomain/zero/1.0/"},
     servers=[
-        {"url": "http://localhost:8000", "description": "Local"},
         {"url": "https://<servico>.onrender.com", "description": "QA"},
+        {"url": "http://localhost:8000", "description": "Local"},
     ],
     docs_url="/docs" if settings.docs_enabled else None,
     openapi_url="/openapi.json" if settings.docs_enabled else None,
@@ -279,8 +279,8 @@ await app.register(swagger, {
       license: { name: "CC0-1.0", url: "https://creativecommons.org/publicdomain/zero/1.0/" },
     },
     servers: [
-      { url: "http://localhost:3000", description: "Local" },
       { url: "https://<servico>.onrender.com", description: "QA" },
+      { url: "http://localhost:3000", description: "Local" },
     ],
     components: {
       securitySchemes: {
