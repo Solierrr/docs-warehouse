@@ -15,7 +15,7 @@ Padrões normativos para todos os repositórios de código, em [`docs/standards/
 
 ## Galeria de diagramas
 
-A pasta [`gallery/`](./gallery/) gera o site publicado no GitHub Pages (ambiente `PREVIEW`) com dois diagramas: a organização do repositório (React Flow, gerada a partir das pastas) e a relação entre os serviços (Sigma.js, a partir de `gallery/data/services.json`). Cada serviço aparece com o ícone da sua stack, e o detalhe mostra o banner e a linha de ícones lidos do README em `readme/services`. Para rodar localmente: `cd gallery && npm ci && npm run dev`. Ao criar ou remover um serviço, atualize `services.json`, incluindo o campo `icon` com um arquivo de `assets/readme/stacks`.
+A pasta [`gallery/`](./gallery/) gera o site publicado no GitHub Pages (ambiente `PREVIEW`) com dois diagramas: a organização do repositório (React Flow, gerada a partir das pastas) e a relação entre os serviços (Sigma.js, a partir de `gallery/data/services.json`). Cada serviço aparece com o ícone da sua stack, e o detalhe mostra as tecnologias na ordem da linha de ícones do README em `readme/services`. Os ícones da página são os SVGs do pacote `thesvg`, mapeados em `gallery/stackIcons.ts`. As imagens de `assets/readme` ficam só para os documentos Markdown. Para rodar localmente: `cd gallery && npm ci && npm run dev`. Ao criar ou remover um serviço, atualize `services.json`, incluindo o campo `icon` com um nome que exista em `stackIcons.ts`.
 
 ## Templates
 

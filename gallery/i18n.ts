@@ -27,6 +27,8 @@ export interface Labels {
   incoming: string;
   filters: string;
   reset: string;
+  zoomIn: string;
+  zoomOut: string;
   planned: string;
   notInOrg: string;
 }
@@ -54,6 +56,8 @@ export const labels: Record<Locale, Labels> = {
     incoming: "É usado por",
     filters: "Tipos de relação",
     reset: "Reenquadrar",
+    zoomIn: "Aproximar",
+    zoomOut: "Afastar",
     planned: "Planejada",
     notInOrg: "Sem repositório próprio (recurso de infraestrutura).",
   },
@@ -79,6 +83,8 @@ export const labels: Record<Locale, Labels> = {
     incoming: "Used by",
     filters: "Relation types",
     reset: "Fit view",
+    zoomIn: "Zoom in",
+    zoomOut: "Zoom out",
     planned: "Planned",
     notInOrg: "No repository of its own (infrastructure resource).",
   },
@@ -104,6 +110,8 @@ export const labels: Record<Locale, Labels> = {
     incoming: "Es usado por",
     filters: "Tipos de relación",
     reset: "Reencuadrar",
+    zoomIn: "Acercar",
+    zoomOut: "Alejar",
     planned: "Planificada",
     notInOrg: "Sin repositorio propio (recurso de infraestructura).",
   },
