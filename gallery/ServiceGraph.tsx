@@ -1,8 +1,14 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import cytoscape, { type Core, type StylesheetJson } from "cytoscape";
+import { MultiDirectedGraph } from "graphology";
+import forceAtlas2 from "graphology-layout-forceatlas2";
+import noverlap from "graphology-layout-noverlap";
+import Sigma from "sigma";
+import { extremityArrow, layerDashed, layerFill, pathCurved, sdfSquare } from "sigma/rendering";
+import { layerImage } from "@sigma/node-image";
 import { Surface } from "@solaria.network/web-lib";
 import { IconExternalLink } from "@tabler/icons-react";
 import data from "./data/services.json";
+import stackData from "./data/stack.json";
 import { labels, type Locale } from "./i18n";
 
 type Kind = "http" | "data" | "a2a" | "jwks" | "lib" | "planned";
@@ -10,6 +16,7 @@ type Kind = "http" | "data" | "a2a" | "jwks" | "lib" | "planned";
 interface ServiceNode {
   id: string;
   group: string;
+  icon: string;
   stack: string;
   role: string;
   repo: boolean;
@@ -20,9 +27,18 @@ interface ServiceEdge {
   kind: Kind;
   label: string;
 }
+interface StackImage {
+  name: string;
+  label: string;
+}
+interface ServiceStack {
+  banner: StackImage | null;
+  stacks: StackImage[];
+}
 
 const nodes = data.nodes as ServiceNode[];
 const edges = data.edges as ServiceEdge[];
+const stacks = stackData as Record<string, ServiceStack>;
 
 const kindNames: Record<Locale, Record<Kind, string>> = {
   "pt-BR": { http: "HTTP", data: "Banco ou serviço de dados", a2a: "A2A entre agentes", jwks: "Validação de JWT (JWKS)", lib: "Biblioteca", planned: "Planejada" },
@@ -56,78 +72,69 @@ const kindColors: Record<Kind, string> = {
   planned: "#94a3b8",
 };
 
+// Espessura, traço e intervalo (em pixels) de cada tipo de relação. Intervalo zero desenha linha contínua.
+const kindLines: Record<Kind, { size: number; dash: number; gap: number }> = {
+  http: { size: 1.5, dash: 10, gap: 0 },
+  data: { size: 2, dash: 2, gap: 3 },
+  a2a: { size: 3, dash: 8, gap: 4 },
+  jwks: { size: 1.5, dash: 6, gap: 4 },
+  lib: { size: 1.5, dash: 2, gap: 4 },
+  planned: { size: 1.5, dash: 6, gap: 6 },
+};
+
 const kindOrder: Kind[] = ["http", "data", "a2a", "jwks", "lib", "planned"];
 const organization = "https://github.com/Solierrr";
+const groupOrder = Object.keys(groupColors);
+const asset = (folder: "banners" | "stacks", name: string) => `${import.meta.env.BASE_URL}stack/${folder}/${name}.png`;
 
 function cssColor(name: string, fallback: string) {
   const value = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
   return value || fallback;
 }
 
-function stylesheet(): StylesheetJson {
-  const ink = cssColor("--color-operational-ink", "#1f2937");
-  const shell = cssColor("--color-operational-shell", "#ffffff");
-  return [
-    {
-      selector: "node",
-      style: {
-        "background-color": (element) => groupColors[element.data("group")] ?? "#64748b",
-        label: "data(id)",
-        color: ink,
-        "font-size": 11,
-        "font-family": "Plus Jakarta Sans, sans-serif",
-        "text-valign": "bottom",
-        "text-margin-y": 4,
-        "text-outline-color": shell,
-        "text-outline-width": 2,
-        width: 22,
-        height: 22,
-        "border-width": 2,
-        "border-color": shell,
-      },
-    },
-    { selector: 'node[group = "data"]', style: { shape: "barrel", width: 28, height: 22 } },
-    { selector: 'node[group = "lib"]', style: { shape: "round-rectangle" } },
-    {
-      selector: "edge",
-      style: {
-        width: 1.5,
-        "curve-style": "bezier",
-        "target-arrow-shape": "triangle",
-        "arrow-scale": 0.9,
-        "line-color": (element) => kindColors[element.data("kind") as Kind],
-        "target-arrow-color": (element) => kindColors[element.data("kind") as Kind],
-        opacity: 0.75,
-      },
-    },
-    { selector: 'edge[kind = "data"]', style: { "line-style": "dotted", width: 2 } },
-    { selector: 'edge[kind = "a2a"]', style: { "line-style": "dashed", width: 3 } },
-    { selector: 'edge[kind = "jwks"]', style: { "line-style": "dashed" } },
-    { selector: 'edge[kind = "lib"]', style: { "line-style": "dotted", opacity: 0.5 } },
-    { selector: 'edge[kind = "planned"]', style: { "line-style": "dashed", opacity: 0.5 } },
-    { selector: ".dim", style: { opacity: 0.12 } },
-    {
-      selector: "edge.focus",
-      style: {
-        label: "data(label)",
-        "font-size": 9,
-        color: ink,
-        "text-background-color": shell,
-        "text-background-opacity": 0.9,
-        "text-background-padding": "2px",
-        opacity: 1,
-        width: 2.5,
-      },
-    },
-    { selector: "node:selected", style: { "border-color": ink, "border-width": 3 } },
-    { selector: ".hidden", style: { display: "none" } },
-  ];
+function buildGraph() {
+  const graph = new MultiDirectedGraph();
+  const perGroup: Record<string, number> = {};
+  nodes.forEach((node) => {
+    const slot = (perGroup[node.group] = (perGroup[node.group] ?? 0) + 1);
+    const angle = (groupOrder.indexOf(node.group) / groupOrder.length) * 2 * Math.PI + slot * 0.18;
+    const radius = 10 + slot * 2;
+    graph.addNode(node.id, {
+      label: node.id,
+      x: Math.cos(angle) * radius,
+      y: Math.sin(angle) * radius,
+      color: groupColors[node.group] ?? "#64748b",
+      image: asset("stacks", node.icon),
+    });
+  });
+  edges.forEach((edge, index) => {
+    graph.addDirectedEdgeWithKey(`e${index}`, edge.source, edge.target, {
+      kind: edge.kind,
+      label: edge.label,
+      color: kindColors[edge.kind],
+      ...kindLines[edge.kind],
+      hidden: false,
+    });
+  });
+  forceAtlas2.assign(graph, {
+    iterations: 800,
+    settings: { ...forceAtlas2.inferSettings(graph), scalingRatio: 40, gravity: 1, outboundAttractionDistribution: true },
+  });
+  // Tamanhos em unidades do grafo, proporcionais à extensão do desenho, para que o zoom
+  // escale ícones e linhas juntos e o noverlap afaste os ícones que ainda se sobrepõem.
+  const xs = graph.mapNodes((_node, attributes) => attributes.x as number);
+  const ys = graph.mapNodes((_node, attributes) => attributes.y as number);
+  const unit = Math.max(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys)) / 600;
+  graph.updateEachNodeAttributes((_node, attributes) => ({ ...attributes, size: 18 * unit }));
+  graph.updateEachEdgeAttributes((_edge, attributes) => ({ ...attributes, size: attributes.size * unit }));
+  noverlap.assign(graph, { maxIterations: 300, settings: { margin: 18 * unit, ratio: 1 } });
+  return graph;
 }
 
 export default function ServiceGraph({ locale }: { locale: Locale }) {
   const text = labels[locale];
   const container = useRef<HTMLDivElement>(null);
-  const graph = useRef<Core | null>(null);
+  const renderer = useRef<Sigma | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [enabled, setEnabled] = useState<Record<Kind, boolean>>({
     http: true,
@@ -140,66 +147,117 @@ export default function ServiceGraph({ locale }: { locale: Locale }) {
 
   useEffect(() => {
     if (!container.current) return;
-    const instance = cytoscape({
-      container: container.current,
-      elements: [
-        ...nodes.map((node) => ({ data: { ...node } })),
-        ...edges.map((edge, index) => ({ data: { id: `e${index}`, ...edge } })),
-      ],
-      style: stylesheet(),
-      layout: {
-        name: "cose",
-        animate: false,
-        nodeRepulsion: () => 90000,
-        idealEdgeLength: () => 110,
-        edgeElasticity: () => 80,
-        gravity: 0.35,
-        numIter: 1500,
-        randomize: false,
-        padding: 24,
+    const ink = cssColor("--color-operational-ink", "#1f2937");
+    const shell = cssColor("--color-operational-shell", "#ffffff");
+    const graph = buildGraph();
+    const instance = new Sigma(graph, container.current, {
+      primitives: {
+        nodes: {
+          shapes: [sdfSquare({ cornerRadius: 0.32 })],
+          variables: { image: { type: "string", default: "" } },
+          layers: [layerFill(), layerImage({ drawingMode: "image", padding: 0.06 })],
+        },
+        edges: {
+          paths: [pathCurved()],
+          extremities: [extremityArrow()],
+          variables: {
+            dash: { type: "number", default: 10 },
+            gap: { type: "number", default: 0 },
+          },
+          layers: [
+            layerDashed({
+              dashSize: { attribute: "dash", mode: "pixels" },
+              gapSize: { attribute: "gap", mode: "pixels" },
+            }),
+          ],
+        },
       },
-      minZoom: 0.2,
-      maxZoom: 3,
-      wheelSensitivity: 0.25,
+      styles: {
+        nodes: [
+          {
+            x: { attribute: "x" },
+            y: { attribute: "y" },
+            size: { whenState: "isHovered", then: (attributes) => attributes.size * 1.15, else: { attribute: "size" } },
+            color: { attribute: "color" },
+            image: { attribute: "image" },
+            label: { attribute: "label" },
+            labelColor: ink,
+            labelSize: 12,
+            labelFont: "Plus Jakarta Sans, sans-serif",
+            labelPosition: "below",
+            labelBackgroundColor: shell,
+            labelBackgroundPadding: 2,
+            cursor: "pointer",
+            depth: { whenState: "isHovered", then: "topNodes", else: "nodes" },
+          },
+          {
+            when: (_attributes, state, graphState) => graphState.hasHighlighted && !state.isHighlighted,
+            then: { opacity: 0.15, labelVisibility: "hidden" },
+          },
+          {
+            when: (_attributes, state, graphState) => graphState.hasHighlighted && state.isHighlighted,
+            then: { depth: "topNodes", labelVisibility: "visible" },
+          },
+        ],
+        edges: [
+          {
+            color: { attribute: "color" },
+            size: { attribute: "size" },
+            dash: { attribute: "dash" },
+            gap: { attribute: "gap" },
+            head: "arrow",
+            opacity: 0.7,
+            visibility: { whenData: { hidden: true }, then: "hidden", else: "visible" },
+          },
+          {
+            when: (_attributes, state, graphState) => graphState.hasHighlighted && !state.isHighlighted,
+            then: { opacity: 0.06 },
+          },
+          {
+            when: (_attributes, state, graphState) => graphState.hasHighlighted && state.isHighlighted,
+            then: { opacity: 1, depth: "topEdges" },
+          },
+        ],
+      },
+      settings: {
+        enableNodeDrag: true,
+        labelDensity: 2,
+        autoRescaleContent: "labels",
+        stagePadding: 40,
+        minCameraRatio: 0.2,
+        maxCameraRatio: 3,
+      },
     });
-    instance.on("tap", "node", (event) => setSelectedId(event.target.id()));
-    instance.on("tap", (event) => {
-      if (event.target === instance) setSelectedId(null);
-    });
-    graph.current = instance;
-    const observer = new ResizeObserver(() => {
-      instance.resize();
-      instance.fit(undefined, 24);
-    });
-    observer.observe(container.current);
+    instance.on("clickNode", ({ node }) => setSelectedId(node));
+    instance.on("clickStage", () => setSelectedId(null));
+    renderer.current = instance;
     return () => {
-      observer.disconnect();
-      instance.destroy();
-      graph.current = null;
+      instance.kill();
+      renderer.current = null;
     };
   }, []);
 
   useEffect(() => {
-    const instance = graph.current;
+    const instance = renderer.current;
     if (!instance) return;
-    instance.batch(() => {
-      instance.edges().forEach((edge) => {
-        edge.toggleClass("hidden", !enabled[edge.data("kind") as Kind]);
-      });
-      instance.elements().removeClass("dim focus");
-      instance.nodes().unselect();
-      if (selectedId) {
-        const node = instance.getElementById(selectedId);
-        const visibleEdges = node.connectedEdges().not(".hidden");
-        const neighborhood = visibleEdges.connectedNodes().union(node).union(visibleEdges);
-        instance.elements().not(neighborhood).addClass("dim");
-        visibleEdges.addClass("focus");
-        node.select();
-      }
+    const graph = instance.getGraph();
+    graph.forEachEdge((edge, attributes) => {
+      graph.setEdgeAttribute(edge, "hidden", !enabled[attributes.kind as Kind]);
     });
+    const visibleEdges = selectedId
+      ? graph.edges(selectedId).filter((edge) => !graph.getEdgeAttribute(edge, "hidden"))
+      : [];
+    const neighborhood = new Set(selectedId ? [selectedId] : []);
+    visibleEdges.forEach((edge) => graph.extremities(edge).forEach((node) => neighborhood.add(node)));
+    instance.setNodesState(graph.nodes(), { isHighlighted: false });
+    instance.setEdgesState(graph.edges(), { isHighlighted: false });
+    instance.setNodesState([...neighborhood], { isHighlighted: true });
+    instance.setEdgesState(visibleEdges, { isHighlighted: true });
+    instance.setGraphState({ hasHighlighted: selectedId !== null });
   }, [enabled, selectedId]);
 
   const selected = nodes.find((node) => node.id === selectedId);
+  const selectedStack = selected ? stacks[selected.id] : undefined;
   const relations = useMemo(() => {
     if (!selected) return { outgoing: [], incoming: [] };
     return {
@@ -238,7 +296,11 @@ export default function ServiceGraph({ locale }: { locale: Locale }) {
               {kindNames[locale][kind]}
             </label>
           ))}
-          <button type="button" className="graph-reset" onClick={() => graph.current?.fit(undefined, 24)}>
+          <button
+            type="button"
+            className="graph-reset"
+            onClick={() => renderer.current?.getCamera().animate({ x: 0.5, y: 0.5, ratio: 1, angle: 0 })}
+          >
             {text.reset}
           </button>
         </div>
@@ -256,7 +318,25 @@ export default function ServiceGraph({ locale }: { locale: Locale }) {
         <h2 className="detail-title">{text.details}</h2>
         {selected ? (
           <>
+            {selectedStack?.banner ? (
+              <img
+                className="detail-banner"
+                src={asset("banners", selectedStack.banner.name)}
+                alt={selectedStack.banner.label}
+              />
+            ) : (
+              <img className="detail-icon" src={asset("stacks", selected.icon)} alt="" />
+            )}
             <p className="detail-name">{selected.id}</p>
+            {selectedStack && selectedStack.stacks.length > 0 && (
+              <ul className="detail-stacks" aria-label={text.stack}>
+                {selectedStack.stacks.map((item) => (
+                  <li key={item.name}>
+                    <img src={asset("stacks", item.name)} alt={item.label} title={item.label} />
+                  </li>
+                ))}
+              </ul>
+            )}
             <p className="detail-text">{selected.role}</p>
             <dl className="detail-list">
               <dt>{text.group}</dt>
