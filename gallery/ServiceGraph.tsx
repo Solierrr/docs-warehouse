@@ -10,6 +10,7 @@ import graphLabels from "./data/graph-labels.json";
 import data from "./data/services.json";
 import stackData from "./data/stack.json";
 import { labels, type Locale } from "./i18n";
+import { groupColors } from "./palette";
 import { monogramTile, nodeTile, stackIcon, svgUrl } from "./stackIcons";
 
 type Kind =
@@ -53,18 +54,6 @@ const kindNames = graphLabels.kinds as Record<Locale, Record<Kind, string>>;
 
 const groupNames = graphLabels.groups as Record<Locale, Record<string, string>>;
 
-const groupColors: Record<string, string> = {
-  client: "#3b82f6",
-  edge: "#06b6d4",
-  api: "#8b5cf6",
-  ai: "#ec4899",
-  data: "#16a34a",
-  dataops: "#ca8a04",
-  infra: "#64748b",
-  lib: "#a16207",
-  environment: "#4f46e5",
-  managed: "#0d9488",
-};
 
 const kindColors: Record<Kind, string> = {
   http: "#64748b",

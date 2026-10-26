@@ -3,10 +3,11 @@
   "id": "context",
   "group": "architecture",
   "title": "Contexto do sistema",
-  "summary": "Quem usa a plataforma e de quais sistemas externos ela depende. Não mostra bancos, repositórios nem infraestrutura de deploy.",
+  "summary": "Quem usa a plataforma, o que ela reúne e de quais sistemas externos depende. Cada card diz a sua relação com a plataforma; repositórios e bancos estão em Camadas e em Relação entre os serviços.",
   "changes": [
+   "O desenho ficou da esquerda para a direita: quem usa, a plataforma e os serviços que ela usa, com a entrega e a operação embaixo. As relações estão escritas nos próprios cards.",
    "O administrador da plataforma revisa marcas, empresas e profissionais.",
-   "Entraram a Cloudflare na borda e o Databricks para a análise de dados.",
+   "Entraram a Cloudflare na borda, o Infisical, a hospedagem (Render e GCP), a observabilidade e o Databricks.",
    "Os provedores de IA são Gemini, Groq e OpenAI."
   ],
   "body": {
@@ -15,153 +16,100 @@
     {
      "id": "requester",
      "label": "Demandante",
-     "detail": "Unidades, faturas, propostas e projetos",
-     "x": 0,
-     "y": 0
+     "detail": "Cadastra unidades e faturas, negocia propostas e acompanha os projetos."
     },
     {
      "id": "supplier",
      "label": "Fornecedor",
-     "detail": "Marcas, modelos, estoque e ofertas",
-     "x": 260,
-     "y": 0
+     "detail": "Publica marcas, modelos, estoque e ofertas, e responde às propostas."
     },
     {
      "id": "professional",
      "label": "Profissional",
-     "detail": "Cadastro, convites, atividades e campo",
-     "x": 520,
-     "y": 0
+     "detail": "Faz o cadastro, entra em projetos e executa os serviços, inclusive pelo app."
     },
     {
      "id": "admin",
      "label": "Admin da plataforma",
-     "detail": "Revisões e aprovações",
-     "x": 780,
-     "y": 0
+     "detail": "Revisa profissionais, marcas públicas e empresas."
     }
    ],
    "system": {
-    "id": "platform",
     "label": "Plataforma",
-    "detail": "Marketplace B2B do setor fotovoltaico, com web, app e serviços internos",
-    "x": 390,
-    "y": 230
+    "detail": "Marketplace B2B do setor fotovoltaico",
+    "contains": [
+     "Web e app Android",
+     "APIs de domínio",
+     "Agentes de IA",
+     "Bancos e grafo",
+     "Notificações e e-mail"
+    ]
    },
    "externals": [
     {
      "id": "cloudflare",
      "label": "Cloudflare",
-     "detail": "DNS, cache e borda",
-     "icon": "cloudflare",
-     "x": -130,
-     "y": 230
+     "icon": "cloudflare-workers",
+     "detail": "Recebe o tráfego do domínio e o entrega à plataforma.",
+     "operation": true
     },
     {
      "id": "firebase",
      "label": "Firebase",
-     "detail": "Login federado Google e Microsoft",
      "icon": "firebase",
-     "x": -60,
-     "y": 460
+     "detail": "Login com Google e Microsoft, e push no app."
     },
     {
      "id": "google",
-     "label": "Google",
-     "detail": "Maps, Solar API, tradução e agenda",
-     "icon": "gcp",
-     "x": 200,
-     "y": 460
+     "label": "Google APIs",
+     "icon": "google-maps",
+     "detail": "Mapas, viabilidade solar, tradução e agenda."
     },
     {
      "id": "ai",
      "label": "Provedores de IA",
-     "detail": "Gemini, Groq e OpenAI",
      "icon": "gemini",
-     "x": 460,
-     "y": 460
+     "detail": "Gemini, Groq e OpenAI para os agentes e a validação."
     },
     {
      "id": "cloudinary",
      "label": "Cloudinary",
-     "detail": "Fotos e documentos",
      "icon": "cloudinary",
-     "x": 720,
-     "y": 460
+     "detail": "Guarda fotos e documentos."
     },
     {
      "id": "smtp",
      "label": "SMTP",
-     "detail": "E-mails transacionais",
      "icon": "mailpit",
-     "x": 980,
-     "y": 460
+     "detail": "Entrega os e-mails transacionais."
+    },
+    {
+     "id": "hosting",
+     "label": "Render e GCP",
+     "icon": "gcp",
+     "detail": "Hospedam o QA e a produção.",
+     "operation": true
+    },
+    {
+     "id": "infisical",
+     "label": "Infisical",
+     "icon": "infisical",
+     "detail": "Guarda os segredos de cada ambiente.",
+     "operation": true
+    },
+    {
+     "id": "observability",
+     "label": "Grafana Cloud e LangSmith",
+     "icon": "grafana",
+     "detail": "Recebem a telemetria dos serviços e dos agentes.",
+     "operation": true
     },
     {
      "id": "databricks",
      "label": "Databricks",
-     "detail": "Análise e painéis",
      "icon": "databricks",
-     "x": 980,
-     "y": 230
-    }
-   ],
-   "edges": [
-    {
-     "source": "requester",
-     "target": "platform",
-     "label": "compra e contrata"
-    },
-    {
-     "source": "supplier",
-     "target": "platform",
-     "label": "publica o catálogo"
-    },
-    {
-     "source": "professional",
-     "target": "platform",
-     "label": "atende e executa"
-    },
-    {
-     "source": "admin",
-     "target": "platform",
-     "label": "revisa"
-    },
-    {
-     "source": "cloudflare",
-     "target": "platform",
-     "label": "entrega o tráfego"
-    },
-    {
-     "source": "platform",
-     "target": "firebase",
-     "label": "login federado"
-    },
-    {
-     "source": "platform",
-     "target": "google",
-     "label": "mapas e viabilidade solar"
-    },
-    {
-     "source": "platform",
-     "target": "ai",
-     "label": "agentes e validação"
-    },
-    {
-     "source": "platform",
-     "target": "cloudinary",
-     "label": "mídia"
-    },
-    {
-     "source": "platform",
-     "target": "smtp",
-     "label": "e-mails"
-    },
-    {
-     "source": "platform",
-     "target": "databricks",
-     "label": "sincronização",
-     "dashed": true
+     "detail": "Recebe os dados para análise e painéis.",
+     "operation": true
     }
    ]
   }
@@ -170,10 +118,11 @@
   "id": "layers",
   "group": "architecture",
   "title": "Camadas",
-  "summary": "Os repositórios e recursos agrupados por camada, gerados a partir do mesmo cadastro do grafo de serviços. As relações entre eles estão em Relação entre os serviços.",
+  "summary": "Os repositórios e recursos agrupados por camada, na ordem do caminho de uma requisição: canais, borda, APIs, inteligência e dados. Abaixo ficam as camadas de suporte. Gerado do mesmo cadastro do grafo de serviços, então acompanha as mudanças dele.",
   "changes": [
-   "O desenho original tinha três APIs. Hoje são nove serviços de API e de IA, além de dados, infraestrutura e bibliotecas.",
-   "Entraram api-notify, infra-broker (RabbitMQ), mcp-database e os agentes ai-operational e ai-geographic."
+   "O desenho original tinha três APIs. Hoje são oito APIs e seis componentes de IA, além de dados, operação, infraestrutura e bibliotecas.",
+   "Entraram as camadas de ambientes e de serviços gerenciados.",
+   "Cada camada diz o que faz, e as setas mostram o sentido das chamadas."
   ],
   "body": {
    "kind": "layers"
