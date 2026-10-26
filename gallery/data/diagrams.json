@@ -1,0 +1,1868 @@
+[
+ {
+  "id": "context",
+  "group": "architecture",
+  "title": "Contexto do sistema",
+  "summary": "Quem usa a plataforma e de quais sistemas externos ela depende. Não mostra bancos, repositórios nem infraestrutura de deploy.",
+  "changes": [
+   "O administrador da plataforma revisa marcas, empresas e profissionais.",
+   "Entraram a Cloudflare na borda e o Databricks para a análise de dados.",
+   "Os provedores de IA são Gemini, Groq e OpenAI."
+  ],
+  "body": {
+   "kind": "context",
+   "people": [
+    {
+     "id": "requester",
+     "label": "Demandante",
+     "detail": "Unidades, faturas, propostas e projetos",
+     "x": 0,
+     "y": 0
+    },
+    {
+     "id": "supplier",
+     "label": "Fornecedor",
+     "detail": "Marcas, modelos, estoque e ofertas",
+     "x": 260,
+     "y": 0
+    },
+    {
+     "id": "professional",
+     "label": "Profissional",
+     "detail": "Cadastro, convites, atividades e campo",
+     "x": 520,
+     "y": 0
+    },
+    {
+     "id": "admin",
+     "label": "Admin da plataforma",
+     "detail": "Revisões e aprovações",
+     "x": 780,
+     "y": 0
+    }
+   ],
+   "system": {
+    "id": "platform",
+    "label": "Plataforma",
+    "detail": "Marketplace B2B do setor fotovoltaico, com web, app e serviços internos",
+    "x": 390,
+    "y": 230
+   },
+   "externals": [
+    {
+     "id": "cloudflare",
+     "label": "Cloudflare",
+     "detail": "DNS, cache e borda",
+     "icon": "cloudflare",
+     "x": -130,
+     "y": 230
+    },
+    {
+     "id": "firebase",
+     "label": "Firebase",
+     "detail": "Login federado Google e Microsoft",
+     "icon": "firebase",
+     "x": -60,
+     "y": 460
+    },
+    {
+     "id": "google",
+     "label": "Google",
+     "detail": "Maps, Solar API, tradução e agenda",
+     "icon": "gcp",
+     "x": 200,
+     "y": 460
+    },
+    {
+     "id": "ai",
+     "label": "Provedores de IA",
+     "detail": "Gemini, Groq e OpenAI",
+     "icon": "gemini",
+     "x": 460,
+     "y": 460
+    },
+    {
+     "id": "cloudinary",
+     "label": "Cloudinary",
+     "detail": "Fotos e documentos",
+     "icon": "cloudinary",
+     "x": 720,
+     "y": 460
+    },
+    {
+     "id": "smtp",
+     "label": "SMTP",
+     "detail": "E-mails transacionais",
+     "icon": "mailpit",
+     "x": 980,
+     "y": 460
+    },
+    {
+     "id": "databricks",
+     "label": "Databricks",
+     "detail": "Análise e painéis",
+     "icon": "databricks",
+     "x": 980,
+     "y": 230
+    }
+   ],
+   "edges": [
+    {
+     "source": "requester",
+     "target": "platform",
+     "label": "compra e contrata"
+    },
+    {
+     "source": "supplier",
+     "target": "platform",
+     "label": "publica o catálogo"
+    },
+    {
+     "source": "professional",
+     "target": "platform",
+     "label": "atende e executa"
+    },
+    {
+     "source": "admin",
+     "target": "platform",
+     "label": "revisa"
+    },
+    {
+     "source": "cloudflare",
+     "target": "platform",
+     "label": "entrega o tráfego"
+    },
+    {
+     "source": "platform",
+     "target": "firebase",
+     "label": "login federado"
+    },
+    {
+     "source": "platform",
+     "target": "google",
+     "label": "mapas e viabilidade solar"
+    },
+    {
+     "source": "platform",
+     "target": "ai",
+     "label": "agentes e validação"
+    },
+    {
+     "source": "platform",
+     "target": "cloudinary",
+     "label": "mídia"
+    },
+    {
+     "source": "platform",
+     "target": "smtp",
+     "label": "e-mails"
+    },
+    {
+     "source": "platform",
+     "target": "databricks",
+     "label": "sincronização",
+     "dashed": true
+    }
+   ]
+  }
+ },
+ {
+  "id": "layers",
+  "group": "architecture",
+  "title": "Camadas",
+  "summary": "Os repositórios e recursos agrupados por camada, gerados a partir do mesmo cadastro do grafo de serviços. As relações entre eles estão em Relação entre os serviços.",
+  "changes": [
+   "O desenho original tinha três APIs. Hoje são nove serviços de API e de IA, além de dados, infraestrutura e bibliotecas.",
+   "Entraram api-notify, infra-broker (RabbitMQ), mcp-database e os agentes ai-operational e ai-geographic."
+  ],
+  "body": {
+   "kind": "layers"
+  }
+ },
+ {
+  "id": "sequence-signup",
+  "group": "sequence",
+  "title": "Cadastro e provisionamento da conta",
+  "summary": "O api-auth é o dono da identidade e o api-core é o dono do perfil de domínio. A criação no api-core passa por uma outbox publicada no Redis Streams, com novas tentativas e fila de mensagens com falha.",
+  "changes": [
+   "A confirmação de e-mail sai do próprio api-auth, por SMTP, e é obrigatória para entrar com senha.",
+   "O token traz email_verified, que o api-core exige para responder convites."
+  ],
+  "body": {
+   "kind": "sequence",
+   "participants": [
+    {
+     "id": "person",
+     "label": "Pessoa"
+    },
+    {
+     "id": "web",
+     "label": "web-app",
+     "icon": "react"
+    },
+    {
+     "id": "auth",
+     "label": "api-auth",
+     "icon": "springboot"
+    },
+    {
+     "id": "authdb",
+     "label": "authdb",
+     "icon": "postgresql"
+    },
+    {
+     "id": "stream",
+     "label": "Redis Streams",
+     "icon": "redis"
+    },
+    {
+     "id": "core",
+     "label": "api-core",
+     "icon": "springboot"
+    },
+    {
+     "id": "coredb",
+     "label": "coredb",
+     "icon": "postgresql"
+    },
+    {
+     "id": "smtp",
+     "label": "SMTP",
+     "icon": "mailpit"
+    }
+   ],
+   "steps": [
+    {
+     "kind": "call",
+     "from": "person",
+     "to": "web",
+     "label": "Informa e-mail e senha"
+    },
+    {
+     "kind": "call",
+     "from": "web",
+     "to": "auth",
+     "label": "POST /auth/register"
+    },
+    {
+     "kind": "call",
+     "from": "auth",
+     "to": "authdb",
+     "label": "Conta e evento USER_REGISTERED na outbox, na mesma transação"
+    },
+    {
+     "kind": "call",
+     "from": "auth",
+     "to": "smtp",
+     "label": "E-mail de confirmação"
+    },
+    {
+     "kind": "reply",
+     "from": "auth",
+     "to": "web",
+     "label": "201, conta criada"
+    },
+    {
+     "kind": "note",
+     "over": [
+      "auth",
+      "stream"
+     ],
+     "label": "O agendador da outbox lê os eventos pendentes"
+    },
+    {
+     "kind": "call",
+     "from": "auth",
+     "to": "stream",
+     "label": "XADD e marca o evento como publicado"
+    },
+    {
+     "kind": "reply",
+     "from": "stream",
+     "to": "auth",
+     "label": "Listener do consumer group recebe o evento"
+    },
+    {
+     "kind": "call",
+     "from": "auth",
+     "to": "core",
+     "label": "POST /internal/users com token de serviço"
+    },
+    {
+     "kind": "call",
+     "from": "core",
+     "to": "coredb",
+     "label": "Cria o usuário de domínio pelo auth_id"
+    },
+    {
+     "kind": "frame",
+     "label": "alt",
+     "branches": [
+      {
+       "label": "Sucesso",
+       "steps": [
+        {
+         "kind": "reply",
+         "from": "core",
+         "to": "auth",
+         "label": "201"
+        },
+        {
+         "kind": "call",
+         "from": "auth",
+         "to": "stream",
+         "label": "XACK"
+        }
+       ]
+      },
+      {
+       "label": "Falha",
+       "steps": [
+        {
+         "kind": "note",
+         "over": [
+          "auth",
+          "stream"
+         ],
+         "label": "Fica pendente; o reclaimer reenvia ou manda para a DLQ"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "kind": "call",
+     "from": "person",
+     "to": "auth",
+     "label": "Confirma o e-mail pelo link"
+    },
+    {
+     "kind": "call",
+     "from": "person",
+     "to": "web",
+     "label": "Entra com e-mail e senha"
+    },
+    {
+     "kind": "call",
+     "from": "web",
+     "to": "auth",
+     "label": "POST /auth/login"
+    },
+    {
+     "kind": "reply",
+     "from": "auth",
+     "to": "web",
+     "label": "JWT RS256 de 15 min com email_verified e refresh de 7 dias"
+    }
+   ]
+  }
+ },
+ {
+  "id": "sequence-recommendation",
+  "group": "sequence",
+  "title": "Recomendação por contexto",
+  "summary": "O assistente consulta o ranking só pelo mcp-database, que chama os feeds autenticados da api-recommendation. Sem o grafo, a api-recommendation responde com o fallback SQL e avisa.",
+  "changes": [
+   "Quem consome os feeds autenticados é o mcp-database, e não o api-core.",
+   "O LLM cruza as necessidades do usuário com o top-N; a api-recommendation só entende estratégia e unidade ou empresa.",
+   "Os feeds públicos com cache de borda existem, mas nenhum cliente os usa hoje."
+  ],
+  "body": {
+   "kind": "sequence",
+   "participants": [
+    {
+     "id": "person",
+     "label": "Demandante"
+    },
+    {
+     "id": "web",
+     "label": "web-app",
+     "icon": "react"
+    },
+    {
+     "id": "assistant",
+     "label": "ai-assistant",
+     "icon": "fastapi"
+    },
+    {
+     "id": "mcp",
+     "label": "mcp-database",
+     "icon": "mcp"
+    },
+    {
+     "id": "rec",
+     "label": "api-recommendation",
+     "icon": "fastapi"
+    },
+    {
+     "id": "neo4j",
+     "label": "feeddb",
+     "icon": "neo4j"
+    },
+    {
+     "id": "coredb",
+     "label": "coredb",
+     "icon": "postgresql"
+    }
+   ],
+   "steps": [
+    {
+     "kind": "call",
+     "from": "person",
+     "to": "web",
+     "label": "Pede placas para a unidade"
+    },
+    {
+     "kind": "call",
+     "from": "web",
+     "to": "assistant",
+     "label": "POST /chat com o JWT"
+    },
+    {
+     "kind": "self",
+     "on": "assistant",
+     "label": "Roteador escolhe o especialista e pergunta consumo, orçamento e telhado"
+    },
+    {
+     "kind": "call",
+     "from": "assistant",
+     "to": "mcp",
+     "label": "recomendar_ofertas(strategy, local_unit_id) com x-api-key"
+    },
+    {
+     "kind": "call",
+     "from": "mcp",
+     "to": "rec",
+     "label": "Feed de ofertas com X-Recommendation-Key"
+    },
+    {
+     "kind": "frame",
+     "label": "alt",
+     "branches": [
+      {
+       "label": "Grafo disponível",
+       "steps": [
+        {
+         "kind": "call",
+         "from": "rec",
+         "to": "neo4j",
+         "label": "Ranking no snapshot ativo"
+        },
+        {
+         "kind": "reply",
+         "from": "neo4j",
+         "to": "rec",
+         "label": "Top-N com métrica"
+        }
+       ]
+      },
+      {
+       "label": "Neo4j fora",
+       "steps": [
+        {
+         "kind": "call",
+         "from": "rec",
+         "to": "coredb",
+         "label": "Fallback SQL somente leitura"
+        },
+        {
+         "kind": "reply",
+         "from": "coredb",
+         "to": "rec",
+         "label": "Candidatos e aviso de fallback"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "kind": "reply",
+     "from": "rec",
+     "to": "mcp",
+     "label": "Itens com métrica e motivos"
+    },
+    {
+     "kind": "reply",
+     "from": "mcp",
+     "to": "assistant",
+     "label": "Fonte, avisos e itens"
+    },
+    {
+     "kind": "self",
+     "on": "assistant",
+     "label": "LLM cruza as necessidades com o top-N e o juiz revisa"
+    },
+    {
+     "kind": "reply",
+     "from": "assistant",
+     "to": "web",
+     "label": "Recomendação"
+    },
+    {
+     "kind": "note",
+     "over": [
+      "neo4j",
+      "coredb"
+     ],
+     "label": "O database-bootstrap reconstrói o feeddb a partir do coredb"
+    }
+   ]
+  }
+ },
+ {
+  "id": "sequence-approval",
+  "group": "sequence",
+  "title": "Ação no SaaS com aprovação",
+  "summary": "O assistente delega pedidos de ação ao ai-operational por A2A. Nada é gravado sem o aceite do usuário, e a escrita usa o JWT do próprio usuário, então vale o RBAC do cargo.",
+  "changes": [
+   "A2A 1.0 com o SDK oficial; a proposta chega ao assistente como tarefa input_required.",
+   "A resposta do agente de ações vai ao usuário sem reescrita, porque leva preço e quantidade.",
+   "A única ação que grava hoje é criar oferta de placa. Cadastro de empresa vira indicação de tela."
+  ],
+  "body": {
+   "kind": "sequence",
+   "participants": [
+    {
+     "id": "person",
+     "label": "Usuário do SaaS"
+    },
+    {
+     "id": "web",
+     "label": "web-app",
+     "icon": "react"
+    },
+    {
+     "id": "assistant",
+     "label": "ai-assistant",
+     "icon": "fastapi"
+    },
+    {
+     "id": "operational",
+     "label": "ai-operational",
+     "icon": "fastapi"
+    },
+    {
+     "id": "core",
+     "label": "api-core",
+     "icon": "springboot"
+    },
+    {
+     "id": "coredb",
+     "label": "coredb",
+     "icon": "postgresql"
+    }
+   ],
+   "steps": [
+    {
+     "kind": "call",
+     "from": "person",
+     "to": "web",
+     "label": "Pede para cadastrar uma oferta de placa"
+    },
+    {
+     "kind": "call",
+     "from": "web",
+     "to": "assistant",
+     "label": "POST /chat com o JWT"
+    },
+    {
+     "kind": "call",
+     "from": "assistant",
+     "to": "operational",
+     "label": "A2A: mensagem, JWT em Authorization e persona"
+    },
+    {
+     "kind": "call",
+     "from": "operational",
+     "to": "core",
+     "label": "GET /api/users/me para achar a empresa"
+    },
+    {
+     "kind": "self",
+     "on": "operational",
+     "label": "Monta a proposta a partir de campos validados"
+    },
+    {
+     "kind": "reply",
+     "from": "operational",
+     "to": "assistant",
+     "label": "Tarefa input_required com a proposta"
+    },
+    {
+     "kind": "reply",
+     "from": "assistant",
+     "to": "web",
+     "label": "Proposta sem reescrita: ação, entidade e valores"
+    },
+    {
+     "kind": "frame",
+     "label": "alt",
+     "branches": [
+      {
+       "label": "Aceita",
+       "steps": [
+        {
+         "kind": "call",
+         "from": "person",
+         "to": "assistant",
+         "label": "Responde sim"
+        },
+        {
+         "kind": "call",
+         "from": "assistant",
+         "to": "operational",
+         "label": "Retoma a tarefa com o aceite"
+        },
+        {
+         "kind": "call",
+         "from": "operational",
+         "to": "core",
+         "label": "POST /api/offers com o JWT do usuário"
+        },
+        {
+         "kind": "self",
+         "on": "core",
+         "label": "RBAC do cargo, modelo aprovado e assinatura ativa"
+        },
+        {
+         "kind": "call",
+         "from": "core",
+         "to": "coredb",
+         "label": "Grava a oferta"
+        },
+        {
+         "kind": "reply",
+         "from": "operational",
+         "to": "assistant",
+         "label": "Tarefa concluída"
+        }
+       ]
+      },
+      {
+       "label": "Recusa",
+       "steps": [
+        {
+         "kind": "note",
+         "over": [
+          "assistant",
+          "operational"
+         ],
+         "label": "Proposta descartada; nada é gravado"
+        }
+       ]
+      },
+      {
+       "label": "Dúvida",
+       "steps": [
+        {
+         "kind": "note",
+         "over": [
+          "assistant",
+          "operational"
+         ],
+         "label": "O agente explica ou revisa; na dúvida nunca executa"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "id": "sequence-field",
+  "group": "sequence",
+  "title": "Copiloto de campo",
+  "summary": "O ai-geographic atende o profissional no mobile. Usa o MCP do Google Maps direto para lugares, rotas e clima, a Solar API pelo api-google para o potencial do local, e delega produtos ao assistente por A2A.",
+  "changes": [
+   "Maps Grounding Lite direto, sem provedor de reserva; ainda não testado contra o Maps real.",
+   "A recomendação para o profissional usa só dados públicos, sem unidade.",
+   "O chat único dentro do mapa do app ainda não foi feito."
+  ],
+  "body": {
+   "kind": "sequence",
+   "participants": [
+    {
+     "id": "person",
+     "label": "Profissional"
+    },
+    {
+     "id": "mobile",
+     "label": "mobile-app",
+     "icon": "jetpack-compose"
+    },
+    {
+     "id": "geo",
+     "label": "ai-geographic",
+     "icon": "fastapi"
+    },
+    {
+     "id": "maps",
+     "label": "Maps Grounding Lite",
+     "icon": "google-maps"
+    },
+    {
+     "id": "google",
+     "label": "api-google",
+     "icon": "gcp"
+    },
+    {
+     "id": "assistant",
+     "label": "ai-assistant",
+     "icon": "fastapi"
+    },
+    {
+     "id": "mcp",
+     "label": "mcp-database",
+     "icon": "mcp"
+    }
+   ],
+   "steps": [
+    {
+     "kind": "call",
+     "from": "person",
+     "to": "mobile",
+     "label": "Pergunta se vale ir à região hoje"
+    },
+    {
+     "kind": "call",
+     "from": "mobile",
+     "to": "geo",
+     "label": "POST /chat com localização e fuso"
+    },
+    {
+     "kind": "call",
+     "from": "geo",
+     "to": "maps",
+     "label": "search_places e compute_routes"
+    },
+    {
+     "kind": "reply",
+     "from": "maps",
+     "to": "geo",
+     "label": "Lugares e rotas"
+    },
+    {
+     "kind": "call",
+     "from": "geo",
+     "to": "maps",
+     "label": "lookup_weather"
+    },
+    {
+     "kind": "reply",
+     "from": "maps",
+     "to": "geo",
+     "label": "Clima, índice UV e nuvens"
+    },
+    {
+     "kind": "call",
+     "from": "geo",
+     "to": "google",
+     "label": "GET /v1/solar/roof-viability"
+    },
+    {
+     "kind": "reply",
+     "from": "google",
+     "to": "geo",
+     "label": "Área útil, máximo de painéis e horas de sol"
+    },
+    {
+     "kind": "frame",
+     "label": "opt",
+     "branches": [
+      {
+       "label": "Pergunta de produto",
+       "steps": [
+        {
+         "kind": "call",
+         "from": "geo",
+         "to": "assistant",
+         "label": "A2A com persona profissional"
+        },
+        {
+         "kind": "call",
+         "from": "assistant",
+         "to": "mcp",
+         "label": "recomendar_ofertas só com dados públicos"
+        },
+        {
+         "kind": "reply",
+         "from": "mcp",
+         "to": "assistant",
+         "label": "Itens ranqueados"
+        },
+        {
+         "kind": "reply",
+         "from": "assistant",
+         "to": "geo",
+         "label": "Produtos indicados"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "kind": "reply",
+     "from": "geo",
+     "to": "mobile",
+     "label": "Rota, condições do dia e índice solar"
+    }
+   ]
+  }
+ },
+ {
+  "id": "flow-supplier",
+  "group": "flow",
+  "title": "Catálogo do fornecedor",
+  "summary": "Da marca à oferta publicada. Modelos, estoque e ofertas exigem a permissão do cargo; o administrador da empresa passa em tudo.",
+  "changes": [
+   "O modelo nasce aprovado. Quem passa por revisão é a marca que a empresa quer tornar pública.",
+   "Estoque e oferta exigem fornecedor ativo e assinatura ativa.",
+   "A oferta entra com tradução pendente, feita em fila, e pode ser pausada ou encerrada. Encerrada não reabre."
+  ],
+  "body": {
+   "kind": "flow",
+   "lanes": [
+    "Fornecedor",
+    "Plataforma",
+    "Admin da plataforma"
+   ],
+   "nodes": [
+    {
+     "id": "start",
+     "lane": 0,
+     "row": 0,
+     "kind": "start"
+    },
+    {
+     "id": "brand",
+     "lane": 0,
+     "row": 1,
+     "kind": "action",
+     "label": "Escolhe uma marca pública ou cria a da empresa"
+    },
+    {
+     "id": "publish",
+     "lane": 0,
+     "row": 2,
+     "kind": "decision",
+     "label": "Tornar a marca pública?"
+    },
+    {
+     "id": "request",
+     "lane": 0,
+     "row": 3,
+     "kind": "action",
+     "label": "Envia a solicitação da marca"
+    },
+    {
+     "id": "review",
+     "lane": 2,
+     "row": 3,
+     "kind": "action",
+     "label": "Aprova ou reprova com motivo"
+    },
+    {
+     "id": "model",
+     "lane": 0,
+     "row": 4,
+     "kind": "action",
+     "label": "Cadastra o modelo: potência, eficiência e medidas"
+    },
+    {
+     "id": "modelSaved",
+     "lane": 1,
+     "row": 4,
+     "kind": "action",
+     "label": "Valida os números e grava o modelo aprovado"
+    },
+    {
+     "id": "gate",
+     "lane": 1,
+     "row": 5,
+     "kind": "decision",
+     "label": "Fornecedor ativo e assinatura ativa?"
+    },
+    {
+     "id": "blocked",
+     "lane": 1,
+     "row": 6,
+     "kind": "end"
+    },
+    {
+     "id": "stock",
+     "lane": 0,
+     "row": 6,
+     "kind": "action",
+     "label": "Registra o estoque"
+    },
+    {
+     "id": "offer",
+     "lane": 0,
+     "row": 7,
+     "kind": "action",
+     "label": "Cria a oferta: preço, disponibilidade e validade"
+    },
+    {
+     "id": "rbac",
+     "lane": 1,
+     "row": 7,
+     "kind": "decision",
+     "label": "Cargo com permissão e modelo aprovado?"
+    },
+    {
+     "id": "denied",
+     "lane": 1,
+     "row": 8,
+     "kind": "end"
+    },
+    {
+     "id": "active",
+     "lane": 1,
+     "row": 9,
+     "kind": "action",
+     "label": "Oferta ativa no catálogo e tradução na fila"
+    },
+    {
+     "id": "lifecycle",
+     "lane": 0,
+     "row": 10,
+     "kind": "action",
+     "label": "Pausa, reativa ou encerra a oferta"
+    },
+    {
+     "id": "end",
+     "lane": 0,
+     "row": 11,
+     "kind": "end"
+    }
+   ],
+   "edges": [
+    {
+     "source": "start",
+     "target": "brand"
+    },
+    {
+     "source": "brand",
+     "target": "publish"
+    },
+    {
+     "source": "publish",
+     "target": "request",
+     "label": "Sim"
+    },
+    {
+     "source": "request",
+     "target": "review"
+    },
+    {
+     "source": "review",
+     "target": "model",
+     "dashed": true
+    },
+    {
+     "source": "publish",
+     "target": "model",
+     "label": "Não"
+    },
+    {
+     "source": "model",
+     "target": "modelSaved"
+    },
+    {
+     "source": "modelSaved",
+     "target": "gate"
+    },
+    {
+     "source": "gate",
+     "target": "blocked",
+     "label": "Não"
+    },
+    {
+     "source": "gate",
+     "target": "stock",
+     "label": "Sim"
+    },
+    {
+     "source": "stock",
+     "target": "offer"
+    },
+    {
+     "source": "offer",
+     "target": "rbac"
+    },
+    {
+     "source": "rbac",
+     "target": "denied",
+     "label": "Não"
+    },
+    {
+     "source": "rbac",
+     "target": "active",
+     "label": "Sim"
+    },
+    {
+     "source": "active",
+     "target": "lifecycle"
+    },
+    {
+     "source": "lifecycle",
+     "target": "end"
+    }
+   ]
+  }
+ },
+ {
+  "id": "flow-professional",
+  "group": "flow",
+  "title": "Cadastro do profissional",
+  "summary": "O profissional monta um rascunho e envia. A validação por IA roda em fila; o que ela não aprova vai para a revisão do administrador da plataforma.",
+  "changes": [
+   "O cadastro é um rascunho versionado, com envio explícito.",
+   "A validação confere identidade, profissão, registro no conselho e cada critério por documento.",
+   "Política não configurada ou documento que não é imagem vai direto para a revisão manual.",
+   "Erro técnico na validação vira nova tentativa, com espera crescente até uma hora."
+  ],
+  "body": {
+   "kind": "flow",
+   "lanes": [
+    "Profissional",
+    "Plataforma",
+    "ai-validation",
+    "Admin da plataforma"
+   ],
+   "nodes": [
+    {
+     "id": "start",
+     "lane": 0,
+     "row": 0,
+     "kind": "start"
+    },
+    {
+     "id": "draft",
+     "lane": 0,
+     "row": 1,
+     "kind": "action",
+     "label": "Salva o rascunho: identidade, profissão e documentos"
+    },
+    {
+     "id": "needsRegistration",
+     "lane": 1,
+     "row": 2,
+     "kind": "decision",
+     "label": "A profissão exige registro?"
+    },
+    {
+     "id": "registration",
+     "lane": 0,
+     "row": 3,
+     "kind": "action",
+     "label": "Informa conselho, número e validade"
+    },
+    {
+     "id": "submit",
+     "lane": 0,
+     "row": 4,
+     "kind": "action",
+     "label": "Envia para análise"
+    },
+    {
+     "id": "ready",
+     "lane": 1,
+     "row": 5,
+     "kind": "decision",
+     "label": "Política configurada e documentos em imagem?"
+    },
+    {
+     "id": "queue",
+     "lane": 1,
+     "row": 6,
+     "kind": "action",
+     "label": "Entra na fila de validação"
+    },
+    {
+     "id": "validate",
+     "lane": 2,
+     "row": 7,
+     "kind": "action",
+     "label": "Avalia os critérios por documento"
+    },
+    {
+     "id": "passed",
+     "lane": 1,
+     "row": 8,
+     "kind": "decision",
+     "label": "Passou em todos os critérios?"
+    },
+    {
+     "id": "retry",
+     "lane": 2,
+     "row": 8,
+     "kind": "action",
+     "label": "Erro técnico: nova tentativa com espera"
+    },
+    {
+     "id": "agentApproved",
+     "lane": 1,
+     "row": 9,
+     "kind": "action",
+     "label": "Aprovado pelo agente e perfil aplicado"
+    },
+    {
+     "id": "manual",
+     "lane": 3,
+     "row": 9,
+     "kind": "decision",
+     "label": "Revisão manual: aprova?"
+    },
+    {
+     "id": "adminApproved",
+     "lane": 3,
+     "row": 10,
+     "kind": "action",
+     "label": "Aprovado com perfil aplicado"
+    },
+    {
+     "id": "rejected",
+     "lane": 0,
+     "row": 10,
+     "kind": "action",
+     "label": "Reprovado com motivo; pode corrigir e reenviar"
+    },
+    {
+     "id": "end",
+     "lane": 1,
+     "row": 11,
+     "kind": "end"
+    }
+   ],
+   "edges": [
+    {
+     "source": "start",
+     "target": "draft"
+    },
+    {
+     "source": "draft",
+     "target": "needsRegistration"
+    },
+    {
+     "source": "needsRegistration",
+     "target": "registration",
+     "label": "Sim"
+    },
+    {
+     "source": "needsRegistration",
+     "target": "submit",
+     "label": "Não"
+    },
+    {
+     "source": "registration",
+     "target": "submit"
+    },
+    {
+     "source": "submit",
+     "target": "ready"
+    },
+    {
+     "source": "ready",
+     "target": "queue",
+     "label": "Sim"
+    },
+    {
+     "source": "ready",
+     "target": "manual",
+     "label": "Não"
+    },
+    {
+     "source": "queue",
+     "target": "validate"
+    },
+    {
+     "source": "validate",
+     "target": "passed"
+    },
+    {
+     "source": "validate",
+     "target": "retry",
+     "dashed": true
+    },
+    {
+     "source": "retry",
+     "target": "queue",
+     "dashed": true
+    },
+    {
+     "source": "passed",
+     "target": "agentApproved",
+     "label": "Sim"
+    },
+    {
+     "source": "passed",
+     "target": "manual",
+     "label": "Não"
+    },
+    {
+     "source": "manual",
+     "target": "adminApproved",
+     "label": "Sim"
+    },
+    {
+     "source": "manual",
+     "target": "rejected",
+     "label": "Não"
+    },
+    {
+     "source": "agentApproved",
+     "target": "end"
+    },
+    {
+     "source": "adminApproved",
+     "target": "end"
+    },
+    {
+     "source": "rejected",
+     "target": "end"
+    }
+   ]
+  }
+ },
+ {
+  "id": "flow-invitation",
+  "group": "flow",
+  "title": "Convite para projeto",
+  "summary": "O responsável convida por e-mail ou por uma equipe inteira, com papel e função. O convite vale sete dias e só pode ser respondido com o e-mail da conta verificado.",
+  "changes": [
+   "Qualquer profissional pode ser convidado, não só o independente, e o fornecedor não aprova a entrada.",
+   "Os papéis são dono, responsável, membro e observador. O convite nunca transfere a propriedade.",
+   "O e-mail do convite sai pelo api-email. O responsável pode revogar um convite pendente."
+  ],
+  "body": {
+   "kind": "flow",
+   "lanes": [
+    "Responsável do projeto",
+    "Plataforma",
+    "api-email",
+    "Convidado"
+   ],
+   "nodes": [
+    {
+     "id": "start",
+     "lane": 0,
+     "row": 0,
+     "kind": "start"
+    },
+    {
+     "id": "invite",
+     "lane": 0,
+     "row": 1,
+     "kind": "action",
+     "label": "Convida por e-mail ou por equipe, com papel e função"
+    },
+    {
+     "id": "duplicate",
+     "lane": 1,
+     "row": 2,
+     "kind": "decision",
+     "label": "Já participa ou tem convite pendente?"
+    },
+    {
+     "id": "refused",
+     "lane": 1,
+     "row": 3,
+     "kind": "end"
+    },
+    {
+     "id": "pending",
+     "lane": 1,
+     "row": 4,
+     "kind": "action",
+     "label": "Cria o convite pendente por sete dias"
+    },
+    {
+     "id": "mail",
+     "lane": 2,
+     "row": 4,
+     "kind": "action",
+     "label": "Envia o e-mail do convite"
+    },
+    {
+     "id": "inbox",
+     "lane": 3,
+     "row": 5,
+     "kind": "action",
+     "label": "Abre o convite em Meus convites"
+    },
+    {
+     "id": "valid",
+     "lane": 1,
+     "row": 6,
+     "kind": "decision",
+     "label": "E-mail verificado e convite em vigor?"
+    },
+    {
+     "id": "invalid",
+     "lane": 1,
+     "row": 7,
+     "kind": "end"
+    },
+    {
+     "id": "answer",
+     "lane": 3,
+     "row": 7,
+     "kind": "decision",
+     "label": "Aceita?"
+    },
+    {
+     "id": "declined",
+     "lane": 3,
+     "row": 8,
+     "kind": "end"
+    },
+    {
+     "id": "member",
+     "lane": 1,
+     "row": 8,
+     "kind": "action",
+     "label": "Entra no projeto com o papel do convite"
+    },
+    {
+     "id": "viewer",
+     "lane": 1,
+     "row": 9,
+     "kind": "decision",
+     "label": "Papel de observador?"
+    },
+    {
+     "id": "readOnly",
+     "lane": 1,
+     "row": 10,
+     "kind": "end"
+    },
+    {
+     "id": "activities",
+     "lane": 3,
+     "row": 10,
+     "kind": "action",
+     "label": "Pode ser responsável por atividades"
+    },
+    {
+     "id": "end",
+     "lane": 3,
+     "row": 11,
+     "kind": "end"
+    }
+   ],
+   "edges": [
+    {
+     "source": "start",
+     "target": "invite"
+    },
+    {
+     "source": "invite",
+     "target": "duplicate"
+    },
+    {
+     "source": "duplicate",
+     "target": "refused",
+     "label": "Sim"
+    },
+    {
+     "source": "duplicate",
+     "target": "pending",
+     "label": "Não"
+    },
+    {
+     "source": "pending",
+     "target": "mail"
+    },
+    {
+     "source": "mail",
+     "target": "inbox"
+    },
+    {
+     "source": "inbox",
+     "target": "valid"
+    },
+    {
+     "source": "valid",
+     "target": "invalid",
+     "label": "Não"
+    },
+    {
+     "source": "valid",
+     "target": "answer",
+     "label": "Sim"
+    },
+    {
+     "source": "answer",
+     "target": "declined",
+     "label": "Recusa"
+    },
+    {
+     "source": "answer",
+     "target": "member",
+     "label": "Aceita"
+    },
+    {
+     "source": "member",
+     "target": "viewer"
+    },
+    {
+     "source": "viewer",
+     "target": "readOnly",
+     "label": "Sim"
+    },
+    {
+     "source": "viewer",
+     "target": "activities",
+     "label": "Não"
+    },
+    {
+     "source": "activities",
+     "target": "end"
+    }
+   ]
+  }
+ },
+ {
+  "id": "flow-contracting",
+  "group": "flow",
+  "title": "Proposta e execução",
+  "summary": "A proposta é negociada em turnos entre demandante e fornecedor; quem está sendo aguardado aceita ou faz uma contraproposta. O projeto de execução é criado à parte e reúne a equipe pelas atividades.",
+  "changes": [
+   "O projeto não nasce da proposta. Ele é criado por uma empresa aprovada ou por um profissional aprovado.",
+   "O aceite reserva o estoque das ofertas. O fornecedor pode recusar e o demandante pode cancelar.",
+   "Não há alerta de conflito de agenda no código. A atividade exige término previsto, responsável e local quando é presencial.",
+   "A avaliação do profissional só vale para serviço concluído, com nota de 0 a 5."
+  ],
+  "body": {
+   "kind": "flow",
+   "lanes": [
+    "Demandante",
+    "Fornecedor",
+    "Plataforma",
+    "Profissional"
+   ],
+   "nodes": [
+    {
+     "id": "start",
+     "lane": 0,
+     "row": 0,
+     "kind": "start"
+    },
+    {
+     "id": "proposal",
+     "lane": 0,
+     "row": 1,
+     "kind": "action",
+     "label": "Cria a proposta com itens das ofertas do fornecedor"
+    },
+    {
+     "id": "check",
+     "lane": 2,
+     "row": 2,
+     "kind": "decision",
+     "label": "Ofertas válidas e com disponibilidade?"
+    },
+    {
+     "id": "invalid",
+     "lane": 2,
+     "row": 3,
+     "kind": "end"
+    },
+    {
+     "id": "awaitSupplier",
+     "lane": 2,
+     "row": 4,
+     "kind": "action",
+     "label": "Aguardando o fornecedor"
+    },
+    {
+     "id": "supplierAnswer",
+     "lane": 1,
+     "row": 5,
+     "kind": "decision",
+     "label": "Resposta do fornecedor"
+    },
+    {
+     "id": "rejected",
+     "lane": 1,
+     "row": 6,
+     "kind": "end"
+    },
+    {
+     "id": "awaitRequester",
+     "lane": 2,
+     "row": 6,
+     "kind": "action",
+     "label": "Aguardando o demandante"
+    },
+    {
+     "id": "requesterAnswer",
+     "lane": 0,
+     "row": 7,
+     "kind": "decision",
+     "label": "Resposta do demandante"
+    },
+    {
+     "id": "canceled",
+     "lane": 0,
+     "row": 8,
+     "kind": "end"
+    },
+    {
+     "id": "accepted",
+     "lane": 2,
+     "row": 8,
+     "kind": "action",
+     "label": "Aceita e reserva o estoque"
+    },
+    {
+     "id": "project",
+     "lane": 0,
+     "row": 9,
+     "kind": "action",
+     "label": "Cria o projeto de execução e convida a equipe"
+    },
+    {
+     "id": "activity",
+     "lane": 0,
+     "row": 10,
+     "kind": "action",
+     "label": "Planeja atividades com responsáveis, agenda e local"
+    },
+    {
+     "id": "acceptService",
+     "lane": 3,
+     "row": 11,
+     "kind": "action",
+     "label": "Aceita o serviço técnico"
+    },
+    {
+     "id": "complete",
+     "lane": 3,
+     "row": 12,
+     "kind": "action",
+     "label": "Executa e conclui"
+    },
+    {
+     "id": "review",
+     "lane": 0,
+     "row": 13,
+     "kind": "action",
+     "label": "Avalia o profissional"
+    },
+    {
+     "id": "end",
+     "lane": 0,
+     "row": 14,
+     "kind": "end"
+    }
+   ],
+   "edges": [
+    {
+     "source": "start",
+     "target": "proposal"
+    },
+    {
+     "source": "proposal",
+     "target": "check"
+    },
+    {
+     "source": "check",
+     "target": "invalid",
+     "label": "Não"
+    },
+    {
+     "source": "check",
+     "target": "awaitSupplier",
+     "label": "Sim"
+    },
+    {
+     "source": "awaitSupplier",
+     "target": "supplierAnswer"
+    },
+    {
+     "source": "supplierAnswer",
+     "target": "rejected",
+     "label": "Recusa"
+    },
+    {
+     "source": "supplierAnswer",
+     "target": "awaitRequester",
+     "label": "Contraproposta"
+    },
+    {
+     "source": "supplierAnswer",
+     "target": "accepted",
+     "label": "Aceita"
+    },
+    {
+     "source": "awaitRequester",
+     "target": "requesterAnswer"
+    },
+    {
+     "source": "requesterAnswer",
+     "target": "canceled",
+     "label": "Cancela"
+    },
+    {
+     "source": "requesterAnswer",
+     "target": "awaitSupplier",
+     "label": "Contraproposta",
+     "dashed": true
+    },
+    {
+     "source": "requesterAnswer",
+     "target": "accepted",
+     "label": "Aceita"
+    },
+    {
+     "source": "accepted",
+     "target": "project",
+     "dashed": true
+    },
+    {
+     "source": "project",
+     "target": "activity"
+    },
+    {
+     "source": "activity",
+     "target": "acceptService"
+    },
+    {
+     "source": "acceptService",
+     "target": "complete"
+    },
+    {
+     "source": "complete",
+     "target": "review"
+    },
+    {
+     "source": "review",
+     "target": "end"
+    }
+   ]
+  }
+ },
+ {
+  "id": "usecases",
+  "group": "usecase",
+  "title": "Casos de uso",
+  "summary": "O que cada perfil faz na plataforma hoje. O membro de empresa depende das permissões do cargo; o administrador da empresa tem todas.",
+  "changes": [
+   "Entraram o visitante do catálogo público, o administrador da plataforma e os agentes de IA no SaaS.",
+   "Acesso e Admin viraram membro e administrador da empresa, com cargos e permissões por rota.",
+   "Convites para chamados saíram; o profissional aceita e conclui serviços técnicos."
+  ],
+  "body": {
+   "kind": "usecase",
+   "actors": [
+    {
+     "id": "visitor",
+     "label": "Visitante",
+     "x": 0,
+     "y": 40
+    },
+    {
+     "id": "professional",
+     "label": "Profissional",
+     "x": 0,
+     "y": 260
+    },
+    {
+     "id": "member",
+     "label": "Membro da empresa",
+     "x": 0,
+     "y": 560
+    },
+    {
+     "id": "companyAdmin",
+     "label": "Admin da empresa",
+     "x": 0,
+     "y": 820
+    },
+    {
+     "id": "platformAdmin",
+     "label": "Admin da plataforma",
+     "x": 1140,
+     "y": 420
+    }
+   ],
+   "cases": [
+    {
+     "id": "catalog",
+     "label": "Consultar o catálogo público",
+     "x": 300,
+     "y": 40
+    },
+    {
+     "id": "onboarding",
+     "label": "Enviar o cadastro profissional",
+     "x": 300,
+     "y": 160
+    },
+    {
+     "id": "invites",
+     "label": "Responder convites de projeto",
+     "x": 300,
+     "y": 240
+    },
+    {
+     "id": "services",
+     "label": "Aceitar e concluir serviços técnicos",
+     "x": 300,
+     "y": 320
+    },
+    {
+     "id": "ownProjects",
+     "label": "Criar projetos próprios",
+     "x": 560,
+     "y": 240
+    },
+    {
+     "id": "messages",
+     "label": "Conversar e participar de comunidades",
+     "x": 560,
+     "y": 360
+    },
+    {
+     "id": "units",
+     "label": "Cadastrar unidades e faturas",
+     "x": 300,
+     "y": 480
+    },
+    {
+     "id": "proposals",
+     "label": "Negociar propostas",
+     "x": 300,
+     "y": 560
+    },
+    {
+     "id": "catalogAdmin",
+     "label": "Gerenciar marcas, modelos, estoque e ofertas",
+     "x": 300,
+     "y": 640
+    },
+    {
+     "id": "projects",
+     "label": "Gerenciar projetos e convites",
+     "x": 560,
+     "y": 520
+    },
+    {
+     "id": "agents",
+     "label": "Usar o assistente e o agente de ações",
+     "x": 560,
+     "y": 640
+    },
+    {
+     "id": "positions",
+     "label": "Gerenciar cargos e permissões",
+     "x": 300,
+     "y": 820
+    },
+    {
+     "id": "accessCodes",
+     "label": "Gerar códigos de acesso",
+     "x": 560,
+     "y": 820
+    },
+    {
+     "id": "reviewProfessionals",
+     "label": "Revisar profissionais",
+     "x": 840,
+     "y": 420
+    },
+    {
+     "id": "reviewBrands",
+     "label": "Revisar marcas públicas",
+     "x": 840,
+     "y": 500
+    },
+    {
+     "id": "approveCompanies",
+     "label": "Aprovar empresas",
+     "x": 840,
+     "y": 340
+    }
+   ],
+   "links": [
+    {
+     "actor": "visitor",
+     "useCase": "catalog"
+    },
+    {
+     "actor": "professional",
+     "useCase": "onboarding"
+    },
+    {
+     "actor": "professional",
+     "useCase": "invites"
+    },
+    {
+     "actor": "professional",
+     "useCase": "services"
+    },
+    {
+     "actor": "professional",
+     "useCase": "ownProjects"
+    },
+    {
+     "actor": "professional",
+     "useCase": "messages"
+    },
+    {
+     "actor": "member",
+     "useCase": "units"
+    },
+    {
+     "actor": "member",
+     "useCase": "proposals"
+    },
+    {
+     "actor": "member",
+     "useCase": "catalogAdmin"
+    },
+    {
+     "actor": "member",
+     "useCase": "projects"
+    },
+    {
+     "actor": "member",
+     "useCase": "agents"
+    },
+    {
+     "actor": "member",
+     "useCase": "messages"
+    },
+    {
+     "actor": "companyAdmin",
+     "useCase": "positions"
+    },
+    {
+     "actor": "companyAdmin",
+     "useCase": "accessCodes"
+    },
+    {
+     "actor": "platformAdmin",
+     "useCase": "reviewProfessionals"
+    },
+    {
+     "actor": "platformAdmin",
+     "useCase": "reviewBrands"
+    },
+    {
+     "actor": "platformAdmin",
+     "useCase": "approveCompanies"
+    }
+   ],
+   "generalizations": [
+    {
+     "child": "companyAdmin",
+     "parent": "member"
+    }
+   ]
+  }
+ }
+]

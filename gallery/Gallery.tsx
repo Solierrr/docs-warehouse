@@ -75,6 +75,10 @@ export default function Gallery() {
     document.documentElement.lang = locale;
   }, [i18n, locale]);
 
+  let content = <ServiceGraph locale={locale} />;
+  if (entry) content = <DiagramView entry={entry} locale={locale} />;
+  else if (view === "repository") content = <RepositoryFlow locale={locale} />;
+
   function navigate(nextView: string, language: Locale) {
     location.hash = new URLSearchParams({ view: nextView, locale: language }).toString();
   }
@@ -100,7 +104,7 @@ export default function Gallery() {
         <nav aria-label={text.views} className="flex min-h-0 min-w-0 items-start">
           <SurfaceGroup className="gallery-templates" contentClassName="gallery-template-list scrollbar-none">
             {sections.map((section) => (
-              <div key={section} role="group" aria-label={text[section]} className="gallery-section">
+              <section key={section} aria-label={text[section]} className="gallery-section">
                 <p className="gallery-section-title">{text[section]}</p>
                 {views
                   .filter((item) => item.section === section)
@@ -118,19 +122,13 @@ export default function Gallery() {
                       />
                     );
                   })}
-              </div>
+              </section>
             ))}
             <p className="p-4 text-sm text-operational-muted">{text.note}</p>
           </SurfaceGroup>
         </nav>
         <section className="diagram-area" aria-label={viewLabel(view, text)}>
-          {entry ? (
-            <DiagramView entry={entry} locale={locale} />
-          ) : view === "repository" ? (
-            <RepositoryFlow locale={locale} />
-          ) : (
-            <ServiceGraph locale={locale} />
-          )}
+          {content}
         </section>
       </main>
     </div>

@@ -59,7 +59,7 @@ function pickSides(dx: number, dy: number): [Side, Side] {
   return dy > 0 ? ["left", "top"] : ["left", "bottom"];
 }
 
-function StackGlyph({ name, size = 22 }: { name?: string; size?: number }) {
+function StackGlyph({ name, size = 22 }: Readonly<{ name?: string; size?: number }>) {
   const icon = name ? stackIcon(name) : undefined;
   if (!icon) return null;
   return <img src={svgUrl(icon.svg, size * 2)} alt="" width={size} height={size} className="shrink-0" />;
@@ -344,23 +344,25 @@ function sequenceGraph(body: SequenceDiagram) {
   place(body.steps);
 
   body.participants.forEach((participant, index) => {
-    nodes.push({
-      id: `p-${participant.id}`,
-      type: "participant",
-      position: { x: index * column + 20, y: 0 },
-      data: { label: participant.label, icon: participant.icon },
-      draggable: false,
-      selectable: false,
-    });
-    nodes.push({
-      id: `l-${participant.id}`,
-      type: "lifeline",
-      position: { x: index * column + column / 2 - 1, y: 52 },
-      data: { height: y - 40 },
-      draggable: false,
-      selectable: false,
-      zIndex: -2,
-    });
+    nodes.push(
+      {
+        id: `p-${participant.id}`,
+        type: "participant",
+        position: { x: index * column + 20, y: 0 },
+        data: { label: participant.label, icon: participant.icon },
+        draggable: false,
+        selectable: false,
+      },
+      {
+        id: `l-${participant.id}`,
+        type: "lifeline",
+        position: { x: index * column + column / 2 - 1, y: 52 },
+        data: { height: y - 40 },
+        draggable: false,
+        selectable: false,
+        zIndex: -2,
+      },
+    );
   });
   return { nodes, edges };
 }
@@ -490,7 +492,7 @@ function graphOf(entry: DiagramEntry) {
   }
 }
 
-function Canvas({ entry, locale }: { entry: DiagramEntry; locale: Locale }) {
+function Canvas({ entry, locale }: Readonly<{ entry: DiagramEntry; locale: Locale }>) {
   const text = labels[locale];
   const { zoomIn, zoomOut, fitView } = useReactFlow();
   const { nodes, edges } = useMemo(() => graphOf(entry), [entry]);
@@ -548,7 +550,7 @@ function Canvas({ entry, locale }: { entry: DiagramEntry; locale: Locale }) {
   );
 }
 
-export default function DiagramView({ entry, locale }: { entry: DiagramEntry; locale: Locale }) {
+export default function DiagramView({ entry, locale }: Readonly<{ entry: DiagramEntry; locale: Locale }>) {
   return (
     <ReactFlowProvider key={entry.id}>
       <Canvas entry={entry} locale={locale} />
