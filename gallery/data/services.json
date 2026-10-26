@@ -3,6 +3,7 @@
   {
    "id": "web-app",
    "group": "client",
+   "icon": "react",
    "stack": "React, Vite, Tailwind",
    "role": "Aplicação web: área pública e SaaS operacional.",
    "repo": true
@@ -10,6 +11,7 @@
   {
    "id": "mobile-app",
    "group": "client",
+   "icon": "jetpack-compose",
    "stack": "Kotlin, Compose, Hilt, Retrofit",
    "role": "App Android para profissionais.",
    "repo": true
@@ -17,6 +19,7 @@
   {
    "id": "web-sandbox",
    "group": "client",
+   "icon": "react",
    "stack": "React, Vite",
    "role": "Portal de QA com login único e catálogo de serviços.",
    "repo": true
@@ -24,6 +27,7 @@
   {
    "id": "web-worker",
    "group": "edge",
+   "icon": "cloudflare",
    "stack": "Cloudflare Worker",
    "role": "Borda: página de manutenção, honeypot e telemetria.",
    "repo": true
@@ -31,6 +35,7 @@
   {
    "id": "infra-gateway",
    "group": "infra",
+   "icon": "kong",
    "stack": "Kong",
    "role": "Gateway de entrada das APIs no cluster.",
    "repo": true
@@ -38,6 +43,7 @@
   {
    "id": "api-auth",
    "group": "api",
+   "icon": "springboot",
    "stack": "Kotlin, Spring Boot",
    "role": "Cadastro, login, sessão, 2FA e Firebase. Emite o JWT e publica as chaves (JWKS).",
    "repo": true
@@ -45,6 +51,7 @@
   {
    "id": "api-core",
    "group": "api",
+   "icon": "springboot",
    "stack": "Java, Spring Boot",
    "role": "Domínio: identidade, empresas, catálogo, propostas, projetos, pedidos e mídia.",
    "repo": true
@@ -52,6 +59,7 @@
   {
    "id": "api-messenger",
    "group": "api",
+   "icon": "springboot",
    "stack": "Java, Spring Boot",
    "role": "Conversas, comunidades de projeto e mensagens (REST e WebSocket).",
    "repo": true
@@ -59,6 +67,7 @@
   {
    "id": "api-recommendation",
    "group": "api",
+   "icon": "fastapi",
    "stack": "Python, FastAPI",
    "role": "Feeds de recomendação de profissionais, ofertas e fornecedores.",
    "repo": true
@@ -66,6 +75,7 @@
   {
    "id": "api-email",
    "group": "api",
+   "icon": "fastify",
    "stack": "Node, Fastify",
    "role": "E-mails transacionais em três idiomas.",
    "repo": true
@@ -73,6 +83,7 @@
   {
    "id": "api-google",
    "group": "api",
+   "icon": "gcp",
    "stack": "Python, FastAPI",
    "role": "Ponto único das APIs Google: endereço, tradução, fuso, calendário e energia solar.",
    "repo": true
@@ -80,6 +91,7 @@
   {
    "id": "api-notify",
    "group": "api",
+   "icon": "java",
    "stack": "Java",
    "role": "Notificações. Relações com os demais serviços ainda não documentadas.",
    "repo": true
@@ -87,6 +99,7 @@
   {
    "id": "ai-assistant",
    "group": "ai",
+   "icon": "fastapi",
    "stack": "Python, LangGraph",
    "role": "Assistente com guardrails, memória, roteador, especialistas e juiz.",
    "repo": true
@@ -94,6 +107,7 @@
   {
    "id": "ai-geographic",
    "group": "ai",
+   "icon": "fastapi",
    "stack": "Python, LangGraph",
    "role": "Agente geográfico, em delegação A2A com o assistente.",
    "repo": true
@@ -101,6 +115,7 @@
   {
    "id": "ai-operational",
    "group": "ai",
+   "icon": "fastapi",
    "stack": "Python, LangGraph",
    "role": "Agente operacional (telas, propostas e ações).",
    "repo": true
@@ -108,6 +123,7 @@
   {
    "id": "ai-validation",
    "group": "ai",
+   "icon": "fastapi",
    "stack": "Python, FastAPI",
    "role": "Validação de profissionais e documentos.",
    "repo": true
@@ -115,6 +131,7 @@
   {
    "id": "ai-accessibility",
    "group": "ai",
+   "icon": "fastapi",
    "stack": "Python, FastAPI",
    "role": "Descrição de imagens para acessibilidade.",
    "repo": true
@@ -122,6 +139,7 @@
   {
    "id": "mcp-database",
    "group": "ai",
+   "icon": "mcp",
    "stack": "Python, MCP",
    "role": "Servidor MCP somente leitura sobre o banco do domínio.",
    "repo": true
@@ -129,6 +147,7 @@
   {
    "id": "coredb",
    "group": "data",
+   "icon": "postgresql",
    "stack": "PostgreSQL",
    "role": "Banco do domínio (api-core).",
    "repo": false
@@ -136,6 +155,7 @@
   {
    "id": "authdb",
    "group": "data",
+   "icon": "postgresql",
    "stack": "PostgreSQL",
    "role": "Banco de identidade e sessões (api-auth).",
    "repo": false
@@ -143,6 +163,7 @@
   {
    "id": "mongo",
    "group": "data",
+   "icon": "mongodb",
    "stack": "MongoDB",
    "role": "Mensagens e conversas; memória e checkpoints dos agentes.",
    "repo": false
@@ -150,6 +171,7 @@
   {
    "id": "redis",
    "group": "data",
+   "icon": "redis",
    "stack": "Redis",
    "role": "Cache e fila de eventos do api-auth.",
    "repo": false
@@ -157,6 +179,7 @@
   {
    "id": "neo4j",
    "group": "data",
+   "icon": "neo4j",
    "stack": "Neo4j",
    "role": "Grafo de recomendação reconstruído a partir do coredb.",
    "repo": false
@@ -164,6 +187,7 @@
   {
    "id": "qdrant",
    "group": "data",
+   "icon": "qdrant",
    "stack": "Qdrant",
    "role": "Busca vetorial da FAQ do assistente.",
    "repo": false
@@ -171,6 +195,7 @@
   {
    "id": "firebase",
    "group": "data",
+   "icon": "firebase",
    "stack": "Firebase",
    "role": "Autenticação federada e Firestore.",
    "repo": false
@@ -178,6 +203,7 @@
   {
    "id": "databricks",
    "group": "data",
+   "icon": "databricks",
    "stack": "Databricks",
    "role": "Camadas bronze, silver e gold para análise.",
    "repo": false
@@ -185,6 +211,7 @@
   {
    "id": "database-console",
    "group": "dataops",
+   "icon": "postgresql",
    "stack": "Python, SQL",
    "role": "Schema, migrações, seed, backup e exportação dos bancos.",
    "repo": true
@@ -192,6 +219,7 @@
   {
    "id": "database-bootstrap",
    "group": "dataops",
+   "icon": "neo4j",
    "stack": "Python",
    "role": "Job que reconstrói o grafo Neo4j a partir do coredb.",
    "repo": true
@@ -199,6 +227,7 @@
   {
    "id": "database-rpa",
    "group": "dataops",
+   "icon": "postgresql",
    "stack": "Python",
    "role": "Carga de dados em lote no coredb.",
    "repo": true
@@ -206,6 +235,7 @@
   {
    "id": "databricks-sync",
    "group": "dataops",
+   "icon": "databricks",
    "stack": "Python, FastAPI",
    "role": "Sincroniza os bancos com a camada bronze do Databricks.",
    "repo": true
@@ -213,6 +243,7 @@
   {
    "id": "databricks-stocker",
    "group": "dataops",
+   "icon": "databricks",
    "stack": "Python, SQL",
    "role": "Notebooks e dashboards das camadas silver e gold.",
    "repo": true
@@ -220,6 +251,7 @@
   {
    "id": "infra-gitops",
    "group": "infra",
+   "icon": "argocd",
    "stack": "Argo CD",
    "role": "Manifestos de implantação dos serviços.",
    "repo": true
@@ -227,6 +259,7 @@
   {
    "id": "infra-platform",
    "group": "infra",
+   "icon": "terraform",
    "stack": "Terraform",
    "role": "Infraestrutura na nuvem: cluster, rede e domínios.",
    "repo": true
@@ -234,6 +267,7 @@
   {
    "id": "infra-otel-collector",
    "group": "infra",
+   "icon": "opentelemetry",
    "stack": "OpenTelemetry",
    "role": "Coletor de telemetria dos serviços.",
    "repo": true
@@ -241,6 +275,7 @@
   {
    "id": "infra-grafana",
    "group": "infra",
+   "icon": "grafana",
    "stack": "Grafana",
    "role": "Painéis de observabilidade.",
    "repo": true
@@ -248,6 +283,7 @@
   {
    "id": "infra-keepalive",
    "group": "infra",
+   "icon": "github-actions",
    "stack": "GitHub Actions",
    "role": "Mantém os ambientes gratuitos acordados.",
    "repo": true
@@ -255,6 +291,7 @@
   {
    "id": "infra-broker",
    "group": "infra",
+   "icon": "rabbitmq",
    "stack": "RabbitMQ",
    "role": "Broker de mensagens.",
    "repo": true
@@ -262,6 +299,7 @@
   {
    "id": "infra-stress",
    "group": "infra",
+   "icon": "k6",
    "stack": "k6",
    "role": "Testes de carga.",
    "repo": true
@@ -269,6 +307,7 @@
   {
    "id": "lib-web",
    "group": "lib",
+   "icon": "storybook",
    "stack": "React, npm",
    "role": "Componentes e tokens visuais compartilhados (@solaria.network/web-lib).",
    "repo": true
@@ -276,6 +315,7 @@
   {
    "id": "lib-ai",
    "group": "lib",
+   "icon": "python",
    "stack": "Python, PyPI",
    "role": "Chaves de LLM, guardrails e A2A compartilhados (solaria-network).",
    "repo": true
@@ -283,6 +323,7 @@
   {
    "id": "generic-template",
    "group": "lib",
+   "icon": "github",
    "stack": "Makefile, workflows",
    "role": "Modelo-base de repositório com CI, release e Docker.",
    "repo": true
@@ -290,6 +331,7 @@
   {
    "id": "docs-reports",
    "group": "lib",
+   "icon": "html",
    "stack": "HTML, agentes",
    "role": "Modelos de relatório, manual e documento.",
    "repo": true
@@ -297,6 +339,7 @@
   {
    "id": "docs-warehouse",
    "group": "lib",
+   "icon": "markdown",
    "stack": "Markdown",
    "role": "Padrões, templates e diagramas da organização.",
    "repo": true
@@ -304,6 +347,7 @@
   {
    "id": "mocks-warehouse",
    "group": "lib",
+   "icon": "cloudinary",
    "stack": "WebP, manifesto",
    "role": "Acervo de imagens usadas pelo seed.",
    "repo": true
