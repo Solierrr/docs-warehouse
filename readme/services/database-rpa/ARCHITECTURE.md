@@ -14,7 +14,8 @@ O `database-rpa` é uma rotina de ETL em Python que migra usuários e dados de u
 - **Regras do destino (`schema_v29.py`):** concentram as restrições do schema V29 que a migração respeita, como formatos e unicidade.
 - **Dados fictícios (`mock_data.py`):** preenchem o que o legado não traz, de forma determinística.
 - **Imagens (`images.py`):** quando configurado, associa fotos do `mocks-warehouse` aos registros migrados.
-- **Orquestração (`main.py`):** executa as etapas e registra o andamento em log.
+- **Orquestração (`main.py`):** executa as etapas e registra o andamento em log. Uma falha é relançada, e o processo termina com erro.
+- **Execução agendada (`.github/workflows/scheduled-migration.yml`):** roda todo dia às 06:00 UTC e também à mão. O agendamento só vale com a variável de repositório `RPA_SCHEDULE_ENABLED` igual a `true`, e sem os segredos `ORIGEM_DB_URL` e `DESTINO_DB_URL` o job só registra um aviso. As imagens vêm do `manifest.json` do `mocks-warehouse`, e o log fica como artefato da execução.
 - **Limite conhecido:** a rotina não escreve no `authdb`; os usuários migrados só conseguem entrar depois que uma conta com o mesmo identificador for criada.
 
 ## Estrutura do repositório
