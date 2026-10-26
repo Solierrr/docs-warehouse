@@ -34,6 +34,29 @@ Referência de implementação: `ServiceKeyAuthFilter` e `ServiceKeyProperties` 
 - PROD no GKE: o `infra-platform` lê `/service-keys` e monta os segredos de cada serviço.
 - Uma chave nova (um chamador novo) entra nos três ambientes antes de qualquer código que a use.
 
+### Chaves existentes
+
+Todo serviço tem a própria chave, mesmo que hoje só receba chamadas, para virar chamador sem passo novo no Infisical. Nome: `SERVICE_KEY_` mais o nome do repositório em maiúsculas, com `_` no lugar de `-`. Todas existem em `local`, `qa` e `prod` desde 2026-10-26, com valores diferentes por ambiente e pelo menos 32 caracteres.
+
+| Serviço | Chave |
+|---|---|
+| `api-core` | `SERVICE_KEY_API_CORE` |
+| `api-auth` | `SERVICE_KEY_API_AUTH` |
+| `api-messenger` | `SERVICE_KEY_API_MESSENGER` |
+| `api-notify` | `SERVICE_KEY_API_NOTIFY` |
+| `api-google` | `SERVICE_KEY_API_GOOGLE` |
+| `api-email` | `SERVICE_KEY_API_EMAIL` |
+| `api-recommendation` | `SERVICE_KEY_API_RECOMMENDATION` |
+| `mcp-database` | `SERVICE_KEY_MCP_DATABASE` |
+| `ai-assistant` | `SERVICE_KEY_AI_ASSISTANT` |
+| `ai-operational` | `SERVICE_KEY_AI_OPERATIONAL` |
+| `ai-geographic` | `SERVICE_KEY_AI_GEOGRAPHIC` |
+| `ai-validation` | `SERVICE_KEY_AI_VALIDATION` |
+| `ai-accessibility` | `SERVICE_KEY_AI_ACCESSIBILITY` |
+| `databricks-sync` | `SERVICE_KEY_DATABRICKS_SYNC` |
+
+Serviço novo: criar a chave nos três ambientes antes do primeiro deploy. Nomes antigos (`SERVICE_KEY_CORE`, `INTERNAL_API_TOKEN`, `MCP_API_KEY`, `EMAIL_API_KEY`, `RECOMMENDATION_API_KEY`, `REGISTRY_CONSUMER_TOKEN`) saem depois da troca, pela ordem abaixo.
+
 ## Ordem segura de troca
 
 Vale para trocar uma chave própria antiga (`Bearer` com token fixo, `X-API-Key`) pelo `X-Service-Key`, e para trocar o valor de uma chave:
