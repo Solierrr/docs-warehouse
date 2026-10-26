@@ -7,7 +7,6 @@ on:
     paths:
       - "gallery/**"
       - "readme/services/**"
-      - "assets/readme/**"
       - "docs/**"
       - ".github/workflows/gallery.yml"
   workflow_dispatch:

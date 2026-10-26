@@ -5,11 +5,12 @@ import noverlap from "graphology-layout-noverlap";
 import Sigma from "sigma";
 import { extremityArrow, layerDashed, layerFill, pathCurved, sdfSquare } from "sigma/rendering";
 import { layerImage } from "@sigma/node-image";
-import { Surface } from "@solaria.network/web-lib";
+import { Checkbox, MenuList, Surface, ToolbarAction } from "@solaria.network/web-lib";
 import { IconExternalLink } from "@tabler/icons-react";
 import data from "./data/services.json";
 import stackData from "./data/stack.json";
 import { labels, type Locale } from "./i18n";
+import { nodeTile, stackIcon, svgUrl } from "./stackIcons";
 
 type Kind = "http" | "data" | "a2a" | "jwks" | "lib" | "planned";
 
@@ -27,18 +28,14 @@ interface ServiceEdge {
   kind: Kind;
   label: string;
 }
-interface StackImage {
+interface StackItem {
   name: string;
   label: string;
-}
-interface ServiceStack {
-  banner: StackImage | null;
-  stacks: StackImage[];
 }
 
 const nodes = data.nodes as ServiceNode[];
 const edges = data.edges as ServiceEdge[];
-const stacks = stackData as Record<string, ServiceStack>;
+const stacks = stackData as Record<string, StackItem[]>;
 
 const kindNames: Record<Locale, Record<Kind, string>> = {
   "pt-BR": { http: "HTTP", data: "Banco ou serviço de dados", a2a: "A2A entre agentes", jwks: "Validação de JWT (JWKS)", lib: "Biblioteca", planned: "Planejada" },
@@ -85,7 +82,18 @@ const kindLines: Record<Kind, { size: number; dash: number; gap: number }> = {
 const kindOrder: Kind[] = ["http", "data", "a2a", "jwks", "lib", "planned"];
 const organization = "https://github.com/Solierrr";
 const groupOrder = Object.keys(groupColors);
-const asset = (folder: "banners" | "stacks", name: string) => `${import.meta.env.BASE_URL}stack/${folder}/${name}.png`;
+const zoomStep = 1.5;
+
+// Ícones da linha do README, sem repetir o mesmo desenho (os recursos do Kubernetes usam o mesmo logo).
+function stackRow(id: string) {
+  const seen = new Set<string>();
+  return (stacks[id] ?? []).flatMap((item) => {
+    const icon = stackIcon(item.name);
+    if (!icon || seen.has(icon.svg)) return [];
+    seen.add(icon.svg);
+    return [{ ...item, svg: icon.svg }];
+  });
+}
 
 function cssColor(name: string, fallback: string) {
   const value = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
@@ -104,7 +112,7 @@ function buildGraph() {
       x: Math.cos(angle) * radius,
       y: Math.sin(angle) * radius,
       color: groupColors[node.group] ?? "#64748b",
-      image: asset("stacks", node.icon),
+      image: "",
     });
   });
   edges.forEach((edge, index) => {
@@ -135,7 +143,9 @@ export default function ServiceGraph({ locale }: { locale: Locale }) {
   const text = labels[locale];
   const container = useRef<HTMLDivElement>(null);
   const renderer = useRef<Sigma | null>(null);
+  const toolbar = useRef<HTMLDivElement>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [filtersOpen, setFiltersOpen] = useState(false);
   const [enabled, setEnabled] = useState<Record<Kind, boolean>>({
     http: true,
     data: true,
@@ -155,7 +165,7 @@ export default function ServiceGraph({ locale }: { locale: Locale }) {
         nodes: {
           shapes: [sdfSquare({ cornerRadius: 0.32 })],
           variables: { image: { type: "string", default: "" } },
-          layers: [layerFill(), layerImage({ drawingMode: "image", padding: 0.06 })],
+          layers: [layerFill(), layerImage({ drawingMode: "image", padding: 0.1 })],
         },
         edges: {
           paths: [pathCurved()],
@@ -231,7 +241,22 @@ export default function ServiceGraph({ locale }: { locale: Locale }) {
     instance.on("clickNode", ({ node }) => setSelectedId(node));
     instance.on("clickStage", () => setSelectedId(null));
     renderer.current = instance;
+
+    let active = true;
+    const names = [...new Set(nodes.map((node) => node.icon))];
+    void Promise.all(
+      names.map(async (name) => {
+        const icon = stackIcon(name);
+        return [name, icon ? await nodeTile(icon.svg) : ""] as const;
+      }),
+    ).then((entries) => {
+      if (!active) return;
+      const tiles = Object.fromEntries(entries);
+      nodes.forEach((node) => graph.setNodeAttribute(node.id, "image", tiles[node.icon]));
+    });
+
     return () => {
+      active = false;
       instance.kill();
       renderer.current = null;
     };
@@ -256,8 +281,29 @@ export default function ServiceGraph({ locale }: { locale: Locale }) {
     instance.setGraphState({ hasHighlighted: selectedId !== null });
   }, [enabled, selectedId]);
 
+  useEffect(() => {
+    if (!filtersOpen) return;
+    const close = (event: PointerEvent | KeyboardEvent) => {
+      if (event instanceof KeyboardEvent ? event.key === "Escape" : !toolbar.current?.contains(event.target as Node)) {
+        setFiltersOpen(false);
+      }
+    };
+    document.addEventListener("pointerdown", close);
+    document.addEventListener("keydown", close);
+    return () => {
+      document.removeEventListener("pointerdown", close);
+      document.removeEventListener("keydown", close);
+    };
+  }, [filtersOpen]);
+
   const selected = nodes.find((node) => node.id === selectedId);
-  const selectedStack = selected ? stacks[selected.id] : undefined;
+  const selectedIcon = selected ? stackIcon(selected.icon) : undefined;
+  const selectedRow = selected ? stackRow(selected.id) : [];
+
+  function zoom(factor: number) {
+    const camera = renderer.current?.getCamera();
+    if (camera) void camera.animate({ ratio: camera.getState().ratio * factor }, { duration: 250 });
+  }
   const relations = useMemo(() => {
     if (!selected) return { outgoing: [], incoming: [] };
     return {
@@ -283,26 +329,38 @@ export default function ServiceGraph({ locale }: { locale: Locale }) {
   return (
     <div className="diagram-layout">
       <Surface className="diagram-canvas" contentClassName="diagram-canvas-content">
-        <p className="diagram-hint">{text.servicesHint}</p>
-        <div className="graph-filters" role="group" aria-label={text.filters}>
-          {kindOrder.map((kind) => (
-            <label key={kind} className="graph-filter">
-              <input
-                type="checkbox"
-                checked={enabled[kind]}
-                onChange={(event) => setEnabled((current) => ({ ...current, [kind]: event.target.checked }))}
-              />
-              <span className="graph-swatch" style={{ background: kindColors[kind] }} aria-hidden="true" />
-              {kindNames[locale][kind]}
-            </label>
-          ))}
-          <button
-            type="button"
-            className="graph-reset"
-            onClick={() => renderer.current?.getCamera().animate({ x: 0.5, y: 0.5, ratio: 1, angle: 0 })}
-          >
-            {text.reset}
-          </button>
+        <div className="graph-header">
+          <p className="diagram-hint">{text.servicesHint}</p>
+          <div className="graph-toolbar" ref={toolbar}>
+            <ToolbarAction
+              icon="filter"
+              label={text.filters}
+              aria-expanded={filtersOpen}
+              aria-haspopup="true"
+              onClick={() => setFiltersOpen((open) => !open)}
+            />
+            <ToolbarAction icon="zoomIn" label={text.zoomIn} onClick={() => zoom(1 / zoomStep)} />
+            <ToolbarAction icon="zoomOut" label={text.zoomOut} onClick={() => zoom(zoomStep)} />
+            <ToolbarAction
+              icon="refresh"
+              label={text.reset}
+              onClick={() => renderer.current?.getCamera().animate({ x: 0.5, y: 0.5, ratio: 1, angle: 0 })}
+            />
+            {filtersOpen && (
+              <MenuList className="graph-filter-menu" role="group" aria-label={text.filters}>
+                {kindOrder.map((kind) => (
+                  <li key={kind} className="graph-filter-item">
+                    <span className="graph-swatch" style={{ background: kindColors[kind] }} aria-hidden="true" />
+                    <Checkbox
+                      label={kindNames[locale][kind]}
+                      checked={enabled[kind]}
+                      onChange={(event) => setEnabled((current) => ({ ...current, [kind]: event.target.checked }))}
+                    />
+                  </li>
+                ))}
+              </MenuList>
+            )}
+          </div>
         </div>
         <div ref={container} className="graph-canvas" role="img" aria-label={text.services} />
         <ul className="graph-legend">
@@ -318,21 +376,19 @@ export default function ServiceGraph({ locale }: { locale: Locale }) {
         <h2 className="detail-title">{text.details}</h2>
         {selected ? (
           <>
-            {selectedStack?.banner ? (
-              <img
-                className="detail-banner"
-                src={asset("banners", selectedStack.banner.name)}
-                alt={selectedStack.banner.label}
-              />
-            ) : (
-              <img className="detail-icon" src={asset("stacks", selected.icon)} alt="" />
-            )}
-            <p className="detail-name">{selected.id}</p>
-            {selectedStack && selectedStack.stacks.length > 0 && (
+            <div className="detail-heading">
+              {selectedIcon && (
+                <span className="detail-icon">
+                  <img src={svgUrl(selectedIcon.svg, 96)} alt={selectedIcon.title} title={selectedIcon.title} />
+                </span>
+              )}
+              <p className="detail-name">{selected.id}</p>
+            </div>
+            {selectedRow.length > 0 && (
               <ul className="detail-stacks" aria-label={text.stack}>
-                {selectedStack.stacks.map((item) => (
+                {selectedRow.map((item) => (
                   <li key={item.name}>
-                    <img src={asset("stacks", item.name)} alt={item.label} title={item.label} />
+                    <img src={svgUrl(item.svg, 64)} alt={item.label} title={item.label} />
                   </li>
                 ))}
               </ul>

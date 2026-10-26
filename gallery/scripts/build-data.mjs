@@ -1,4 +1,4 @@
-import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -140,40 +140,20 @@ const data = {
 writeFileSync(output, JSON.stringify(data, null, 1) + "\n");
 console.log(`repository.json: ${nodes.length} nós, ${edges.length} arestas`);
 
-// Banner e linha de ícones de cada serviço, lidos do README em readme/services,
-// e as imagens usadas copiadas para public/stack.
+// Tecnologias de cada serviço, na ordem da linha de ícones do README em readme/services.
+// Só os nomes são lidos; a página desenha os ícones com os SVGs do pacote thesvg.
 const services = JSON.parse(readFileSync(join(here, "..", "data", "services.json"), "utf8"));
-const assets = join(root, "assets", "readme");
-const published = join(here, "..", "public", "stack");
-rmSync(published, { recursive: true, force: true });
-mkdirSync(join(published, "banners"), { recursive: true });
-mkdirSync(join(published, "stacks"), { recursive: true });
 
-function publish(folder, name) {
-  const source = join(assets, folder, `${name}.png`);
-  if (!existsSync(source)) throw new Error(`Imagem inexistente: assets/readme/${folder}/${name}.png`);
-  copyFileSync(source, join(published, folder, `${name}.png`));
-}
-
-function readmeStack(id) {
+function readmeStacks(id) {
   const readme = join(root, "readme", "services", id, "README.md");
-  if (!existsSync(readme)) return { banner: null, stacks: [] };
+  if (!existsSync(readme)) return [];
   const text = readFileSync(readme, "utf8");
-  const match = text.match(/assets\/readme\/banners\/([a-z0-9-]+)\.png"[^>]*alt="([^"]*)"/);
-  const banner = match ? { name: match[1], label: match[2] } : null;
-  const stacks = [...text.matchAll(/assets\/readme\/stacks\/([a-z0-9-]+)\.png"[^>]*alt="([^"]*)"/g)].map(
-    ([, name, label]) => ({ name, label }),
-  );
-  return { banner, stacks };
+  return [...text.matchAll(/assets\/readme\/stacks\/([a-z0-9-]+)\.png"[^>]*alt="([^"]*)"/g)].map(([, name, label]) => ({
+    name,
+    label,
+  }));
 }
 
-const stack = {};
-for (const node of services.nodes) {
-  const { banner, stacks } = readmeStack(node.id);
-  publish("stacks", node.icon);
-  if (banner) publish("banners", banner.name);
-  for (const item of stacks) publish("stacks", item.name);
-  stack[node.id] = { banner, stacks };
-}
+const stack = Object.fromEntries(services.nodes.map((node) => [node.id, readmeStacks(node.id)]));
 writeFileSync(join(here, "..", "data", "stack.json"), JSON.stringify(stack, null, 1) + "\n");
 console.log(`stack.json: ${Object.keys(stack).length} serviços`);
