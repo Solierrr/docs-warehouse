@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { MultiDirectedGraph } from "graphology";
 import forceAtlas2 from "graphology-layout-forceatlas2";
-import noverlap from "graphology-layout-noverlap";
+import { forceCollide, forceLink, forceManyBody, forceSimulation, forceX, forceY, type SimulationNodeDatum } from "d3-force";
 import Sigma from "sigma";
 import { extremityArrow, layerDashed, layerFill, pathCurved, sdfSquare } from "sigma/rendering";
 import { layerImage } from "@sigma/node-image";
-import { Checkbox, MenuList, Surface, ToolbarAction } from "@solaria.network/web-lib";
-import { IconExternalLink } from "@tabler/icons-react";
+import { Checkbox, GroupAction, MenuList, Surface, SurfaceGroup } from "@solaria.network/web-lib";
+import { IconExternalLink, IconFilter, IconFocusCentered, IconZoomIn, IconZoomOut } from "@tabler/icons-react";
 import data from "./data/services.json";
 import stackData from "./data/stack.json";
 import { labels, type Locale } from "./i18n";
@@ -83,6 +83,44 @@ const kindOrder: Kind[] = ["http", "data", "a2a", "jwks", "lib", "planned"];
 const organization = "https://github.com/Solierrr";
 const groupOrder = Object.keys(groupColors);
 const zoomStep = 1.5;
+const nodeSize = 18;
+
+interface SimulationNode extends SimulationNodeDatum {
+  id: string;
+}
+
+// Física contínua, como no Obsidian: molas nas relações, repulsão entre serviços e colisão entre ícones.
+function simulate(graph: MultiDirectedGraph) {
+  const simulationNodes = graph.mapNodes((id, attributes): SimulationNode => ({ id, x: attributes.x, y: attributes.y }));
+  const links = graph.mapEdges((_edge, _attributes, source, target) => ({ source, target }));
+  const byId = new Map(simulationNodes.map((node) => [node.id, node]));
+  const apply = () =>
+    graph.updateEachNodeAttributes(
+      (id, attributes) => {
+        const node = byId.get(id);
+        return node ? { ...attributes, x: node.x, y: node.y } : attributes;
+      },
+      { attributes: ["x", "y"] },
+    );
+  const simulation = forceSimulation(simulationNodes)
+    .force(
+      "link",
+      forceLink<SimulationNode, { source: string; target: string }>(links)
+        .id((node) => node.id)
+        .distance(55)
+        .strength(0.25),
+    )
+    .force("charge", forceManyBody().strength(-120))
+    .force("collide", forceCollide(nodeSize * 2.3))
+    .force("x", forceX(0).strength(0.1))
+    .force("y", forceY(0).strength(0.1))
+    .stop();
+  // Assenta antes do primeiro desenho, para o enquadramento inicial já pegar o formato final.
+  simulation.tick(300);
+  apply();
+  simulation.on("tick", apply);
+  return { simulation, byId };
+}
 
 // Ícones da linha do README, sem repetir o mesmo desenho (os recursos do Kubernetes usam o mesmo logo).
 function stackRow(id: string) {
@@ -128,14 +166,18 @@ function buildGraph() {
     iterations: 800,
     settings: { ...forceAtlas2.inferSettings(graph), scalingRatio: 40, gravity: 1, outboundAttractionDistribution: true },
   });
-  // Tamanhos em unidades do grafo, proporcionais à extensão do desenho, para que o zoom
-  // escale ícones e linhas juntos e o noverlap afaste os ícones que ainda se sobrepõem.
+  // Normaliza o desenho para 600 unidades centradas na origem. Tamanhos e forças usam essa escala,
+  // então o zoom escala ícones e linhas juntos.
   const xs = graph.mapNodes((_node, attributes) => attributes.x as number);
   const ys = graph.mapNodes((_node, attributes) => attributes.y as number);
-  const unit = Math.max(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys)) / 600;
-  graph.updateEachNodeAttributes((_node, attributes) => ({ ...attributes, size: 18 * unit }));
-  graph.updateEachEdgeAttributes((_edge, attributes) => ({ ...attributes, size: attributes.size * unit }));
-  noverlap.assign(graph, { maxIterations: 300, settings: { margin: 18 * unit, ratio: 1 } });
+  const [cx, cy] = [(Math.max(...xs) + Math.min(...xs)) / 2, (Math.max(...ys) + Math.min(...ys)) / 2];
+  const scale = 600 / Math.max(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys));
+  graph.updateEachNodeAttributes((_node, attributes) => ({
+    ...attributes,
+    x: ((attributes.x as number) - cx) * scale,
+    y: ((attributes.y as number) - cy) * scale,
+    size: nodeSize,
+  }));
   return graph;
 }
 
@@ -145,6 +187,7 @@ export default function ServiceGraph({ locale }: { locale: Locale }) {
   const renderer = useRef<Sigma | null>(null);
   const toolbar = useRef<HTMLDivElement>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [enabled, setEnabled] = useState<Record<Kind, boolean>>({
     http: true,
@@ -160,6 +203,7 @@ export default function ServiceGraph({ locale }: { locale: Locale }) {
     const ink = cssColor("--color-operational-ink", "#1f2937");
     const shell = cssColor("--color-operational-shell", "#ffffff");
     const graph = buildGraph();
+    const { simulation, byId } = simulate(graph);
     const instance = new Sigma(graph, container.current, {
       primitives: {
         nodes: {
@@ -197,7 +241,7 @@ export default function ServiceGraph({ locale }: { locale: Locale }) {
             labelPosition: "below",
             labelBackgroundColor: shell,
             labelBackgroundPadding: 2,
-            cursor: "pointer",
+            cursor: { whenState: "isDragged", then: "grabbing", else: "grab" },
             depth: { whenState: "isHovered", then: "topNodes", else: "nodes" },
           },
           {
@@ -228,10 +272,14 @@ export default function ServiceGraph({ locale }: { locale: Locale }) {
             then: { opacity: 1, depth: "topEdges" },
           },
         ],
+        stage: {
+          cursor: { when: (graphState) => graphState.isPanning || graphState.isDragging, then: "grabbing", else: "grab" },
+        },
       },
       settings: {
         enableNodeDrag: true,
-        labelDensity: 2,
+        labelDensity: 1,
+        autoRescale: "once",
         autoRescaleContent: "labels",
         stagePadding: 40,
         minCameraRatio: 0.2,
@@ -240,7 +288,29 @@ export default function ServiceGraph({ locale }: { locale: Locale }) {
     });
     instance.on("clickNode", ({ node }) => setSelectedId(node));
     instance.on("clickStage", () => setSelectedId(null));
+    instance.on("enterNode", ({ node }) => setHoveredId(node));
+    instance.on("leaveNode", () => setHoveredId(null));
     renderer.current = instance;
+    // O painel de detalhes entra e sai do layout, então o canvas muda de largura sem a janela mudar.
+    const resize = new ResizeObserver(() => instance.resize());
+    resize.observe(container.current);
+
+    // Um empurrão leve na entrada, para o grafo chegar se acomodando.
+    simulation.alpha(0.15).restart();
+    instance.on("nodeDragStart", ({ node }) => {
+      const dragged = byId.get(node);
+      if (dragged) [dragged.fx, dragged.fy] = [dragged.x, dragged.y];
+      simulation.alphaTarget(0.3).restart();
+    });
+    instance.on("nodeDrag", ({ node }) => {
+      const dragged = byId.get(node);
+      if (dragged) [dragged.fx, dragged.fy] = [graph.getNodeAttribute(node, "x"), graph.getNodeAttribute(node, "y")];
+    });
+    instance.on("nodeDragEnd", ({ node }) => {
+      const dragged = byId.get(node);
+      if (dragged) [dragged.fx, dragged.fy] = [null, null];
+      simulation.alphaTarget(0);
+    });
 
     let active = true;
     const names = [...new Set(nodes.map((node) => node.icon))];
@@ -257,6 +327,8 @@ export default function ServiceGraph({ locale }: { locale: Locale }) {
 
     return () => {
       active = false;
+      resize.disconnect();
+      simulation.stop();
       instance.kill();
       renderer.current = null;
     };
@@ -269,17 +341,18 @@ export default function ServiceGraph({ locale }: { locale: Locale }) {
     graph.forEachEdge((edge, attributes) => {
       graph.setEdgeAttribute(edge, "hidden", !enabled[attributes.kind as Kind]);
     });
-    const visibleEdges = selectedId
-      ? graph.edges(selectedId).filter((edge) => !graph.getEdgeAttribute(edge, "hidden"))
+    const focus = selectedId ?? hoveredId;
+    const visibleEdges = focus
+      ? graph.edges(focus).filter((edge) => !graph.getEdgeAttribute(edge, "hidden"))
       : [];
-    const neighborhood = new Set(selectedId ? [selectedId] : []);
+    const neighborhood = new Set(focus ? [focus] : []);
     visibleEdges.forEach((edge) => graph.extremities(edge).forEach((node) => neighborhood.add(node)));
     instance.setNodesState(graph.nodes(), { isHighlighted: false });
     instance.setEdgesState(graph.edges(), { isHighlighted: false });
     instance.setNodesState([...neighborhood], { isHighlighted: true });
     instance.setEdgesState(visibleEdges, { isHighlighted: true });
-    instance.setGraphState({ hasHighlighted: selectedId !== null });
-  }, [enabled, selectedId]);
+    instance.setGraphState({ hasHighlighted: focus !== null });
+  }, [enabled, selectedId, hoveredId]);
 
   useEffect(() => {
     if (!filtersOpen) return;
@@ -327,104 +400,115 @@ export default function ServiceGraph({ locale }: { locale: Locale }) {
   }
 
   return (
-    <div className="diagram-layout">
+    <div className={`diagram-layout${selected ? "" : " diagram-layout-single"}`}>
       <Surface className="diagram-canvas" contentClassName="diagram-canvas-content">
-        <div className="graph-header">
-          <p className="diagram-hint">{text.servicesHint}</p>
-          <div className="graph-toolbar" ref={toolbar}>
-            <ToolbarAction
-              icon="filter"
+        <div className="graph-toolbar" ref={toolbar}>
+          <SurfaceGroup
+            direction="horizontal"
+            divided={false}
+            role="toolbar"
+            aria-label={text.services}
+            className="shrink-0"
+          >
+            <GroupAction
+              layout="icon"
               label={text.filters}
+              glyph={<IconFilter size={22} className="shrink-0" aria-hidden="true" />}
+              active={filtersOpen}
               aria-expanded={filtersOpen}
               aria-haspopup="true"
               onClick={() => setFiltersOpen((open) => !open)}
             />
-            <ToolbarAction icon="zoomIn" label={text.zoomIn} onClick={() => zoom(1 / zoomStep)} />
-            <ToolbarAction icon="zoomOut" label={text.zoomOut} onClick={() => zoom(zoomStep)} />
-            <ToolbarAction
-              icon="refresh"
+            <GroupAction
+              layout="icon"
+              label={text.zoomIn}
+              glyph={<IconZoomIn size={22} className="shrink-0" aria-hidden="true" />}
+              onClick={() => zoom(1 / zoomStep)}
+            />
+            <GroupAction
+              layout="icon"
+              label={text.zoomOut}
+              glyph={<IconZoomOut size={22} className="shrink-0" aria-hidden="true" />}
+              onClick={() => zoom(zoomStep)}
+            />
+            <GroupAction
+              layout="icon"
               label={text.reset}
+              glyph={<IconFocusCentered size={22} className="shrink-0" aria-hidden="true" />}
               onClick={() => renderer.current?.getCamera().animate({ x: 0.5, y: 0.5, ratio: 1, angle: 0 })}
             />
-            {filtersOpen && (
-              <MenuList className="graph-filter-menu" role="group" aria-label={text.filters}>
-                {kindOrder.map((kind) => (
-                  <li key={kind} className="graph-filter-item">
-                    <span className="graph-swatch" style={{ background: kindColors[kind] }} aria-hidden="true" />
-                    <Checkbox
-                      label={kindNames[locale][kind]}
-                      checked={enabled[kind]}
-                      onChange={(event) => setEnabled((current) => ({ ...current, [kind]: event.target.checked }))}
-                    />
-                  </li>
-                ))}
-              </MenuList>
-            )}
-          </div>
+          </SurfaceGroup>
+          {filtersOpen && (
+            <MenuList className="graph-filter-menu" role="group" aria-label={text.filters}>
+              {kindOrder.map((kind) => (
+                <li key={kind} className="graph-filter-item">
+                  <span className="graph-swatch" style={{ background: kindColors[kind] }} aria-hidden="true" />
+                  <Checkbox
+                    label={kindNames[locale][kind]}
+                    checked={enabled[kind]}
+                    onChange={(event) => setEnabled((current) => ({ ...current, [kind]: event.target.checked }))}
+                  />
+                </li>
+              ))}
+            </MenuList>
+          )}
         </div>
         <div ref={container} className="graph-canvas" role="img" aria-label={text.services} />
-        <ul className="graph-legend">
-          {Object.entries(groupColors).map(([group, color]) => (
-            <li key={group}>
-              <span className="graph-swatch" style={{ background: color }} aria-hidden="true" />
-              {groupNames[locale][group]}
-            </li>
-          ))}
-        </ul>
       </Surface>
-      <Surface className="diagram-details" contentClassName="diagram-details-content">
-        <h2 className="detail-title">{text.details}</h2>
-        {selected ? (
-          <>
-            <div className="detail-heading">
-              {selectedIcon && (
-                <span className="detail-icon">
-                  <img src={svgUrl(selectedIcon.svg, 96)} alt={selectedIcon.title} title={selectedIcon.title} />
-                </span>
-              )}
-              <p className="detail-name">{selected.id}</p>
-            </div>
-            {selectedRow.length > 0 && (
-              <ul className="detail-stacks" aria-label={text.stack}>
-                {selectedRow.map((item) => (
-                  <li key={item.name}>
-                    <img src={svgUrl(item.svg, 64)} alt={item.label} title={item.label} />
-                  </li>
-                ))}
-              </ul>
+      {selected && (
+        <Surface className="diagram-details" contentClassName="diagram-details-content">
+          <h2 className="detail-title">{text.details}</h2>
+          <div className="detail-heading">
+            {selectedIcon && (
+              <span className="detail-icon">
+                <img src={svgUrl(selectedIcon.svg, 96)} alt={selectedIcon.title} title={selectedIcon.title} />
+              </span>
             )}
-            <p className="detail-text">{selected.role}</p>
-            <dl className="detail-list">
-              <dt>{text.group}</dt>
-              <dd>{groupNames[locale][selected.group]}</dd>
-              <dt>{text.stack}</dt>
-              <dd>{selected.stack}</dd>
-            </dl>
-            {relations.outgoing.length > 0 && (
-              <>
-                <h3 className="detail-subtitle">{text.outgoing}</h3>
-                <ul className="relation-list">{relations.outgoing.map((edge) => relationItem(edge, edge.target))}</ul>
-              </>
-            )}
-            {relations.incoming.length > 0 && (
-              <>
-                <h3 className="detail-subtitle">{text.incoming}</h3>
-                <ul className="relation-list">{relations.incoming.map((edge) => relationItem(edge, edge.source))}</ul>
-              </>
-            )}
-            {selected.repo ? (
-              <a className="detail-link" href={`${organization}/${selected.id}`} target="_blank" rel="noopener noreferrer">
-                <IconExternalLink size={16} aria-hidden="true" />
-                {text.open}
-              </a>
-            ) : (
-              <p className="detail-text">{text.notInOrg}</p>
-            )}
-          </>
-        ) : (
-          <p className="detail-text">{text.empty}</p>
-        )}
-      </Surface>
+            <p className="detail-name">{selected.id}</p>
+          </div>
+          {selectedRow.length > 0 && (
+            <ul className="detail-stacks" aria-label={text.stack}>
+              {selectedRow.map((item) => (
+                <li key={item.name}>
+                  <img src={svgUrl(item.svg, 64)} alt={item.label} title={item.label} />
+                </li>
+              ))}
+            </ul>
+          )}
+          <p className="detail-text">{selected.role}</p>
+          <dl className="detail-list">
+            <dt>{text.group}</dt>
+            <dd>{groupNames[locale][selected.group]}</dd>
+            <dt>{text.stack}</dt>
+            <dd>{selected.stack}</dd>
+          </dl>
+          {relations.outgoing.length > 0 && (
+            <>
+              <h3 className="detail-subtitle">{text.outgoing}</h3>
+              <ul className="relation-list">{relations.outgoing.map((edge) => relationItem(edge, edge.target))}</ul>
+            </>
+          )}
+          {relations.incoming.length > 0 && (
+            <>
+              <h3 className="detail-subtitle">{text.incoming}</h3>
+              <ul className="relation-list">{relations.incoming.map((edge) => relationItem(edge, edge.source))}</ul>
+            </>
+          )}
+          {selected.repo ? (
+            <a
+              className="detail-link"
+              href={`${organization}/${selected.id}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <IconExternalLink size={16} aria-hidden="true" />
+              {text.open}
+            </a>
+          ) : (
+            <p className="detail-text">{text.notInOrg}</p>
+          )}
+        </Surface>
+      )}
     </div>
   );
 }

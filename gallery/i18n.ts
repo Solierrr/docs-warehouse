@@ -13,7 +13,6 @@ export interface Labels {
   repository: string;
   services: string;
   repositoryHint: string;
-  servicesHint: string;
   files: string;
   filesUnit: string;
   folders: string;
@@ -42,7 +41,6 @@ export const labels: Record<Locale, Labels> = {
     repository: "Organização do repositório",
     services: "Relação entre os serviços",
     repositoryHint: "Gerado a partir das pastas do repositório. Clique em uma pasta para expandir as subpastas e ver o detalhe.",
-    servicesHint: "Clique em um serviço para ver o que ele usa e quem o usa. Arraste para reorganizar.",
     files: "Arquivos",
     filesUnit: "arquivos",
     folders: "Subpastas",
@@ -69,7 +67,6 @@ export const labels: Record<Locale, Labels> = {
     repository: "Repository organization",
     services: "Service relations",
     repositoryHint: "Generated from the repository folders. Click a folder to expand its subfolders and see details.",
-    servicesHint: "Click a service to see what it uses and who uses it. Drag to rearrange.",
     files: "Files",
     filesUnit: "files",
     folders: "Subfolders",
@@ -96,7 +93,6 @@ export const labels: Record<Locale, Labels> = {
     repository: "Organización del repositorio",
     services: "Relación entre los servicios",
     repositoryHint: "Generado a partir de las carpetas del repositorio. Haz clic en una carpeta para expandir sus subcarpetas y ver el detalle.",
-    servicesHint: "Haz clic en un servicio para ver qué usa y quién lo usa. Arrastra para reorganizar.",
     files: "Archivos",
     filesUnit: "archivos",
     folders: "Subcarpetas",
