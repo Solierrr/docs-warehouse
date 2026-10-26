@@ -261,7 +261,7 @@
    "group": "dataops",
    "icon": "postgresql",
    "stack": "Python",
-   "role": "ETL executado à mão: lê o banco do Elos, grava no coredb e liga as imagens do mocks-warehouse.",
+   "role": "ETL que lê o banco do Elos, grava no coredb e liga as imagens do mocks-warehouse. Hoje roda à mão; o agendamento está planejado.",
    "repo": true
   },
   {
@@ -1019,6 +1019,12 @@
    "target": "coredb",
    "kind": "data",
    "label": "grava"
+  },
+  {
+   "source": "database-rpa",
+   "target": "env-actions",
+   "kind": "planned",
+   "label": "execução agendada"
   },
   {
    "source": "databricks-sync",
