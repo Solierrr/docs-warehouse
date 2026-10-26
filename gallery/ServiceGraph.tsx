@@ -241,7 +241,7 @@ export default function ServiceGraph({ locale }: { locale: Locale }) {
             labelPosition: "below",
             labelBackgroundColor: shell,
             labelBackgroundPadding: 2,
-            cursor: { whenState: "isDragged", then: "grabbing", else: "grab" },
+            cursor: (_attributes, state) => (state.isDragged ? "grabbing" : "grab"),
             depth: { whenState: "isHovered", then: "topNodes", else: "nodes" },
           },
           {
@@ -273,7 +273,7 @@ export default function ServiceGraph({ locale }: { locale: Locale }) {
           },
         ],
         stage: {
-          cursor: { when: (graphState) => graphState.isPanning || graphState.isDragging, then: "grabbing", else: "grab" },
+          cursor: (graphState) => (graphState.isPanning || graphState.isDragging ? "grabbing" : "grab"),
         },
       },
       settings: {
