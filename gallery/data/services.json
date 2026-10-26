@@ -1,0 +1,638 @@
+{
+ "nodes": [
+  {
+   "id": "web-app",
+   "group": "client",
+   "stack": "React, Vite, Tailwind",
+   "role": "Aplicação web: área pública e SaaS operacional.",
+   "repo": true
+  },
+  {
+   "id": "mobile-app",
+   "group": "client",
+   "stack": "Kotlin, Compose, Hilt, Retrofit",
+   "role": "App Android para profissionais.",
+   "repo": true
+  },
+  {
+   "id": "web-sandbox",
+   "group": "client",
+   "stack": "React, Vite",
+   "role": "Portal de QA com login único e catálogo de serviços.",
+   "repo": true
+  },
+  {
+   "id": "web-worker",
+   "group": "edge",
+   "stack": "Cloudflare Worker",
+   "role": "Borda: página de manutenção, honeypot e telemetria.",
+   "repo": true
+  },
+  {
+   "id": "infra-gateway",
+   "group": "infra",
+   "stack": "Kong",
+   "role": "Gateway de entrada das APIs no cluster.",
+   "repo": true
+  },
+  {
+   "id": "api-auth",
+   "group": "api",
+   "stack": "Kotlin, Spring Boot",
+   "role": "Cadastro, login, sessão, 2FA e Firebase. Emite o JWT e publica as chaves (JWKS).",
+   "repo": true
+  },
+  {
+   "id": "api-core",
+   "group": "api",
+   "stack": "Java, Spring Boot",
+   "role": "Domínio: identidade, empresas, catálogo, propostas, projetos, pedidos e mídia.",
+   "repo": true
+  },
+  {
+   "id": "api-messenger",
+   "group": "api",
+   "stack": "Java, Spring Boot",
+   "role": "Conversas, comunidades de projeto e mensagens (REST e WebSocket).",
+   "repo": true
+  },
+  {
+   "id": "api-recommendation",
+   "group": "api",
+   "stack": "Python, FastAPI",
+   "role": "Feeds de recomendação de profissionais, ofertas e fornecedores.",
+   "repo": true
+  },
+  {
+   "id": "api-email",
+   "group": "api",
+   "stack": "Node, Fastify",
+   "role": "E-mails transacionais em três idiomas.",
+   "repo": true
+  },
+  {
+   "id": "api-google",
+   "group": "api",
+   "stack": "Python, FastAPI",
+   "role": "Ponto único das APIs Google: endereço, tradução, fuso, calendário e energia solar.",
+   "repo": true
+  },
+  {
+   "id": "api-notify",
+   "group": "api",
+   "stack": "Java",
+   "role": "Notificações. Relações com os demais serviços ainda não documentadas.",
+   "repo": true
+  },
+  {
+   "id": "ai-assistant",
+   "group": "ai",
+   "stack": "Python, LangGraph",
+   "role": "Assistente com guardrails, memória, roteador, especialistas e juiz.",
+   "repo": true
+  },
+  {
+   "id": "ai-geographic",
+   "group": "ai",
+   "stack": "Python, LangGraph",
+   "role": "Agente geográfico, em delegação A2A com o assistente.",
+   "repo": true
+  },
+  {
+   "id": "ai-operational",
+   "group": "ai",
+   "stack": "Python, LangGraph",
+   "role": "Agente operacional (telas, propostas e ações).",
+   "repo": true
+  },
+  {
+   "id": "ai-validation",
+   "group": "ai",
+   "stack": "Python, FastAPI",
+   "role": "Validação de profissionais e documentos.",
+   "repo": true
+  },
+  {
+   "id": "ai-accessibility",
+   "group": "ai",
+   "stack": "Python, FastAPI",
+   "role": "Descrição de imagens para acessibilidade.",
+   "repo": true
+  },
+  {
+   "id": "mcp-database",
+   "group": "ai",
+   "stack": "Python, MCP",
+   "role": "Servidor MCP somente leitura sobre o banco do domínio.",
+   "repo": true
+  },
+  {
+   "id": "coredb",
+   "group": "data",
+   "stack": "PostgreSQL",
+   "role": "Banco do domínio (api-core).",
+   "repo": false
+  },
+  {
+   "id": "authdb",
+   "group": "data",
+   "stack": "PostgreSQL",
+   "role": "Banco de identidade e sessões (api-auth).",
+   "repo": false
+  },
+  {
+   "id": "mongo",
+   "group": "data",
+   "stack": "MongoDB",
+   "role": "Mensagens e conversas; memória e checkpoints dos agentes.",
+   "repo": false
+  },
+  {
+   "id": "redis",
+   "group": "data",
+   "stack": "Redis",
+   "role": "Cache e fila de eventos do api-auth.",
+   "repo": false
+  },
+  {
+   "id": "neo4j",
+   "group": "data",
+   "stack": "Neo4j",
+   "role": "Grafo de recomendação reconstruído a partir do coredb.",
+   "repo": false
+  },
+  {
+   "id": "qdrant",
+   "group": "data",
+   "stack": "Qdrant",
+   "role": "Busca vetorial da FAQ do assistente.",
+   "repo": false
+  },
+  {
+   "id": "firebase",
+   "group": "data",
+   "stack": "Firebase",
+   "role": "Autenticação federada e Firestore.",
+   "repo": false
+  },
+  {
+   "id": "databricks",
+   "group": "data",
+   "stack": "Databricks",
+   "role": "Camadas bronze, silver e gold para análise.",
+   "repo": false
+  },
+  {
+   "id": "database-console",
+   "group": "dataops",
+   "stack": "Python, SQL",
+   "role": "Schema, migrações, seed, backup e exportação dos bancos.",
+   "repo": true
+  },
+  {
+   "id": "database-bootstrap",
+   "group": "dataops",
+   "stack": "Python",
+   "role": "Job que reconstrói o grafo Neo4j a partir do coredb.",
+   "repo": true
+  },
+  {
+   "id": "database-rpa",
+   "group": "dataops",
+   "stack": "Python",
+   "role": "Carga de dados em lote no coredb.",
+   "repo": true
+  },
+  {
+   "id": "databricks-sync",
+   "group": "dataops",
+   "stack": "Python, FastAPI",
+   "role": "Sincroniza os bancos com a camada bronze do Databricks.",
+   "repo": true
+  },
+  {
+   "id": "databricks-stocker",
+   "group": "dataops",
+   "stack": "Python, SQL",
+   "role": "Notebooks e dashboards das camadas silver e gold.",
+   "repo": true
+  },
+  {
+   "id": "infra-gitops",
+   "group": "infra",
+   "stack": "Argo CD",
+   "role": "Manifestos de implantação dos serviços.",
+   "repo": true
+  },
+  {
+   "id": "infra-platform",
+   "group": "infra",
+   "stack": "Terraform",
+   "role": "Infraestrutura na nuvem: cluster, rede e domínios.",
+   "repo": true
+  },
+  {
+   "id": "infra-otel-collector",
+   "group": "infra",
+   "stack": "OpenTelemetry",
+   "role": "Coletor de telemetria dos serviços.",
+   "repo": true
+  },
+  {
+   "id": "infra-grafana",
+   "group": "infra",
+   "stack": "Grafana",
+   "role": "Painéis de observabilidade.",
+   "repo": true
+  },
+  {
+   "id": "infra-keepalive",
+   "group": "infra",
+   "stack": "GitHub Actions",
+   "role": "Mantém os ambientes gratuitos acordados.",
+   "repo": true
+  },
+  {
+   "id": "infra-broker",
+   "group": "infra",
+   "stack": "RabbitMQ",
+   "role": "Broker de mensagens.",
+   "repo": true
+  },
+  {
+   "id": "infra-stress",
+   "group": "infra",
+   "stack": "k6",
+   "role": "Testes de carga.",
+   "repo": true
+  },
+  {
+   "id": "lib-web",
+   "group": "lib",
+   "stack": "React, npm",
+   "role": "Componentes e tokens visuais compartilhados (@solaria.network/web-lib).",
+   "repo": true
+  },
+  {
+   "id": "lib-ai",
+   "group": "lib",
+   "stack": "Python, PyPI",
+   "role": "Chaves de LLM, guardrails e A2A compartilhados (solaria-network).",
+   "repo": true
+  },
+  {
+   "id": "generic-template",
+   "group": "lib",
+   "stack": "Makefile, workflows",
+   "role": "Modelo-base de repositório com CI, release e Docker.",
+   "repo": true
+  },
+  {
+   "id": "docs-reports",
+   "group": "lib",
+   "stack": "HTML, agentes",
+   "role": "Modelos de relatório, manual e documento.",
+   "repo": true
+  },
+  {
+   "id": "docs-warehouse",
+   "group": "lib",
+   "stack": "Markdown",
+   "role": "Padrões, templates e diagramas da organização.",
+   "repo": true
+  },
+  {
+   "id": "mocks-warehouse",
+   "group": "lib",
+   "stack": "WebP, manifesto",
+   "role": "Acervo de imagens usadas pelo seed.",
+   "repo": true
+  }
+ ],
+ "edges": [
+  {
+   "source": "web-app",
+   "target": "web-worker",
+   "kind": "http",
+   "label": "DNS e borda"
+  },
+  {
+   "source": "web-worker",
+   "target": "infra-gateway",
+   "kind": "http",
+   "label": ""
+  },
+  {
+   "source": "mobile-app",
+   "target": "infra-gateway",
+   "kind": "planned",
+   "label": "em integração"
+  },
+  {
+   "source": "infra-gateway",
+   "target": "api-auth",
+   "kind": "http",
+   "label": ""
+  },
+  {
+   "source": "infra-gateway",
+   "target": "api-core",
+   "kind": "http",
+   "label": ""
+  },
+  {
+   "source": "infra-gateway",
+   "target": "api-messenger",
+   "kind": "http",
+   "label": ""
+  },
+  {
+   "source": "infra-gateway",
+   "target": "api-recommendation",
+   "kind": "http",
+   "label": ""
+  },
+  {
+   "source": "infra-gateway",
+   "target": "ai-assistant",
+   "kind": "http",
+   "label": ""
+  },
+  {
+   "source": "infra-gateway",
+   "target": "ai-validation",
+   "kind": "http",
+   "label": ""
+  },
+  {
+   "source": "infra-gateway",
+   "target": "ai-accessibility",
+   "kind": "http",
+   "label": ""
+  },
+  {
+   "source": "web-sandbox",
+   "target": "api-auth",
+   "kind": "http",
+   "label": "QA direto"
+  },
+  {
+   "source": "web-sandbox",
+   "target": "api-core",
+   "kind": "http",
+   "label": "QA direto"
+  },
+  {
+   "source": "web-sandbox",
+   "target": "api-messenger",
+   "kind": "http",
+   "label": "QA direto"
+  },
+  {
+   "source": "web-app",
+   "target": "firebase",
+   "kind": "data",
+   "label": "login e Firestore"
+  },
+  {
+   "source": "api-auth",
+   "target": "authdb",
+   "kind": "data",
+   "label": ""
+  },
+  {
+   "source": "api-auth",
+   "target": "firebase",
+   "kind": "data",
+   "label": "login federado"
+  },
+  {
+   "source": "api-auth",
+   "target": "redis",
+   "kind": "data",
+   "label": "outbox"
+  },
+  {
+   "source": "api-auth",
+   "target": "api-core",
+   "kind": "http",
+   "label": "outbox e HTTP"
+  },
+  {
+   "source": "api-core",
+   "target": "coredb",
+   "kind": "data",
+   "label": ""
+  },
+  {
+   "source": "api-core",
+   "target": "redis",
+   "kind": "data",
+   "label": "cache"
+  },
+  {
+   "source": "api-core",
+   "target": "ai-validation",
+   "kind": "http",
+   "label": "validação"
+  },
+  {
+   "source": "api-core",
+   "target": "api-email",
+   "kind": "planned",
+   "label": "a integrar"
+  },
+  {
+   "source": "api-messenger",
+   "target": "mongo",
+   "kind": "data",
+   "label": ""
+  },
+  {
+   "source": "api-messenger",
+   "target": "api-core",
+   "kind": "http",
+   "label": "projetos e participantes"
+  },
+  {
+   "source": "api-recommendation",
+   "target": "coredb",
+   "kind": "data",
+   "label": "leitura"
+  },
+  {
+   "source": "api-recommendation",
+   "target": "neo4j",
+   "kind": "data",
+   "label": ""
+  },
+  {
+   "source": "api-google",
+   "target": "api-auth",
+   "kind": "planned",
+   "label": "token do Calendar"
+  },
+  {
+   "source": "api-core",
+   "target": "api-auth",
+   "kind": "jwks",
+   "label": ""
+  },
+  {
+   "source": "api-messenger",
+   "target": "api-auth",
+   "kind": "jwks",
+   "label": ""
+  },
+  {
+   "source": "ai-operational",
+   "target": "api-auth",
+   "kind": "jwks",
+   "label": ""
+  },
+  {
+   "source": "ai-assistant",
+   "target": "mongo",
+   "kind": "data",
+   "label": "memória"
+  },
+  {
+   "source": "ai-assistant",
+   "target": "qdrant",
+   "kind": "data",
+   "label": "FAQ"
+  },
+  {
+   "source": "ai-assistant",
+   "target": "mcp-database",
+   "kind": "http",
+   "label": "MCP"
+  },
+  {
+   "source": "ai-assistant",
+   "target": "api-messenger",
+   "kind": "http",
+   "label": ""
+  },
+  {
+   "source": "ai-assistant",
+   "target": "ai-operational",
+   "kind": "a2a",
+   "label": "delegação"
+  },
+  {
+   "source": "ai-geographic",
+   "target": "ai-assistant",
+   "kind": "a2a",
+   "label": "delegação"
+  },
+  {
+   "source": "ai-operational",
+   "target": "api-core",
+   "kind": "http",
+   "label": ""
+  },
+  {
+   "source": "ai-operational",
+   "target": "mcp-database",
+   "kind": "http",
+   "label": "MCP"
+  },
+  {
+   "source": "ai-operational",
+   "target": "api-messenger",
+   "kind": "http",
+   "label": ""
+  },
+  {
+   "source": "mcp-database",
+   "target": "coredb",
+   "kind": "data",
+   "label": "leitura"
+  },
+  {
+   "source": "database-bootstrap",
+   "target": "coredb",
+   "kind": "data",
+   "label": "leitura"
+  },
+  {
+   "source": "database-bootstrap",
+   "target": "neo4j",
+   "kind": "data",
+   "label": "escrita"
+  },
+  {
+   "source": "database-console",
+   "target": "coredb",
+   "kind": "data",
+   "label": "schema e migrações"
+  },
+  {
+   "source": "database-console",
+   "target": "authdb",
+   "kind": "data",
+   "label": "schema e migrações"
+  },
+  {
+   "source": "database-rpa",
+   "target": "coredb",
+   "kind": "data",
+   "label": "escrita"
+  },
+  {
+   "source": "databricks-sync",
+   "target": "coredb",
+   "kind": "data",
+   "label": "leitura"
+  },
+  {
+   "source": "databricks-sync",
+   "target": "authdb",
+   "kind": "data",
+   "label": "leitura"
+  },
+  {
+   "source": "databricks-sync",
+   "target": "databricks",
+   "kind": "data",
+   "label": "escrita"
+  },
+  {
+   "source": "databricks-stocker",
+   "target": "databricks",
+   "kind": "data",
+   "label": ""
+  },
+  {
+   "source": "ai-assistant",
+   "target": "lib-ai",
+   "kind": "lib",
+   "label": "usa"
+  },
+  {
+   "source": "ai-geographic",
+   "target": "lib-ai",
+   "kind": "lib",
+   "label": "usa"
+  },
+  {
+   "source": "ai-operational",
+   "target": "lib-ai",
+   "kind": "lib",
+   "label": "usa"
+  },
+  {
+   "source": "ai-validation",
+   "target": "lib-ai",
+   "kind": "lib",
+   "label": "usa"
+  },
+  {
+   "source": "web-sandbox",
+   "target": "lib-web",
+   "kind": "lib",
+   "label": "usa"
+  }
+ ]
+}
