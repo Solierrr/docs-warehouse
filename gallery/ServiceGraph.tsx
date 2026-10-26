@@ -1,18 +1,30 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { MultiDirectedGraph } from "graphology";
-import forceAtlas2 from "graphology-layout-forceatlas2";
 import { forceCollide, forceLink, forceManyBody, forceSimulation, forceX, forceY, type SimulationNodeDatum } from "d3-force";
 import Sigma from "sigma";
 import { extremityArrow, layerDashed, layerFill, pathCurved, sdfSquare } from "sigma/rendering";
 import { layerImage } from "@sigma/node-image";
 import { Checkbox, GroupAction, MenuList, Surface, SurfaceGroup } from "@solaria.network/web-lib";
 import { IconExternalLink, IconFilter, IconFocusCentered, IconZoomIn, IconZoomOut } from "@tabler/icons-react";
+import graphLabels from "./data/graph-labels.json";
 import data from "./data/services.json";
 import stackData from "./data/stack.json";
 import { labels, type Locale } from "./i18n";
-import { nodeTile, stackIcon, svgUrl } from "./stackIcons";
+import { monogramTile, nodeTile, stackIcon, svgUrl } from "./stackIcons";
 
-type Kind = "http" | "data" | "a2a" | "jwks" | "lib" | "planned";
+type Kind =
+  | "http"
+  | "data"
+  | "a2a"
+  | "jwks"
+  | "assets"
+  | "observability"
+  | "hosting"
+  | "secrets"
+  | "deploy"
+  | "standards"
+  | "lib"
+  | "planned";
 
 interface ServiceNode {
   id: string;
@@ -37,17 +49,9 @@ const nodes = data.nodes as ServiceNode[];
 const edges = data.edges as ServiceEdge[];
 const stacks = stackData as Record<string, StackItem[]>;
 
-const kindNames: Record<Locale, Record<Kind, string>> = {
-  "pt-BR": { http: "HTTP", data: "Banco ou serviço de dados", a2a: "A2A entre agentes", jwks: "Validação de JWT (JWKS)", lib: "Biblioteca", planned: "Planejada" },
-  "en-US": { http: "HTTP", data: "Database or data service", a2a: "Agent-to-agent (A2A)", jwks: "JWT validation (JWKS)", lib: "Library", planned: "Planned" },
-  "es-ES": { http: "HTTP", data: "Base o servicio de datos", a2a: "A2A entre agentes", jwks: "Validación de JWT (JWKS)", lib: "Biblioteca", planned: "Planificada" },
-};
+const kindNames = graphLabels.kinds as Record<Locale, Record<Kind, string>>;
 
-const groupNames: Record<Locale, Record<string, string>> = {
-  "pt-BR": { client: "Cliente", edge: "Borda", api: "API", ai: "IA", data: "Dados", dataops: "Operação de dados", infra: "Infraestrutura", lib: "Biblioteca e documentação" },
-  "en-US": { client: "Client", edge: "Edge", api: "API", ai: "AI", data: "Data", dataops: "Data operations", infra: "Infrastructure", lib: "Library and documentation" },
-  "es-ES": { client: "Cliente", edge: "Borde", api: "API", ai: "IA", data: "Datos", dataops: "Operación de datos", infra: "Infraestructura", lib: "Biblioteca y documentación" },
-};
+const groupNames = graphLabels.groups as Record<Locale, Record<string, string>>;
 
 const groupColors: Record<string, string> = {
   client: "#3b82f6",
@@ -58,6 +62,8 @@ const groupColors: Record<string, string> = {
   dataops: "#ca8a04",
   infra: "#64748b",
   lib: "#a16207",
+  environment: "#4f46e5",
+  managed: "#0d9488",
 };
 
 const kindColors: Record<Kind, string> = {
@@ -65,6 +71,12 @@ const kindColors: Record<Kind, string> = {
   data: "#16a34a",
   a2a: "#ec4899",
   jwks: "#8b5cf6",
+  assets: "#0ea5e9",
+  observability: "#f59e0b",
+  hosting: "#14b8a6",
+  secrets: "#ef4444",
+  deploy: "#6366f1",
+  standards: "#78716c",
   lib: "#a16207",
   planned: "#94a3b8",
 };
@@ -75,24 +87,67 @@ const kindLines: Record<Kind, { size: number; dash: number; gap: number }> = {
   data: { size: 2, dash: 2, gap: 3 },
   a2a: { size: 3, dash: 8, gap: 4 },
   jwks: { size: 1.5, dash: 6, gap: 4 },
+  assets: { size: 1.5, dash: 4, gap: 3 },
+  observability: { size: 1.5, dash: 3, gap: 3 },
+  hosting: { size: 2.5, dash: 10, gap: 0 },
+  secrets: { size: 2, dash: 8, gap: 3 },
+  deploy: { size: 1.5, dash: 10, gap: 0 },
+  standards: { size: 1, dash: 2, gap: 5 },
   lib: { size: 1.5, dash: 2, gap: 4 },
   planned: { size: 1.5, dash: 6, gap: 6 },
 };
 
-const kindOrder: Kind[] = ["http", "data", "a2a", "jwks", "lib", "planned"];
+const kindOrder: Kind[] = [
+  "http",
+  "data",
+  "a2a",
+  "jwks",
+  "assets",
+  "observability",
+  "hosting",
+  "secrets",
+  "deploy",
+  "standards",
+  "lib",
+  "planned",
+];
+// Relações em grande número que não entram nas molas da física, para não puxar o desenho para um nó só.
+const looseKinds = new Set<Kind>(["deploy", "standards", "lib"]);
+const displayName = (node: ServiceNode) =>
+  node.group === "environment" || node.group === "managed" ? node.stack : node.id;
 const organization = "https://github.com/Solierrr";
-const groupOrder = Object.keys(groupColors);
+// Região de cada grupo, em unidades do grafo (o eixo y cresce para cima): clientes e borda no alto,
+// APIs e IA no meio, dados embaixo, ambientes e infraestrutura à direita, padrões à esquerda.
+const groupAnchors: Record<string, [number, number]> = {
+  client: [-180, 260],
+  edge: [20, 260],
+  api: [-60, 80],
+  ai: [210, 110],
+  lib: [-390, 70],
+  data: [-40, -160],
+  dataops: [-280, -160],
+  managed: [200, -190],
+  infra: [390, 80],
+  environment: [410, -130],
+};
+const anchorOf = (group: string) => groupAnchors[group] ?? [0, 0];
 const zoomStep = 1.5;
 const nodeSize = 18;
+const labelFamily = '"Plus Jakarta Sans", sans-serif';
 
 interface SimulationNode extends SimulationNodeDatum {
   id: string;
+  group: string;
 }
 
 // Física contínua, como no Obsidian: molas nas relações, repulsão entre serviços e colisão entre ícones.
 function simulate(graph: MultiDirectedGraph) {
-  const simulationNodes = graph.mapNodes((id, attributes): SimulationNode => ({ id, x: attributes.x, y: attributes.y }));
-  const links = graph.mapEdges((_edge, _attributes, source, target) => ({ source, target }));
+  const simulationNodes = graph.mapNodes(
+    (id, attributes): SimulationNode => ({ id, group: attributes.group, x: attributes.x, y: attributes.y }),
+  );
+  const links = graph
+    .filterEdges((_edge, attributes) => !looseKinds.has(attributes.kind as Kind))
+    .map((edge) => ({ source: graph.source(edge), target: graph.target(edge) }));
   const byId = new Map(simulationNodes.map((node) => [node.id, node]));
   const apply = () =>
     graph.updateEachNodeAttributes(
@@ -108,12 +163,12 @@ function simulate(graph: MultiDirectedGraph) {
       forceLink<SimulationNode, { source: string; target: string }>(links)
         .id((node) => node.id)
         .distance(55)
-        .strength(0.25),
+        .strength(0.12),
     )
-    .force("charge", forceManyBody().strength(-120))
+    .force("charge", forceManyBody().strength(-110))
     .force("collide", forceCollide(nodeSize * 2.3))
-    .force("x", forceX(0).strength(0.1))
-    .force("y", forceY(0).strength(0.1))
+    .force("x", forceX<SimulationNode>((node) => anchorOf(node.group)[0]).strength(0.14))
+    .force("y", forceY<SimulationNode>((node) => anchorOf(node.group)[1]).strength(0.14))
     .stop();
   // Assenta antes do primeiro desenho, para o enquadramento inicial já pegar o formato final.
   simulation.tick(300);
@@ -142,13 +197,17 @@ function buildGraph() {
   const graph = new MultiDirectedGraph();
   const perGroup: Record<string, number> = {};
   nodes.forEach((node) => {
+    // Espiral em volta da âncora do grupo, como ponto de partida da física.
     const slot = (perGroup[node.group] = (perGroup[node.group] ?? 0) + 1);
-    const angle = (groupOrder.indexOf(node.group) / groupOrder.length) * 2 * Math.PI + slot * 0.18;
-    const radius = 10 + slot * 2;
+    const [ax, ay] = anchorOf(node.group);
+    const angle = slot * 2.4;
+    const radius = 22 * Math.sqrt(slot);
     graph.addNode(node.id, {
-      label: node.id,
-      x: Math.cos(angle) * radius,
-      y: Math.sin(angle) * radius,
+      label: displayName(node),
+      group: node.group,
+      x: ax + Math.cos(angle) * radius,
+      y: ay + Math.sin(angle) * radius,
+      size: nodeSize,
       color: groupColors[node.group] ?? "#64748b",
       image: "",
     });
@@ -162,22 +221,6 @@ function buildGraph() {
       hidden: false,
     });
   });
-  forceAtlas2.assign(graph, {
-    iterations: 800,
-    settings: { ...forceAtlas2.inferSettings(graph), scalingRatio: 40, gravity: 1, outboundAttractionDistribution: true },
-  });
-  // Normaliza o desenho para 600 unidades centradas na origem. Tamanhos e forças usam essa escala,
-  // então o zoom escala ícones e linhas juntos.
-  const xs = graph.mapNodes((_node, attributes) => attributes.x as number);
-  const ys = graph.mapNodes((_node, attributes) => attributes.y as number);
-  const [cx, cy] = [(Math.max(...xs) + Math.min(...xs)) / 2, (Math.max(...ys) + Math.min(...ys)) / 2];
-  const scale = 600 / Math.max(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys));
-  graph.updateEachNodeAttributes((_node, attributes) => ({
-    ...attributes,
-    x: ((attributes.x as number) - cx) * scale,
-    y: ((attributes.y as number) - cy) * scale,
-    size: nodeSize,
-  }));
   return graph;
 }
 
@@ -189,22 +232,48 @@ export default function ServiceGraph({ locale }: { locale: Locale }) {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [filtersOpen, setFiltersOpen] = useState(false);
+  const [ready, setReady] = useState(false);
   const [enabled, setEnabled] = useState<Record<Kind, boolean>>({
     http: true,
     data: true,
     a2a: true,
     jwks: true,
+    assets: true,
+    observability: true,
+    hosting: true,
+    secrets: true,
+    deploy: false,
+    standards: false,
     lib: false,
     planned: true,
   });
 
   useEffect(() => {
-    if (!container.current) return;
+    const element = container.current;
+    if (!element) return;
+    let cancelled = false;
+    let dispose: (() => void) | undefined;
+    // O Sigma monta o atlas de glifos no primeiro desenho; espera a fonte da lib para não cair na fonte de reserva.
+    void document.fonts
+      .load(`600 12px ${labelFamily}`)
+      .catch(() => undefined)
+      .then(() => {
+        if (cancelled) return;
+        dispose = mount(element);
+        setReady(true);
+      });
+    return () => {
+      cancelled = true;
+      dispose?.();
+    };
+  }, []);
+
+  function mount(element: HTMLDivElement) {
     const ink = cssColor("--color-operational-ink", "#1f2937");
     const shell = cssColor("--color-operational-shell", "#ffffff");
     const graph = buildGraph();
     const { simulation, byId } = simulate(graph);
-    const instance = new Sigma(graph, container.current, {
+    const instance = new Sigma(graph, element, {
       primitives: {
         nodes: {
           shapes: [sdfSquare({ cornerRadius: 0.32 })],
@@ -237,7 +306,7 @@ export default function ServiceGraph({ locale }: { locale: Locale }) {
             label: { attribute: "label" },
             labelColor: ink,
             labelSize: 12,
-            labelFont: "Plus Jakarta Sans, sans-serif",
+            labelFont: `600 ${labelFamily}`,
             labelPosition: "below",
             labelBackgroundColor: shell,
             labelBackgroundPadding: 2,
@@ -293,7 +362,7 @@ export default function ServiceGraph({ locale }: { locale: Locale }) {
     renderer.current = instance;
     // O painel de detalhes entra e sai do layout, então o canvas muda de largura sem a janela mudar.
     const resize = new ResizeObserver(() => instance.resize());
-    resize.observe(container.current);
+    resize.observe(element);
 
     // Um empurrão leve na entrada, para o grafo chegar se acomodando.
     simulation.alpha(0.15).restart();
@@ -313,16 +382,14 @@ export default function ServiceGraph({ locale }: { locale: Locale }) {
     });
 
     let active = true;
-    const names = [...new Set(nodes.map((node) => node.icon))];
     void Promise.all(
-      names.map(async (name) => {
-        const icon = stackIcon(name);
-        return [name, icon ? await nodeTile(icon.svg) : ""] as const;
+      nodes.map(async (node) => {
+        const icon = stackIcon(node.icon);
+        return [node.id, icon ? await nodeTile(icon.svg) : monogramTile(displayName(node))] as const;
       }),
     ).then((entries) => {
       if (!active) return;
-      const tiles = Object.fromEntries(entries);
-      nodes.forEach((node) => graph.setNodeAttribute(node.id, "image", tiles[node.icon]));
+      entries.forEach(([id, tile]) => graph.setNodeAttribute(id, "image", tile));
     });
 
     return () => {
@@ -332,7 +399,7 @@ export default function ServiceGraph({ locale }: { locale: Locale }) {
       instance.kill();
       renderer.current = null;
     };
-  }, []);
+  }
 
   useEffect(() => {
     const instance = renderer.current;
@@ -352,7 +419,7 @@ export default function ServiceGraph({ locale }: { locale: Locale }) {
     instance.setNodesState([...neighborhood], { isHighlighted: true });
     instance.setEdgesState(visibleEdges, { isHighlighted: true });
     instance.setGraphState({ hasHighlighted: focus !== null });
-  }, [enabled, selectedId, hoveredId]);
+  }, [enabled, selectedId, hoveredId, ready]);
 
   useEffect(() => {
     if (!filtersOpen) return;
@@ -459,12 +526,14 @@ export default function ServiceGraph({ locale }: { locale: Locale }) {
         <Surface className="diagram-details" contentClassName="diagram-details-content">
           <h2 className="detail-title">{text.details}</h2>
           <div className="detail-heading">
-            {selectedIcon && (
-              <span className="detail-icon">
+            <span className="detail-icon">
+              {selectedIcon ? (
                 <img src={svgUrl(selectedIcon.svg, 96)} alt={selectedIcon.title} title={selectedIcon.title} />
-              </span>
-            )}
-            <p className="detail-name">{selected.id}</p>
+              ) : (
+                <img src={monogramTile(displayName(selected), 96)} alt="" />
+              )}
+            </span>
+            <p className="detail-name">{displayName(selected)}</p>
           </div>
           {selectedRow.length > 0 && (
             <ul className="detail-stacks" aria-label={text.stack}>
