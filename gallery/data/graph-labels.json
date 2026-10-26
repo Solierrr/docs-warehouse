@@ -1,0 +1,84 @@
+{
+ "kinds": {
+  "pt-BR": {
+   "http": "HTTP",
+   "data": "Banco ou serviço de dados",
+   "a2a": "A2A entre agentes",
+   "jwks": "Validação de JWT (JWKS)",
+   "assets": "Imagens e dados de exemplo",
+   "observability": "Observabilidade",
+   "hosting": "Hospedagem",
+   "secrets": "Segredos",
+   "deploy": "Publicação",
+   "standards": "Padrões e templates",
+   "lib": "Biblioteca",
+   "planned": "Planejada"
+  },
+  "en-US": {
+   "http": "HTTP",
+   "data": "Database or data service",
+   "a2a": "Agent-to-agent (A2A)",
+   "jwks": "JWT validation (JWKS)",
+   "assets": "Images and sample data",
+   "observability": "Observability",
+   "hosting": "Hosting",
+   "secrets": "Secrets",
+   "deploy": "Deployment",
+   "standards": "Standards and templates",
+   "lib": "Library",
+   "planned": "Planned"
+  },
+  "es-ES": {
+   "http": "HTTP",
+   "data": "Base o servicio de datos",
+   "a2a": "A2A entre agentes",
+   "jwks": "Validación de JWT (JWKS)",
+   "assets": "Imágenes y datos de ejemplo",
+   "observability": "Observabilidad",
+   "hosting": "Alojamiento",
+   "secrets": "Secretos",
+   "deploy": "Publicación",
+   "standards": "Estándares y plantillas",
+   "lib": "Biblioteca",
+   "planned": "Planificada"
+  }
+ },
+ "groups": {
+  "pt-BR": {
+   "client": "Cliente",
+   "edge": "Borda",
+   "api": "API",
+   "ai": "IA",
+   "data": "Dados",
+   "dataops": "Operação de dados",
+   "infra": "Infraestrutura",
+   "lib": "Biblioteca e documentação",
+   "environment": "Ambiente e distribuição",
+   "managed": "Serviço gerenciado"
+  },
+  "en-US": {
+   "client": "Client",
+   "edge": "Edge",
+   "api": "API",
+   "ai": "AI",
+   "data": "Data",
+   "dataops": "Data operations",
+   "infra": "Infrastructure",
+   "lib": "Library and documentation",
+   "environment": "Environment and distribution",
+   "managed": "Managed service"
+  },
+  "es-ES": {
+   "client": "Cliente",
+   "edge": "Borde",
+   "api": "API",
+   "ai": "IA",
+   "data": "Datos",
+   "dataops": "Operación de datos",
+   "infra": "Infraestructura",
+   "lib": "Biblioteca y documentación",
+   "environment": "Entorno y distribución",
+   "managed": "Servicio gestionado"
+  }
+ }
+}

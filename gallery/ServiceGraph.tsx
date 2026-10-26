@@ -6,6 +6,7 @@ import { extremityArrow, layerDashed, layerFill, pathCurved, sdfSquare } from "s
 import { layerImage } from "@sigma/node-image";
 import { Checkbox, GroupAction, MenuList, Surface, SurfaceGroup } from "@solaria.network/web-lib";
 import { IconExternalLink, IconFilter, IconFocusCentered, IconZoomIn, IconZoomOut } from "@tabler/icons-react";
+import graphLabels from "./data/graph-labels.json";
 import data from "./data/services.json";
 import stackData from "./data/stack.json";
 import { labels, type Locale } from "./i18n";
@@ -48,89 +49,9 @@ const nodes = data.nodes as ServiceNode[];
 const edges = data.edges as ServiceEdge[];
 const stacks = stackData as Record<string, StackItem[]>;
 
-const kindNames: Record<Locale, Record<Kind, string>> = {
-  "pt-BR": {
-    http: "HTTP",
-    data: "Banco ou serviço de dados",
-    a2a: "A2A entre agentes",
-    jwks: "Validação de JWT (JWKS)",
-    assets: "Imagens e dados de exemplo",
-    observability: "Observabilidade",
-    hosting: "Hospedagem",
-    secrets: "Segredos",
-    deploy: "Publicação",
-    standards: "Padrões e templates",
-    lib: "Biblioteca",
-    planned: "Planejada",
-  },
-  "en-US": {
-    http: "HTTP",
-    data: "Database or data service",
-    a2a: "Agent-to-agent (A2A)",
-    jwks: "JWT validation (JWKS)",
-    assets: "Images and sample data",
-    observability: "Observability",
-    hosting: "Hosting",
-    secrets: "Secrets",
-    deploy: "Deployment",
-    standards: "Standards and templates",
-    lib: "Library",
-    planned: "Planned",
-  },
-  "es-ES": {
-    http: "HTTP",
-    data: "Base o servicio de datos",
-    a2a: "A2A entre agentes",
-    jwks: "Validación de JWT (JWKS)",
-    assets: "Imágenes y datos de ejemplo",
-    observability: "Observabilidad",
-    hosting: "Alojamiento",
-    secrets: "Secretos",
-    deploy: "Publicación",
-    standards: "Estándares y plantillas",
-    lib: "Biblioteca",
-    planned: "Planificada",
-  },
-};
+const kindNames = graphLabels.kinds as Record<Locale, Record<Kind, string>>;
 
-const groupNames: Record<Locale, Record<string, string>> = {
-  "pt-BR": {
-    client: "Cliente",
-    edge: "Borda",
-    api: "API",
-    ai: "IA",
-    data: "Dados",
-    dataops: "Operação de dados",
-    infra: "Infraestrutura",
-    lib: "Biblioteca e documentação",
-    environment: "Ambiente e distribuição",
-    managed: "Serviço gerenciado",
-  },
-  "en-US": {
-    client: "Client",
-    edge: "Edge",
-    api: "API",
-    ai: "AI",
-    data: "Data",
-    dataops: "Data operations",
-    infra: "Infrastructure",
-    lib: "Library and documentation",
-    environment: "Environment and distribution",
-    managed: "Managed service",
-  },
-  "es-ES": {
-    client: "Cliente",
-    edge: "Borde",
-    api: "API",
-    ai: "IA",
-    data: "Datos",
-    dataops: "Operación de datos",
-    infra: "Infraestructura",
-    lib: "Biblioteca y documentación",
-    environment: "Entorno y distribución",
-    managed: "Servicio gestionado",
-  },
-};
+const groupNames = graphLabels.groups as Record<Locale, Record<string, string>>;
 
 const groupColors: Record<string, string> = {
   client: "#3b82f6",
