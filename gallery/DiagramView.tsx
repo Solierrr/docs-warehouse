@@ -19,15 +19,16 @@ import { IconFocusCentered, IconUser, IconZoomIn, IconZoomOut } from "@tabler/ic
 import services from "./data/services.json";
 import type {
   ContextDiagram,
+  ContextEntity,
   DiagramEntry,
   FlowDiagram,
-  PlacedNode,
   SequenceDiagram,
   SequenceStep,
   UseCaseDiagram,
 } from "./diagrams";
 import { labels, type Locale } from "./i18n";
-import { stackIcon, svgUrl } from "./stackIcons";
+import { groupColors } from "./palette";
+import { monogramTile, stackIcon, svgUrl } from "./stackIcons";
 
 type Side = "top" | "right" | "bottom" | "left";
 const positions: Record<Side, Position> = {
@@ -59,10 +60,13 @@ function pickSides(dx: number, dy: number): [Side, Side] {
   return dy > 0 ? ["left", "top"] : ["left", "bottom"];
 }
 
-function StackGlyph({ name, size = 22 }: Readonly<{ name?: string; size?: number }>) {
+function StackGlyph({ name, size = 22, fallback }: Readonly<{ name?: string; size?: number; fallback?: string }>) {
   const icon = name ? stackIcon(name) : undefined;
-  if (!icon) return null;
-  return <img src={svgUrl(icon.svg, size * 2)} alt="" width={size} height={size} className="shrink-0" />;
+  let src: string | undefined;
+  if (icon) src = svgUrl(icon.svg, size * 2);
+  else if (fallback) src = monogramTile(fallback, size * 2);
+  if (!src) return null;
+  return <img src={src} alt="" width={size} height={size} className="shrink-0" />;
 }
 
 type Data = Record<string, unknown>;
@@ -93,14 +97,53 @@ const nodeTypes = {
       <Handles />
     </div>
   ),
-  card: ({ data }: NodeProps<Node<Data>>) => (
-    <div className={`diagram-card${data.highlight ? " diagram-card-highlight" : ""}`}>
+  entity: ({ data }: NodeProps<Node<Data>>) => (
+    <div className="diagram-entity" style={{ borderTopColor: data.color as string }}>
       <Handles />
       <div className="diagram-card-head">
-        {data.person ? <IconUser size={20} aria-hidden="true" /> : <StackGlyph name={data.icon as string} />}
+        {data.person ? (
+          <span className="diagram-entity-person" aria-hidden="true">
+            <IconUser size={18} />
+          </span>
+        ) : (
+          <StackGlyph name={data.icon as string} size={24} fallback={data.label as string} />
+        )}
         <span className="diagram-card-title">{data.label as string}</span>
       </div>
-      {data.detail ? <span className="diagram-card-detail">{data.detail as string}</span> : null}
+      <span className="diagram-card-detail">{data.detail as string}</span>
+    </div>
+  ),
+  system: ({ data }: NodeProps<Node<Data>>) => (
+    <div className="diagram-system" style={{ width: data.width as number }}>
+      <Handles />
+      <span className="diagram-system-title">{data.label as string}</span>
+      <span className="diagram-system-detail">{data.detail as string}</span>
+      <ul className="diagram-system-parts">
+        {(data.contains as string[]).map((part) => (
+          <li key={part}>{part}</li>
+        ))}
+      </ul>
+    </div>
+  ),
+  band: ({ data }: NodeProps<Node<Data>>) => (
+    <div className="diagram-band" style={{ width: data.width as number, height: data.height as number }}>
+      <span className="diagram-band-stripe" style={{ background: data.color as string }} aria-hidden="true" />
+      <span className="diagram-band-title">{data.label as string}</span>
+      {data.detail ? <span className="diagram-band-detail">{data.detail as string}</span> : null}
+    </div>
+  ),
+  bandAnchor: ({ data }: NodeProps<Node<Data>>) => (
+    <div className="diagram-band-anchor" style={{ height: data.height as number }}>
+      <Handles />
+    </div>
+  ),
+  member: ({ data }: NodeProps<Node<Data>>) => (
+    <div className="diagram-member">
+      <div className="diagram-card-head">
+        <StackGlyph name={data.icon as string} size={22} fallback={data.label as string} />
+        <span className="diagram-card-title">{data.label as string}</span>
+      </div>
+      <span className="diagram-member-role">{data.detail as string}</span>
     </div>
   ),
   participant: ({ data }: NodeProps<Node<Data>>) => (
@@ -158,11 +201,6 @@ const nodeTypes = {
       <span className="diagram-lane-title">{data.label as string}</span>
     </div>
   ),
-  layer: ({ data }: NodeProps<Node<Data>>) => (
-    <div className="diagram-layer" style={{ width: data.width as number, height: data.height as number }}>
-      <span className="diagram-lane-title">{data.label as string}</span>
-    </div>
-  ),
 };
 
 function SelfEdge({ sourceX, sourceY, targetY, label, markerEnd, style }: EdgeProps) {
@@ -191,22 +229,8 @@ const labelStyle = {
   labelStyle: { fontSize: 11, fontWeight: 500 },
 };
 
-// Em diagramas posicionados livremente, a conexão segue o eixo com maior distância.
-function pickPlacedSides(dx: number, dy: number): [Side, Side] {
-  if (Math.abs(dy) >= 60) return dy > 0 ? ["bottom", "top"] : ["top", "bottom"];
-  return dx > 0 ? ["right", "left"] : ["left", "right"];
-}
-
-function sideEdge(
-  id: string,
-  source: string,
-  target: string,
-  dx: number,
-  dy: number,
-  extra: Partial<Edge> = {},
-  picker: (dx: number, dy: number) => [Side, Side] = pickSides,
-): Edge {
-  const [from, to] = picker(dx, dy);
+function sideEdge(id: string, source: string, target: string, dx: number, dy: number, extra: Partial<Edge> = {}): Edge {
+  const [from, to] = pickSides(dx, dy);
   return {
     id,
     source,
@@ -367,39 +391,79 @@ function sequenceGraph(body: SequenceDiagram) {
   return { nodes, edges };
 }
 
-function placedEdges(byId: Map<string, PlacedNode>, links: { source: string; target: string; label?: string; dashed?: boolean }[]) {
-  return links.map((link, index) => {
-    const a = byId.get(link.source)!;
-    const b = byId.get(link.target)!;
-    return sideEdge(
-      `e${index}`,
-      link.source,
-      link.target,
-      b.x - a.x,
-      b.y - a.y,
-      { label: link.label, style: link.dashed ? { strokeDasharray: "6 4" } : undefined },
-      pickPlacedSides,
-    );
-  });
-}
-
+// Contexto da esquerda para a direita: quem usa, a plataforma e os serviços que ela usa. Embaixo, a entrega
+// e a operação que a sustentam. Cada card diz a sua relação, então os conectores ficam sem rótulo e não se cruzam.
 function contextGraph(body: ContextDiagram) {
-  const all = [...body.people, body.system, ...body.externals];
-  const byId = new Map(all.map((item) => [item.id, item]));
-  const nodes: Node[] = all.map((item) => ({
-    id: item.id,
-    type: "card",
-    position: { x: item.x, y: item.y },
-    data: {
-      label: item.label,
-      detail: item.detail,
-      icon: item.icon,
-      person: body.people.includes(item),
-      highlight: item === body.system,
-    },
+  const cardWidth = 250;
+  const cardHeight = 112;
+  const gap = 20;
+  const column = (count: number) => count * cardHeight + (count - 1) * gap;
+  const used = body.externals.filter((item) => !item.operation);
+  const operation = body.externals.filter((item) => item.operation);
+  const systemWidth = 360;
+  const peopleX = 32;
+  const systemX = peopleX + cardWidth + 140;
+  const usedX = systemX + systemWidth + 140;
+  const width = usedX + cardWidth + 32;
+  const top = 56;
+  const sideHeight = Math.max(column(body.people.length), column(used.length));
+  const nodes: Node[] = [];
+  const edges: Edge[] = [];
+  const band = (id: string, label: string, x: number, y: number, bandWidth: number, height: number, color: string) =>
+    nodes.push({
+      id,
+      type: "band",
+      position: { x, y },
+      data: { label, width: bandWidth, height, color },
+      draggable: false,
+      selectable: false,
+      zIndex: -1,
+    });
+  const card = (item: ContextEntity, x: number, y: number, person: boolean) =>
+    nodes.push({
+      id: item.id,
+      type: "entity",
+      position: { x, y },
+      data: { ...item, person, color: person ? groupColors.client : groupColors.managed },
+      draggable: false,
+    });
+  const link = (id: string, source: string, target: string, from: Side, to: Side) =>
+    edges.push({ id, source, target, sourceHandle: `s-${from}`, targetHandle: `t-${to}`, type: "smoothstep", markerEnd: arrow });
+
+  band("band-people", "Quem usa", 0, 0, cardWidth + 64, top + sideHeight + 24, groupColors.client);
+  body.people.forEach((item, index) => {
+    card(item, peopleX, top + index * (cardHeight + gap) + (sideHeight - column(body.people.length)) / 2, true);
+    link(`p-${item.id}`, item.id, "platform", "right", "left");
+  });
+  band("band-used", "Serviços que a plataforma usa", usedX - 32, 0, cardWidth + 64, top + sideHeight + 24, groupColors.managed);
+  used.forEach((item, index) => {
+    card(item, usedX, top + index * (cardHeight + gap) + (sideHeight - column(used.length)) / 2, false);
+    link(`u-${item.id}`, "platform", item.id, "right", "left");
+  });
+  const systemHeight = 230;
+  nodes.push({
+    id: "platform",
+    type: "system",
+    position: { x: systemX, y: top + (sideHeight - systemHeight) / 2 },
+    data: { ...body.system, width: systemWidth },
     draggable: false,
-  }));
-  return { nodes, edges: placedEdges(byId, body.edges) };
+  });
+  const operationY = top + sideHeight + 80;
+  const rowWidth = operation.length * cardWidth + (operation.length - 1) * gap;
+  const operationWidth = Math.max(width, rowWidth + 64);
+  band("band-operation", "Entrega e operação", 0, operationY, operationWidth, 72 + cardHeight + 24, groupColors.environment);
+  nodes.push({
+    id: "operation-anchor",
+    type: "bandAnchor",
+    position: { x: systemX + systemWidth / 2, y: operationY },
+    data: { height: 1 },
+    draggable: false,
+    selectable: false,
+  });
+  link("operation", "operation-anchor", "platform", "top", "bottom");
+  const start = (operationWidth - rowWidth) / 2;
+  operation.forEach((item, index) => card(item, start + index * (cardWidth + gap), operationY + 56, false));
+  return { nodes, edges };
 }
 
 function useCaseGraph(body: UseCaseDiagram) {
@@ -438,43 +502,90 @@ function useCaseGraph(body: UseCaseDiagram) {
   return { nodes, edges };
 }
 
-const layerOrder: { label: string; groups: string[] }[] = [
-  { label: "Canais e borda", groups: ["client", "edge"] },
-  { label: "APIs de domínio", groups: ["api"] },
-  { label: "Inteligência", groups: ["ai"] },
-  { label: "Dados e estado", groups: ["data"] },
-  { label: "Operação de dados", groups: ["dataops"] },
-  { label: "Infraestrutura", groups: ["infra"] },
-  { label: "Bibliotecas e documentação", groups: ["lib"] },
+interface Layer {
+  label: string;
+  detail: string;
+  groups: string[];
+  path?: boolean;
+}
+
+const layerOrder: Layer[] = [
+  { label: "Canais", detail: "Onde as pessoas usam a plataforma.", groups: ["client"], path: true },
+  { label: "Borda", detail: "Recebe o tráfego do domínio e encaminha às APIs.", groups: ["edge"], path: true },
+  { label: "APIs de domínio", detail: "Regras de negócio, identidade e integrações.", groups: ["api"], path: true },
+  { label: "Inteligência", detail: "Agentes de IA e o servidor MCP.", groups: ["ai"], path: true },
+  { label: "Dados", detail: "Bancos e serviços de dados.", groups: ["data"], path: true },
+  { label: "Operação de dados", detail: "Schema, seed, migração, grafo e análise.", groups: ["dataops"] },
+  { label: "Infraestrutura", detail: "Cluster, implantação, observabilidade e testes.", groups: ["infra"] },
+  { label: "Ambientes e distribuição", detail: "Onde cada repositório roda ou é publicado.", groups: ["environment"] },
+  { label: "Serviços gerenciados", detail: "Provedores externos de que a plataforma depende.", groups: ["managed"] },
+  { label: "Bibliotecas e padrões", detail: "Bibliotecas, molde de repositório e documentação.", groups: ["lib"] },
 ];
 
+// Camadas em faixas: título e papel à esquerda, membros em grade à direita. As cinco primeiras seguem o
+// caminho de uma requisição e são ligadas por setas; as demais formam a base de suporte.
 function layersGraph() {
-  const cardWidth = 210;
-  const rowHeight = 150;
+  const titleWidth = 250;
+  const cardWidth = 220;
+  const cardHeight = 92;
+  const gap = 14;
+  const perRow = 6;
+  const width = titleWidth + perRow * (cardWidth + gap) + 24;
   const nodes: Node[] = [];
-  const widest = Math.max(...layerOrder.map((layer) => services.nodes.filter((item) => layer.groups.includes(item.group)).length));
-  layerOrder.forEach((layer, row) => {
+  const edges: Edge[] = [];
+  let y = 0;
+  layerOrder.forEach((layer, index) => {
     const members = services.nodes.filter((item) => layer.groups.includes(item.group));
-    nodes.push({
-      id: `layer-${row}`,
-      type: "layer",
-      position: { x: 0, y: row * rowHeight },
-      data: { label: layer.label, width: widest * (cardWidth + 16) + 32, height: rowHeight - 16 },
-      draggable: false,
-      selectable: false,
-      zIndex: -1,
-    });
-    members.forEach((item, index) => {
+    const rows = Math.max(1, Math.ceil(members.length / perRow));
+    const height = 32 + rows * (cardHeight + gap);
+    const color = groupColors[layer.groups[0]] ?? "#64748b";
+    nodes.push(
+      {
+        id: `layer-${index}`,
+        type: "band",
+        position: { x: 0, y },
+        data: { label: layer.label, detail: layer.detail, width, height, color },
+        draggable: false,
+        selectable: false,
+        zIndex: -1,
+      },
+      {
+        id: `layer-anchor-${index}`,
+        type: "bandAnchor",
+        position: { x: 120, y },
+        data: { height },
+        draggable: false,
+        selectable: false,
+      },
+    );
+    members.forEach((item, position) => {
+      const named = item.group === "environment" || item.group === "managed" ? item.stack : item.id;
       nodes.push({
-        id: item.id,
-        type: "card",
-        position: { x: 16 + index * (cardWidth + 16), y: row * rowHeight + 34 },
-        data: { label: item.id, detail: item.stack, icon: item.icon },
+        id: `member-${item.id}`,
+        type: "member",
+        position: {
+          x: titleWidth + (position % perRow) * (cardWidth + gap),
+          y: y + 16 + Math.floor(position / perRow) * (cardHeight + gap),
+        },
+        data: { label: named, detail: item.role, icon: item.icon },
         draggable: false,
       });
     });
+    if (layer.path && layerOrder[index + 1]?.path) {
+      edges.push({
+        id: `path-${index}`,
+        source: `layer-anchor-${index}`,
+        target: `layer-anchor-${index + 1}`,
+        sourceHandle: "s-bottom",
+        targetHandle: "t-top",
+        type: "straight",
+        markerEnd: { ...arrow, color: "#f97316" },
+        style: { stroke: "#f97316", strokeWidth: 2 },
+      });
+    }
+    y += height + 18;
   });
-  return { nodes, edges: [] as Edge[] };
+  return { nodes, edges };
 }
 
 function graphOf(entry: DiagramEntry) {

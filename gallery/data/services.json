@@ -349,7 +349,7 @@
    "group": "lib",
    "icon": "storybook",
    "stack": "React, npm",
-   "role": "Componentes e tokens visuais compartilhados (@solaria.network/web-lib).",
+   "role": "Biblioteca React publicada no npm (@solaria.network/web-lib) e usada pelas interfaces web; Storybook no GitHub Pages.",
    "repo": true
   },
   {
@@ -357,7 +357,7 @@
    "group": "lib",
    "icon": "python",
    "stack": "Python, PyPI",
-   "role": "Chaves de LLM, guardrails e A2A compartilhados.",
+   "role": "Biblioteca Python publicada no PyPI e instalada pelos agentes: chaves de LLM, guardrails e cliente A2A.",
    "repo": true
   },
   {
@@ -877,6 +877,30 @@
    "label": ""
   },
   {
+   "source": "ai-assistant",
+   "target": "api-auth",
+   "kind": "jwks",
+   "label": ""
+  },
+  {
+   "source": "ai-geographic",
+   "target": "api-auth",
+   "kind": "jwks",
+   "label": ""
+  },
+  {
+   "source": "ai-validation",
+   "target": "api-auth",
+   "kind": "jwks",
+   "label": ""
+  },
+  {
+   "source": "ai-accessibility",
+   "target": "api-auth",
+   "kind": "jwks",
+   "label": ""
+  },
+  {
    "source": "api-messenger",
    "target": "api-auth",
    "kind": "jwks",
@@ -1103,12 +1127,6 @@
    "target": "langsmith",
    "kind": "observability",
    "label": "traces"
-  },
-  {
-   "source": "lib-ai",
-   "target": "langsmith",
-   "kind": "observability",
-   "label": "integração"
   },
   {
    "source": "infra-otel-collector",
@@ -1426,13 +1444,13 @@
    "source": "lib-web",
    "target": "npm",
    "kind": "deploy",
-   "label": "publica"
+   "label": "publicada"
   },
   {
    "source": "lib-ai",
    "target": "pypi",
    "kind": "deploy",
-   "label": "publica"
+   "label": "publicada"
   },
   {
    "source": ".github",
@@ -1678,55 +1696,55 @@
    "source": "ai-assistant",
    "target": "lib-ai",
    "kind": "lib",
-   "label": "usa"
+   "label": "instala"
   },
   {
    "source": "ai-geographic",
    "target": "lib-ai",
    "kind": "lib",
-   "label": "usa"
+   "label": "instala"
   },
   {
    "source": "ai-operational",
    "target": "lib-ai",
    "kind": "lib",
-   "label": "usa"
+   "label": "instala"
   },
   {
    "source": "ai-validation",
    "target": "lib-ai",
    "kind": "lib",
-   "label": "usa"
+   "label": "instala"
   },
   {
    "source": "web-app",
    "target": "lib-web",
-   "kind": "lib",
-   "label": "usa"
+   "kind": "planned",
+   "label": "migração para a lib"
   },
   {
    "source": "web-sandbox",
    "target": "lib-web",
    "kind": "lib",
-   "label": "usa"
+   "label": "instala"
   },
   {
    "source": "api-email",
    "target": "lib-web",
    "kind": "lib",
-   "label": "usa"
+   "label": "instala (tarball, galeria na qa)"
   },
   {
    "source": "docs-reports",
    "target": "lib-web",
    "kind": "lib",
-   "label": "usa"
+   "label": "instala"
   },
   {
    "source": "docs-warehouse",
    "target": "lib-web",
    "kind": "lib",
-   "label": "usa"
+   "label": "instala"
   }
  ]
 }

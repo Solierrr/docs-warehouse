@@ -49,12 +49,18 @@ export interface PlacedNode {
   x: number;
   y: number;
 }
+export interface ContextEntity {
+  id: string;
+  label: string;
+  detail: string;
+  icon?: string;
+  operation?: boolean;
+}
 export interface ContextDiagram {
   kind: "context";
-  people: PlacedNode[];
-  system: PlacedNode;
-  externals: PlacedNode[];
-  edges: FlowEdge[];
+  people: ContextEntity[];
+  system: { label: string; detail: string; contains: string[] };
+  externals: ContextEntity[];
 }
 
 export interface UseCaseDiagram {

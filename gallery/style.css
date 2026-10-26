@@ -406,7 +406,6 @@ select {
   border: 0;
 }
 .diagram-lane,
-.diagram-layer,
 .diagram-boundary {
   position: relative;
   border: 1px solid var(--color-operational-border);
@@ -415,7 +414,6 @@ select {
 .diagram-lane {
   border-radius: 0;
 }
-.diagram-layer,
 .diagram-boundary {
   border-radius: 1rem;
 }
@@ -434,12 +432,8 @@ select {
   text-align: center;
   color: var(--color-operational-ink);
 }
-.diagram-layer .diagram-lane-title {
-  text-align: left;
-}
 .diagram-action,
 .diagram-usecase,
-.diagram-card,
 .diagram-participant,
 .diagram-note {
   font-family: var(--font-ui);
@@ -499,21 +493,6 @@ select {
 .diagram-terminal-end {
   background: var(--color-operational-shell);
   border: 7px double var(--color-operational-ink);
-}
-.diagram-card {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  width: 210px;
-  padding: 0.75rem;
-  border: 1px solid var(--color-operational-border);
-  border-radius: 0.875rem;
-  background: var(--color-operational-shell);
-  box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
-}
-.diagram-card-highlight {
-  width: 260px;
-  border: 2px solid var(--color-orange, #f97316);
 }
 .diagram-card-head {
   display: flex;
@@ -630,4 +609,123 @@ select {
   font-weight: 500;
   line-height: 1.25;
   text-align: center;
+}
+.diagram-band {
+  position: relative;
+  border: 1px solid var(--color-operational-border);
+  border-radius: 1rem;
+  background: var(--color-operational-surface);
+  overflow: hidden;
+}
+.diagram-band-stripe {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 6px;
+}
+.diagram-band-title {
+  position: absolute;
+  top: 1rem;
+  left: 1.5rem;
+  max-width: 13rem;
+  font-family: var(--font-ui);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--color-operational-ink);
+}
+.diagram-band-detail {
+  position: absolute;
+  top: 2.6rem;
+  left: 1.5rem;
+  max-width: 12.5rem;
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--color-operational-muted);
+}
+.diagram-band-anchor {
+  width: 1px;
+}
+.diagram-entity,
+.diagram-member {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  border: 1px solid var(--color-operational-border);
+  border-radius: 0.875rem;
+  background: var(--color-operational-shell);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+  font-family: var(--font-ui);
+  color: var(--color-operational-ink);
+}
+.diagram-entity {
+  width: 250px;
+  min-height: 112px;
+  padding: 0.875rem 1rem;
+  border-top: 4px solid;
+}
+.diagram-entity .diagram-card-detail {
+  font-size: 0.75rem;
+}
+.diagram-entity-person {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 9999px;
+  background: var(--color-operational-surface);
+}
+.diagram-member {
+  width: 220px;
+  height: 92px;
+  padding: 0.625rem 0.75rem;
+}
+.diagram-member-role {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  font-size: 0.6875rem;
+  line-height: 1.35;
+  color: var(--color-operational-muted);
+}
+.diagram-system {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.25rem 1.5rem;
+  border: 2px solid var(--color-orange, #f97316);
+  border-radius: 1.25rem;
+  background: var(--color-operational-shell);
+  box-shadow: 0 6px 20px rgb(249 115 22 / 0.12);
+  font-family: var(--font-ui);
+  color: var(--color-operational-ink);
+  text-align: center;
+}
+.diagram-system-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+.diagram-system-detail {
+  font-size: 0.8125rem;
+  color: var(--color-operational-muted);
+}
+.diagram-system-parts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.375rem;
+  margin: 0.25rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+.diagram-system-parts li {
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  background: var(--color-operational-surface);
+  font-size: 0.75rem;
+  font-weight: 600;
 }
