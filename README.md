@@ -13,6 +13,10 @@ Padrões normativos para todos os repositórios de código, em [`docs/standards/
 - [Autenticação entre serviços](./docs/standards/SERVICE_AUTH.md): `X-Service-Key`, nomes das chaves e ordem segura de troca.
 - [Health checks](./docs/standards/HEALTH.md): vivo e pronto, o que entra no pronto e onde cada caminho é usado.
 
+## Galeria de diagramas
+
+A pasta [`gallery/`](./gallery/) gera o site publicado no GitHub Pages (ambiente `PREVIEW`) com dois diagramas: a organização do repositório (React Flow, gerada a partir das pastas) e a relação entre os serviços (Cytoscape.js, a partir de `gallery/data/services.json`). Para rodar localmente: `cd gallery && npm ci && npm run dev`. Ao criar ou remover um serviço, atualize `services.json`.
+
 ## Templates
 
 - [`templates/README.md`](./templates/README.md#matriz-por-tipo): matriz de arquivos por tipo de repositório e orientação para adaptar o `generic-template` completo.
