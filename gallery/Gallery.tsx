@@ -33,18 +33,21 @@ const groupIcons: Record<DiagramGroup, TablerIcon> = {
   usecase: IconUsers,
 };
 
-const views: View[] = [
-  { id: "repository", section: "repositoryGroup", icon: IconFolders },
-  ...diagrams
-    .filter((entry) => entry.group === "architecture")
-    .map((entry) => ({ id: entry.id, section: entry.group, icon: entry.id === "layers" ? IconStack2 : groupIcons.architecture })),
-  { id: "services", section: "architecture", icon: IconTopologyStar3 },
-  ...diagrams
-    .filter((entry) => entry.group !== "architecture")
-    .map((entry) => ({ id: entry.id, section: entry.group, icon: groupIcons[entry.group] })),
-];
+const diagramViews = (group: DiagramGroup): View[] =>
+  diagrams
+    .filter((entry) => entry.group === group)
+    .map((entry) => ({ id: entry.id, section: group, icon: entry.id === "layers" ? IconStack2 : groupIcons[group] }));
 
-const sections: Section[] = ["repositoryGroup", "architecture", "sequence", "flow", "usecase"];
+// Do geral para o detalhe: visão da plataforma, organização do código, quem faz o quê, os processos e,
+// por fim, as trocas de mensagens entre serviços.
+const views: View[] = [
+  ...diagramViews("architecture"),
+  { id: "services", section: "architecture", icon: IconTopologyStar3 },
+  { id: "repository", section: "repositoryGroup", icon: IconFolders },
+  ...diagramViews("usecase"),
+  ...diagramViews("flow"),
+  ...diagramViews("sequence"),
+];
 
 function viewLabel(id: string, text: Labels) {
   if (id === "repository" || id === "services") return text[id];
@@ -60,7 +63,7 @@ export default function Gallery() {
   const params = new URLSearchParams(hash.slice(1));
   const locale: Locale =
     languages.find((language) => language.code === params.get("locale"))?.code ?? "pt-BR";
-  const view = views.find((item) => item.id === params.get("view"))?.id ?? "repository";
+  const view = views.find((item) => item.id === params.get("view"))?.id ?? views[0].id;
   const entry = diagrams.find((item) => item.id === view);
   const text = labels[locale];
 
@@ -103,28 +106,23 @@ export default function Gallery() {
       <main className="gallery-workspace gallery-workspace-wide">
         <nav aria-label={text.views} className="flex min-h-0 min-w-0 items-start">
           <SurfaceGroup className="gallery-templates" contentClassName="gallery-template-list scrollbar-none">
-            {sections.map((section) => (
-              <section key={section} aria-label={text[section]} className="gallery-section">
-                <p className="gallery-section-title">{text[section]}</p>
-                {views
-                  .filter((item) => item.section === section)
-                  .map((item) => {
-                    const Glyph = item.icon;
-                    const label = viewLabel(item.id, text);
-                    return (
-                      <GroupAction
-                        key={item.id}
-                        label={label}
-                        content={label}
-                        glyph={<Glyph size={20} className="shrink-0" aria-hidden="true" />}
-                        active={view === item.id}
-                        onClick={() => navigate(item.id, locale)}
-                      />
-                    );
-                  })}
-              </section>
-            ))}
-            <p className="p-4 text-sm text-operational-muted">{text.note}</p>
+            {views.map((item, index) => {
+              const Glyph = item.icon;
+              const label = viewLabel(item.id, text);
+              const opensSection = index > 0 && views[index - 1].section !== item.section;
+              return (
+                <GroupAction
+                  key={item.id}
+                  label={label}
+                  content={label}
+                  glyph={<Glyph size={20} className="shrink-0" aria-hidden="true" />}
+                  active={view === item.id}
+                  className={opensSection ? "gallery-section-start" : undefined}
+                  onClick={() => navigate(item.id, locale)}
+                />
+              );
+            })}
+            {locale === "pt-BR" ? null : <p className="p-4 text-operational-muted">{text.note}</p>}
           </SurfaceGroup>
         </nav>
         <section className="diagram-area" aria-label={viewLabel(view, text)}>

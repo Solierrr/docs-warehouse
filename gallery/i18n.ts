@@ -29,11 +29,6 @@ export interface Labels {
   zoomIn: string;
   zoomOut: string;
   changes: string;
-  repositoryGroup: string;
-  architecture: string;
-  sequence: string;
-  flow: string;
-  usecase: string;
   planned: string;
   notInOrg: string;
 }
@@ -63,11 +58,6 @@ export const labels: Record<Locale, Labels> = {
     zoomIn: "Aproximar",
     zoomOut: "Afastar",
     changes: "O que mudou desde o Miro",
-    repositoryGroup: "Repositório",
-    architecture: "Arquitetura",
-    sequence: "Sequências",
-    flow: "Fluxos de negócio",
-    usecase: "Casos de uso",
     planned: "Planejada",
     notInOrg: "Sem repositório próprio (recurso de infraestrutura).",
   },
@@ -95,11 +85,6 @@ export const labels: Record<Locale, Labels> = {
     zoomIn: "Zoom in",
     zoomOut: "Zoom out",
     changes: "What changed since Miro",
-    repositoryGroup: "Repository",
-    architecture: "Architecture",
-    sequence: "Sequences",
-    flow: "Business flows",
-    usecase: "Use cases",
     planned: "Planned",
     notInOrg: "No repository of its own (infrastructure resource).",
   },
@@ -127,11 +112,6 @@ export const labels: Record<Locale, Labels> = {
     zoomIn: "Acercar",
     zoomOut: "Alejar",
     changes: "Qué cambió desde Miro",
-    repositoryGroup: "Repositorio",
-    architecture: "Arquitectura",
-    sequence: "Secuencias",
-    flow: "Flujos de negocio",
-    usecase: "Casos de uso",
     planned: "Planificada",
     notInOrg: "Sin repositorio propio (recurso de infraestructura).",
   },
