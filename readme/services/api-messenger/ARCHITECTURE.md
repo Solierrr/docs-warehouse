@@ -11,9 +11,13 @@
 
 # Arquitetura do repositório
 
-O código segue portas e adaptadores em três pacotes de topo. `core/` guarda modelo, repositórios, casos de uso e integrações, e não importa `rest/` nem `websocket/`. `rest/` é o adaptador HTTP. `websocket/` é o adaptador STOMP e implementa as portas de saída declaradas em `core/service/port`. Os dois adaptadores chamam os mesmos serviços: enviar uma mensagem por `POST /messaging/messages` ou por `/app/messages.send` executa `MessageSendService.sendUserMessage`, com as mesmas regras e os mesmos códigos de erro.
+O código segue portas e adaptadores em três pacotes de topo:
 
-Esta página descreve a ref `feat/rabbitmq-relay-multipod` @ `60d87c9`.
+- **`core/`**: modelo, repositórios, casos de uso e integrações com outros serviços. Não importa `rest/` nem `websocket/`. Declara em `core/service/port` as portas de saída que os adaptadores implementam.
+- **`rest/`**: adaptador HTTP. Recebe as requisições, valida o corpo e chama os serviços de `core/`. Também concentra segurança HTTP, tratamento de erro e documentação OpenAPI.
+- **`websocket/`**: adaptador STOMP. Recebe os comandos `/app/*`, chama os mesmos serviços de `core/` e implementa as portas de saída: publicação de eventos e revogação de sessões.
+
+Os dois adaptadores executam as mesmas regras. Enviar uma mensagem por `POST /messaging/messages` ou por `/app/messages.send` chama `MessageSendService.sendUserMessage`, com os mesmos códigos de erro.
 
 ## Decisões de estrutura
 

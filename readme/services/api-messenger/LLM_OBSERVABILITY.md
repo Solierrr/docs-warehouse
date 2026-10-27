@@ -15,22 +15,11 @@ Esta telemetria descreve o uso dos modelos. A telemetria do próprio serviço (t
 
 ## Ingestão
 
-`POST /internal/observability` responde 201 com o header `Location`. O serviço ignora campos JSON desconhecidos.
+Cada registro descreve uma etapa: o nó do pipeline (`node`), a ordem (`stepOrder`), o tipo (`LLM_CALL` ou `TOOL_CALL`), o modelo, a conversa, os tokens, a latência e o status. Os campos estão no Swagger.
 
-| Campo | Obrigatório | Regra |
-|---|---|---|
-| `node` | sim | texto não vazio |
-| `stepOrder` | sim | inteiro ≥ 0 |
-| `stepType` | sim | `LLM_CALL` ou `TOOL_CALL` |
-| `model` | sim | texto não vazio |
-| `conversationId` | sim | texto não vazio |
-| `tokensIn`, `tokensOut`, `tokensTotal` | sim | inteiros ≥ 0 |
-| `latencyMs` | sim | número ≥ 0 |
-| `status` | sim | texto livre |
-| `environment` | não | `LOCAL`, `QA` ou `PROD` |
-| `error` | não | texto livre |
-| `timestamp` | não | o padrão é o instante do recebimento |
-| `costUsd` | não | número ≥ 0. O padrão é 0.0 |
+- Tokens, latência, ordem e custo não aceitam valores negativos.
+- Sem `timestamp`, o serviço usa o instante do recebimento. Sem `costUsd`, grava 0.0.
+- Campos JSON desconhecidos são ignorados.
 
 O serviço grava os valores como chegam. Ele não confere se `tokensTotal` é a soma de `tokensIn` e `tokensOut`, não recalcula o custo e não confere se a conversa existe.
 

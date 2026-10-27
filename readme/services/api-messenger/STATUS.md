@@ -9,7 +9,7 @@
 
 # Estado atual do serviço
 
-Comportamentos do código em `feat/rabbitmq-relay-multipod` @ `60d87c9` que um leitor não espera, e pontos em que o serviço diverge dos padrões da organização. Esta página registra o que existe. Ela não decide correções.
+Comportamentos do código que um leitor não espera, e pontos em que o serviço diverge dos padrões da organização. Esta página registra o que existe. Ela não decide correções.
 
 ## Regras de negócio
 
