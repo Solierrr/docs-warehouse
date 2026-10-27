@@ -1,0 +1,4 @@
+node_modules/
+dist/
+data/repository.json
+data/stack.json

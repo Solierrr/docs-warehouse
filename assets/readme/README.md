@@ -121,3 +121,19 @@ Exemplo de README já montado: [`readme/services/api-messenger/README.md`](../..
 | `kubernetes-secret.png` | Kubernetes, recurso Secret |
 | `github-copilot.png` | GitHub Copilot, usado na documentação dos rulesets |
 | `mailpit.png` | Mailpit, caixa de e-mail local usada pelo `api-email` |
+| `react.png` | React |
+| `neo4j.png` | Neo4j |
+| `databricks.png` | Databricks |
+| `rabbitmq.png` | RabbitMQ |
+| `kong.png` | Kong |
+| `argocd.png` | Argo CD |
+| `grafana.png` | Grafana |
+| `terraform.png` | Terraform |
+| `k6.png` | k6 |
+| `html.png` | HTML5 |
+| `markdown.png` | Markdown |
+| `github.png` | GitHub |
+| `mcp.png` | Model Context Protocol (MCP) |
+| `jetpack-compose.png` | Jetpack Compose |
+
+Os ícones de React a Jetpack Compose vieram do [theSVG](https://thesvg.org/) (licença MIT, as marcas continuam dos seus donos), convertidos para a mesma moldura dos demais.

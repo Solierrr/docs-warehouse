@@ -13,6 +13,10 @@ Padrões normativos para todos os repositórios de código, em [`docs/standards/
 - [Autenticação entre serviços](./docs/standards/SERVICE_AUTH.md): `X-Service-Key`, nomes das chaves e ordem segura de troca.
 - [Health checks](./docs/standards/HEALTH.md): vivo e pronto, o que entra no pronto e onde cada caminho é usado.
 
+## Galeria de diagramas
+
+A pasta [`gallery/`](./gallery/) gera o site publicado no GitHub Pages (ambiente `PREVIEW`) com a organização do repositório (React Flow, gerada a partir das pastas), a relação entre os serviços (Sigma.js, a partir de `gallery/data/services.json`, com os repositórios, os bancos, os ambientes de execução e os serviços gerenciados de que dependem) e os diagramas de arquitetura, sequência, fluxos de negócio e casos de uso (React Flow, a partir de `gallery/data/diagrams.json`). Esses diagramas vieram do board do Miro e foram atualizados para o que o código faz hoje. Cada um registra o que mudou em relação ao original. Cada serviço aparece com o ícone da sua stack, e o detalhe mostra as tecnologias na ordem da linha de ícones do README em `readme/services`. Os ícones da página são os SVGs do pacote `thesvg`, mapeados em `gallery/stackIcons.ts`. As imagens de `assets/readme` ficam só para os documentos Markdown. Para rodar localmente: `cd gallery && npm ci && npm run dev`. Ao criar ou remover um serviço, atualize `services.json`, incluindo o campo `icon` com um nome que exista em `stackIcons.ts`.
+
 ## Templates
 
 - [`templates/README.md`](./templates/README.md#matriz-por-tipo): matriz de arquivos por tipo de repositório e orientação para adaptar o `generic-template` completo.

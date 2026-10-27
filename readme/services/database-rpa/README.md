@@ -13,7 +13,7 @@
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/database-rpa)](https://github.com/Solierrr/database-rpa/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/database-rpa)](https://github.com/Solierrr/database-rpa/releases)
 
-Esta rotina migrou usuários e dados de um banco de dados antigo para o banco principal da plataforma. Ela lê o banco antigo sem alterá-lo, converte as informações para o formato novo e completa com dados fictícios os campos que o banco antigo não possuía. A execução pode ser repetida sem duplicar registros. Não há publicação conhecida em nenhum ambiente, e o uso contra um banco real exige revisão prévia dos dados.
+Esta rotina migra usuários e dados de um banco de dados antigo para o banco principal da plataforma. Ela lê o banco antigo sem alterá-lo, converte as informações para o formato novo e completa com dados fictícios os campos que o banco antigo não possuía. A execução pode ser repetida sem duplicar registros e pode rodar todos os dias de forma automática, depois que as conexões forem configuradas. O uso contra um banco real exige revisão prévia dos dados.
 
 ## Aprofunde-se no Projeto!
 
