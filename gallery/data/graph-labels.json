@@ -11,6 +11,7 @@
    "secrets": "Segredos",
    "deploy": "Publicação",
    "standards": "Padrões e templates",
+   "source": "Código e configuração",
    "lib": "Biblioteca",
    "planned": "Planejada"
   },
@@ -25,6 +26,7 @@
    "secrets": "Secrets",
    "deploy": "Deployment",
    "standards": "Standards and templates",
+   "source": "Code and configuration",
    "lib": "Library",
    "planned": "Planned"
   },
@@ -39,6 +41,7 @@
    "secrets": "Secretos",
    "deploy": "Publicación",
    "standards": "Estándares y plantillas",
+   "source": "Código y configuración",
    "lib": "Biblioteca",
    "planned": "Planificada"
   }
@@ -79,6 +82,26 @@
    "lib": "Biblioteca y documentación",
    "environment": "Entorno y distribución",
    "managed": "Servicio gestionado"
+  }
+ },
+ "ui": {
+  "pt-BR": {
+   "groups": "Grupos",
+   "searchServices": "Buscar serviço ou repositório",
+   "searchResults": "Resultados da busca",
+   "noResults": "Nenhum serviço encontrado."
+  },
+  "en-US": {
+   "groups": "Groups",
+   "searchServices": "Search services or repositories",
+   "searchResults": "Search results",
+   "noResults": "No service found."
+  },
+  "es-ES": {
+   "groups": "Grupos",
+   "searchServices": "Buscar servicio o repositorio",
+   "searchResults": "Resultados de búsqueda",
+   "noResults": "No se encontraron servicios."
   }
  }
 }

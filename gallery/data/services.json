@@ -781,6 +781,90 @@
    "label": "relay STOMP"
   },
   {
+   "source": "web-worker",
+   "target": "web-app",
+   "kind": "source",
+   "label": "sincronização de rotas e idiomas"
+  },
+  {
+   "source": "infra-gitops",
+   "target": "ai-accessibility",
+   "kind": "source",
+   "label": "manifestos versionados"
+  },
+  {
+   "source": "infra-gitops",
+   "target": "ai-assistant",
+   "kind": "source",
+   "label": "manifestos versionados"
+  },
+  {
+   "source": "infra-gitops",
+   "target": "ai-validation",
+   "kind": "source",
+   "label": "manifestos versionados"
+  },
+  {
+   "source": "infra-gitops",
+   "target": "api-auth",
+   "kind": "source",
+   "label": "manifestos versionados"
+  },
+  {
+   "source": "infra-gitops",
+   "target": "api-core",
+   "kind": "source",
+   "label": "manifestos versionados"
+  },
+  {
+   "source": "infra-gitops",
+   "target": "api-messenger",
+   "kind": "source",
+   "label": "manifestos versionados"
+  },
+  {
+   "source": "infra-gitops",
+   "target": "api-notify",
+   "kind": "source",
+   "label": "manifestos versionados"
+  },
+  {
+   "source": "infra-gitops",
+   "target": "api-recommendation",
+   "kind": "source",
+   "label": "manifestos versionados"
+  },
+  {
+   "source": "infra-gitops",
+   "target": "mcp-database",
+   "kind": "source",
+   "label": "manifestos versionados"
+  },
+  {
+   "source": "infra-gitops",
+   "target": "web-app",
+   "kind": "source",
+   "label": "manifestos versionados"
+  },
+  {
+   "source": "infra-stress",
+   "target": "web-app",
+   "kind": "http",
+   "label": "testes de carga"
+  },
+  {
+   "source": "ai-geographic",
+   "target": "api-messenger",
+   "kind": "http",
+   "label": "conversas e mensagens"
+  },
+  {
+   "source": "ai-assistant",
+   "target": "api-core",
+   "kind": "http",
+   "label": "unidades do usuário"
+  },
+  {
    "source": "ai-assistant",
    "target": "mcp-database",
    "kind": "http",

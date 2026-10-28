@@ -2,8 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { MultiDirectedGraph } from "graphology";
 import { forceCollide, forceLink, forceManyBody, forceSimulation, forceX, forceY, type SimulationNodeDatum } from "d3-force";
 import Sigma from "sigma";
-import { extremityArrow, layerDashed, layerFill, pathCurved, sdfSquare } from "sigma/rendering";
-import { layerImage } from "@sigma/node-image";
+import { extremityArrow, layerDashed, layerFill, pathCurved, sdfCircle } from "sigma/rendering";
 import { Checkbox, GroupAction, MenuList, Surface, SurfaceGroup } from "@solaria.network/web-lib";
 import { IconExternalLink, IconFilter, IconFocusCentered, IconZoomIn, IconZoomOut } from "@tabler/icons-react";
 import graphLabels from "./data/graph-labels.json";
@@ -11,7 +10,7 @@ import data from "./data/services.json";
 import stackData from "./data/stack.json";
 import { labels, type Locale } from "./i18n";
 import { groupColors } from "./palette";
-import { monogramTile, nodeTile, stackIcon, svgUrl } from "./stackIcons";
+import { monogramTile, stackIcon, svgUrl } from "./stackIcons";
 
 type Kind =
   | "http"
@@ -24,6 +23,7 @@ type Kind =
   | "secrets"
   | "deploy"
   | "standards"
+  | "source"
   | "lib"
   | "planned";
 
@@ -56,7 +56,7 @@ const groupNames = graphLabels.groups as Record<Locale, Record<string, string>>;
 
 
 const kindColors: Record<Kind, string> = {
-  http: "#64748b",
+  http: "#475569",
   data: "#16a34a",
   a2a: "#ec4899",
   jwks: "#8b5cf6",
@@ -66,22 +66,24 @@ const kindColors: Record<Kind, string> = {
   secrets: "#ef4444",
   deploy: "#6366f1",
   standards: "#78716c",
+  source: "#6366f1",
   lib: "#a16207",
   planned: "#94a3b8",
 };
 
-// Espessura, traço e intervalo (em pixels) de cada tipo de relação. Intervalo zero desenha linha contínua.
+// Espessura, traço e intervalo (em pixels) de cada tipo de relação.
 const kindLines: Record<Kind, { size: number; dash: number; gap: number }> = {
-  http: { size: 1.5, dash: 10, gap: 0 },
+  http: { size: 2, dash: 10, gap: 0.1 },
   data: { size: 2, dash: 2, gap: 3 },
   a2a: { size: 3, dash: 8, gap: 4 },
   jwks: { size: 1.5, dash: 6, gap: 4 },
   assets: { size: 1.5, dash: 4, gap: 3 },
   observability: { size: 1.5, dash: 3, gap: 3 },
-  hosting: { size: 2.5, dash: 10, gap: 0 },
+  hosting: { size: 2.5, dash: 10, gap: 0.1 },
   secrets: { size: 2, dash: 8, gap: 3 },
-  deploy: { size: 1.5, dash: 10, gap: 0 },
+  deploy: { size: 1.5, dash: 10, gap: 0.1 },
   standards: { size: 1, dash: 2, gap: 5 },
+  source: { size: 1.5, dash: 5, gap: 4 },
   lib: { size: 1.5, dash: 2, gap: 4 },
   planned: { size: 1.5, dash: 6, gap: 6 },
 };
@@ -97,11 +99,12 @@ const kindOrder: Kind[] = [
   "secrets",
   "deploy",
   "standards",
+  "source",
   "lib",
   "planned",
 ];
 // Relações em grande número que não entram nas molas da física, para não puxar o desenho para um nó só.
-const looseKinds = new Set<Kind>(["deploy", "standards", "lib"]);
+const looseKinds = new Set<Kind>(["deploy", "standards", "source", "lib"]);
 const displayName = (node: ServiceNode) =>
   node.group === "environment" || node.group === "managed" ? node.stack : node.id;
 const organization = "https://github.com/Solierrr";
@@ -121,7 +124,7 @@ const groupAnchors: Record<string, [number, number]> = {
 };
 const anchorOf = (group: string) => groupAnchors[group] ?? [0, 0];
 const zoomStep = 1.5;
-const nodeSize = 18;
+const nodeSize = 10;
 const labelFamily = '"Plus Jakarta Sans", sans-serif';
 
 interface SimulationNode extends SimulationNodeDatum {
@@ -156,11 +159,12 @@ function simulate(graph: MultiDirectedGraph) {
     )
     .force("charge", forceManyBody().strength(-110))
     .force("collide", forceCollide(nodeSize * 2.3))
-    .force("x", forceX<SimulationNode>((node) => anchorOf(node.group)[0]).strength(0.14))
-    .force("y", forceY<SimulationNode>((node) => anchorOf(node.group)[1]).strength(0.14))
+    .force("x", forceX<SimulationNode>((node) => anchorOf(node.group)[0]).strength(0.025))
+    .force("y", forceY<SimulationNode>((node) => anchorOf(node.group)[1]).strength(0.025))
+    .alphaDecay(0.06)
     .stop();
   // Assenta antes do primeiro desenho, para o enquadramento inicial já pegar o formato final.
-  simulation.tick(300);
+  simulation.tick(180);
   apply();
   simulation.on("tick", apply);
   return { simulation, byId };
@@ -198,7 +202,8 @@ function buildGraph() {
       y: ay + Math.sin(angle) * radius,
       size: nodeSize,
       color: groupColors[node.group] ?? "#64748b",
-      image: "",
+      hidden: false,
+      focused: false,
     });
   });
   edges.forEach((edge, index) => {
@@ -215,26 +220,35 @@ function buildGraph() {
 
 export default function ServiceGraph({ locale }: { locale: Locale }) {
   const text = labels[locale];
+  const graphText = graphLabels.ui[locale];
   const container = useRef<HTMLDivElement>(null);
   const renderer = useRef<Sigma | null>(null);
   const toolbar = useRef<HTMLDivElement>(null);
+  const searchBox = useRef<HTMLDivElement>(null);
+  const focusedNode = useRef<string | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [filtersOpen, setFiltersOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [groups, setGroups] = useState<Record<string, boolean>>(() =>
+    Object.fromEntries(Object.keys(groupColors).map((group) => [group, true])),
+  );
   const [ready, setReady] = useState(false);
   const [enabled, setEnabled] = useState<Record<Kind, boolean>>({
     http: true,
     data: true,
     a2a: true,
-    jwks: true,
-    assets: true,
-    observability: true,
-    hosting: true,
-    secrets: true,
+    jwks: false,
+    assets: false,
+    observability: false,
+    hosting: false,
+    secrets: false,
     deploy: false,
     standards: false,
+    source: false,
     lib: false,
-    planned: true,
+    planned: false,
   });
 
   useEffect(() => {
@@ -265,9 +279,8 @@ export default function ServiceGraph({ locale }: { locale: Locale }) {
     const instance = new Sigma(graph, element, {
       primitives: {
         nodes: {
-          shapes: [sdfSquare({ cornerRadius: 0.32 })],
-          variables: { image: { type: "string", default: "" } },
-          layers: [layerFill(), layerImage({ drawingMode: "image", padding: 0.1 })],
+          shapes: [sdfCircle()],
+          layers: [layerFill()],
         },
         edges: {
           paths: [pathCurved()],
@@ -289,9 +302,9 @@ export default function ServiceGraph({ locale }: { locale: Locale }) {
           {
             x: { attribute: "x" },
             y: { attribute: "y" },
-            size: { whenState: "isHovered", then: (attributes) => attributes.size * 1.15, else: { attribute: "size" } },
+            size: (attributes, state) => state.isHovered ? attributes.size * 1.15 : attributes.size,
             color: { attribute: "color" },
-            image: { attribute: "image" },
+            visibility: (attributes) => attributes.hidden ? "hidden" : "visible",
             label: { attribute: "label" },
             labelColor: ink,
             labelSize: 12,
@@ -299,16 +312,11 @@ export default function ServiceGraph({ locale }: { locale: Locale }) {
             labelPosition: "below",
             labelBackgroundColor: shell,
             labelBackgroundPadding: 2,
-            cursor: (_attributes, state) => (state.isDragged ? "grabbing" : "grab"),
-            depth: { whenState: "isHovered", then: "topNodes", else: "nodes" },
-          },
-          {
-            when: (_attributes, state, graphState) => graphState.hasHighlighted && !state.isHighlighted,
-            then: { opacity: 0.15, labelVisibility: "hidden" },
-          },
-          {
-            when: (_attributes, state, graphState) => graphState.hasHighlighted && state.isHighlighted,
-            then: { depth: "topNodes", labelVisibility: "visible" },
+            cursor: (_attributes, state) => state.isDragged ? "grabbing" : "grab",
+            opacity: (_attributes, state, graphState) => graphState.hasHighlighted && !state.isHighlighted ? 0.15 : 1,
+            labelVisibility: (attributes, state, graphState) =>
+              attributes.focused ? "visible" : graphState.hasHighlighted && !state.isHighlighted ? "hidden" : "auto",
+            depth: (attributes, state) => attributes.focused || state.isHovered || state.isHighlighted ? "topNodes" : "nodes",
           },
         ],
         edges: [
@@ -336,7 +344,8 @@ export default function ServiceGraph({ locale }: { locale: Locale }) {
       },
       settings: {
         enableNodeDrag: true,
-        labelDensity: 1,
+        labelDensity: 0.6,
+        labelRenderedSizeThreshold: 4,
         autoRescale: "once",
         autoRescaleContent: "labels",
         stagePadding: 40,
@@ -344,8 +353,13 @@ export default function ServiceGraph({ locale }: { locale: Locale }) {
         maxCameraRatio: 3,
       },
     });
-    instance.on("clickNode", ({ node }) => setSelectedId(node));
-    instance.on("clickStage", () => setSelectedId(null));
+    instance.on("clickNode", ({ node }) => {
+      setSelectedId(node);
+      const selected = nodes.find((item) => item.id === node);
+      setQuery(selected ? displayName(selected) : "");
+      setSearchOpen(false);
+    });
+    instance.on("clickStage", () => { setSelectedId(null); setQuery(""); });
     instance.on("enterNode", ({ node }) => setHoveredId(node));
     instance.on("leaveNode", () => setHoveredId(null));
     renderer.current = instance;
@@ -353,12 +367,10 @@ export default function ServiceGraph({ locale }: { locale: Locale }) {
     const resize = new ResizeObserver(() => instance.resize());
     resize.observe(element);
 
-    // Um empurrão leve na entrada, para o grafo chegar se acomodando.
-    simulation.alpha(0.15).restart();
     instance.on("nodeDragStart", ({ node }) => {
       const dragged = byId.get(node);
       if (dragged) [dragged.fx, dragged.fy] = [dragged.x, dragged.y];
-      simulation.alphaTarget(0.3).restart();
+      simulation.alphaTarget(0.15).alpha(0.3).restart();
     });
     instance.on("nodeDrag", ({ node }) => {
       const dragged = byId.get(node);
@@ -370,19 +382,7 @@ export default function ServiceGraph({ locale }: { locale: Locale }) {
       simulation.alphaTarget(0);
     });
 
-    let active = true;
-    void Promise.all(
-      nodes.map(async (node) => {
-        const icon = stackIcon(node.icon);
-        return [node.id, icon ? await nodeTile(icon.svg) : monogramTile(displayName(node))] as const;
-      }),
-    ).then((entries) => {
-      if (!active) return;
-      entries.forEach(([id, tile]) => graph.setNodeAttribute(id, "image", tile));
-    });
-
     return () => {
-      active = false;
       resize.disconnect();
       simulation.stop();
       instance.kill();
@@ -391,24 +391,41 @@ export default function ServiceGraph({ locale }: { locale: Locale }) {
   }
 
   useEffect(() => {
+    const graph = renderer.current?.getGraph();
+    if (!graph) return;
+    graph.updateEachNodeAttributes((_id, attributes) => ({ ...attributes, hidden: !groups[attributes.group as string] }),
+      { attributes: ["hidden"] });
+    graph.updateEachEdgeAttributes((_id, attributes, source, target) => ({
+      ...attributes,
+      hidden: !enabled[attributes.kind as Kind] || !groups[graph.getNodeAttribute(source, "group")] ||
+        !groups[graph.getNodeAttribute(target, "group")],
+    }), { attributes: ["hidden"] });
+  }, [enabled, groups, ready]);
+
+  useEffect(() => {
+    const selected = nodes.find((node) => node.id === selectedId);
+    if (selected && !groups[selected.group]) setSelectedId(null);
+  }, [groups, selectedId]);
+
+  useEffect(() => {
     const instance = renderer.current;
     if (!instance) return;
     const graph = instance.getGraph();
-    graph.forEachEdge((edge, attributes) => {
-      graph.setEdgeAttribute(edge, "hidden", !enabled[attributes.kind as Kind]);
-    });
-    const focus = selectedId ?? hoveredId;
-    const visibleEdges = focus
-      ? graph.edges(focus).filter((edge) => !graph.getEdgeAttribute(edge, "hidden"))
-      : [];
+    const candidate = hoveredId ?? selectedId;
+    const focus = candidate && !graph.getNodeAttribute(candidate, "hidden") ? candidate : null;
+    if (focusedNode.current && focusedNode.current !== focus) graph.setNodeAttribute(focusedNode.current, "focused", false);
+    if (focus && focusedNode.current !== focus) graph.setNodeAttribute(focus, "focused", true);
+    focusedNode.current = focus;
+    const visibleEdges = focus && !graph.getNodeAttribute(focus, "hidden")
+      ? graph.edges(focus).filter((edge) => !graph.getEdgeAttribute(edge, "hidden")) : [];
     const neighborhood = new Set(focus ? [focus] : []);
     visibleEdges.forEach((edge) => graph.extremities(edge).forEach((node) => neighborhood.add(node)));
     instance.setNodesState(graph.nodes(), { isHighlighted: false });
     instance.setEdgesState(graph.edges(), { isHighlighted: false });
     instance.setNodesState([...neighborhood], { isHighlighted: true });
     instance.setEdgesState(visibleEdges, { isHighlighted: true });
-    instance.setGraphState({ hasHighlighted: focus !== null });
-  }, [enabled, selectedId, hoveredId, ready]);
+    instance.setGraphState({ hasHighlighted: visibleEdges.length > 0 || !!focus });
+  }, [enabled, groups, selectedId, hoveredId, ready]);
 
   useEffect(() => {
     if (!filtersOpen) return;
@@ -425,9 +442,38 @@ export default function ServiceGraph({ locale }: { locale: Locale }) {
     };
   }, [filtersOpen]);
 
+  useEffect(() => {
+    if (!searchOpen) return;
+    const close = (event: PointerEvent) => {
+      if (!searchBox.current?.contains(event.target as Node)) setSearchOpen(false);
+    };
+    document.addEventListener("pointerdown", close);
+    return () => document.removeEventListener("pointerdown", close);
+  }, [searchOpen]);
+
   const selected = nodes.find((node) => node.id === selectedId);
   const selectedIcon = selected ? stackIcon(selected.icon) : undefined;
   const selectedRow = selected ? stackRow(selected.id) : [];
+
+  const searchResults = query.trim()
+    ? nodes.filter((node) => `${displayName(node)} ${node.id}`.toLocaleLowerCase().includes(query.trim().toLocaleLowerCase())).slice(0, 10)
+    : [];
+
+  function selectNode(id: string) {
+    const node = nodes.find((item) => item.id === id);
+    if (!node) return;
+    setGroups((current) => ({ ...current, [node.group]: true }));
+    setSelectedId(id);
+    setHoveredId(null);
+    setSearchOpen(false);
+    setQuery(displayName(node));
+    const instance = renderer.current;
+    if (instance) {
+      const attributes = instance.getGraph().getNodeAttributes(id);
+      const center = instance.graphToFramedGraph({ x: attributes.x, y: attributes.y });
+      void instance.getCamera().animate({ ...center, ratio: 0.55 }, { duration: 250 });
+    }
+  }
 
   function zoom(factor: number) {
     const camera = renderer.current?.getCamera();
@@ -436,15 +482,15 @@ export default function ServiceGraph({ locale }: { locale: Locale }) {
   const relations = useMemo(() => {
     if (!selected) return { outgoing: [], incoming: [] };
     return {
-      outgoing: edges.filter((edge) => edge.source === selected.id && enabled[edge.kind]),
-      incoming: edges.filter((edge) => edge.target === selected.id && enabled[edge.kind]),
+      outgoing: edges.filter((edge) => edge.source === selected.id && enabled[edge.kind] && groups[nodes.find((node) => node.id === edge.target)?.group ?? ""]),
+      incoming: edges.filter((edge) => edge.target === selected.id && enabled[edge.kind] && groups[nodes.find((node) => node.id === edge.source)?.group ?? ""]),
     };
-  }, [selected, enabled]);
+  }, [selected, enabled, groups]);
 
   function relationItem(edge: ServiceEdge, other: string) {
     return (
       <li key={`${edge.source}-${edge.target}-${edge.kind}`}>
-        <button type="button" className="relation-link" onClick={() => setSelectedId(other)}>
+        <button type="button" className="relation-link" onClick={() => selectNode(other)}>
           {other}
         </button>
         <span className="relation-kind" style={{ color: kindColors[edge.kind] }}>
@@ -456,8 +502,28 @@ export default function ServiceGraph({ locale }: { locale: Locale }) {
   }
 
   return (
-    <div className={`diagram-layout${selected ? "" : " diagram-layout-single"}`}>
+    <div className={`diagram-layout graph-service${selected ? "" : " diagram-layout-single"}`}>
       <Surface className="diagram-canvas" contentClassName="diagram-canvas-content">
+        <div className="graph-search" ref={searchBox}>
+          <label className="sr-only" htmlFor="service-graph-search">{graphText.searchServices}</label>
+          <input id="service-graph-search" type="search" value={query} placeholder={graphText.searchServices}
+            autoComplete="off" onFocus={() => setSearchOpen(true)}
+            onChange={(event) => { setQuery(event.target.value); setSearchOpen(true); }}
+            onKeyDown={(event) => {
+              if (event.key === "Escape") setSearchOpen(false);
+              if (event.key === "Enter" && searchResults[0]) { event.preventDefault(); selectNode(searchResults[0].id); }
+            }} />
+          {searchOpen && query.trim() && (
+            <ul className="graph-search-results" aria-label={graphText.searchResults}>
+              {searchResults.length ? searchResults.map((node) => (
+                <li key={node.id}><button type="button" onClick={() => selectNode(node.id)}>
+                  <span className="graph-swatch" style={{ background: groupColors[node.group] }} />
+                  {displayName(node)} <span>{groupNames[locale][node.group]}</span>
+                </button></li>
+              )) : <li className="graph-search-empty">{graphText.noResults}</li>}
+            </ul>
+          )}
+        </div>
         <div className="graph-toolbar" ref={toolbar}>
           <SurfaceGroup
             direction="horizontal"
@@ -496,6 +562,15 @@ export default function ServiceGraph({ locale }: { locale: Locale }) {
           </SurfaceGroup>
           {filtersOpen && (
             <MenuList className="graph-filter-menu" role="group" aria-label={text.filters}>
+              <li className="graph-filter-heading">{graphText.groups}</li>
+              {Object.keys(groupColors).map((group) => (
+                <li key={group} className="graph-filter-item">
+                  <span className="graph-swatch" style={{ background: groupColors[group] }} aria-hidden="true" />
+                  <Checkbox label={groupNames[locale][group]} checked={groups[group]}
+                    onChange={(event) => setGroups((current) => ({ ...current, [group]: event.target.checked }))} />
+                </li>
+              ))}
+              <li className="graph-filter-heading">{text.relations}</li>
               {kindOrder.map((kind) => (
                 <li key={kind} className="graph-filter-item">
                   <span className="graph-swatch" style={{ background: kindColors[kind] }} aria-hidden="true" />
