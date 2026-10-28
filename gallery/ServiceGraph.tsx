@@ -220,6 +220,7 @@ function buildGraph() {
 
 export default function ServiceGraph({ locale }: { locale: Locale }) {
   const text = labels[locale];
+  const graphText = graphLabels.ui[locale];
   const container = useRef<HTMLDivElement>(null);
   const renderer = useRef<Sigma | null>(null);
   const toolbar = useRef<HTMLDivElement>(null);
@@ -301,9 +302,9 @@ export default function ServiceGraph({ locale }: { locale: Locale }) {
           {
             x: { attribute: "x" },
             y: { attribute: "y" },
-            size: { whenState: "isHovered", then: (attributes) => attributes.size * 1.15, else: { attribute: "size" } },
+            size: (attributes, state) => state.isHovered ? attributes.size * 1.15 : attributes.size,
             color: { attribute: "color" },
-            visibility: { whenData: { hidden: true }, then: "hidden", else: "visible" },
+            visibility: (attributes) => attributes.hidden ? "hidden" : "visible",
             label: { attribute: "label" },
             labelColor: ink,
             labelSize: 12,
@@ -311,20 +312,11 @@ export default function ServiceGraph({ locale }: { locale: Locale }) {
             labelPosition: "below",
             labelBackgroundColor: shell,
             labelBackgroundPadding: 2,
-            cursor: (_attributes, state) => (state.isDragged ? "grabbing" : "grab"),
-            depth: { whenState: "isHovered", then: "topNodes", else: "nodes" },
-          },
-          {
-            when: (_attributes, state, graphState) => graphState.hasHighlighted && !state.isHighlighted,
-            then: { opacity: 0.15, labelVisibility: "hidden" },
-          },
-          {
-            when: (_attributes, state, graphState) => graphState.hasHighlighted && state.isHighlighted,
-            then: { depth: "topNodes" },
-          },
-          {
-            when: (attributes) => attributes.focused === true,
-            then: { labelVisibility: "visible", depth: "topNodes" },
+            cursor: (_attributes, state) => state.isDragged ? "grabbing" : "grab",
+            opacity: (_attributes, state, graphState) => graphState.hasHighlighted && !state.isHighlighted ? 0.15 : 1,
+            labelVisibility: (attributes, state, graphState) =>
+              attributes.focused ? "visible" : graphState.hasHighlighted && !state.isHighlighted ? "hidden" : "auto",
+            depth: (attributes, state) => attributes.focused || state.isHovered || state.isHighlighted ? "topNodes" : "nodes",
           },
         ],
         edges: [
@@ -513,8 +505,8 @@ export default function ServiceGraph({ locale }: { locale: Locale }) {
     <div className={`diagram-layout graph-service${selected ? "" : " diagram-layout-single"}`}>
       <Surface className="diagram-canvas" contentClassName="diagram-canvas-content">
         <div className="graph-search" ref={searchBox}>
-          <label className="sr-only" htmlFor="service-graph-search">{text.searchServices}</label>
-          <input id="service-graph-search" type="search" value={query} placeholder={text.searchServices}
+          <label className="sr-only" htmlFor="service-graph-search">{graphText.searchServices}</label>
+          <input id="service-graph-search" type="search" value={query} placeholder={graphText.searchServices}
             autoComplete="off" onFocus={() => setSearchOpen(true)}
             onChange={(event) => { setQuery(event.target.value); setSearchOpen(true); }}
             onKeyDown={(event) => {
@@ -522,13 +514,13 @@ export default function ServiceGraph({ locale }: { locale: Locale }) {
               if (event.key === "Enter" && searchResults[0]) { event.preventDefault(); selectNode(searchResults[0].id); }
             }} />
           {searchOpen && query.trim() && (
-            <ul className="graph-search-results" aria-label={text.searchResults}>
+            <ul className="graph-search-results" aria-label={graphText.searchResults}>
               {searchResults.length ? searchResults.map((node) => (
                 <li key={node.id}><button type="button" onClick={() => selectNode(node.id)}>
                   <span className="graph-swatch" style={{ background: groupColors[node.group] }} />
                   {displayName(node)} <span>{groupNames[locale][node.group]}</span>
                 </button></li>
-              )) : <li className="graph-search-empty">{text.noResults}</li>}
+              )) : <li className="graph-search-empty">{graphText.noResults}</li>}
             </ul>
           )}
         </div>
@@ -570,7 +562,7 @@ export default function ServiceGraph({ locale }: { locale: Locale }) {
           </SurfaceGroup>
           {filtersOpen && (
             <MenuList className="graph-filter-menu" role="group" aria-label={text.filters}>
-              <li className="graph-filter-heading">{text.groups}</li>
+              <li className="graph-filter-heading">{graphText.groups}</li>
               {Object.keys(groupColors).map((group) => (
                 <li key={group} className="graph-filter-item">
                   <span className="graph-swatch" style={{ background: groupColors[group] }} aria-hidden="true" />

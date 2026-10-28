@@ -83,5 +83,25 @@
    "environment": "Entorno y distribución",
    "managed": "Servicio gestionado"
   }
+ },
+ "ui": {
+  "pt-BR": {
+   "groups": "Grupos",
+   "searchServices": "Buscar serviço ou repositório",
+   "searchResults": "Resultados da busca",
+   "noResults": "Nenhum serviço encontrado."
+  },
+  "en-US": {
+   "groups": "Groups",
+   "searchServices": "Search services or repositories",
+   "searchResults": "Search results",
+   "noResults": "No service found."
+  },
+  "es-ES": {
+   "groups": "Grupos",
+   "searchServices": "Buscar servicio o repositorio",
+   "searchResults": "Resultados de búsqueda",
+   "noResults": "No se encontraron servicios."
+  }
  }
 }
