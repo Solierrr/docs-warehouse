@@ -25,6 +25,10 @@ export interface Labels {
   outgoing: string;
   incoming: string;
   filters: string;
+  groups: string;
+  searchServices: string;
+  searchResults: string;
+  noResults: string;
   reset: string;
   zoomIn: string;
   zoomOut: string;
@@ -53,7 +57,11 @@ export const labels: Record<Locale, Labels> = {
     relations: "Relações",
     outgoing: "Usa",
     incoming: "É usado por",
-    filters: "Tipos de relação",
+    filters: "Filtros do grafo",
+    groups: "Grupos",
+    searchServices: "Buscar serviço ou repositório",
+    searchResults: "Resultados da busca",
+    noResults: "Nenhum serviço encontrado.",
     reset: "Reenquadrar",
     zoomIn: "Aproximar",
     zoomOut: "Afastar",
@@ -80,7 +88,11 @@ export const labels: Record<Locale, Labels> = {
     relations: "Relations",
     outgoing: "Uses",
     incoming: "Used by",
-    filters: "Relation types",
+    filters: "Graph filters",
+    groups: "Groups",
+    searchServices: "Search services or repositories",
+    searchResults: "Search results",
+    noResults: "No service found.",
     reset: "Fit view",
     zoomIn: "Zoom in",
     zoomOut: "Zoom out",
@@ -107,7 +119,11 @@ export const labels: Record<Locale, Labels> = {
     relations: "Relaciones",
     outgoing: "Usa",
     incoming: "Es usado por",
-    filters: "Tipos de relación",
+    filters: "Filtros del grafo",
+    groups: "Grupos",
+    searchServices: "Buscar servicio o repositorio",
+    searchResults: "Resultados de búsqueda",
+    noResults: "No se encontraron servicios.",
     reset: "Reencuadrar",
     zoomIn: "Acercar",
     zoomOut: "Alejar",
