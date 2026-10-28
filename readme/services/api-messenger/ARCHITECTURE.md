@@ -5,99 +5,134 @@
 <p align="center">
   <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/java.png" width="100" hspace="8" alt="Java" title="Java">
   <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/spring-security.png" width="100" hspace="8" alt="Spring Security" title="Spring Security">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/jwt.png" width="100" hspace="8" alt="JWT" title="JWT">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/maven.png" width="100" hspace="8" alt="Maven" title="Maven">
   <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/mongodb.png" width="100" hspace="8" alt="MongoDB" title="MongoDB">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/swagger.png" width="100" hspace="8" alt="Swagger" title="Swagger">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/bruno.png" width="100" hspace="8" alt="Bruno" title="Bruno">
+  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/redis.png" width="100" hspace="8" alt="Redis" title="Redis">
 </p>
 
-# Arquitetura do Repositório
+# Arquitetura do repositório
 
-O `api-messenger` segue uma arquitetura em camadas típica de um serviço Spring Boot (`controller` → `service` → `repository` → `model`), sem separação `service`/`service.impl` — as classes de serviço concentram a regra de negócio diretamente. Os `controller` implementam uma interface `openapi` dedicada por recurso (`ChatbotMessageOpenApi`, `ConversationOpenApi`, `MessageOpenApi`, `RatingOpenApi`, `LlmObservabilityOpenApi`), usada só para anotações do Springdoc e manter a classe do controller limpa. A persistência é 100% sobre MongoDB (`spring-boot-starter-data-mongodb`), sem banco relacional — cada agregado (`Conversation`, `Message`, `Rating`, `LlmObservability`) é um `@Document` próprio, sem transação distribuída entre eles.
+O código segue portas e adaptadores em três pacotes de topo:
 
-- **Duas `SecurityFilterChain` independentes e segregadas por `@Order`** (`SecurityConfig`), documentado no próprio código-fonte: a chain `@Order(1)` cobre só `/internal/**`, autentica via token de serviço M2M HS256 (`ServiceTokenAuthFilter` + `ServiceTokenProvider`, segredo compartilhado `SERVICE_JWT_SECRET`); a chain `@Order(2)` cobre o restante das rotas, um resource server OAuth2 RS256 clássico que valida o JWT de usuário emitido pelo `api-auth` via JWKS (`app.jwt.jwk-set-uri`). O mesmo padrão de duas chains é usado no `api-persistence`, segundo o comentário da classe.
-- **Emissão de token de serviço própria** (`ServiceAuthController`, `ServiceTokenProvider`, `ServiceTokenProperties`), o serviço não delega a emissão do token M2M a nenhum outro repositório: `POST /internal/service-tokens` minta um par access+refresh token a partir de um `clientSecret` compartilhado (`SERVICE_CLIENT_SECRET`), comparado em tempo constante (`MessageDigest.isEqual`); `POST /internal/service-tokens/refresh` troca um refresh token válido por um novo access token.
-- **RBAC por ownership, não por permissão** (`RbacAuthorizationService`), diferente de serviços com RBAC baseado em papéis/permissões — aqui a autorização é sempre "o usuário autenticado é dono/participante do recurso?", resolvida a partir da claim `sub` (`authId`) do JWT de usuário. `requireParticipant` cobre tanto conversas usuário-a-usuário (remetente ou destinatário) quanto conversas com o chatbot (o próprio usuário).
-- **Duas origens para o mesmo agregado de mensagem** (`MessageService`), mensagens humanas entram por `POST /messaging/messages` (autenticado por JWT de usuário, valida participação na conversa), enquanto respostas do chatbot entram por `POST /internal/messages` (autenticado por token de serviço, chamado pelo pipeline de LLM) — o serviço rejeita explicitamente `messageType=CHATBOT_TO_USER` vindo da rota de usuário, forçando essa origem a passar sempre pela rota interna.
-- **Observabilidade de LLM como cidadão de primeira classe** (`LlmObservabilityController`/`LlmObservabilityService`, coleção `llm_observability`), cada etapa do pipeline de IA (`LLM_CALL` ou `TOOL_CALL`) é registrada com nó (`node`), ordem do passo, modelo usado, tokens de entrada/saída/total, latência e status de erro — dados publicados via `POST /internal/observability` e consultáveis por `conversationId`, `node` ou `status`. `MessageMetadata` (campos `specialistsUsed`, `workflowSteps`, `turnId`) reforça que o pipeline de IA é multi-agente/multi-etapa.
-- **Integração com o `ai-assistant`**, as rotas `/internal/**` (mensagens do chatbot, observabilidade e emissão de token de serviço) existem para serem consumidas por outro serviço da organização, não por um cliente humano — pelo desenho (payload de observabilidade por `node`/modelo/tokens e metadados de `MessageMetadata`), o consumidor natural é o `ai-assistant`, o serviço responsável pelo pipeline de IA da Solaria. {a confirmar: não há chamada HTTP de saída do `api-messenger` para o `ai-assistant` no código-fonte — a integração é sempre iniciada pelo `ai-assistant` chamando o `api-messenger`}.
-- **Tratamento de erro centralizado em `ProblemDetail`** (`GlobalExceptionHandler`, `ProblemDetailFactory`, `ProblemDetailAuthenticationEntryPoint`, `ProblemDetailAccessDeniedHandler`), todas as exceptions de domínio (`ResourceNotFoundException`, `DuplicateResourceException`, `UnauthorizedAccessException`, `ServiceAuthException`, etc.) e as falhas de autenticação/autorização das duas `SecurityFilterChain` respondem no formato RFC 7807, sem vazar mensagem/stacktrace (`spring.web.error.include-*=never` em `application.properties`).
-- **Índices explícitos no MongoDB** (`MongoConfig` + anotações `@Indexed`), `senderId`/`receiverId` em `Conversation`, `conversationId` em `Message`, `conversationId`/`node` em `LlmObservability` — `spring.data.mongodb.auto-index-creation=true` garante que os índices sejam criados no boot a partir dessas anotações, e `MongoConfig` fixa a representação de UUID como `STANDARD` para compatibilizar os `UUID` do Java com o BSON do Mongo.
+- **`core/`**: modelo, repositórios, casos de uso e integrações com outros serviços. Não importa `rest/` nem `websocket/`. Declara em `core/service/port` as portas de saída que os adaptadores implementam.
+- **`rest/`**: adaptador HTTP. Recebe as requisições, valida o corpo e chama os serviços de `core/`. Também concentra segurança HTTP, tratamento de erro e documentação OpenAPI.
+- **`websocket/`**: adaptador STOMP. Recebe os comandos `/app/*`, chama os mesmos serviços de `core/` e implementa as portas de saída: publicação de eventos e revogação de sessões.
 
-## Endpoints expostos
+Os dois adaptadores executam as mesmas regras. Enviar uma mensagem por `POST /messaging/messages` ou por `/app/messages.send` chama `MessageSendService.sendUserMessage`, com os mesmos códigos de erro.
 
-### `/messaging/**` — autenticado por JWT de usuário (`api-auth`)
+## Decisões de estrutura
 
-- `POST /messaging/conversations/user-conversations`, cria uma conversa usuário-a-usuário.
-- `POST /messaging/conversations/chatbot-conversations`, cria uma conversa usuário-a-chatbot.
-- `GET /messaging/conversations/{id}`, busca uma conversa por id (exige ser participante).
-- `GET /messaging/conversations/me`, lista as conversas do usuário autenticado.
-- `POST /messaging/messages`, envia uma mensagem humana em uma conversa existente.
-- `GET /messaging/messages/conversation/{conversationId}`, lista as mensagens de uma conversa (exige ser participante).
-- `POST /messaging/ratings`, `GET /messaging/ratings/{id}`, `GET /messaging/ratings/evaluated/{evaluatedId}`, `GET /messaging/ratings/evaluator/{evaluatorId}`, `PATCH /messaging/ratings/{id}`, `PATCH /messaging/ratings/{id}/status`, ciclo de vida de avaliações (`RatingType.PROFISSIONAL`/`PRODUTO`) entre avaliador e avaliado.
+- **Serviços por caso de uso, sem par interface e implementação.** Uma conversa tem serviços separados para criar (`ConversationCreationService`), consultar (`ConversationQueryService`), montar a lista (`ConversationProjectionService`), alterar o estado pessoal (`ConversationStatePatchService`), gerir grupo (`GroupManagementService` e `GroupMutationSupport`), gravar a admissão em transação (`ConversationAdmissionService`) e notificar (`ConversationChangeNotifier`).
+- **Portas de saída.** `ConversationEventPublisher`, `MessageEventPublisher` e `SessionRevoker` ficam em `core/service/port`. O núcleo decide o que publicar e para quem. `websocket/` só entrega, e uma falha de entrega nunca desfaz a escrita.
+- **Controllers finos.** Cada controller implementa uma interface `*OpenApi` com as anotações do Springdoc, valida o corpo com `@Valid` e delega ao serviço.
+- **Mappers estáticos.** `ConversationMapper`, `MessageMapper` e os demais são classes `final` sem consulta nem autorização. Não há MapStruct.
+- **Erros com código estável.** Toda exceção de domínio herda de `BusinessException` e carrega status HTTP, `errorCode` e propriedades extras. O mesmo objeto vira `ProblemDetail` no HTTP e `WsErrorPayload` no STOMP. Ver [ERRORS.md](./ERRORS.md).
+- **Comentários em português**, com Javadoc de classe que resume a responsabilidade e lista as operações.
 
-### `/internal/**` — autenticado por token de serviço M2M
+## Modelo de concorrência
 
-- `POST /internal/service-tokens`, minta um par access+refresh token de serviço a partir de `clientSecret`.
-- `POST /internal/service-tokens/refresh`, troca um refresh token válido por um novo access token.
-- `POST /internal/messages`, ingestão de mensagens do chatbot (`CHATBOT_TO_USER`) publicadas pelo pipeline de LLM.
-- `POST /internal/observability`, ingestão de um passo de observabilidade (`LLM_CALL`/`TOOL_CALL`).
-- `GET /internal/observability/{id}`, `GET /internal/observability`, consulta de observabilidade por id ou por filtro (`conversationId`, `node`, `status`).
+O serviço roda com mais de uma réplica. A correção entre réplicas vem do banco, não de memória.
+
+- **CAS por versão.** `Conversation` e `ProjectCommunity` têm `version`. As escritas usam `@Query` com a versão lida e `@Update` com a próxima. `OptimisticMutation.apply` faz até 3 tentativas, relendo e revalidando entre elas. `Message` usa `mutation_epoch` do mesmo jeito.
+- **Índices únicos como última barreira.** Uma direta por par (`uq_direct_pair`), uma sequência por posição (`conversation_sequence_idx`), um estado pessoal por participante (`uq_conversation_user_state`), uma comunidade por projeto e um NPS por conversa.
+- **Uma transação Mongo.** `ConversationAdmissionService` grava a conversa e o estado pessoal de cada participante no mesmo commit. É o único `TransactionTemplate` do serviço, criado localmente e não como bean global. Transação exige replica set.
+- **Guard local.** `ConversationMutationGuard` é um monitor `synchronized` por JVM que serializa os trechos de domínio. Ele não coordena réplicas. Publicar eventos de dentro dele lança `IllegalStateException`.
+- **Notificação depois do commit.** Os serviços publicam fora do guard, depois da escrita, e refazem a autorização logo antes de entregar.
+- **Relógio de sincronização no Mongo.** `ConversationSyncClock` aloca a versão na coleção `sync_clock` antes de ler, para que eventos de réplicas diferentes sejam comparáveis. Ver [CONVERSATIONS.md](./CONVERSATIONS.md#lista-de-conversas-e-sincronização).
+- **Presença e revogação no Redis**, só com comandos simples, sem Lua. Os atalhos aceitos estão marcados com `shortcut:` no código e descritos em [REALTIME.md](./REALTIME.md#presença).
+
+## Diretórios
+
+### `core/`
+
+| Diretório | Conteúdo |
+|---|---|
+| `contract/request`, `contract/response` | DTOs usados pelo REST e pelo STOMP. `ConversationListItemResponseDTO` é a mesma projeção na lista REST e no evento `CONVERSATION_UPDATED`. `PatchField` distingue campo ausente de campo nulo no PATCH. |
+| `exception` | `BusinessException` e subclasses, uma por `errorCode`. |
+| `integration/auth` | `AuthClient` (`POST /auth/login`, só para `/dev/login`) e o `RestClient` da `api-auth`. |
+| `integration/user` | `UserAccessClient`: atividade de um usuário e atividade em lote na `api-auth`. |
+| `integration/core` | `ProjectAuthorityClient`: consulta se o usuário é demandante do projeto no `api-core`, com `X-Service-Key`. |
+| `mapper` | conversão estática de documento para DTO. |
+| `model`, `model/enums` | documentos Mongo e enums de domínio. Ver [DATA_MODEL.md](./DATA_MODEL.md). |
+| `observability` | `ObservabilityConfig` (propaga o contexto de tracing entre threads) e `OpenTelemetryAppenderInitializer`. |
+| `repository`, `repository/projection` | Spring Data para consultas simples, `@Query` com `@Update` para CAS, `@Aggregation` para os lotes de última mensagem e de não lidas, `MongoTemplate` para o estado pessoal. `ConversationIndexRepository` e `MessageIndexRepository` preparam índices no boot. |
+| `security/jwt` | `JwtDecoderConfig` e `AccessTokenTypeValidator`. O mesmo decoder serve ao HTTP e ao CONNECT STOMP. |
+| `security/rbac` | `RbacAuthorizationService` (usuário atual, dono e participante) e `CommunityPolicy` (papéis da comunidade). |
+| `service` | casos de uso transversais: `ConversationAuthorizationService`, `ConversationMutationGuard`, `ConversationUserStateService`, `UserAccessService`, `OptimisticMutation`, `RatingService`, `NpsService` e `LlmObservabilityService`. |
+| `service/conversation` | criação, consulta, projeção, estado pessoal, gestão de grupo, admissão, notificação e `ConversationSyncClock`. |
+| `service/message` | `MessageSendService`, `MessageMutationService`, `MessageQueryService` e `MessageChangeNotifier`. |
+| `service/community` | `CommunityService`, `CommunityMembershipService` e `CommunityGroupCascadeService`. |
+| `service/port` | portas de saída implementadas por `websocket/`. |
+| `service/state` | records do estado pessoal validado: `OwnedState`, `StateChange` e `AuthorizedStateContext`. |
+
+### `rest/`
+
+| Diretório | Conteúdo |
+|---|---|
+| `controller` | `ConversationController`, `MessageController`, `CommunityController`, `RatingController`, `NpsController`, `ChatbotMessageController` (`/internal/messages`) e `LlmObservabilityController` (`/internal/observability`). |
+| `controller/dev` | `DevAuthController` (`POST /dev/login`), só no perfil `dev`. |
+| `dto` | DTOs exclusivos do HTTP: `CommunityConversationRequestDTO`, `ParticipantsRequestDTO` e `ManagerTransferResponse`. |
+| `error` | `GlobalExceptionHandler` e `ProblemDetailFactory`. |
+| `observability` | `ActuatorSecurityConfig`, `TraceIdResponseFilter` (header `X-Trace-Id`) e o filtro que descarta observações do actuator. |
+| `openapi` | `OpenApiConfig` e as interfaces `*OpenApi`. |
+| `security` | `SecurityConfig` (cadeias e CORS), `ActiveUserFilter` e os handlers de 401 e 403 em `ProblemDetail`. |
+
+### `websocket/`
+
+| Diretório | Conteúdo |
+|---|---|
+| `config` | `WebSocketConfig` (endpoints, relay para o RabbitMQ, interceptadores, tempo do primeiro frame), `BrokerProperties` e `SessionRegistryHandlerDecorator`. |
+| `controller` | `MessageWebSocketController`: `/app/messages.send`, `/app/typing.started`, `/app/typing.stopped` e `/app/presence.ping`. |
+| `security` | `StompAuthChannelInterceptor` (CONNECT e frames seguintes), `StompDestinationAuthorizer` (allowlist e participação), `StompDestinations` (formato dos tópicos) e `ResourceOutboundChannelInterceptor` (filtro de saída). |
+| `session` | `LocalWebSocketSessionRegistry` (sessões do pod e limite), `RedisPresenceStore`, `WebSocketSessionRevoker` e `SessionRevocationSubscriber`. |
+| `presence` | `PresenceService` (snapshot, online e offline), `TypingService` e `TypingPresenceService`. |
+| `publisher` | `StompMessageEventPublisher` e `StompConversationEventPublisher`, as implementações das portas. |
+| `error`, `listener`, `event` | `StompErrorHandler`, os listeners de recusa de frame e de desconexão, e os eventos internos de sessão. |
+| `dto`, `enums`, `exception` | `WsEventEnvelope`, `WsErrorPayload`, `PresenceSnapshotDTO`, `TypingRequest`, `SessionAdmission` e `StompAuthenticationException`. |
+
+## Árvore do repositório
 
 ```Tree do Repositório
 ├── .github/
 │   ├── CODEOWNERS
 │   ├── CONTRIBUTING.md
+│   ├── dependabot.yml
 │   ├── pull_request_template.md
-│   └── workflows/
-│       ├── ci.yml
-│       ├── quality.yml
-│       ├── release.yml
-│       └── sonarqube.yml
-├── .mvn/
+│   └── workflows/          # ci, quality, sonarqube, release, release-please, qa-sync e workflows da organização
+├── docs/
+│   ├── ARCHITECTURE.md
+│   ├── RUNNING.md
+│   └── img/                # diagramas de tópicos, sessões e broker
+├── http/                   # coleção Bruno por domínio
 ├── src/
 │   ├── main/
 │   │   ├── java/com/solaria/messenger/
 │   │   │   ├── MessagerApplication.java
-│   │   │   ├── config/
-│   │   │   │   ├── MongoConfig.java
-│   │   │   │   └── OpenApiConfig.java
-│   │   │   ├── controller/
-│   │   │   │   ├── ChatbotMessageController.java
-│   │   │   │   ├── ConversationController.java
-│   │   │   │   ├── LlmObservabilityController.java
-│   │   │   │   ├── MessageController.java
-│   │   │   │   ├── RatingController.java
-│   │   │   │   └── ServiceAuthController.java
-│   │   │   ├── dto/
-│   │   │   │   ├── request/
-│   │   │   │   └── response/
-│   │   │   ├── exception/
-│   │   │   │   └── handler/
-│   │   │   ├── model/
-│   │   │   │   └── enums/
-│   │   │   ├── openapi/
-│   │   │   ├── repository/
-│   │   │   ├── security/
-│   │   │   │   ├── rbac/
-│   │   │   │   └── service/
-│   │   │   └── service/
+│   │   │   ├── core/
+│   │   │   ├── rest/
+│   │   │   └── websocket/
 │   │   └── resources/
-│   │       └── application.properties
+│   │       ├── application.properties
+│   │       └── logback-spring.xml
 │   └── test/
-│       ├── java/com/solaria/messenger/
-│       └── resources/
-├── .dockerignore
-├── .editorconfig
 ├── .env.example
 ├── Dockerfile
-├── LICENSE
-├── README.md
-├── ARCHITECTURE.md
-├── RUNNING.md
-├── mvnw
-├── mvnw.cmd
+├── entrypoint.sh
+├── Makefile
+├── openapi.yaml
 ├── pom.xml
+├── release-please-config.json
 └── sonar-project.properties
 ```
+
+## CI e entrega
+
+| Workflow | Função |
+|---|---|
+| `ci.yml` | Em PR e push na `main`, roda os testes com MongoDB 7.0 e Redis 7.4 como serviços e gera cobertura com JaCoCo. |
+| `quality.yml` | Checkstyle com `google_checks.xml`. Falha só em severidade `error`. |
+| `sonarqube.yml` | Roda depois de um CI verde. |
+| `release.yml` | Em push na `main`, publica a imagem Docker pelo workflow reutilizável da organização. |
+| `release-please.yml` | Versão semântica (`simple`, versão atual 3.1.0). O comentário `/release` publica. |
+| `qa-sync.yml` | Depois de um merge direto na `main`, oferece sincronizar a `qa`. |
+
+As PRs entram primeiro na `qa`. Branch no formato `{tipo}/{descricao}` e commit no formato `{tipo}: {mensagem}`, em minúsculas. O Dependabot abre uma PR por vez, toda segunda-feira, sem versões major.
