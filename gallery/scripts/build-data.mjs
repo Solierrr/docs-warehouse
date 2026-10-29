@@ -23,7 +23,8 @@ const descriptions = {
   "github/openapi": "Ruleset do Spectral para o lint do contrato OpenAPI.",
   helps: "Guias de apoio, como rodar o ambiente local.",
   readme: "Um documento por stack ou tipo de deploy, e uma pasta por serviço.",
-  "readme/services": "README central e arquivos específicos de cada serviço, para validar antes de ir ao repositório.",
+  "readme/repositories": "Documentação de cada repositório (README, docs, flows, database e assets), escrita aqui antes de ir ao repositório.",
+  "readme/services": "Documentação dos repositórios fora do padrão novo (elos-* e generic-template).",
   "readme/bruno": "Modelos de coleção Bruno por stack.",
   "readme/infisical": "Modelos de uso do Infisical por stack.",
   "readme/running": "Como rodar cada tipo de serviço.",
@@ -140,13 +141,13 @@ const data = {
 writeFileSync(output, JSON.stringify(data, null, 1) + "\n");
 console.log(`repository.json: ${nodes.length} nós, ${edges.length} arestas`);
 
-// Tecnologias de cada serviço, na ordem da linha de ícones do README em readme/services.
+// Tecnologias de cada serviço, na ordem da linha de ícones do README em readme/repositories (ou readme/services).
 // Só os nomes são lidos; a página desenha os ícones com os SVGs do pacote thesvg.
 const services = JSON.parse(readFileSync(join(here, "..", "data", "services.json"), "utf8"));
 
 function readmeStacks(id) {
-  const readme = join(root, "readme", "services", id, "README.md");
-  if (!existsSync(readme)) return [];
+  const readme = [join(root, "readme", "repositories", id, "README.md"), join(root, "readme", "services", id, "README.md")].find(existsSync);
+  if (!readme) return [];
   const text = readFileSync(readme, "utf8");
   return [...text.matchAll(/assets\/readme\/stacks\/([a-z0-9-]+)\.png"[^>]*alt="([^"]*)"/g)].map(([, name, label]) => ({
     name,
