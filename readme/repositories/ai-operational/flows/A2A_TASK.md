@@ -10,13 +10,11 @@ O assistente principal delega um pedido operacional. O adaptador valida a identi
 sequenceDiagram
     participant Assist as ai-assistant
     participant API as Adaptador A2A
-    participant Auth as api-auth
     participant Runner as Executor do turno
     Assist->>API: descoberta HTTP do Agent Card
     API-->>Assist: skill e endereço anunciado
     Assist->>API: delegação A2A sobre HTTP + JWT
-    API->>Auth: HTTP público para obter JWKS quando necessário
-    API->>API: valida assinatura e expiração
+    API->>API: confere presença e valida o JWT recebido
     alt token ausente ou inválido
         API-->>Assist: texto pedindo autenticação
     else token válido
