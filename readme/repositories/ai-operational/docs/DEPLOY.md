@@ -18,7 +18,7 @@ Os endereços abaixo vêm do contrato HTTP e dos manifestos.
 
 O levantamento de 2026-10-29 registrava QA impedido por credenciais do Infisical. A main analisada não contém `render.yaml` nem `render-entrypoint.sh`, portanto o mecanismo de injeção e o estado atual do painel continuam sem confirmação. O endereço acima é um destino configurado. <!-- PENDENTE: 1 -->
 
-O checklist também registrava ausência de produção. Hoje existem [Deployment](https://github.com/Solierrr/infra-gitops/blob/main/services/ai-operational/deployment.yaml), [Service](https://github.com/Solierrr/infra-gitops/blob/main/services/ai-operational/service.yaml), [Ingress](https://github.com/Solierrr/infra-gitops/blob/main/services/ai-operational/ingress.yaml) e [aplicação Argo CD](https://github.com/Solierrr/infra-gitops/blob/main/apps/ai-operational.yaml). A hipótese é que representam a configuração pretendida, ainda sem comprovação de operação. <!-- PENDENTE: 2 -->
+O checklist também registrava ausência de produção. Hoje existem [Deployment](https://github.com/Solierrr/infra-gitops/blob/main/services/ai-operational/deployment.yaml), [Service](https://github.com/Solierrr/infra-gitops/blob/main/services/ai-operational/service.yaml), [Ingress](https://github.com/Solierrr/infra-gitops/blob/main/services/ai-operational/ingress.yaml) e [aplicação Argo CD](https://github.com/Solierrr/infra-gitops/blob/main/apps/ai/ai-operational.yaml). A hipótese é que representam a configuração pretendida, ainda sem comprovação de operação. <!-- PENDENTE: 2 -->
 
 ## Particularidades
 
