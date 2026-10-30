@@ -15,7 +15,7 @@
 
 Este repositório fornece o broker de mensagens usado nas conversas em tempo real. Quando uma pessoa participa de uma conversa, as mensagens precisam chegar às sessões conectadas mesmo que elas estejam em instâncias diferentes do serviço de conversas. O broker distribui esses eventos entre as instâncias, sem oferecer uma interface diretamente às pessoas.
 
-A imagem usa RabbitMQ 4 com o plugin STOMP. O serviço de conversas encaminha os tópicos pelo relay STOMP quando recebe a configuração de conexão do broker. Sem essa conexão, ele usa um broker em memória, limitado a uma instância. O repositório também traz um ambiente local em Docker Compose, com volume para os dados do RabbitMQ.
+A imagem usa RabbitMQ 4 com o plugin STOMP. O serviço de conversas encaminha os tópicos pelo relay STOMP quando recebe a configuração de conexão do broker. Com o relay desligado, ele usa um broker em memória, limitado a uma instância. O repositório também traz um ambiente local em Docker Compose, com volume para os dados do RabbitMQ.
 
 ## Aprofunde-se no Projeto!
 

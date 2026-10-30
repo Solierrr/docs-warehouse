@@ -17,4 +17,4 @@ O [`Dockerfile`](https://github.com/Solierrr/infra-broker/blob/main/Dockerfile) 
 
 O contêiner expõe `61613` para STOMP e `15672` para administração. O arquivo `rabbitmq.conf` abre também `5672` para AMQP. O repositório não contém manifestos de deploy, endereço público ou configuração de credenciais de QA e produção. <!-- PENDENTE: 1 -->
 
-O ambiente local injeta `RABBITMQ_USER` e `RABBITMQ_PASSWORD` no contêiner. A imagem de produção contém apenas a configuração de portas e plugins. A forma de injetar credenciais e preservar os dados fora do ambiente local depende da implantação escolhida. <!-- PENDENTE: 1 -->
+O ambiente local injeta `RABBITMQ_USER` e `RABBITMQ_PASSWORD` no contêiner. A imagem definida no `Dockerfile` contém apenas a configuração de portas e plugins. A forma de injetar credenciais e preservar os dados fora do ambiente local depende da implantação escolhida. <!-- PENDENTE: 1 -->
