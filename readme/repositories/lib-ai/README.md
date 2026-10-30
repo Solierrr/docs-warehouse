@@ -1,33 +1,36 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/banners/pypi.png" alt="PyPI" width="100%">
+  <img src="./assets/readme/banners/pypi.png" alt="PyPI" width="100%">
 </p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/python.png" width="100" hspace="8" alt="Python" title="Python">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/gemini.png" width="100" hspace="8" alt="Gemini" title="Gemini">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/groq.png" width="100" hspace="8" alt="Groq" title="Groq">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/openai.png" width="100" hspace="8" alt="OpenAI" title="OpenAI">
+  <img src="./assets/readme/stacks/python.png" width="100" hspace="8" alt="Python" title="Python">
+  <img src="./assets/readme/stacks/pydantic.png" width="100" hspace="8" alt="Pydantic" title="Pydantic">
 </p>
 
-# Biblioteca compartilhada de IA
+# Blocos compartilhados dos assistentes
 
 [![License](https://img.shields.io/github/license/Solierrr/lib-ai)](https://github.com/Solierrr/lib-ai/blob/main/LICENSE)
 [![GitHub Last Commit](https://img.shields.io/github/last-commit/Solierrr/lib-ai)](https://github.com/Solierrr/lib-ai/commits)
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/lib-ai)](https://github.com/Solierrr/lib-ai/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/lib-ai)](https://github.com/Solierrr/lib-ai/releases)
 
-Esta biblioteca reúne o código compartilhado pelos serviços de inteligência artificial da plataforma, para que cada serviço não precise reescrever as mesmas partes. Ela alterna o uso das chaves dos modelos de linguagem, protege dados pessoais, bloqueia instruções maliciosas nas conversas, mede o custo e o tempo de cada resposta e permite que um assistente solicite ajuda a outro. É distribuída como pacote Python.
+Esta biblioteca reúne os componentes usados pelos assistentes da plataforma para conversar, revisar solicitações e encaminhar tarefas. Ela atende às equipes que mantêm esses serviços e precisam aplicar as mesmas regras de proteção de dados, uso de provedores e medição das chamadas. Não oferece uma tela própria. Seu comportamento aparece nas respostas e nas delegações dos assistentes que a incorporam.
+
+Os serviços Python usam LangChain e LangGraph para combinar modelos, ferramentas e etapas de revisão. A biblioteca fornece seleção de credenciais, alternativas entre provedores, leitura de JWT e comunicação entre agentes. As credenciais vêm do ambiente de cada serviço. O armazenamento das conversas e a autorização das operações continuam sob responsabilidade de quem usa os componentes.
 
 ## Aprofunde-se no Projeto!
 
-- [ARCHITECTURE.md](https://github.com/Solierrr/lib-ai/blob/main/docs/ARCHITECTURE.md), arquitetura do repositório e estrutura de pastas.
-- [PACKAGE_RELEASE.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/PACKAGE_RELEASE.md), como o pacote é publicado no registro.
-- [OVERVIEW.md](https://github.com/Solierrr/lib-ai/blob/main/docs/OVERVIEW.md), o que a biblioteca contém.
-- [USAGE.md](https://github.com/Solierrr/lib-ai/blob/main/docs/USAGE.md), configuração e exemplos de uso.
-- [DEVELOPMENT.md](https://github.com/Solierrr/lib-ai/blob/main/docs/DEVELOPMENT.md), como desenvolver e testar.
+- [OVERVIEW.md](./docs/OVERVIEW.md), capacidades e regras dos componentes.
+- [ARCHITECTURE.md](./docs/ARCHITECTURE.md), módulos e integrações.
+- [RUNNING.md](./docs/RUNNING.md), configuração e testes locais.
+- [API.md](./docs/API.md), interface Python e delegação.
+- [DEPLOY.md](./docs/DEPLOY.md), distribuição do pacote.
+- [STATUS.md](./docs/STATUS.md), diferenças e limitações.
+- [Fluxos](./flows/), credenciais, revisão, delegação e publicação.
+- [PENDENCIAS.md](./PENDENCIAS.md), confirmações do responsável.
 
 ## Contribuindo
 
-- [CONTRIBUTING.md](https://github.com/Solierrr/.github/blob/main/.github/CONTRIBUTING.md), convenções de commit, branch e Pull Request.
-- [CODE_OF_CONDUCT.md](https://github.com/Solierrr/.github/blob/main/CODE_OF_CONDUCT.md), código de conduta do projeto.
-- [SECURITY.md](https://github.com/Solierrr/.github/blob/main/SECURITY.md), como reportar vulnerabilidades de segurança.
+- [CONTRIBUTING.md](https://github.com/Solierrr/.github/blob/main/.github/CONTRIBUTING.md), convenções de contribuição.
+- [CODE_OF_CONDUCT.md](https://github.com/Solierrr/.github/blob/main/CODE_OF_CONDUCT.md), código de conduta.
+- [SECURITY.md](https://github.com/Solierrr/.github/blob/main/SECURITY.md), reporte de vulnerabilidade.
