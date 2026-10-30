@@ -1,25 +1,19 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/banners/google.png" alt="Google" width="100%">
+  <img src="../assets/readme/banners/google.png" alt="Google" width="100%">
 </p>
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/python.png" width="100" hspace="8" alt="Python" title="Python">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/fastapi.png" width="100" hspace="8" alt="FastAPI" title="FastAPI">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/gcp.png" width="100" hspace="8" alt="Google Cloud" title="Google Cloud">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/google-maps.png" width="100" hspace="8" alt="Google Maps" title="Google Maps">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/google-translate.png" width="100" hspace="8" alt="Google Translate" title="Google Translate">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/swagger.png" width="100" hspace="8" alt="Swagger" title="Swagger">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/bruno.png" width="100" hspace="8" alt="Bruno" title="Bruno">
-</p>
+# Situação verificada em 2026-10-30
 
-# Status
+## Em funcionamento
 
-- **FastAPI**, arquitetura em camadas (`domain`/`application`/`infrastructure`/`api`), um módulo por capability.
-- **Sem estado**, o serviço só chama o Google (ou lê chaves do ambiente) conforme os parâmetros e devolve o resultado; quem chamou grava onde precisar.
-- **Capability `address`**, sugestão de endereço, detalhes por `place_id`, geocodificação (direta e reversa), validação e `resolve` (Places New, Geocoding e Address Validation).
-- **Capability `solar`**, viabilidade solar de um telhado via Solar API, incluindo os dados do painel de referência.
-- **Capability `i18n`**, detecção de idioma + tradução (Cloud Translation API) de campos de texto para os outros dois entre `en`/`es`/`pt`.
-- **Capability `geo`**, fuso horário por coordenada, calculado localmente.
-- **Autenticação**, JWT RS256 de usuário validado via JWKS do `api-auth` (`app/infrastructure/auth`); ainda não aplicado nos endpoints.
-- **Observabilidade**, logging/tracing/metrics via OpenTelemetry.
-- **Licença Apache 2.0**.
+- Em 2026-10-30, as rotas de endereço, fuso, tradução e energia solar estão implementadas na `main`.
+- Em 2026-10-30, as rotas de usuário validam JWT e as rotas internas validam `X-Service-Key`.
+- Em 2026-10-30, o contrato OpenAPI é exportado do código e há testes de rotas, serviços e adaptadores.
+
+## Limitações
+
+- Em 2026-10-30, duas rotas antigas permanecem abertas durante a migração dos chamadores. <!-- PENDENTE: 1 -->
+- Em 2026-10-30, o cliente de token do Calendar não é usado por uma rota, embora suas configurações de OAuth sejam exigidas. <!-- PENDENTE: 2 -->
+- Em 2026-10-30, o acesso de PROD é interno segundo o checklist. O caminho para o aplicativo móvel não está decidido. <!-- PENDENTE: 3 -->
+- Em 2026-10-30, os nomes do repositório, da imagem e do serviço publicado divergem. <!-- PENDENTE: 4 -->
+- Em 2026-10-30, o `Dockerfile` usa `python:latest` e o `pyproject.toml` exige Python 3.14 ou superior.
