@@ -1,31 +1,49 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/banners/postgresql.png" alt="PostgreSQL" width="100%">
+  <img src="../assets/readme/banners/postgresql.png" alt="PostgreSQL" width="100%">
 </p>
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/python.png" width="100" hspace="8" alt="Python" title="Python">
-</p>
+# Situação da migração
 
-# Status da migração
+O levantamento abaixo foi feito na main em 2026-10-30. Os testes de integração mencionados no README de origem são um registro anterior do projeto e não foram reexecutados nesta documentação.
 
-## Detalhes técnicos
+## Presente no código
 
-ETL em Python que migrou usuários e dados de um banco legado ("banco simples", tabela `usuario`) para o `coredb` da plataforma. Lê a origem (`ORIGEM_DB_URL`, somente leitura), transforma e **grava direto no `coredb`** (`DESTINO_DB_URL`), controlando a idempotência na tabela `rpa_id_mapping` do destino.
+- A rotina importa usuários e executa doze etapas complementares, seguidas da associação opcional de imagens (2026-10-30).
+- A carga básica grava `users`, `contact`, `person` e seus mapeamentos na mesma transação. As etapas complementares consultam correspondências para reaproveitar registros (2026-10-30).
+- As regras locais tratam usernames, slugs, marcas legadas, dimensões em metros, preço positivo e cargos dos responsáveis (2026-10-30).
+- O Actions permite disparo manual e evento diário condicionado a variável. O checklist descrevia somente execução manual (2026-10-30). <!-- PENDENTE: 1 -->
+- O CI executa byte compilation e unittest. O workflow de qualidade executa Ruff. Os testes unitários cobrem helpers de schema e imagens, sem bancos (2026-10-30).
 
-## Status: adaptado ao schema V29 do `coredb`
+## Limitações operacionais
 
-- **Origem:** o banco legado dos serviços Elos, que não faz parte do escopo da plataforma e **não deve ser alterado** (a conexão é somente leitura).
-- **Destino:** o `coredb`. O que o legado não traz é preenchido com dados fictícios determinísticos (Faker, em `mock_data.py`).
-- **O que o ETL respeita no V29** (regras em `schema_v29.py`): `users.auth_id` e `users.username` (`^[a-z0-9_]{3,30}$`, único, derivado do e-mail), `company.type` (`SUPPLIER` ou `DEMANDANT`) e `slug` único, `technician.slug` e `offer.slug` únicos, marca do modelo em `brand` (`legacy = true`), largura e comprimento do modelo em metros, tipo `MONOCRYSTALLINE`, preço da oferta maior que zero, vínculo do dono da empresa com o cargo `ADMIN` e um único vínculo por usuário.
-- **Imagens:** com `CLOUDINARY_CLOUD_NAME` definido, usuários, empresas e modelos migrados recebem fotos do `mocks-warehouse` (`user_photo`, `company_photo` e `model_photo`, as mesmas categorias do seed do `database-console`); `MOCKS_MANIFEST` aponta o `manifest.json` (padrão `../mocks-warehouse/manifest.json`) e `MOCKS_PUBLIC_PREFIX` o prefixo (padrão `mocks`). Sem a cloud ou o manifest, o passo é pulado com um aviso. Só entram registros que ainda não têm foto.
-- **Limites conhecidos:** `users.auth_id` é um id sem conta no authdb, porque o ETL não escreve no authdb; os usuários migrados só entram depois que uma conta com esse id for criada (a senha do legado não é reaproveitada). Os projetos técnicos só migram se o legado tiver `projeto` e `usuario_projeto`.
-- Foi verificado contra um `coredb` novo (migrações V1 a V29) e um legado de teste, incluindo uma segunda execução sem duplicar nada. Não há implantação conhecida (não está no Render nem no `infra-gitops`); não execute contra um banco real sem antes revisar os dados.
+- Não há confirmação dos bancos autorizados, da localização dos segredos ou da ativação do cron. `VAULT_FOLDERS` está vazio no Makefile (2026-10-30). <!-- PENDENTE: 1 -->
+- Não há dry run, rollback automático, controle de versão do schema de destino ou uma única transação para a execução inteira (2026-10-30).
+- A origem é lida por SQL, mas o engine não impõe modo somente leitura. A restrição precisa vir do usuário PostgreSQL (2026-10-30).
+- A concorrência é controlada apenas no workflow. Processos locais simultâneos não compartilham esse bloqueio (2026-10-30).
+- A tabela de mapeamento é criada pelo ETL dentro do `coredb`, embora o checklist previsse ausência de estrutura própria. Falta definir sua manutenção junto ao schema de negócio (2026-10-30). <!-- PENDENTE: 3 -->
+- Reexecução não sincroniza alterações em todos os cadastros já importados. Telefones podem ser atualizados novamente, enquanto várias outras etapas pulam registros mapeados. Remover linhas de domínio sem revisar os mapeamentos pode deixar correspondências inválidas (2026-10-30).
+- A leitura dos usuários carrega todos os registros da origem antes do filtro. Não há processamento incremental por data nem paginação (2026-10-30).
+- As tabelas `projeto` e `usuario_projeto` são consultadas diretamente. Se não existem, ocorre erro SQL, sem omissão automática da etapa (2026-10-30).
+- Segredos ausentes fazem o workflow pular a execução com aviso. Saída sem erro não comprova que houve importação nem que todos os registros foram aproveitados (2026-10-30).
 
-## Arquivos
+## Dados que exigem revisão
 
-| Arquivo | Papel |
+- Campos obrigatórios ausentes recebem dados sintéticos ou padrões, incluindo documentos, nascimento, endereço, preço e datas. Situação de assinatura desconhecida vira `PAID`, e validade ausente de registro usa emissão acrescida de 3.650 dias. Não há etapa automática de aprovação desses preenchimentos (2026-10-30). <!-- PENDENTE: 2 -->
+- `auth_id` é criado sem conta no `authdb`. A senha legada não é reutilizada. O procedimento de provisionamento continua externo (2026-10-30). <!-- PENDENTE: 4 -->
+- Reutilizar empresa por CNPJ não altera seu tipo. Um usuário já vinculado a outra empresa pode deixar a nova empresa sem o vínculo pretendido de responsável (2026-10-30). <!-- PENDENTE: 5 -->
+- Produtos sem equipamento elétrico e registros sem pais correspondentes podem ser ignorados. As contagens e os avisos precisam ser revisados após a execução (2026-10-30).
+- A seleção de imagens é determinística para a chave do registro persistido. Os UUIDs novos não são determinísticos. Empresa ou modelo com qualquer foto é excluído da seleção, por isso conjuntos parciais não são completados nessa etapa (2026-10-30).
+
+## Informações sem importador correspondente
+
+As exclusões são declaradas nas constantes ao fim de `extended_migration.py`. Elas descrevem o escopo desta migração, sem afirmar que a plataforma inteira não tem funcionalidades equivalentes (2026-10-30).
+
+| Grupo | Fontes não importadas |
 |---|---|
-| `main.py` | Orquestra a execução e registra em `rpa_etl.log` |
-| `extract.py`, `transform.py`, `load.py` | Extrai os usuários novos da origem, transforma e grava `users`, `contact` e `person` no destino |
-| `extended_migration.py` | Migração complementar (empresas, endereços, ofertas, estoque e outras tabelas) |
-| `mock_data.py`, `inspecionar.py` | Dados fictícios com Faker e inspeção do banco |
+| Interação e conteúdo | `contato`, `avaliacao`, `postagem`, `chat`, `mensagem`, `usuario_chat`, `midia` |
+| Serviços e agenda | `servico`, `compromisso` |
+| Qualificação de fornecedor | `certificacao`, `equipamento_certificacao` |
+| Projeto e organização | `documento_projeto`, `loja_filial` |
+| Administração e auditoria | `admin`, `telefone_admin`, `log_acessos_admin`, `historico_alteracoes` |
+
+A descrição do perfil, o nome e a descrição do projeto e os participantes que não são donos também ficam de fora. Uma `qualificacao` de profissional é tratada pela rotina, mesmo que a fonte distinta `certificacao` de fornecedor não tenha importador (2026-10-30).
