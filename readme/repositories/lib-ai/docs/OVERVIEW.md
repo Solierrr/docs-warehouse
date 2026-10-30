@@ -1,32 +1,25 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/banners/pypi.png" alt="PyPI" width="100%">
+  <img src="../assets/readme/banners/pypi.png" alt="PyPI" width="100%">
 </p>
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/python.png" width="100" hspace="8" alt="Python" title="Python">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/gemini.png" width="100" hspace="8" alt="Gemini" title="Gemini">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/groq.png" width="100" hspace="8" alt="Groq" title="Groq">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/openai.png" width="100" hspace="8" alt="OpenAI" title="OpenAI">
-</p>
+# Visão de produto
 
-# O que a biblioteca oferece
+Os assistentes compartilham funções que aparecem em diferentes conversas. A biblioteca atende às equipes responsáveis por esses assistentes para que as regras comuns sejam mantidas em um lugar.
 
-## Detalhes técnicos
+## Capacidades
 
-Blocos compartilhados dos serviços de IA da plataforma. Publicado no PyPI como `solaria-lib`; o import é `ai_lib`. Requer Python 3.14 ou superior.
+- Tentar outra credencial quando um provedor limita uma chamada ou recusa uma chave.
+- Combinar provedores alternativos quando o serviço configura essa cadeia.
+- Substituir dados pessoais reconhecidos antes de avaliar uma entrada e recompor os valores na saída revisada.
+- Bloquear solicitações reconhecidas como manipulação ou pedido de dados internos.
+- Revisar uma resposta e solicitar nova tentativa antes de recusá-la.
+- Encaminhar texto a outro agente com a identidade e o contexto informado.
+- Medir duração, consumo de tokens e custo estimado.
 
-```bash
-pip install solaria-lib
-pip install "solaria-lib[a2a]"   # para usar ai_lib.a2a
-```
+## Regras
 
-## O que tem
+Falha na avaliação de entrada bloqueia o processamento. Falha na revisão de saída devolve a resposta de contingência. O juiz admite uma nova tentativa por padrão antes de bloquear uma resposta reprovada. O serviço consumidor conecta essas etapas ao seu fluxo.
 
-| Módulo | Conteúdo |
-|---|---|
-| `ai_lib.registry` | Tipos e erros das chaves de LLM (`KeyLease`, `Provider`, `RegistryKeysNotConfigured`...); o nome é herança da época em que as chaves vinham do `google-registry` |
-| `ai_lib.llm` | Chat model LangChain que pega uma chave do ambiente a cada chamada (`EnvKeyClient`, com rodízio e descanso em 429), `LeasedEmbeddings`, tabela de preços |
-| `ai_lib.guardrails` | Anonimização de PII, detecção de injection, parsers de veredito e nós LangGraph de entrada, saída e juiz |
-| `ai_lib.security` | `decode_user_id` (JWT RS256 via JWKS) |
-| `ai_lib.observability` | `StepTracker`, callback LangChain que mede custo, tokens e latência |
-| `ai_lib.a2a` | Agent2Agent 1.0 (extra `a2a`): `build_agent_card`, `TurnExecutor` e `mount_a2a` para receber delegações, `delegate` para delegar repassando o JWT do usuário e a persona |
+A revisão não comprova um fato externo. O consumidor escolhe orientações, ferramentas e permissões. A biblioteca lê a identidade, mas não decide quem pode acessar os recursos do negócio.
+
+As tarefas de delegação duram enquanto o processo está ativo. A continuidade da conversa depende do armazenamento do consumidor. Não há interface visual ou cadastro próprio.
