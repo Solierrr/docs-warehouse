@@ -67,13 +67,25 @@ Enquanto o sync nativo do Infisical com o Render não cobrir as pastas, um servi
 
 Essas duas credenciais são as únicas permitidas nessa exceção, e valem **só em runtime**. A imagem precisa ter o Infisical CLI para o caminho 1 funcionar. A correção definitiva é o Render fornecer as variáveis por conta própria; nesse dia o CLI e o launcher saem do serviço. O contexto da decisão está em [`architecture/2026-09-24-runtime-images-and-qa-promotion.md`](../../architecture/2026-09-24-runtime-images-and-qa-promotion.md).
 
+## Pastas declaradas e checagem automática
+
+Cada repositório que lê o Infisical declara na raiz um arquivo `infisical.yaml` com as pastas que usa. O arquivo é documentação, e o Render não o lê. Ele também tem uma lista opcional de variáveis do `.env.example` que não vêm do Infisical, como as definidas direto na plataforma. O modelo está em [`templates/infisical/infisical.yaml`](../../templates/infisical/infisical.yaml).
+
+O workflow `infisical-env-check.yml` usa esse arquivo para conferir se cada variável do `.env.example` existe nas pastas declaradas e tem valor em cada ambiente. Ele compara apenas os nomes e se o valor está vazio, sem exibir valores.
+
+- No ambiente local, a falta de uma variável gera aviso.
+- Em QA, gera erro quando o repositório tem a branch `qa`.
+- Em produção, gera erro.
+
+O check roda em Pull Requests que alteram o `.env.example` ou o `infisical.yaml`, em push na `main`, uma vez por dia e manualmente. Repositórios sem `infisical.yaml`, como o `web-worker` e os de documentação, não são conferidos. O modelo do workflow está em [`github/workflow/common/infisical-env-check.yml`](../../github/workflow/common/infisical-env-check.yml).
+
 ## Regras
 
 - Segredo nunca entra em `ARG`, `ENV`, camada de imagem, Git ou `.dockerignore`. O `.dockerignore` só impede que `.env` e `.git` sigam para o build.
 - `.env` e arquivos locais ficam fora do Git; o `.env.example` é versionado, com os nomes e **sem valores**.
 - Variáveis `VITE_*` são públicas e vão para o navegador, então nunca recebem chave interna.
 - Um repositório só lista no `.env.example` o subconjunto de variáveis que ele de fato lê.
-- Serviço novo: crie a pasta no Infisical só se a configuração não couber numa pasta de tecnologia existente, preencha os três ambientes e registre as pastas em `VAULT_FOLDERS`.
+- Serviço novo: crie a pasta no Infisical só se a configuração não couber numa pasta de tecnologia existente, preencha os três ambientes e registre as pastas no `infisical.yaml` e em `VAULT_FOLDERS`.
 
 ## Problemas comuns
 

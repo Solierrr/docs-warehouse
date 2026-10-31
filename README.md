@@ -25,8 +25,10 @@ A pasta [`gallery/`](./gallery/) gera o site publicado no GitHub Pages (ambiente
 - [`templates/docker/`](./templates/docker/README.md): Dockerfiles e `.dockerignore` por stack, mais launcher de runtime opcional do Infisical.
 - [`github/workflow/`](./github/workflow/): workflows reutilizáveis organizados por stack, incluindo os templates do release-please por stack e os callers do lint do contrato OpenAPI e do Storybook.
 - [`github/repository-settings.md`](./github/repository-settings.md): padrão de configuração, rulesets, checks e metadados dos repositórios.
-- [`readme/services/`](./readme/services/): uma pasta por serviço, com o `README.md` central (banner, ícones da stack, contexto, "Aprofunde-se no Projeto!" e "Contribuindo") e os arquivos específicos do serviço, em `readme/services/<nome-do-servico>/`, para validar antes de ir para o repositório.
-- [`readme/bruno/`](./readme/bruno/), [`readme/infisical/`](./readme/infisical/), [`readme/running/`](./readme/running/) e [`readme/deploy/`](./readme/deploy/): um documento por stack ou por tipo de deploy, para copiar direto para o repositório. A arquitetura é documentada por repositório, em `readme/services/<repositório>/ARCHITECTURE.md`.
+- [`readme/repositories/`](./readme/repositories/): a documentação de cada repositório (`README.md`, `docs/`, `flows/`, `database/` e `assets/`), escrita aqui e revisada por Pull Request antes de ir para o repositório. O padrão está em [`docs/standards/DOCUMENTATION.md`](./docs/standards/DOCUMENTATION.md) e as convenções deste repositório em [`docs/CONVENTIONS.md`](./docs/CONVENTIONS.md).
+- [`readme/services/`](./readme/services/): os repositórios que ficaram fora do padrão novo (`elos-*` e `generic-template`).
+- [`docs/flows/`](./docs/flows/): os fluxos que passam por vários repositórios.
+- [`readme/bruno/`](./readme/bruno/), [`readme/infisical/`](./readme/infisical/), [`readme/running/`](./readme/running/) e [`readme/deploy/`](./readme/deploy/): um documento por stack ou por tipo de deploy, para copiar direto para o repositório. A arquitetura é documentada por repositório, em `readme/repositories/<repositório>/docs/ARCHITECTURE.md`.
 - [`assets/readme/`](./assets/readme/README.md): banners e ícones de stack usados nos READMEs.
 
 Ao copiar um template, adapte exemplos à implementação real do serviço e não versione credenciais ou dados sensíveis.

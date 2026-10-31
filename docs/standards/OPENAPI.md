@@ -39,7 +39,7 @@ Os mesmos caminhos em todas as stacks. O `web-sandbox` lê `/openapi.json` de ca
 | Campo | Valor |
 |---|---|
 | `title` | `Solaria — <repositório>`, por exemplo `Solaria — api-core` |
-| `description` | um parágrafo com o que o serviço faz (o mesmo da finalidade do README em `readme/services/`; se o serviço ainda não tem README lá, a do README do repositório), mais como autenticar |
+| `description` | um parágrafo com o que o serviço faz (o mesmo da finalidade do README em `readme/repositories/`; se o serviço ainda não tem README lá, a do README do repositório), mais como autenticar |
 | `version` | a versão do release, lida do build ([versão e release](./VERSIONING.md)); nunca fixa |
 | `contact` | `name: Solaria`, `url: https://github.com/Solierrr` |
 | `license` | `name: CC0-1.0`, `url: https://creativecommons.org/publicdomain/zero/1.0/` |

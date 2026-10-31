@@ -10,3 +10,13 @@ Padrões que valem para todos os repositórios de código da organização. Cada
 | Versão e release | [VERSIONING.md](./VERSIONING.md) | templates `release-please-config.*.json` em [`github/workflow/common/`](../../github/workflow/common/) |
 | Autenticação entre serviços | [SERVICE_AUTH.md](./SERVICE_AUTH.md) | |
 | Health checks | [HEALTH.md](./HEALTH.md) | |
+
+## Documentação
+
+| Padrão | Documento |
+|---|---|
+| Estrutura e conteúdo da documentação de cada repositório | [DOCUMENTATION.md](./DOCUMENTATION.md) |
+| README dos repositórios | [REPOSITORY_README.md](./REPOSITORY_README.md) |
+| Escrita | [WRITING.md](./WRITING.md) |
+| Diagramas | [DIAGRAMS.md](./DIAGRAMS.md) |
+| Assets | [ASSETS.md](./ASSETS.md) |
