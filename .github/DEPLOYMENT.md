@@ -75,7 +75,7 @@ Todo `Dockerfile` da organização segue **build multi-stage**: um estágio `bui
 
 - **Maven** [`templates/docker/jvm-maven/Dockerfile`](../docker/jvm-maven/Dockerfile), `eclipse-temurin:21-jdk` compila com `./mvnw package -DskipTests`, a imagem final roda em `eclipse-temurin:21-jre` só com o `app.jar`.
 - **Node** [`templates/docker/typescript/Dockerfile`](../docker/typescript/Dockerfile), `node:22-alpine` builda com `npm ci && npm run build`, a imagem final serve o `dist/` estático em `nginx:alpine`.
-- **Python** [`templates/docker/python/Dockerfile`](../docker/python/Dockerfile), instala `requirements.txt` e roda direto sobre `python:latest` (sem estágio de build separado, já que não há artefato compilado).
+- **Python** [`templates/docker/python/Dockerfile`](../docker/python/Dockerfile), instala `requirements.txt` e roda direto sobre `python:3.14-slim` como usuário não-root e com `HEALTHCHECK` em `/health` (sem estágio de build separado, já que não há artefato compilado).
 
 Nenhum segredo é embutido na imagem em build-time e variáveis de ambiente e credenciais são injetadas em runtime pelo manifesto do Kubernetes (repositório [Infra-gitops](https://github.com/Solierrr/infra-gitops)).
 
