@@ -1,12 +1,12 @@
 <p align="center">
-  <img src="./assets/readme/banners/kong.png" alt="kong" width="100%">
+  <img src="./assets/readme/banners/kong.png" alt="Kong" width="100%">
 </p>
 
 <p align="center">
-  <img src="./assets/readme/stacks/docker.png" width="100" hspace="8" alt="docker" title="docker">
-  <img src="./assets/readme/stacks/helm.png" width="100" hspace="8" alt="helm" title="helm">
-  <img src="./assets/readme/stacks/kubernetes.png" width="100" hspace="8" alt="kubernetes" title="kubernetes">
-  <img src="./assets/readme/stacks/github-actions.png" width="100" hspace="8" alt="github-actions" title="github-actions">
+  <img src="./assets/readme/stacks/docker.png" width="100" hspace="8" alt="Docker" title="Docker">
+  <img src="./assets/readme/stacks/helm.png" width="100" hspace="8" alt="Helm" title="Helm">
+  <img src="./assets/readme/stacks/kubernetes.png" width="100" hspace="8" alt="Kubernetes" title="Kubernetes">
+  <img src="./assets/readme/stacks/github-actions.png" width="100" hspace="8" alt="GitHub Actions" title="GitHub Actions">
 </p>
 
 # Entrada e roteamento das APIs
@@ -28,8 +28,7 @@ O repositório mantém a configuração declarativa do Kong e os valores usados 
 - [API.md](./docs/API.md), autenticação e uso do contrato.
 - [DEPLOY.md](./docs/DEPLOY.md), ambientes e publicação.
 - [STATUS.md](./docs/STATUS.md), limites observados.
-- [ROUTING.md](./flows/ROUTING.md), detalhes do fluxo ou modelo de dados.
-- [CONFIG_PUBLISH.md](./flows/CONFIG_PUBLISH.md), detalhes do fluxo ou modelo de dados.
+- [Fluxos](./flows/), etapas e casos de erro do repositório.
 - [PENDENCIAS.md](./PENDENCIAS.md), questões para revisão.
 
 ## Contribuindo

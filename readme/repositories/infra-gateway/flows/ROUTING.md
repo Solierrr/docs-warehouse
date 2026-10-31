@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../assets/readme/banners/kong.png" alt="kong" width="100%">
+  <img src="../assets/readme/banners/kong.png" alt="Kong" width="100%">
 </p>
 
 # Encaminhamento de chamada
