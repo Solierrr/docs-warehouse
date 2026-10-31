@@ -58,7 +58,7 @@ Hashes dos códigos de recuperação.
 
 ## `auth_session`
 
-Sessões, validade, método de autenticação e revogação. V2 acrescenta client_id e context.
+Sessões, validade, método de autenticação e revogação. V2 acrescenta `client_id` (VARCHAR(100)) e `context` (VARCHAR(30)), ambos obrigatórios.
 
 `id` (UUID), `user_id` (UUID), `ip_address` (VARCHAR(45)), `user_agent` (TEXT), `device` (TEXT), `authentication_methods` (TEXT[]), `mfa_completed_at` (TIMESTAMPTZ), `created_at` (TIMESTAMPTZ), `last_access_at` (TIMESTAMPTZ), `expires_at` (TIMESTAMPTZ), `revoked_at` (TIMESTAMPTZ), `revocation_reason` (VARCHAR(60)).
 
