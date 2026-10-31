@@ -1,31 +1,19 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/banners/fastapi.png" alt="FastAPI" width="100%">
-</p>
-
-<p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/python.png" width="100" hspace="8" alt="Python" title="Python">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/pydantic.png" width="100" hspace="8" alt="Pydantic" title="Pydantic">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/gemini.png" width="100" hspace="8" alt="Gemini" title="Gemini">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/groq.png" width="100" hspace="8" alt="Groq" title="Groq">
+  <img src="../assets/readme/banners/fastapi.png" alt="FastAPI" width="100%">
 </p>
 
 # API
 
-`GET /health` informa se chave do provedor e token interno estão configurados. `POST /v1/images/analyze` exige `Authorization: Bearer <INTERNAL_API_TOKEN>` e formulário com `image`, `purpose` e, opcionalmente, `request_id`, `context_title` e `max_alt_chars` (qualquer inteiro positivo; padrão 150). A legenda é gerada em pt-BR. O Swagger local fica em `/docs`.
+O [openapi.yaml](https://github.com/Solierrr/ai-accessibility/blob/main/openapi.yaml) contém o contrato. `/docs` e `/openapi.json` dependem de `DOCS_ENABLED`. A rota `POST /v1/images/analyze` exige `X-Service-Key` de chamador aceito.
 
-Configure a chave Gemini em `GEMINI_API_KEY` (a mesma dos demais serviços; `GEMINI_AI_ACCESSIBILITY_KEY` e `GOOGLE_API_KEY` ainda funcionam como nomes legados, nessa ordem de prioridade). `GROQ_API_KEY` (ou o legado `GROQ_AI_ACCESSIBILITY_KEY`) ativa o GroqCloud como fallback em falhas técnicas. Com `GROQ_MODEL` vazio, usa `qwen/qwen3.8-27b`. GroqCloud e xAI/Grok são serviços diferentes.
+```http
+POST /v1/images/analyze
+X-Service-Key: <chave do chamador>
+Content-Type: multipart/form-data
+```
 
-Uma aprovação é apenas um resultado da análise. O backend que futuramente receberá o upload deve manter o arquivo privado até o autor confirmar o texto alternativo e o sistema concluir a publicação.
+O formulário recebe `image`, `purpose` e, opcionalmente, `request_id`, `context_title` e `max_alt_chars`. O resultado inclui `decision`, motivos, categorias, texto alternativo e versões da política e dos modelos. `approved`, `review_required` e `rejected` são decisões de análise, não códigos HTTP.
 
-Na resposta, `risk_categories` lista categorias de risco identificadas. Lista vazia junto de `PROVIDER_UNAVAILABLE` não comprova que a imagem seja segura.
+Chave inválida produz 401, upload bruto acima do limite produz 413 e formulário inválido produz 422. Ausência de provedor produz 503. Erros seguem [ERRORS.md](https://github.com/Solierrr/docs-warehouse/blob/main/docs/standards/ERRORS.md). Falha técnica do provedor pode resultar em revisão com `PROVIDER_UNAVAILABLE`.
 
-<!-- pr de teste dos comentarios automaticos, pode reverter -->
-
-<!-- pr de teste dos comentarios automaticos, pode reverter -->
-
-<!-- pr de teste dos comentarios automaticos, pode reverter -->
-
-<!-- pr de teste dos comentarios automaticos, pode reverter -->
-
-<!-- pr de teste dos comentarios automaticos, pode reverter -->
-<!-- pr de teste para validar os comentarios do piloto de sync e release -->
+`/debug/images/analyze` e `/debug/images/stage` são administrativos e ficam fora do Swagger. Usam JWT e permitem reexecutar moderação ou legenda a partir de uma execução temporária do mesmo administrador.
