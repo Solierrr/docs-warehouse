@@ -1,25 +1,34 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/banners/cloudinary.png" alt="Cloudinary" width="100%">
+  <img src="./assets/readme/banners/cloudinary.png" alt="cloudinary" width="100%">
 </p>
 
-# Acervo de imagens de exemplo
+# Acervo compartilhado de imagens
 
 [![License](https://img.shields.io/github/license/Solierrr/mocks-warehouse)](https://github.com/Solierrr/mocks-warehouse/blob/main/LICENSE)
 [![GitHub Last Commit](https://img.shields.io/github/last-commit/Solierrr/mocks-warehouse)](https://github.com/Solierrr/mocks-warehouse/commits)
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/mocks-warehouse)](https://github.com/Solierrr/mocks-warehouse/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/mocks-warehouse)](https://github.com/Solierrr/mocks-warehouse/releases)
 
-Este repositório guarda o acervo de imagens usado nos dados de exemplo e nos ambientes de teste, junto com um catálogo que descreve cada imagem. É um conjunto de arquivos compartilhado por quem precisa de fotos para simular a plataforma e não executa nenhum serviço. As imagens ficam publicadas num serviço de hospedagem de imagens, e o catálogo registra os atributos de cada uma, o que permite escolher fotos adequadas para cada tipo de dado simulado.
+O acervo fornece imagens para ambientes de desenvolvimento e cargas iniciais da plataforma. Ele organiza retratos, empresas, unidades, produtos e elementos de apresentação por categoria. A equipe consegue escolher recursos adequados a cada tela e reutilizá-los com identificadores estáveis, sem manter cópias divergentes em cada projeto.
+
+Os arquivos WebP e seus metadados ficam num catálogo versionado. Scripts conferem integridade, sincronizam cópias locais e enviam imagens ao Cloudinary. O carregamento de dados escolhe os recursos pelo catálogo e grava as referências nas entidades correspondentes. O repositório não executa um serviço de aplicação.
 
 ## Aprofunde-se no Projeto!
 
-- [ARCHITECTURE.md](https://github.com/Solierrr/mocks-warehouse/blob/main/docs/ARCHITECTURE.md), arquitetura do repositório e estrutura de pastas.
-- [ASSETS.md](https://github.com/Solierrr/mocks-warehouse/blob/main/docs/ASSETS.md), organização das pastas, atributos, como adicionar imagens e licença.
-- [VALIDATION.md](https://github.com/Solierrr/mocks-warehouse/blob/main/docs/VALIDATION.md), como validar o acervo e a automação.
-- [INTEGRATIONS.md](https://github.com/Solierrr/mocks-warehouse/blob/main/docs/INTEGRATIONS.md), uso nos mocks locais do `web-app`, nos seeds e no Cloudinary.
+- [OVERVIEW.md](./docs/OVERVIEW.md), finalidade e regras de produto.
+- [ARCHITECTURE.md](./docs/ARCHITECTURE.md), componentes, dados e integrações.
+- [RUNNING.md](./docs/RUNNING.md), preparação e execução local.
+- [ASSETS.md](./docs/ASSETS.md), detalhes do fluxo ou modelo de dados.
+- [INTEGRATIONS.md](./docs/INTEGRATIONS.md), detalhes do fluxo ou modelo de dados.
+- [VALIDATION.md](./docs/VALIDATION.md), detalhes do fluxo ou modelo de dados.
+- [DEPLOY.md](./docs/DEPLOY.md), ambientes e publicação.
+- [STATUS.md](./docs/STATUS.md), limites observados.
+- [MOCK_PUBLISH.md](./flows/MOCK_PUBLISH.md), detalhes do fluxo ou modelo de dados.
+- [MOCK_VALIDATION.md](./flows/MOCK_VALIDATION.md), detalhes do fluxo ou modelo de dados.
+- [PENDENCIAS.md](./PENDENCIAS.md), questões para revisão.
 
 ## Contribuindo
 
-- [CONTRIBUTING.md](https://github.com/Solierrr/.github/blob/main/.github/CONTRIBUTING.md), convenções de commit, branch e Pull Request.
-- [CODE_OF_CONDUCT.md](https://github.com/Solierrr/.github/blob/main/CODE_OF_CONDUCT.md), código de conduta do projeto.
-- [SECURITY.md](https://github.com/Solierrr/.github/blob/main/SECURITY.md), como reportar vulnerabilidades de segurança.
+- [CONTRIBUTING.md](https://github.com/Solierrr/.github/blob/main/.github/CONTRIBUTING.md), convenções de contribuição.
+- [CODE_OF_CONDUCT.md](https://github.com/Solierrr/.github/blob/main/CODE_OF_CONDUCT.md), código de conduta.
+- [SECURITY.md](https://github.com/Solierrr/.github/blob/main/SECURITY.md), relato de vulnerabilidades.
