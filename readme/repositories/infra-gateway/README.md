@@ -1,31 +1,38 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/banners/kong.png" alt="Kong" width="100%">
+  <img src="./assets/readme/banners/kong.png" alt="Kong" width="100%">
 </p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/kubernetes.png" width="100" hspace="8" alt="Kubernetes" title="Kubernetes">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/helm.png" width="100" hspace="8" alt="Helm" title="Helm">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/docker.png" width="100" hspace="8" alt="Docker" title="Docker">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/render.png" width="100" hspace="8" alt="Render" title="Render">
+  <img src="./assets/readme/stacks/docker.png" width="100" hspace="8" alt="Docker" title="Docker">
+  <img src="./assets/readme/stacks/helm.png" width="100" hspace="8" alt="Helm" title="Helm">
+  <img src="./assets/readme/stacks/kubernetes.png" width="100" hspace="8" alt="Kubernetes" title="Kubernetes">
+  <img src="./assets/readme/stacks/github-actions.png" width="100" hspace="8" alt="GitHub Actions" title="GitHub Actions">
 </p>
 
-# Porta de entrada dos serviços
+# Entrada e roteamento das APIs
 
 [![License](https://img.shields.io/github/license/Solierrr/infra-gateway)](https://github.com/Solierrr/infra-gateway/blob/main/LICENSE)
 [![GitHub Last Commit](https://img.shields.io/github/last-commit/Solierrr/infra-gateway)](https://github.com/Solierrr/infra-gateway/commits)
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/infra-gateway)](https://github.com/Solierrr/infra-gateway/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/infra-gateway)](https://github.com/Solierrr/infra-gateway/releases)
 
-Este repositório guarda a configuração do gateway da plataforma, o ponto de entrada das requisições destinadas aos serviços. Em produção, o gateway roda dentro do cluster na nuvem; no ambiente de testes, que não possui cluster, ele oferece um endereço único e encaminha cada requisição ao serviço correspondente, no mesmo formato de produção. Assim, quem consome os serviços não precisa saber onde cada um está hospedado.
+O gateway oferece um ponto de entrada para encaminhar chamadas às APIs e aos assistentes da plataforma. No ambiente de QA, ele reúne serviços hospedados separadamente sob caminhos conhecidos. No cluster, a configuração apoia o controlador que recebe as chamadas pelos endereços de cada aplicação.
+
+O repositório mantém a configuração declarativa do Kong e os valores usados na instalação por Helm. A instância de QA funciona sem banco e lê suas rotas ao iniciar. As regras de autenticação das operações continuam nos serviços de destino, enquanto o gateway trata encaminhamento, origens do navegador e identificação das requisições.
 
 ## Aprofunde-se no Projeto!
 
-- [ARCHITECTURE.md](https://github.com/Solierrr/infra-gateway/blob/main/docs/ARCHITECTURE.md), arquitetura do repositório e estrutura de pastas.
-- [QA_RENDER.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/QA_RENDER.md), deploy de QA no Render.
-- [ENVIRONMENTS.md](https://github.com/Solierrr/infra-gateway/blob/main/docs/ENVIRONMENTS.md), como o gateway roda em QA e em produção.
+- [OVERVIEW.md](./docs/OVERVIEW.md), finalidade e regras de produto.
+- [ARCHITECTURE.md](./docs/ARCHITECTURE.md), componentes, dados e integrações.
+- [RUNNING.md](./docs/RUNNING.md), preparação e execução local.
+- [API.md](./docs/API.md), autenticação e uso do contrato.
+- [DEPLOY.md](./docs/DEPLOY.md), ambientes e publicação.
+- [STATUS.md](./docs/STATUS.md), limites observados.
+- [Fluxos](./flows/), etapas e casos de erro do repositório.
+- [PENDENCIAS.md](./PENDENCIAS.md), questões para revisão.
 
 ## Contribuindo
 
-- [CONTRIBUTING.md](https://github.com/Solierrr/.github/blob/main/.github/CONTRIBUTING.md), convenções de commit, branch e Pull Request.
-- [CODE_OF_CONDUCT.md](https://github.com/Solierrr/.github/blob/main/CODE_OF_CONDUCT.md), código de conduta do projeto.
-- [SECURITY.md](https://github.com/Solierrr/.github/blob/main/SECURITY.md), como reportar vulnerabilidades de segurança.
+- [CONTRIBUTING.md](https://github.com/Solierrr/.github/blob/main/.github/CONTRIBUTING.md), convenções de contribuição.
+- [CODE_OF_CONDUCT.md](https://github.com/Solierrr/.github/blob/main/CODE_OF_CONDUCT.md), código de conduta.
+- [SECURITY.md](https://github.com/Solierrr/.github/blob/main/SECURITY.md), relato de vulnerabilidades.
