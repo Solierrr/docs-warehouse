@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="./assets/readme/banners/postgresql.png" alt="postgresql" width="100%">
+  <img src="./assets/readme/banners/postgresql.png" alt="PostgreSQL" width="100%">
 </p>
 
 <p align="center">
-  <img src="./assets/readme/stacks/python.png" width="100" hspace="8" alt="python" title="python">
-  <img src="./assets/readme/stacks/redis.png" width="100" hspace="8" alt="redis" title="redis">
+  <img src="./assets/readme/stacks/python.png" width="100" hspace="8" alt="Python" title="Python">
+  <img src="./assets/readme/stacks/redis.png" width="100" hspace="8" alt="Redis" title="Redis">
 </p>
 
 # Operações de dados
@@ -27,10 +27,8 @@ Os utilitários usam Python, clientes PostgreSQL e scripts de sistema. Uma compo
 - [STATUS.md](./docs/STATUS.md), limites observados.
 - [DATABASES.md](./docs/DATABASES.md), detalhes do fluxo ou modelo de dados.
 - [SECRETS_AND_BACKUP.md](./docs/SECRETS_AND_BACKUP.md), detalhes do fluxo ou modelo de dados.
-- [POSTGRES.md](./database/POSTGRES.md), detalhes do fluxo ou modelo de dados.
-- [MIGRATION.md](./flows/MIGRATION.md), detalhes do fluxo ou modelo de dados.
-- [SEED.md](./flows/SEED.md), detalhes do fluxo ou modelo de dados.
-- [BACKUP.md](./flows/BACKUP.md), detalhes do fluxo ou modelo de dados.
+- [Dados](./database/), modelos e responsabilidades de persistência.
+- [Fluxos](./flows/), etapas e casos de erro do repositório.
 - [PENDENCIAS.md](./PENDENCIAS.md), questões para revisão.
 
 ## Contribuindo

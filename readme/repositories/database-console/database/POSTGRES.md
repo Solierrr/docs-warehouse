@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../assets/readme/banners/postgresql.png" alt="postgresql" width="100%">
+  <img src="../assets/readme/banners/postgresql.png" alt="PostgreSQL" width="100%">
 </p>
 
 # PostgreSQL e autorização analítica
