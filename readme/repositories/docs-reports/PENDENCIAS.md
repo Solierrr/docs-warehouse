@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./assets/readme/banners/html.png" alt="html" width="100%">
+  <img src="./assets/readme/banners/html.png" alt="HTML" width="100%">
 </p>
 
 # Pendências

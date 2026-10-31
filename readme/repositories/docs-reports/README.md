@@ -1,11 +1,11 @@
 <p align="center">
-  <img src="./assets/readme/banners/html.png" alt="html" width="100%">
+  <img src="./assets/readme/banners/html.png" alt="HTML" width="100%">
 </p>
 
 <p align="center">
-  <img src="./assets/readme/stacks/react.png" width="100" hspace="8" alt="react" title="react">
-  <img src="./assets/readme/stacks/typescript.png" width="100" hspace="8" alt="typescript" title="typescript">
-  <img src="./assets/readme/stacks/vite.png" width="100" hspace="8" alt="vite" title="vite">
+  <img src="./assets/readme/stacks/react.png" width="100" hspace="8" alt="React" title="React">
+  <img src="./assets/readme/stacks/typescript.png" width="100" hspace="8" alt="TypeScript" title="TypeScript">
+  <img src="./assets/readme/stacks/vite.png" width="100" hspace="8" alt="Vite" title="Vite">
 </p>
 
 # Publicação de relatórios
@@ -26,7 +26,7 @@ O conteúdo é montado em HTML, paginado e convertido em PDF por um navegador. O
 - [RUNNING.md](./docs/RUNNING.md), preparação e execução local.
 - [DEPLOY.md](./docs/DEPLOY.md), ambientes e publicação.
 - [STATUS.md](./docs/STATUS.md), limites observados.
-- [REPORT_PUBLISH.md](./flows/REPORT_PUBLISH.md), detalhes do fluxo ou modelo de dados.
+- [Fluxos](./flows/), etapas e casos de erro do repositório.
 - [PENDENCIAS.md](./PENDENCIAS.md), questões para revisão.
 
 ## Contribuindo
