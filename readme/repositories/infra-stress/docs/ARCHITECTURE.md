@@ -1,37 +1,19 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/banners/k6.png" alt="k6" width="100%">
+  <img src="../assets/readme/banners/k6.png" alt="k6" width="100%">
 </p>
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/typescript.png" width="100" hspace="8" alt="TypeScript" title="TypeScript">
-</p>
+# Arquitetura
 
-# Arquitetura do Repositório
+O build usa esbuild para gerar scripts k6 a partir do TypeScript. Os alvos ficam em `src/targets.json` e as travas em [config.ts](https://github.com/Solierrr/infra-stress/blob/main/src/config.ts).
 
-O `infra-stress` reúne testes de carga em k6, escritos em TypeScript e empacotados com esbuild antes da execução. Há dois alvos prontos, o `web-worker` e o `web-app`, cada um com um teste rápido de verificação e um teste de estresse. A configuração define as URLs por ambiente e aplica travas de segurança, como a confirmação obrigatória para executar contra produção e limites menores de usuários virtuais em planos gratuitos.
-
-- **Alvos e ambientes (`src/targets.json`):** URL de cada alvo em local, QA e produção.
-- **Perfil da execução (`src/config.ts`):** lê as opções do k6, aplica as travas e define os estágios do teste de estresse.
-- **Cenários por alvo (`src/web-app.ts` e `src/web-worker.ts`):** o primeiro simula o carregamento completo da página; o segundo confere o comportamento de borda, em que a página de manutenção é um resultado esperado quando a origem está desligada.
-- **Testes (`src/smoke/` e `src/stress/`):** o teste rápido e o de estresse de cada alvo, além dos testes genéricos por lista de URLs.
-- **Build (`scripts/build.mjs`):** gera os arquivos que o k6 executa.
-
-## Estrutura do repositório
-
-```text
-├── .github/
-├── docs/
-├── scripts/
-│   └── build.mjs
-├── src/
-│   ├── smoke/
-│   ├── stress/
-│   ├── config.ts
-│   ├── https.ts
-│   ├── targets.json
-│   ├── web-app.ts
-│   └── web-worker.ts
-├── Makefile
-├── package.json
-└── README.md
+```mermaid
+flowchart LR
+ C[Alvo, ambiente e perfil] --> B[Build TypeScript]
+ B --> K[k6]
+ K -->|HTTP| W[web-app ou web-worker]
+ W --> R[Checks e métricas]
 ```
+
+`src/smoke/` e `src/stress/` contêm cenários. `src/web-app.ts` aquece a origem, descobre assets e verifica páginas. `src/web-worker.ts` verifica borda, manutenção e iscas. Os scripts genéricos usam uma lista local de URLs.
+
+O stress sobe por trinta segundos, mantém pico por um minuto e desce por trinta segundos. Os picos padrão são cinquenta usuários virtuais no local, vinte no QA e dez em produção, com possibilidade de ajuste. Não há banco ou serviço próprio.
