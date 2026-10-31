@@ -1,0 +1,16 @@
+<p align="center">
+  <img src="../assets/readme/banners/react.png" alt="react" width="100%">
+</p>
+
+# Contato com serviços de QA
+
+O operador seleciona um conjunto e inicia contatos para reduzir o tempo de despertar.
+
+```mermaid
+flowchart TD
+ A[Seleciona serviços] --> B[Envia contato no-cors]
+ B --> C[Mostra andamento por destino]
+ C --> D[Operador valida serviço depois]
+```
+
+Uma resposta opaca do navegador não comprova que o serviço está pronto. Falhas ficam restritas ao destino. A rotina agendada é documentada separadamente no repositório de keepalive.

@@ -1,38 +1,22 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/banners/react.png" alt="React" width="100%">
+  <img src="../assets/readme/banners/react.png" alt="react" width="100%">
 </p>
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/typescript.png" width="100" hspace="8" alt="TypeScript" title="TypeScript">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/vite.png" width="100" hspace="8" alt="Vite" title="Vite">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/tailwind.png" width="100" hspace="8" alt="Tailwind CSS" title="Tailwind CSS">
-</p>
+# Arquitetura
 
-# Arquitetura do Repositório
+O frontend React é servido junto de um backend Fastify. O [catálogo permitido](https://github.com/Solierrr/web-sandbox/blob/main/shared/qa-services.json) limita os destinos do proxy.
 
-O `web-sandbox` é uma aplicação React com TypeScript, servida pelo Vite e publicada no Render como site estático. Ela usa os componentes da `lib-web`, consumidos a partir de um pacote versionado no próprio repositório, e se autentica no `api-auth` de QA. O conteúdo das telas vem de uma configuração local com os repositórios e serviços da plataforma, e não há backend próprio.
-
-- **Funcionalidades (`src/features/`):** login, catálogo de repositórios, tela para reativar os serviços de QA e documentação das APIs com Swagger UI.
-- **Configuração (`src/config/`):** lista de repositórios e serviços, URLs por ambiente e catálogo das APIs.
-- **Autenticação:** sessão do `api-auth` de QA; em desenvolvimento local, um modo simulado permite entrar sem chamar a API.
-- **Biblioteca (`vendor/`):** pacote da `lib-web` versionado no repositório, para usar alterações ainda não publicadas.
-- **Testes:** Vitest com Testing Library.
-
-## Estrutura do repositório
-
-```text
-├── .github/
-├── docs/
-├── public/
-├── src/
-│   ├── assets/
-│   ├── config/
-│   ├── features/
-│   ├── App.tsx
-│   └── main.tsx
-├── vendor/
-├── index.html
-├── package.json
-├── vite.config.ts
-└── README.md
+```mermaid
+flowchart LR
+ N[Navegador e Swagger] -->|HTTP e JWT| P[Fastify do portal]
+ P -->|JWKS público| A[api-auth de QA]
+ P -->|HTTP e JWT ou credencial de servidor| S[Serviços de QA]
+ N --> K[Contato simples de keepalive]
+ K --> S
 ```
+
+`src/config/` mantém catálogo e configuração. `src/features/` organiza acesso, catálogo, keepalive e Swagger. `server/portal/` valida JWT, caminhos, credenciais e contratos. `shared/` fornece os destinos fixos.
+
+O backend valida assinatura RS256, emissor, expiração e tipo access. O navegador não escolhe URLs arbitrárias. O proxy bloqueia redirecionamentos, referências OpenAPI externas e caminhos internos. O JWT passa entre abas por comunicação com validação de origem e identificação da aba.
+
+Não há banco próprio. As credenciais específicas são injetadas apenas no servidor, segundo o mapa de `upstreamHeaders`. A compatibilidade com contratos atuais dos serviços precisa de confirmação. <!-- PENDENTE: 1 -->
