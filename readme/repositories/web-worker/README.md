@@ -1,33 +1,41 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/banners/cloudflare-workers.png" alt="Cloudflare Workers" width="100%">
+  <img src="./assets/readme/banners/cloudflare-workers.png" alt="cloudflare-workers" width="100%">
 </p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/cloudflare.png" width="100" hspace="8" alt="Cloudflare" title="Cloudflare">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/typescript.png" width="100" hspace="8" alt="TypeScript" title="TypeScript">
+  <img src="./assets/readme/stacks/typescript.png" width="100" hspace="8" alt="typescript" title="typescript">
+  <img src="./assets/readme/stacks/cloudflare.png" width="100" hspace="8" alt="cloudflare" title="cloudflare">
 </p>
 
-# Porta de entrada do site
+# Entrada web na borda
 
 [![License](https://img.shields.io/github/license/Solierrr/web-worker)](https://github.com/Solierrr/web-worker/blob/main/LICENSE)
 [![GitHub Last Commit](https://img.shields.io/github/last-commit/Solierrr/web-worker)](https://github.com/Solierrr/web-worker/commits)
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/web-worker)](https://github.com/Solierrr/web-worker/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/web-worker)](https://github.com/Solierrr/web-worker/releases)
 
-Este serviço é executado na borda da rede, na frente do site principal, e trata cada acesso antes que ele chegue à aplicação. Ele encaminha as requisições e, quando a aplicação está indisponível, exibe uma página temporária que informa o problema em vez de um erro genérico. Também define o idioma da página conforme a preferência do visitante e bloqueia acessos automatizados a endereços usados em ataques.
+A entrada de borda recebe visitas ao domínio público, escolhe o idioma adequado e encaminha a navegação para a aplicação. Quando a origem está indisponível, apresenta uma página temporária traduzida em vez de expor uma falha bruta do servidor. Também reconhece caminhos usados para procurar arquivos e painéis que não pertencem ao produto.
+
+O Cloudflare Worker consulta uma origem com nome separado para evitar chamadas recursivas. As rotas e traduções são cópias versionadas do aplicativo web. A detecção de caminhos isca pode alimentar uma lista usada pela proteção de borda, e a telemetria pode acompanhar o percurso da chamada até os serviços.
 
 ## Aprofunde-se no Projeto!
 
-- [ARCHITECTURE.md](https://github.com/Solierrr/web-worker/blob/main/docs/ARCHITECTURE.md), arquitetura do repositório e estrutura de pastas.
-- [CLOUDFLARE_WORKER.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/CLOUDFLARE_WORKER.md), como o Worker é publicado na Cloudflare.
-- [OVERVIEW.md](https://github.com/Solierrr/web-worker/blob/main/docs/OVERVIEW.md), como o Worker encaminha a origem e o que precisa estar configurado.
-- [LANGUAGE.md](https://github.com/Solierrr/web-worker/blob/main/docs/LANGUAGE.md), escolha de idioma e normalização de rotas.
-- [HONEYPOT.md](https://github.com/Solierrr/web-worker/blob/main/docs/HONEYPOT.md), rotas isca, ban e limpeza.
-- [TELEMETRY.md](https://github.com/Solierrr/web-worker/blob/main/docs/TELEMETRY.md), logs e envio por OTLP.
-- [DEVELOPMENT.md](https://github.com/Solierrr/web-worker/blob/main/docs/DEVELOPMENT.md), como desenvolver e testar.
+- [OVERVIEW.md](./docs/OVERVIEW.md), finalidade e regras de produto.
+- [ARCHITECTURE.md](./docs/ARCHITECTURE.md), componentes, dados e integrações.
+- [RUNNING.md](./docs/RUNNING.md), preparação e execução local.
+- [API.md](./docs/API.md), autenticação e uso do contrato.
+- [HONEYPOT.md](./docs/HONEYPOT.md), detalhes do fluxo ou modelo de dados.
+- [LANGUAGE.md](./docs/LANGUAGE.md), detalhes do fluxo ou modelo de dados.
+- [TELEMETRY.md](./docs/TELEMETRY.md), detalhes do fluxo ou modelo de dados.
+- [DEPLOY.md](./docs/DEPLOY.md), ambientes e publicação.
+- [STATUS.md](./docs/STATUS.md), limites observados.
+- [EDGE_REQUEST.md](./flows/EDGE_REQUEST.md), detalhes do fluxo ou modelo de dados.
+- [HONEYPOT.md](./flows/HONEYPOT.md), detalhes do fluxo ou modelo de dados.
+- [LANGUAGE_ROUTING.md](./flows/LANGUAGE_ROUTING.md), detalhes do fluxo ou modelo de dados.
+- [PENDENCIAS.md](./PENDENCIAS.md), questões para revisão.
 
 ## Contribuindo
 
-- [CONTRIBUTING.md](https://github.com/Solierrr/.github/blob/main/.github/CONTRIBUTING.md), convenções de commit, branch e Pull Request.
-- [CODE_OF_CONDUCT.md](https://github.com/Solierrr/.github/blob/main/CODE_OF_CONDUCT.md), código de conduta do projeto.
-- [SECURITY.md](https://github.com/Solierrr/.github/blob/main/SECURITY.md), como reportar vulnerabilidades de segurança.
+- [CONTRIBUTING.md](https://github.com/Solierrr/.github/blob/main/.github/CONTRIBUTING.md), convenções de contribuição.
+- [CODE_OF_CONDUCT.md](https://github.com/Solierrr/.github/blob/main/CODE_OF_CONDUCT.md), código de conduta.
+- [SECURITY.md](https://github.com/Solierrr/.github/blob/main/SECURITY.md), relato de vulnerabilidades.
