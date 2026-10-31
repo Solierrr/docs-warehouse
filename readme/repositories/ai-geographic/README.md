@@ -1,13 +1,13 @@
 <p align="center">
-  <img src="./assets/readme/banners/fastapi.png" alt="fastapi" width="100%">
+  <img src="./assets/readme/banners/fastapi.png" alt="FastAPI" width="100%">
 </p>
 
 <p align="center">
-  <img src="./assets/readme/stacks/python.png" width="100" hspace="8" alt="python" title="python">
-  <img src="./assets/readme/stacks/mongodb.png" width="100" hspace="8" alt="mongodb" title="mongodb">
-  <img src="./assets/readme/stacks/google-maps.png" width="100" hspace="8" alt="google-maps" title="google-maps">
-  <img src="./assets/readme/stacks/gemini.png" width="100" hspace="8" alt="gemini" title="gemini">
-  <img src="./assets/readme/stacks/groq.png" width="100" hspace="8" alt="groq" title="groq">
+  <img src="./assets/readme/stacks/python.png" width="100" hspace="8" alt="Python" title="Python">
+  <img src="./assets/readme/stacks/mongodb.png" width="100" hspace="8" alt="MongoDB" title="MongoDB">
+  <img src="./assets/readme/stacks/google-maps.png" width="100" hspace="8" alt="Google Maps" title="Google Maps">
+  <img src="./assets/readme/stacks/gemini.png" width="100" hspace="8" alt="Gemini" title="Gemini">
+  <img src="./assets/readme/stacks/groq.png" width="100" hspace="8" alt="Groq" title="Groq">
 </p>
 
 # Copiloto de campo
@@ -29,9 +29,8 @@ A conversa combina consultas ao Google Maps, dados solares e recomendações de 
 - [API.md](./docs/API.md), autenticação e uso do contrato.
 - [DEPLOY.md](./docs/DEPLOY.md), ambientes e publicação.
 - [STATUS.md](./docs/STATUS.md), limites observados.
-- [CHAT_TURN.md](./flows/CHAT_TURN.md), detalhes do fluxo ou modelo de dados.
-- [ROOF_VIABILITY.md](./flows/ROOF_VIABILITY.md), detalhes do fluxo ou modelo de dados.
-- [MONGO.md](./database/MONGO.md), detalhes do fluxo ou modelo de dados.
+- [Fluxos](./flows/), etapas e casos de erro do repositório.
+- [Dados](./database/), modelos e responsabilidades de persistência.
 - [PENDENCIAS.md](./PENDENCIAS.md), questões para revisão.
 
 ## Contribuindo
