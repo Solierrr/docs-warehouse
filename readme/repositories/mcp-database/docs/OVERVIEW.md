@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../assets/readme/banners/mcp.png" alt="mcp" width="100%">
+  <img src="../assets/readme/banners/mcp.png" alt="MCP" width="100%">
 </p>
 
 # Visão de produto

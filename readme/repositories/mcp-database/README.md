@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="./assets/readme/banners/mcp.png" alt="mcp" width="100%">
+  <img src="./assets/readme/banners/mcp.png" alt="MCP" width="100%">
 </p>
 
 <p align="center">
-  <img src="./assets/readme/stacks/python.png" width="100" hspace="8" alt="python" title="python">
-  <img src="./assets/readme/stacks/postgresql.png" width="100" hspace="8" alt="postgresql" title="postgresql">
+  <img src="./assets/readme/stacks/python.png" width="100" hspace="8" alt="Python" title="Python">
+  <img src="./assets/readme/stacks/postgresql.png" width="100" hspace="8" alt="PostgreSQL" title="PostgreSQL">
 </p>
 
 # Ferramentas de consulta dos agentes
@@ -26,7 +26,7 @@ O acesso usa um protocolo de ferramentas autenticado entre serviços. Parte das 
 - [API.md](./docs/API.md), autenticação e uso do contrato.
 - [DEPLOY.md](./docs/DEPLOY.md), ambientes e publicação.
 - [STATUS.md](./docs/STATUS.md), limites observados.
-- [TOOL_CALL.md](./flows/TOOL_CALL.md), detalhes do fluxo ou modelo de dados.
+- [Fluxos](./flows/), etapas e casos de erro do repositório.
 - [PENDENCIAS.md](./PENDENCIAS.md), questões para revisão.
 
 ## Contribuindo
