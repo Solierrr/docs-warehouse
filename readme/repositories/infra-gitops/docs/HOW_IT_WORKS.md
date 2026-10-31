@@ -1,16 +1,28 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/banners/argocd.png" alt="Argo CD" width="100%">
+  <img src="../assets/readme/banners/argocd.png" alt="argocd" width="100%">
 </p>
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/kubernetes.png" width="100" hspace="8" alt="Kubernetes" title="Kubernetes">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/kubernetes-deployment.png" width="100" hspace="8" alt="Kubernetes Deployment" title="Kubernetes Deployment">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/kubernetes-service.png" width="100" hspace="8" alt="Kubernetes Service" title="Kubernetes Service">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/kubernetes-ingress.png" width="100" hspace="8" alt="Kubernetes Ingress" title="Kubernetes Ingress">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/gcp.png" width="100" hspace="8" alt="Google Cloud" title="Google Cloud">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/github-actions.png" width="100" hspace="8" alt="GitHub Actions" title="GitHub Actions">
-</p>
+# Catálogo de aplicações
 
-# Como o repositório funciona
+As Applications versionadas na main consultada estão listadas abaixo. Cada uma aponta para uma pasta em `services/`.
 
-Cada `Application` sob `apps/` (por exemplo `api-core.yaml`, `api-auth.yaml`, `web-app.yaml`) referencia um caminho da pasta `services/` deste mesmo repositório, onde ficam o `Deployment`, o `Service` e (quando exposto externamente) o `Ingress` daquele serviço. O ArgoCD sincroniza automaticamente qualquer divergência entre o que está em `services/<app>` e o estado real do cluster, com `prune` e `selfHeal` habilitados — ou seja, um merge em `main` já é o deploy.
+- `ai-accessibility`.
+- `ai-assistant`.
+- `ai-geographic`.
+- `ai-operational`.
+- `ai-validation`.
+- `mcp-database`.
+- `api-auth`.
+- `api-core`.
+- `api-email`.
+- `api-google`.
+- `api-messenger`.
+- `api-notify`.
+- `api-recommendation`.
+- `feeddb`.
+- `grafana`.
+- `otel-collector`.
+- `rabbitmq`.
+- `web-app`.
+
+O banco `feeddb` usa Neo4j 5.26.31 Community, StatefulSet com uma réplica e volume de dados de 5 GiB. A credencial vem de `feeddb-secrets`. O schema e a reconstrução da projeção pertencem ao `database-bootstrap`, conforme o [fluxo de recomendações](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/RECOMMENDATION_FEED.md).
