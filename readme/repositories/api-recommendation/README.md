@@ -1,13 +1,13 @@
 <p align="center">
-  <img src="./assets/readme/banners/fastapi.png" alt="fastapi" width="100%">
+  <img src="./assets/readme/banners/fastapi.png" alt="FastAPI" width="100%">
 </p>
 
 <p align="center">
-  <img src="./assets/readme/stacks/python.png" width="100" hspace="8" alt="python" title="python">
-  <img src="./assets/readme/stacks/neo4j.png" width="100" hspace="8" alt="neo4j" title="neo4j">
-  <img src="./assets/readme/stacks/postgresql.png" width="100" hspace="8" alt="postgresql" title="postgresql">
-  <img src="./assets/readme/stacks/swagger.png" width="100" hspace="8" alt="swagger" title="swagger">
-  <img src="./assets/readme/stacks/bruno.png" width="100" hspace="8" alt="bruno" title="bruno">
+  <img src="./assets/readme/stacks/python.png" width="100" hspace="8" alt="Python" title="Python">
+  <img src="./assets/readme/stacks/neo4j.png" width="100" hspace="8" alt="Neo4j" title="Neo4j">
+  <img src="./assets/readme/stacks/postgresql.png" width="100" hspace="8" alt="PostgreSQL" title="PostgreSQL">
+  <img src="./assets/readme/stacks/swagger.png" width="100" hspace="8" alt="Swagger" title="Swagger">
+  <img src="./assets/readme/stacks/bruno.png" width="100" hspace="8" alt="Bruno" title="Bruno">
 </p>
 
 # Feeds de recomendações
@@ -30,10 +30,8 @@ As recomendações usam um retrato dos dados de negócio no Neo4j. Quando ele n�
 - [FEEDS.md](./docs/FEEDS.md), detalhes do fluxo ou modelo de dados.
 - [DEPLOY.md](./docs/DEPLOY.md), ambientes e publicação.
 - [STATUS.md](./docs/STATUS.md), limites observados.
-- [NEO4J.md](./database/NEO4J.md), detalhes do fluxo ou modelo de dados.
-- [OFFER_FEED.md](./flows/OFFER_FEED.md), detalhes do fluxo ou modelo de dados.
-- [PROFESSIONAL_FEED.md](./flows/PROFESSIONAL_FEED.md), detalhes do fluxo ou modelo de dados.
-- [SUPPLIER_FEED.md](./flows/SUPPLIER_FEED.md), detalhes do fluxo ou modelo de dados.
+- [Dados](./database/), modelos e responsabilidades de persistência.
+- [Fluxos](./flows/), etapas e casos de erro do repositório.
 - [PENDENCIAS.md](./PENDENCIAS.md), questões para revisão.
 
 ## Contribuindo
