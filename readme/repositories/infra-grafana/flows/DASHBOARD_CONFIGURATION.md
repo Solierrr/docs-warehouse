@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../assets/readme/banners/grafana.png" alt="grafana" width="100%">
+  <img src="../assets/readme/banners/grafana.png" alt="Grafana" width="100%">
 </p>
 
 # Configuração dos painéis existentes

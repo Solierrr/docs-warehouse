@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="./assets/readme/banners/grafana.png" alt="grafana" width="100%">
+  <img src="./assets/readme/banners/grafana.png" alt="Grafana" width="100%">
 </p>
 
 <p align="center">
-  <img src="./assets/readme/stacks/github-actions.png" width="100" hspace="8" alt="github-actions" title="github-actions">
-  <img src="./assets/readme/stacks/infisical.png" width="100" hspace="8" alt="infisical" title="infisical">
+  <img src="./assets/readme/stacks/github-actions.png" width="100" hspace="8" alt="GitHub Actions" title="GitHub Actions">
+  <img src="./assets/readme/stacks/infisical.png" width="100" hspace="8" alt="Infisical" title="Infisical">
 </p>
 
 # Configuração de visualização operacional
@@ -25,7 +25,7 @@ A instância Grafana é descrita pelo GitOps, enquanto painéis e configuração
 - [RUNNING.md](./docs/RUNNING.md), preparação e execução local.
 - [DEPLOY.md](./docs/DEPLOY.md), ambientes e publicação.
 - [STATUS.md](./docs/STATUS.md), limites observados.
-- [DASHBOARD_CONFIGURATION.md](./flows/DASHBOARD_CONFIGURATION.md), detalhes do fluxo ou modelo de dados.
+- [Fluxos](./flows/), etapas e casos de erro do repositório.
 - [PENDENCIAS.md](./PENDENCIAS.md), questões para revisão.
 
 ## Contribuindo
