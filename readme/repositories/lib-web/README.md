@@ -1,11 +1,11 @@
 <p align="center">
-  <img src="./assets/readme/banners/storybook.png" alt="storybook" width="100%">
+  <img src="./assets/readme/banners/storybook.png" alt="Storybook" width="100%">
 </p>
 
 <p align="center">
-  <img src="./assets/readme/stacks/typescript.png" width="100" hspace="8" alt="typescript" title="typescript">
-  <img src="./assets/readme/stacks/react.png" width="100" hspace="8" alt="react" title="react">
-  <img src="./assets/readme/stacks/vite.png" width="100" hspace="8" alt="vite" title="vite">
+  <img src="./assets/readme/stacks/typescript.png" width="100" hspace="8" alt="TypeScript" title="TypeScript">
+  <img src="./assets/readme/stacks/react.png" width="100" hspace="8" alt="React" title="React">
+  <img src="./assets/readme/stacks/vite.png" width="100" hspace="8" alt="Vite" title="Vite">
 </p>
 
 # Componentes compartilhados de interface
@@ -29,8 +29,7 @@ O pacote distribui componentes React, tipos TypeScript, estilos e tokens de tema
 - [OBSERVABILITY.md](./docs/OBSERVABILITY.md), detalhes do fluxo ou modelo de dados.
 - [DEPLOY.md](./docs/DEPLOY.md), ambientes e publicação.
 - [STATUS.md](./docs/STATUS.md), limites observados.
-- [COMPONENT_RELEASE.md](./flows/COMPONENT_RELEASE.md), detalhes do fluxo ou modelo de dados.
-- [STORYBOOK_PUBLISH.md](./flows/STORYBOOK_PUBLISH.md), detalhes do fluxo ou modelo de dados.
+- [Fluxos](./flows/), etapas e casos de erro do repositório.
 - [PENDENCIAS.md](./PENDENCIAS.md), questões para revisão.
 
 ## Contribuindo

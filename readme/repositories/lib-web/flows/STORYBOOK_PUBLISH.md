@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../assets/readme/banners/storybook.png" alt="storybook" width="100%">
+  <img src="../assets/readme/banners/storybook.png" alt="Storybook" width="100%">
 </p>
 
 # Publicação do catálogo
