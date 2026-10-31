@@ -1,11 +1,11 @@
 <p align="center">
-  <img src="./assets/readme/banners/grafana.png" alt="grafana" width="100%">
+  <img src="./assets/readme/banners/grafana.png" alt="Grafana" width="100%">
 </p>
 
 <p align="center">
-  <img src="./assets/readme/stacks/opentelemetry.png" width="100" hspace="8" alt="opentelemetry" title="opentelemetry">
-  <img src="./assets/readme/stacks/kubernetes.png" width="100" hspace="8" alt="kubernetes" title="kubernetes">
-  <img src="./assets/readme/stacks/docker.png" width="100" hspace="8" alt="docker" title="docker">
+  <img src="./assets/readme/stacks/opentelemetry.png" width="100" hspace="8" alt="OpenTelemetry" title="OpenTelemetry">
+  <img src="./assets/readme/stacks/kubernetes.png" width="100" hspace="8" alt="Kubernetes" title="Kubernetes">
+  <img src="./assets/readme/stacks/docker.png" width="100" hspace="8" alt="Docker" title="Docker">
 </p>
 
 # Coleta central de telemetria
@@ -27,7 +27,7 @@ Os serviços enviam telemetria por OTLP ao OpenTelemetry Collector. A configura�
 - [API.md](./docs/API.md), autenticação e uso do contrato.
 - [DEPLOY.md](./docs/DEPLOY.md), ambientes e publicação.
 - [STATUS.md](./docs/STATUS.md), limites observados.
-- [TELEMETRY_PIPELINE.md](./flows/TELEMETRY_PIPELINE.md), detalhes do fluxo ou modelo de dados.
+- [Fluxos](./flows/), etapas e casos de erro do repositório.
 - [PENDENCIAS.md](./PENDENCIAS.md), questões para revisão.
 
 ## Contribuindo
