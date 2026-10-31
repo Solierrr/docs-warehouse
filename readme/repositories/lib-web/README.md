@@ -1,32 +1,40 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/banners/storybook.png" alt="Storybook" width="100%">
+  <img src="./assets/readme/banners/storybook.png" alt="storybook" width="100%">
 </p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/typescript.png" width="100" hspace="8" alt="TypeScript" title="TypeScript">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/vite.png" width="100" hspace="8" alt="Vite" title="Vite">
+  <img src="./assets/readme/stacks/typescript.png" width="100" hspace="8" alt="typescript" title="typescript">
+  <img src="./assets/readme/stacks/react.png" width="100" hspace="8" alt="react" title="react">
+  <img src="./assets/readme/stacks/vite.png" width="100" hspace="8" alt="vite" title="vite">
 </p>
 
-# Biblioteca de componentes visuais
+# Componentes compartilhados de interface
 
 [![License](https://img.shields.io/github/license/Solierrr/lib-web)](https://github.com/Solierrr/lib-web/blob/main/LICENSE)
 [![GitHub Last Commit](https://img.shields.io/github/last-commit/Solierrr/lib-web)](https://github.com/Solierrr/lib-web/commits)
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/lib-web)](https://github.com/Solierrr/lib-web/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/lib-web)](https://github.com/Solierrr/lib-web/releases)
 
-Esta biblioteca reúne os componentes visuais compartilhados pelas aplicações web da plataforma, como botões, formulários, layouts e modelos de e-mail, além das cores, fontes e espaçamentos do sistema de design. Com ela, as telas mantêm a mesma aparência, e uma melhoria feita aqui chega a todas as aplicações que a utilizam. É distribuída como pacote npm. Os componentes são documentados com exemplos visuais, o que facilita conferir cada um antes de usá-lo.
+A biblioteca reúne controles e layouts para manter as interfaces da plataforma com o mesmo comportamento visual. As equipes podem reutilizar formulários, navegação, mensagens, elementos de perfil e apresentações de conteúdo em vez de reconstruir cada peça. Um catálogo de histórias permite inspecionar os componentes antes de incorporá-los a uma aplicação.
+
+O pacote distribui componentes React, tipos TypeScript, estilos e tokens de tema. Entradas separadas atendem navegador, e-mails e observabilidade. A aplicação consumidora continua responsável por sessão, autorização, regras de negócio e integração com seus serviços. A publicação do pacote e do catálogo é feita por workflows próprios.
 
 ## Aprofunde-se no Projeto!
 
-- [ARCHITECTURE.md](https://github.com/Solierrr/lib-web/blob/main/docs/ARCHITECTURE.md), arquitetura do repositório e estrutura de pastas.
-- [PACKAGE_RELEASE.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/PACKAGE_RELEASE.md), como o pacote é publicado no registro.
-- [USAGE.md](https://github.com/Solierrr/lib-web/blob/main/docs/USAGE.md), instalação e uso dos componentes.
-- [EMAIL.md](https://github.com/Solierrr/lib-web/blob/main/docs/EMAIL.md), modelos de e-mail e teste local com o `api-email`.
-- [DEVELOPMENT.md](https://github.com/Solierrr/lib-web/blob/main/docs/DEVELOPMENT.md), como desenvolver, testar e publicar o pacote.
-- [OBSERVABILITY.md](https://github.com/Solierrr/lib-web/blob/main/docs/OBSERVABILITY.md), telemetria da biblioteca.
+- [OVERVIEW.md](./docs/OVERVIEW.md), finalidade e regras de produto.
+- [ARCHITECTURE.md](./docs/ARCHITECTURE.md), componentes, dados e integrações.
+- [RUNNING.md](./docs/RUNNING.md), preparação e execução local.
+- [API.md](./docs/API.md), autenticação e uso do contrato.
+- [EMAIL.md](./docs/EMAIL.md), detalhes do fluxo ou modelo de dados.
+- [OBSERVABILITY.md](./docs/OBSERVABILITY.md), detalhes do fluxo ou modelo de dados.
+- [DEPLOY.md](./docs/DEPLOY.md), ambientes e publicação.
+- [STATUS.md](./docs/STATUS.md), limites observados.
+- [COMPONENT_RELEASE.md](./flows/COMPONENT_RELEASE.md), detalhes do fluxo ou modelo de dados.
+- [STORYBOOK_PUBLISH.md](./flows/STORYBOOK_PUBLISH.md), detalhes do fluxo ou modelo de dados.
+- [PENDENCIAS.md](./PENDENCIAS.md), questões para revisão.
 
 ## Contribuindo
 
-- [CONTRIBUTING.md](https://github.com/Solierrr/.github/blob/main/.github/CONTRIBUTING.md), convenções de commit, branch e Pull Request.
-- [CODE_OF_CONDUCT.md](https://github.com/Solierrr/.github/blob/main/CODE_OF_CONDUCT.md), código de conduta do projeto.
-- [SECURITY.md](https://github.com/Solierrr/.github/blob/main/SECURITY.md), como reportar vulnerabilidades de segurança.
+- [CONTRIBUTING.md](https://github.com/Solierrr/.github/blob/main/.github/CONTRIBUTING.md), convenções de contribuição.
+- [CODE_OF_CONDUCT.md](https://github.com/Solierrr/.github/blob/main/CODE_OF_CONDUCT.md), código de conduta.
+- [SECURITY.md](https://github.com/Solierrr/.github/blob/main/SECURITY.md), relato de vulnerabilidades.
