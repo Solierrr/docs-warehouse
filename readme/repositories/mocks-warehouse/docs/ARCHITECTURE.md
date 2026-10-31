@@ -1,32 +1,19 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/banners/cloudinary.png" alt="Cloudinary" width="100%">
+  <img src="../assets/readme/banners/cloudinary.png" alt="cloudinary" width="100%">
 </p>
 
-# Arquitetura do Repositório
+# Arquitetura
 
-O `mocks-warehouse` é um acervo de imagens organizado por categoria, com um catálogo em JSON que descreve cada arquivo. Não há serviço em execução: scripts em Node.js validam o catálogo, sincronizam as imagens com o Cloudinary e geram as entradas novas. Os consumidores (dados simulados do `web-app` e cargas de exemplo dos bancos) escolhem as imagens pelo catálogo, usando os atributos de cada uma.
+O catálogo `manifest.json` descreve arquivos em `images/`. Os scripts usam Node.js nativo, sem dependências de runtime.
 
-- **Acervo (`images/`):** imagens em WebP, separadas em usuários, empresas, unidades e produtos, com limites de tamanho por categoria.
-- **Catálogo (`manifest.json`):** uma entrada por imagem, com papel, categoria e atributos opcionais, como recorte e faixa etária aparente.
-- **Validação (`scripts/validate.mjs`):** confere o catálogo contra os arquivos e as regras dos atributos.
-- **Publicação (`scripts/cloudinary.mjs` e `scripts/sync.mjs`):** envia as imagens ao Cloudinary com as coordenadas de recorte.
-- **Catálogo (`scripts/catalog.mjs`):** utilitários de leitura e escrita do catálogo.
-
-## Estrutura do repositório
-
-```text
-├── .github/
-├── images/
-│   ├── enterprises/
-│   ├── products/
-│   ├── units/
-│   └── users/
-├── scripts/
-│   ├── catalog.mjs
-│   ├── cloudinary.mjs
-│   ├── sync.mjs
-│   └── validate.mjs
-├── manifest.json
-├── package.json
-└── README.md
+```mermaid
+flowchart LR
+ I[WebP e manifesto] --> V[Validador]
+ V --> S[Sincronização local]
+ V --> U[Upload assinado]
+ S --> W[Frontend]
+ U --> C[Cloudinary]
+ I --> D[Seed do database-console]
 ```
+
+`scripts/catalog.mjs` valida o catálogo. `sync.mjs` copia ao frontend e `cloudinary.mjs` publica no armazenamento. O upload usa HTTPS com assinatura e credenciais de ambiente. Não há banco próprio. A integração com os consumidores está no [mapa central](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/INTEGRATIONS.md).
