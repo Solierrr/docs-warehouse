@@ -1,46 +1,24 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/banners/storybook.png" alt="Storybook" width="100%">
+  <img src="../assets/readme/banners/storybook.png" alt="Storybook" width="100%">
 </p>
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/typescript.png" width="100" hspace="8" alt="TypeScript" title="TypeScript">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/vite.png" width="100" hspace="8" alt="Vite" title="Vite">
-</p>
+# Arquitetura
 
-# Arquitetura do Repositório
+A biblioteca usa TypeScript, React e Vite em modo library, com módulos ESM e declarações de tipos. O [manifesto](https://github.com/Solierrr/lib-web/blob/main/package.json) define entradas para componentes, e-mail, tokens e observabilidade.
 
-O `lib-web` é a biblioteca de componentes React compartilhada pelas aplicações web da plataforma, publicada no npm. Ela reúne os componentes de interface, os tokens do sistema de design (cores, fontes e espaçamentos), os modelos de e-mail e utilitários de observabilidade. O build é feito com Vite em modo biblioteca, e cada componente é documentado e testado no Storybook.
-
-- **Componentes (`src/components/`):** peças de interface prontas para uso, exportadas pelo ponto de entrada da biblioteca.
-- **Tokens (`src/tokens/`):** valores do sistema de design, gerados por script e consumidos pelos componentes.
-- **E-mails (`src/email/`):** modelos de e-mail com a identidade visual da plataforma.
-- **Textos (`src/locales/`):** traduções usadas pelos componentes.
-- **Observabilidade (`src/observability/`):** utilitários de telemetria para as aplicações que usam a biblioteca.
-- **Documentação (`.storybook/` e `src/stories/`):** exemplos visuais de cada componente.
-- **Scripts (`scripts/`):** geração de tokens e da identidade dos e-mails e empacotamento dos assets.
-
-## Estrutura do repositório
-
-```text
-├── .github/
-├── .storybook/
-├── docs/
-├── public/
-├── scripts/
-├── src/
-│   ├── assets/
-│   ├── components/
-│   ├── email/
-│   ├── locales/
-│   ├── observability/
-│   ├── shared/
-│   ├── stories/
-│   ├── tokens/
-│   ├── index.ts
-│   └── style.css
-├── index.ts
-├── package.json
-├── vite.config.ts
-├── vitest.config.ts
-└── README.md
+```mermaid
+flowchart LR
+ T[Tokens JSON] --> B[Scripts de build]
+ C[Componentes React] --> V[Vite e TypeScript]
+ B --> V
+ V --> D[dist e pacote npm]
+ D --> A[Aplicações consumidoras]
+ C --> S[Storybook]
+ S --> P[GitHub Pages]
 ```
+
+`src/components/` contém o kit visual. `src/email/` atende renderização de e-mail no servidor. `src/tokens/` é a fonte do tema. `src/observability/` contém logger e exportação. `scripts/` gera tokens e branding e copia assets.
+
+React e outras bibliotecas de UI são peer dependencies. O bundle externaliza os runtimes para evitar cópias no consumidor. Não há banco próprio. As entradas `/email` e `/observability` evitam carregar a raiz de componentes do navegador.
+
+O consumidor fornece Router e contexto de tradução quando necessários. `uiTranslations` fornece textos sem iniciar a internacionalização global. Os detalhes estão em [API.md](./API.md), [EMAIL.md](./EMAIL.md) e [OBSERVABILITY.md](./OBSERVABILITY.md).
