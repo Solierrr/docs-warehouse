@@ -1,19 +1,9 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/banners/cloudinary.png" alt="Cloudinary" width="100%">
+  <img src="../assets/readme/banners/cloudinary.png" alt="Cloudinary" width="100%">
 </p>
 
-# Validação e automação
+# Verificação do acervo
 
-## Validar
+O validador confere versão, IDs, categorias, caminhos reais, metadados, WebP, dimensões, tamanho e hash. Recusa duplicatas e arquivos sem entrada no manifesto. A área de recorte usa inteiros e precisa caber na imagem.
 
-Requer Node.js 24 ou superior. Não há dependências para instalar.
-
-```sh
-npm run validate
-```
-
-O comando verifica IDs, categorias, caminhos, arquivos sem entrada no catálogo, formato WebP, tamanho e hash SHA256. A CI executa a mesma validação.
-
-## Automação
-
-Mantidos os workflows gerais de PRs, limpeza e releases semânticas do template. Removidos publicação Docker, sincronização QA e configuração de dependências Docker. O pacote é privado e não é publicado no npm.
+O CI executa validação e testes. A integridade técnica não comprova origem e direitos de uso. <!-- PENDENTE: 1 -->
