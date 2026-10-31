@@ -1,12 +1,12 @@
 <p align="center">
-  <img src="./assets/readme/banners/fastapi.png" alt="fastapi" width="100%">
+  <img src="./assets/readme/banners/fastapi.png" alt="FastAPI" width="100%">
 </p>
 
 <p align="center">
-  <img src="./assets/readme/stacks/python.png" width="100" hspace="8" alt="python" title="python">
-  <img src="./assets/readme/stacks/pydantic.png" width="100" hspace="8" alt="pydantic" title="pydantic">
-  <img src="./assets/readme/stacks/gemini.png" width="100" hspace="8" alt="gemini" title="gemini">
-  <img src="./assets/readme/stacks/groq.png" width="100" hspace="8" alt="groq" title="groq">
+  <img src="./assets/readme/stacks/python.png" width="100" hspace="8" alt="Python" title="Python">
+  <img src="./assets/readme/stacks/pydantic.png" width="100" hspace="8" alt="Pydantic" title="Pydantic">
+  <img src="./assets/readme/stacks/gemini.png" width="100" hspace="8" alt="Gemini" title="Gemini">
+  <img src="./assets/readme/stacks/groq.png" width="100" hspace="8" alt="Groq" title="Groq">
 </p>
 
 # Análise e descrição de imagens
@@ -28,7 +28,7 @@ A aplicação valida o arquivo, consulta um provedor de visão e aplica regras d
 - [API.md](./docs/API.md), autenticação e uso do contrato.
 - [DEPLOY.md](./docs/DEPLOY.md), ambientes e publicação.
 - [STATUS.md](./docs/STATUS.md), limites observados.
-- [IMAGE_DESCRIPTION.md](./flows/IMAGE_DESCRIPTION.md), detalhes do fluxo ou modelo de dados.
+- [Fluxos](./flows/), etapas e casos de erro do repositório.
 - [PENDENCIAS.md](./PENDENCIAS.md), questões para revisão.
 
 ## Contribuindo
