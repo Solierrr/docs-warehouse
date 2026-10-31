@@ -1,14 +1,14 @@
 <p align="center">
-  <img src="./assets/readme/banners/fastapi.png" alt="fastapi" width="100%">
+  <img src="./assets/readme/banners/fastapi.png" alt="FastAPI" width="100%">
 </p>
 
 <p align="center">
-  <img src="./assets/readme/stacks/python.png" width="100" hspace="8" alt="python" title="python">
-  <img src="./assets/readme/stacks/mongodb.png" width="100" hspace="8" alt="mongodb" title="mongodb">
-  <img src="./assets/readme/stacks/qdrant.png" width="100" hspace="8" alt="qdrant" title="qdrant">
-  <img src="./assets/readme/stacks/jwt.png" width="100" hspace="8" alt="jwt" title="jwt">
-  <img src="./assets/readme/stacks/gemini.png" width="100" hspace="8" alt="gemini" title="gemini">
-  <img src="./assets/readme/stacks/groq.png" width="100" hspace="8" alt="groq" title="groq">
+  <img src="./assets/readme/stacks/python.png" width="100" hspace="8" alt="Python" title="Python">
+  <img src="./assets/readme/stacks/mongodb.png" width="100" hspace="8" alt="MongoDB" title="MongoDB">
+  <img src="./assets/readme/stacks/qdrant.png" width="100" hspace="8" alt="Qdrant" title="Qdrant">
+  <img src="./assets/readme/stacks/jwt.png" width="100" hspace="8" alt="JWT" title="JWT">
+  <img src="./assets/readme/stacks/gemini.png" width="100" hspace="8" alt="Gemini" title="Gemini">
+  <img src="./assets/readme/stacks/groq.png" width="100" hspace="8" alt="Groq" title="Groq">
 </p>
 
 # Assistente de recomendações
@@ -30,12 +30,8 @@ A conversa usa especialistas organizados em um grafo, com memória no MongoDB e 
 - [API.md](./docs/API.md), autenticação e uso do contrato.
 - [DEPLOY.md](./docs/DEPLOY.md), ambientes e publicação.
 - [STATUS.md](./docs/STATUS.md), limites observados.
-- [MONGO.md](./database/MONGO.md), detalhes do fluxo ou modelo de dados.
-- [QDRANT.md](./database/QDRANT.md), detalhes do fluxo ou modelo de dados.
-- [REDIS.md](./database/REDIS.md), detalhes do fluxo ou modelo de dados.
-- [CHAT_TURN.md](./flows/CHAT_TURN.md), detalhes do fluxo ou modelo de dados.
-- [DELEGATION_A2A.md](./flows/DELEGATION_A2A.md), detalhes do fluxo ou modelo de dados.
-- [GUARDRAILS.md](./flows/GUARDRAILS.md), detalhes do fluxo ou modelo de dados.
+- [Dados](./database/), modelos e responsabilidades de persistência.
+- [Fluxos](./flows/), etapas e casos de erro do repositório.
 - [PENDENCIAS.md](./PENDENCIAS.md), questões para revisão.
 
 ## Contribuindo
