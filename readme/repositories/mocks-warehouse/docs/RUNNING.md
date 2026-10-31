@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../assets/readme/banners/cloudinary.png" alt="cloudinary" width="100%">
+  <img src="../assets/readme/banners/cloudinary.png" alt="Cloudinary" width="100%">
 </p>
 
 # Uso local

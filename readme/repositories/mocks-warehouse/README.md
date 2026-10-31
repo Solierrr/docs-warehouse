@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./assets/readme/banners/cloudinary.png" alt="cloudinary" width="100%">
+  <img src="./assets/readme/banners/cloudinary.png" alt="Cloudinary" width="100%">
 </p>
 
 # Acervo compartilhado de imagens
@@ -23,8 +23,7 @@ Os arquivos WebP e seus metadados ficam num catálogo versionado. Scripts confer
 - [VALIDATION.md](./docs/VALIDATION.md), detalhes do fluxo ou modelo de dados.
 - [DEPLOY.md](./docs/DEPLOY.md), ambientes e publicação.
 - [STATUS.md](./docs/STATUS.md), limites observados.
-- [MOCK_PUBLISH.md](./flows/MOCK_PUBLISH.md), detalhes do fluxo ou modelo de dados.
-- [MOCK_VALIDATION.md](./flows/MOCK_VALIDATION.md), detalhes do fluxo ou modelo de dados.
+- [Fluxos](./flows/), etapas e casos de erro do repositório.
 - [PENDENCIAS.md](./PENDENCIAS.md), questões para revisão.
 
 ## Contribuindo
