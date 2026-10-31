@@ -1,12 +1,12 @@
 <p align="center">
-  <img src="./assets/readme/banners/react.png" alt="react" width="100%">
+  <img src="./assets/readme/banners/react.png" alt="React" width="100%">
 </p>
 
 <p align="center">
-  <img src="./assets/readme/stacks/typescript.png" width="100" hspace="8" alt="typescript" title="typescript">
-  <img src="./assets/readme/stacks/vite.png" width="100" hspace="8" alt="vite" title="vite">
-  <img src="./assets/readme/stacks/firebase.png" width="100" hspace="8" alt="firebase" title="firebase">
-  <img src="./assets/readme/stacks/storybook.png" width="100" hspace="8" alt="storybook" title="storybook">
+  <img src="./assets/readme/stacks/typescript.png" width="100" hspace="8" alt="TypeScript" title="TypeScript">
+  <img src="./assets/readme/stacks/vite.png" width="100" hspace="8" alt="Vite" title="Vite">
+  <img src="./assets/readme/stacks/firebase.png" width="100" hspace="8" alt="Firebase" title="Firebase">
+  <img src="./assets/readme/stacks/storybook.png" width="100" hspace="8" alt="Storybook" title="Storybook">
 </p>
 
 # Portal e operação web
@@ -27,11 +27,7 @@ A aplicação React usa serviços de identidade, cadastro, mensagens, assistente
 - [RUNNING.md](./docs/RUNNING.md), preparação e execução local.
 - [DEPLOY.md](./docs/DEPLOY.md), ambientes e publicação.
 - [STATUS.md](./docs/STATUS.md), limites observados.
-- [LOGIN.md](./flows/LOGIN.md), detalhes do fluxo ou modelo de dados.
-- [CHAT.md](./flows/CHAT.md), detalhes do fluxo ou modelo de dados.
-- [PROFESSIONAL_SIGN_UP.md](./flows/PROFESSIONAL_SIGN_UP.md), detalhes do fluxo ou modelo de dados.
-- [PROJECT_MANAGEMENT.md](./flows/PROJECT_MANAGEMENT.md), detalhes do fluxo ou modelo de dados.
-- [PUSH_REGISTRATION.md](./flows/PUSH_REGISTRATION.md), detalhes do fluxo ou modelo de dados.
+- [Fluxos](./flows/), etapas e casos de erro do repositório.
 - [PENDENCIAS.md](./PENDENCIAS.md), questões para revisão.
 
 ## Contribuindo
