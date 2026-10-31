@@ -1,28 +1,34 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/banners/k6.png" alt="k6" width="100%">
+  <img src="./assets/readme/banners/k6.png" alt="k6" width="100%">
 </p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/typescript.png" width="100" hspace="8" alt="TypeScript" title="TypeScript">
+  <img src="./assets/readme/stacks/typescript.png" width="100" hspace="8" alt="typescript" title="typescript">
 </p>
 
-# Testes de carga
+# Verificação de carga web
 
 [![License](https://img.shields.io/github/license/Solierrr/infra-stress)](https://github.com/Solierrr/infra-stress/blob/main/LICENSE)
 [![GitHub Last Commit](https://img.shields.io/github/last-commit/Solierrr/infra-stress)](https://github.com/Solierrr/infra-stress/commits)
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/infra-stress)](https://github.com/Solierrr/infra-stress/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/infra-stress)](https://github.com/Solierrr/infra-stress/releases)
 
-Este repositório reúne os testes de carga da plataforma, que simulam muitos acessos simultâneos para medir até onde o sistema suporta. Há dois alvos configurados, a camada que fica na frente do domínio principal e a aplicação web, cada um com um teste rápido de verificação e um teste de estresse. Os testes são executados manualmente, quando necessário. Por gerarem tráfego real, os testes de estresse devem ser executados com cuidado para não afetar quem usa a plataforma.
+O repositório permite verificar como a aplicação web e sua entrada de borda respondem a acessos repetidos. A equipe pode executar uma verificação breve ou aumentar a quantidade de visitantes virtuais durante um intervalo controlado. Os resultados ajudam a distinguir indisponibilidade da aplicação, falha de recursos e comportamento esperado de manutenção.
+
+Os cenários são escritos em TypeScript e executados pelo k6. A configuração seleciona alvo e ambiente, define a intensidade e exige confirmação para produção. O teste da aplicação busca páginas e arquivos estáticos. O teste da borda também reconhece respostas de manutenção e oferece verificações opcionais dos caminhos isca.
 
 ## Aprofunde-se no Projeto!
 
-- [ARCHITECTURE.md](https://github.com/Solierrr/infra-stress/blob/main/docs/ARCHITECTURE.md), arquitetura do repositório e estrutura de pastas.
-- [HOW_IT_WORKS.md](https://github.com/Solierrr/infra-stress/blob/main/docs/HOW_IT_WORKS.md), alvos, perfis de teste e estrutura.
-- [USAGE.md](https://github.com/Solierrr/infra-stress/blob/main/docs/USAGE.md), comandos, limites a respeitar e testes por lista de URLs.
+- [OVERVIEW.md](./docs/OVERVIEW.md), finalidade e regras de produto.
+- [ARCHITECTURE.md](./docs/ARCHITECTURE.md), componentes, dados e integrações.
+- [RUNNING.md](./docs/RUNNING.md), preparação e execução local.
+- [DEPLOY.md](./docs/DEPLOY.md), ambientes e publicação.
+- [STATUS.md](./docs/STATUS.md), limites observados.
+- [LOAD_TEST.md](./flows/LOAD_TEST.md), detalhes do fluxo ou modelo de dados.
+- [PENDENCIAS.md](./PENDENCIAS.md), questões para revisão.
 
 ## Contribuindo
 
-- [CONTRIBUTING.md](https://github.com/Solierrr/.github/blob/main/.github/CONTRIBUTING.md), convenções de commit, branch e Pull Request.
-- [CODE_OF_CONDUCT.md](https://github.com/Solierrr/.github/blob/main/CODE_OF_CONDUCT.md), código de conduta do projeto.
-- [SECURITY.md](https://github.com/Solierrr/.github/blob/main/SECURITY.md), como reportar vulnerabilidades de segurança.
+- [CONTRIBUTING.md](https://github.com/Solierrr/.github/blob/main/.github/CONTRIBUTING.md), convenções de contribuição.
+- [CODE_OF_CONDUCT.md](https://github.com/Solierrr/.github/blob/main/CODE_OF_CONDUCT.md), código de conduta.
+- [SECURITY.md](https://github.com/Solierrr/.github/blob/main/SECURITY.md), relato de vulnerabilidades.
