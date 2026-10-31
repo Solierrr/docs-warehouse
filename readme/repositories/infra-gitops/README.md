@@ -1,34 +1,38 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/banners/argocd.png" alt="Argo CD" width="100%">
+  <img src="./assets/readme/banners/argocd.png" alt="argocd" width="100%">
 </p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/kubernetes.png" width="100" hspace="8" alt="Kubernetes" title="Kubernetes">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/kubernetes-deployment.png" width="100" hspace="8" alt="Kubernetes Deployment" title="Kubernetes Deployment">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/kubernetes-service.png" width="100" hspace="8" alt="Kubernetes Service" title="Kubernetes Service">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/kubernetes-ingress.png" width="100" hspace="8" alt="Kubernetes Ingress" title="Kubernetes Ingress">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/gcp.png" width="100" hspace="8" alt="Google Cloud" title="Google Cloud">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/github-actions.png" width="100" hspace="8" alt="GitHub Actions" title="GitHub Actions">
+  <img src="./assets/readme/stacks/kubernetes.png" width="100" hspace="8" alt="kubernetes" title="kubernetes">
+  <img src="./assets/readme/stacks/gke.png" width="100" hspace="8" alt="gke" title="gke">
+  <img src="./assets/readme/stacks/github-actions.png" width="100" hspace="8" alt="github-actions" title="github-actions">
 </p>
 
-# Entrega contínua dos serviços
+# Estado desejado do cluster
 
 [![License](https://img.shields.io/github/license/Solierrr/infra-gitops)](https://github.com/Solierrr/infra-gitops/blob/main/LICENSE)
 [![GitHub Last Commit](https://img.shields.io/github/last-commit/Solierrr/infra-gitops)](https://github.com/Solierrr/infra-gitops/commits)
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/infra-gitops)](https://github.com/Solierrr/infra-gitops/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/infra-gitops)](https://github.com/Solierrr/infra-gitops/releases)
 
-Este repositório descreve como cada serviço da plataforma deve estar em execução no cluster na nuvem. Em vez de aplicar mudanças manualmente, o estado desejado fica registrado aqui, e uma ferramenta de entrega contínua mantém o cluster igual ao que está descrito. Publicar um serviço novo ou alterar um existente consiste em adicionar ou modificar um arquivo neste repositório. Todo o histórico de mudanças fica registrado no próprio repositório.
+Este repositório descreve quais componentes devem funcionar no ambiente de produção e como eles são executados. A equipe revisa alterações antes da publicação, e o histórico permite identificar a configuração desejada em cada momento. Ele reúne aplicações de negócio, agentes, mensageria, observabilidade e o banco usado nas recomendações.
+
+O Argo CD acompanha os arquivos versionados e aplica as mudanças no Kubernetes. Uma aplicação raiz descobre as aplicações filhas, que apontam para os recursos de cada serviço. As credenciais são referenciadas por segredos do cluster. O repositório também oferece uma forma de conferir a sincronização em um cluster local.
 
 ## Aprofunde-se no Projeto!
 
-- [ARCHITECTURE.md](https://github.com/Solierrr/infra-gitops/blob/main/docs/ARCHITECTURE.md), estrutura de pastas e o padrão app-of-apps em detalhe.
-- [RUNNING.md](https://github.com/Solierrr/infra-gitops/blob/main/docs/RUNNING.md), como validar um manifesto localmente antes de abrir Pull Request.
-- [DEPLOYMENT.md]({a confirmar}), pipeline de deploy da organização (ver [docs-warehouse/.github/DEPLOYMENT.md](https://github.com/Solierrr/docs-warehouse/blob/main/.github/DEPLOYMENT.md)).
-- [HOW_IT_WORKS.md](https://github.com/Solierrr/infra-gitops/blob/main/docs/HOW_IT_WORKS.md), como as aplicações do ArgoCD apontam para os serviços.
+- [OVERVIEW.md](./docs/OVERVIEW.md), finalidade e regras de produto.
+- [ARCHITECTURE.md](./docs/ARCHITECTURE.md), componentes, dados e integrações.
+- [RUNNING.md](./docs/RUNNING.md), preparação e execução local.
+- [DEPLOY.md](./docs/DEPLOY.md), ambientes e publicação.
+- [STATUS.md](./docs/STATUS.md), limites observados.
+- [HOW_IT_WORKS.md](./docs/HOW_IT_WORKS.md), detalhes do fluxo ou modelo de dados.
+- [IMAGE_PROMOTION.md](./flows/IMAGE_PROMOTION.md), detalhes do fluxo ou modelo de dados.
+- [SYNC.md](./flows/SYNC.md), detalhes do fluxo ou modelo de dados.
+- [PENDENCIAS.md](./PENDENCIAS.md), questões para revisão.
 
 ## Contribuindo
 
-- [.github/CONTRIBUTING.md](https://github.com/Solierrr/.github/blob/main/.github/CONTRIBUTING.md), convenções de commit, branch e Pull Request.
-- [CODE_OF_CONDUCT.md]({a confirmar}), código de conduta do projeto.
-- [SECURITY.md]({a confirmar}), como reportar vulnerabilidades de segurança.
+- [CONTRIBUTING.md](https://github.com/Solierrr/.github/blob/main/.github/CONTRIBUTING.md), convenções de contribuição.
+- [CODE_OF_CONDUCT.md](https://github.com/Solierrr/.github/blob/main/CODE_OF_CONDUCT.md), código de conduta.
+- [SECURITY.md](https://github.com/Solierrr/.github/blob/main/SECURITY.md), relato de vulnerabilidades.
