@@ -1,14 +1,14 @@
 <p align="center">
-  <img src="./assets/readme/banners/terraform.png" alt="terraform" width="100%">
+  <img src="./assets/readme/banners/terraform.png" alt="Terraform" width="100%">
 </p>
 
 <p align="center">
-  <img src="./assets/readme/stacks/gke.png" width="100" hspace="8" alt="gke" title="gke">
-  <img src="./assets/readme/stacks/kubernetes.png" width="100" hspace="8" alt="kubernetes" title="kubernetes">
-  <img src="./assets/readme/stacks/helm.png" width="100" hspace="8" alt="helm" title="helm">
-  <img src="./assets/readme/stacks/argocd.png" width="100" hspace="8" alt="argocd" title="argocd">
-  <img src="./assets/readme/stacks/infisical.png" width="100" hspace="8" alt="infisical" title="infisical">
-  <img src="./assets/readme/stacks/cloudflare.png" width="100" hspace="8" alt="cloudflare" title="cloudflare">
+  <img src="./assets/readme/stacks/gke.png" width="100" hspace="8" alt="GKE" title="GKE">
+  <img src="./assets/readme/stacks/kubernetes.png" width="100" hspace="8" alt="Kubernetes" title="Kubernetes">
+  <img src="./assets/readme/stacks/helm.png" width="100" hspace="8" alt="Helm" title="Helm">
+  <img src="./assets/readme/stacks/argocd.png" width="100" hspace="8" alt="Argo CD" title="Argo CD">
+  <img src="./assets/readme/stacks/infisical.png" width="100" hspace="8" alt="Infisical" title="Infisical">
+  <img src="./assets/readme/stacks/cloudflare.png" width="100" hspace="8" alt="Cloudflare" title="Cloudflare">
 </p>
 
 # Infraestrutura base da plataforma
@@ -30,9 +30,7 @@ O Terraform combina recursos do Google Cloud, Kubernetes, Helm, Infisical e Clou
 - [DEPLOY.md](./docs/DEPLOY.md), ambientes e publicação.
 - [SECRETS.md](./docs/SECRETS.md), detalhes do fluxo ou modelo de dados.
 - [STATUS.md](./docs/STATUS.md), limites observados.
-- [CLUSTER_UP.md](./flows/CLUSTER_UP.md), detalhes do fluxo ou modelo de dados.
-- [CLUSTER_DOWN.md](./flows/CLUSTER_DOWN.md), detalhes do fluxo ou modelo de dados.
-- [SECRETS_SYNC.md](./flows/SECRETS_SYNC.md), detalhes do fluxo ou modelo de dados.
+- [Fluxos](./flows/), etapas e casos de erro do repositório.
 - [PENDENCIAS.md](./PENDENCIAS.md), questões para revisão.
 
 ## Contribuindo

@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./assets/readme/banners/terraform.png" alt="terraform" width="100%">
+  <img src="./assets/readme/banners/terraform.png" alt="Terraform" width="100%">
 </p>
 
 # Pendências
