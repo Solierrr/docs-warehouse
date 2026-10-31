@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../assets/readme/banners/springboot.png" alt="springboot" width="100%">
+  <img src="../assets/readme/banners/springboot.png" alt="Spring Boot" width="100%">
 </p>
 
 # Situação

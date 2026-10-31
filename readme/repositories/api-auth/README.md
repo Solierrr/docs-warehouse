@@ -1,15 +1,15 @@
 <p align="center">
-  <img src="./assets/readme/banners/springboot.png" alt="springboot" width="100%">
+  <img src="./assets/readme/banners/springboot.png" alt="Spring Boot" width="100%">
 </p>
 
 <p align="center">
-  <img src="./assets/readme/stacks/kotlin.png" width="100" hspace="8" alt="kotlin" title="kotlin">
-  <img src="./assets/readme/stacks/postgresql.png" width="100" hspace="8" alt="postgresql" title="postgresql">
-  <img src="./assets/readme/stacks/redis.png" width="100" hspace="8" alt="redis" title="redis">
-  <img src="./assets/readme/stacks/firebase.png" width="100" hspace="8" alt="firebase" title="firebase">
-  <img src="./assets/readme/stacks/jwt.png" width="100" hspace="8" alt="jwt" title="jwt">
-  <img src="./assets/readme/stacks/swagger.png" width="100" hspace="8" alt="swagger" title="swagger">
-  <img src="./assets/readme/stacks/bruno.png" width="100" hspace="8" alt="bruno" title="bruno">
+  <img src="./assets/readme/stacks/kotlin.png" width="100" hspace="8" alt="Kotlin" title="Kotlin">
+  <img src="./assets/readme/stacks/postgresql.png" width="100" hspace="8" alt="PostgreSQL" title="PostgreSQL">
+  <img src="./assets/readme/stacks/redis.png" width="100" hspace="8" alt="Redis" title="Redis">
+  <img src="./assets/readme/stacks/firebase.png" width="100" hspace="8" alt="Firebase" title="Firebase">
+  <img src="./assets/readme/stacks/jwt.png" width="100" hspace="8" alt="JWT" title="JWT">
+  <img src="./assets/readme/stacks/swagger.png" width="100" hspace="8" alt="Swagger" title="Swagger">
+  <img src="./assets/readme/stacks/bruno.png" width="100" hspace="8" alt="Bruno" title="Bruno">
 </p>
 
 # Identidade e sessões
@@ -31,15 +31,8 @@ A identidade fica no PostgreSQL. O serviço emite JWT com assinatura assimétric
 - [API.md](./docs/API.md), autenticação e uso do contrato.
 - [DEPLOY.md](./docs/DEPLOY.md), ambientes e publicação.
 - [STATUS.md](./docs/STATUS.md), limites observados.
-- [POSTGRES.md](./database/POSTGRES.md), detalhes do fluxo ou modelo de dados.
-- [REDIS.md](./database/REDIS.md), detalhes do fluxo ou modelo de dados.
-- [SIGN_UP.md](./flows/SIGN_UP.md), detalhes do fluxo ou modelo de dados.
-- [LOGIN.md](./flows/LOGIN.md), detalhes do fluxo ou modelo de dados.
-- [FEDERATED_LOGIN.md](./flows/FEDERATED_LOGIN.md), detalhes do fluxo ou modelo de dados.
-- [MOBILE_PKCE_LOGIN.md](./flows/MOBILE_PKCE_LOGIN.md), detalhes do fluxo ou modelo de dados.
-- [TOKEN_REFRESH.md](./flows/TOKEN_REFRESH.md), detalhes do fluxo ou modelo de dados.
-- [PASSWORD_RECOVERY.md](./flows/PASSWORD_RECOVERY.md), detalhes do fluxo ou modelo de dados.
-- [EMAIL_CONFIRMATION.md](./flows/EMAIL_CONFIRMATION.md), detalhes do fluxo ou modelo de dados.
+- [Dados](./database/), modelos e responsabilidades de persistência.
+- [Fluxos](./flows/), etapas e casos de erro do repositório.
 - [PENDENCIAS.md](./PENDENCIAS.md), questões para revisão.
 
 ## Contribuindo

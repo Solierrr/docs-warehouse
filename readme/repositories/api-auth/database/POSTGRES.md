@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../assets/readme/banners/springboot.png" alt="springboot" width="100%">
+  <img src="../assets/readme/banners/springboot.png" alt="Spring Boot" width="100%">
 </p>
 
 # PostgreSQL de autenticação
@@ -30,37 +30,37 @@ Identidade, e-mail único sem distinção de caixa e bloqueio de acesso.
 
 Hash da senha e datas de alteração.
 
-`user_id` (UUID), `password_changed_at` (TIMESTAMPTZ), `must_change` (BOOLEAN), `created_at` (TIMESTAMPTZ), `updated_at` (TIMESTAMPTZ).
+`user_id` (UUID), `password_hash` (VARCHAR(255)), `password_changed_at` (TIMESTAMPTZ), `must_change` (BOOLEAN), `created_at` (TIMESTAMPTZ), `updated_at` (TIMESTAMPTZ).
 
 ## `federated_identity`
 
 Identidade externa única por emissor e sujeito.
 
-`id` (UUID), `user_id` (UUID), `issuer` (TEXT), `subject` (TEXT), `email` (CITEXT), `email_verified` (BOOLEAN), `created_at` (TIMESTAMPTZ), `last_login_at` (TIMESTAMPTZ).
+`id` (UUID), `user_id` (UUID), `authority` (VARCHAR(30)), `issuer` (TEXT), `subject` (TEXT), `email` (CITEXT), `email_verified` (BOOLEAN), `created_at` (TIMESTAMPTZ), `last_login_at` (TIMESTAMPTZ).
 
 ## `federated_provider_link`
 
 Vínculo com Google ou Microsoft, limitado por constraints.
 
-`id` (UUID), `federated_identity_id` (UUID), `provider_subject` (TEXT), `email` (CITEXT), `linked_at` (TIMESTAMPTZ).
+`id` (UUID), `federated_identity_id` (UUID), `provider` (VARCHAR(30)), `provider_subject` (TEXT), `email` (CITEXT), `linked_at` (TIMESTAMPTZ).
 
 ## `totp_factor`
 
 Fator cifrado, com algoritmo, dígitos e contador. Não há rota pública de configuração.
 
-`id` (UUID), `user_id` (UUID), `secret_ciphertext` (BYTEA), `secret_nonce` (BYTEA), `algorithm` (otp_algorithm), `digits` (SMALLINT), `period_seconds` (SMALLINT), `enabled_at` (TIMESTAMPTZ), `last_used_counter` (BIGINT), `created_at` (TIMESTAMPTZ), `updated_at` (TIMESTAMPTZ).
+`id` (UUID), `user_id` (UUID), `secret_ciphertext` (BYTEA), `secret_nonce` (BYTEA), `encryption_key_id` (VARCHAR(100)), `algorithm` (otp_algorithm), `digits` (SMALLINT), `period_seconds` (SMALLINT), `enabled_at` (TIMESTAMPTZ), `last_used_counter` (BIGINT), `created_at` (TIMESTAMPTZ), `updated_at` (TIMESTAMPTZ).
 
 ## `mfa_recovery_code`
 
 Hashes dos códigos de recuperação.
 
-`id` (UUID), `factor_id` (UUID), `created_at` (TIMESTAMPTZ), `used_at` (TIMESTAMPTZ).
+`id` (UUID), `factor_id` (UUID), `code_hash` (VARCHAR(255)), `created_at` (TIMESTAMPTZ), `used_at` (TIMESTAMPTZ).
 
 ## `auth_session`
 
 Sessões, validade, método de autenticação e revogação. V2 acrescenta client_id e context.
 
-`id` (UUID), `user_id` (UUID), `user_agent` (TEXT), `device` (TEXT), `authentication_methods` (TEXT), `mfa_completed_at` (TIMESTAMPTZ), `created_at` (TIMESTAMPTZ), `last_access_at` (TIMESTAMPTZ), `expires_at` (TIMESTAMPTZ), `revoked_at` (TIMESTAMPTZ).
+`id` (UUID), `user_id` (UUID), `ip_address` (VARCHAR(45)), `user_agent` (TEXT), `device` (TEXT), `authentication_methods` (TEXT[]), `mfa_completed_at` (TIMESTAMPTZ), `created_at` (TIMESTAMPTZ), `last_access_at` (TIMESTAMPTZ), `expires_at` (TIMESTAMPTZ), `revoked_at` (TIMESTAMPTZ), `revocation_reason` (VARCHAR(60)).
 
 ## `refresh_token`
 
@@ -78,19 +78,19 @@ Hash único e validade para confirmação, recuperação e vínculo.
 
 Auditoria de acesso com referência opcional a conta e sessão.
 
-`id` (UUID), `user_id` (UUID), `session_id` (UUID), `event_type` (security_event_type), `succeeded` (BOOLEAN), `user_agent` (TEXT), `details` (JSONB), `occurred_at` (TIMESTAMPTZ).
+`id` (UUID), `user_id` (UUID), `session_id` (UUID), `event_type` (security_event_type), `succeeded` (BOOLEAN), `ip_address` (VARCHAR(45)), `user_agent` (TEXT), `details` (JSONB), `occurred_at` (TIMESTAMPTZ).
 
 ## `outbox_event`
 
 Eventos pendentes, payload e tentativas de publicação.
 
-`id` (UUID), `aggregate_id` (UUID), `payload` (JSONB), `created_at` (TIMESTAMPTZ), `published_at` (TIMESTAMPTZ), `attempts` (INTEGER).
+`id` (UUID), `aggregate_type` (VARCHAR(60)), `aggregate_id` (UUID), `event_type` (VARCHAR(100)), `payload` (JSONB), `created_at` (TIMESTAMPTZ), `published_at` (TIMESTAMPTZ), `attempts` (INTEGER).
 
 ## `mobile_auth_transaction`
 
 Transação PKCE com desafio, destino, estado, código e consumo.
 
-`redirect_uri` (TEXT), `expires_at` (TIMESTAMPTZ), `user_id` (UUID), `authorizing_session_id` (UUID), `code_hash` (BYTEA), `code_expires_at` (TIMESTAMPTZ), `consumed_at` (TIMESTAMPTZ).
+`id` (VARCHAR(43)), `client_id` (VARCHAR(100)), `redirect_uri` (TEXT), `state` (VARCHAR(128)), `code_challenge` (VARCHAR(43)), `status` (VARCHAR(30)), `expires_at` (TIMESTAMPTZ), `user_id` (UUID), `authorizing_session_id` (UUID), `code_hash` (BYTEA), `code_expires_at` (TIMESTAMPTZ), `consumed_at` (TIMESTAMPTZ).
 
 ## Índices e integridade
 
