@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../assets/readme/banners/argocd.png" alt="argocd" width="100%">
+  <img src="../assets/readme/banners/argocd.png" alt="Argo CD" width="100%">
 </p>
 
 # Validação local

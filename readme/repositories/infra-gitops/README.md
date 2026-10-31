@@ -1,11 +1,11 @@
 <p align="center">
-  <img src="./assets/readme/banners/argocd.png" alt="argocd" width="100%">
+  <img src="./assets/readme/banners/argocd.png" alt="Argo CD" width="100%">
 </p>
 
 <p align="center">
-  <img src="./assets/readme/stacks/kubernetes.png" width="100" hspace="8" alt="kubernetes" title="kubernetes">
-  <img src="./assets/readme/stacks/gke.png" width="100" hspace="8" alt="gke" title="gke">
-  <img src="./assets/readme/stacks/github-actions.png" width="100" hspace="8" alt="github-actions" title="github-actions">
+  <img src="./assets/readme/stacks/kubernetes.png" width="100" hspace="8" alt="Kubernetes" title="Kubernetes">
+  <img src="./assets/readme/stacks/gke.png" width="100" hspace="8" alt="GKE" title="GKE">
+  <img src="./assets/readme/stacks/github-actions.png" width="100" hspace="8" alt="GitHub Actions" title="GitHub Actions">
 </p>
 
 # Estado desejado do cluster
@@ -27,8 +27,7 @@ O Argo CD acompanha os arquivos versionados e aplica as mudanças no Kubernetes.
 - [DEPLOY.md](./docs/DEPLOY.md), ambientes e publicação.
 - [STATUS.md](./docs/STATUS.md), limites observados.
 - [HOW_IT_WORKS.md](./docs/HOW_IT_WORKS.md), detalhes do fluxo ou modelo de dados.
-- [IMAGE_PROMOTION.md](./flows/IMAGE_PROMOTION.md), detalhes do fluxo ou modelo de dados.
-- [SYNC.md](./flows/SYNC.md), detalhes do fluxo ou modelo de dados.
+- [Fluxos](./flows/), etapas e casos de erro do repositório.
 - [PENDENCIAS.md](./PENDENCIAS.md), questões para revisão.
 
 ## Contribuindo
