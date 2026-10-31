@@ -1,34 +1,43 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/banners/fastapi.png" alt="FastAPI" width="100%">
+  <img src="./assets/readme/banners/fastapi.png" alt="fastapi" width="100%">
 </p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/python.png" width="100" hspace="8" alt="Python" title="Python">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/pydantic.png" width="100" hspace="8" alt="Pydantic" title="Pydantic">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/postgresql.png" width="100" hspace="8" alt="PostgreSQL" title="PostgreSQL">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/swagger.png" width="100" hspace="8" alt="Swagger" title="Swagger">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/bruno.png" width="100" hspace="8" alt="Bruno" title="Bruno">
+  <img src="./assets/readme/stacks/python.png" width="100" hspace="8" alt="python" title="python">
+  <img src="./assets/readme/stacks/neo4j.png" width="100" hspace="8" alt="neo4j" title="neo4j">
+  <img src="./assets/readme/stacks/postgresql.png" width="100" hspace="8" alt="postgresql" title="postgresql">
+  <img src="./assets/readme/stacks/swagger.png" width="100" hspace="8" alt="swagger" title="swagger">
+  <img src="./assets/readme/stacks/bruno.png" width="100" hspace="8" alt="bruno" title="bruno">
 </p>
 
-# Recomendações para o marketplace
+# Feeds de recomendações
 
 [![License](https://img.shields.io/github/license/Solierrr/api-recommendation)](https://github.com/Solierrr/api-recommendation/blob/main/LICENSE)
 [![GitHub Last Commit](https://img.shields.io/github/last-commit/Solierrr/api-recommendation)](https://github.com/Solierrr/api-recommendation/commits)
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/api-recommendation)](https://github.com/Solierrr/api-recommendation/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/api-recommendation)](https://github.com/Solierrr/api-recommendation/releases)
 
-Este serviço escolhe o que aparece nas vitrines de recomendação do marketplace. Ele foi idealizado para mostrar a cada empresa os profissionais, as ofertas de placas solares e os fornecedores mais adequados, em uma ordem que faça sentido para ela. A lista pode seguir critérios diferentes, como os profissionais mais bem avaliados, as ofertas com melhor custo-benefício ou os fornecedores mais próximos, e quem ainda não entrou na conta também vê recomendações públicas.
+Este serviço recomenda profissionais, ofertas de placas solares e fornecedores para apoiar a escolha de quem contrata e compra na plataforma. Cada lista apresenta motivos e métricas de ordenação. A pessoa pode comparar alternativas por avaliação, experiência, preço, eficiência ou proximidade, conforme o tipo de recomendação disponível.
 
-As recomendações saem de um grafo no Neo4j, que guarda as relações entre empresas, profissionais, ofertas e fornecedores e é montado a partir do banco principal por outra rotina. Quando o grafo está indisponível ou ainda não foi montado, o serviço responde com uma seleção de itens elegíveis lida diretamente do PostgreSQL. O serviço apenas lê dados e nunca os altera. As listas de quem está autenticado são pedidas pelo cadastro central com uma chave de acesso que não chega ao navegador, e as listas públicas não exigem chave e ficam em cache na Cloudflare.
+As recomendações usam um retrato dos dados de negócio no Neo4j. Quando ele não está disponível, o serviço consulta uma amostra de itens elegíveis no PostgreSQL e informa essa origem. As listas públicas usam apenas essa alternativa. O serviço lê os dados e não altera o cadastro ou reconstrói o grafo.
 
 ## Aprofunde-se no Projeto!
 
-- [ARCHITECTURE.md](https://github.com/Solierrr/api-recommendation/blob/main/docs/ARCHITECTURE.md), organização do código e estrutura do repositório.
-- [RUNNING.md](https://github.com/Solierrr/api-recommendation/blob/main/docs/RUNNING.md), como executar o serviço localmente.
-- [FEEDS.md](https://github.com/Solierrr/api-recommendation/blob/main/docs/FEEDS.md), listas de recomendação, critérios, resposta sem o grafo e cache.
+- [OVERVIEW.md](./docs/OVERVIEW.md), finalidade e regras de produto.
+- [ARCHITECTURE.md](./docs/ARCHITECTURE.md), componentes, dados e integrações.
+- [RUNNING.md](./docs/RUNNING.md), preparação e execução local.
+- [API.md](./docs/API.md), autenticação e uso do contrato.
+- [FEEDS.md](./docs/FEEDS.md), detalhes do fluxo ou modelo de dados.
+- [DEPLOY.md](./docs/DEPLOY.md), ambientes e publicação.
+- [STATUS.md](./docs/STATUS.md), limites observados.
+- [NEO4J.md](./database/NEO4J.md), detalhes do fluxo ou modelo de dados.
+- [OFFER_FEED.md](./flows/OFFER_FEED.md), detalhes do fluxo ou modelo de dados.
+- [PROFESSIONAL_FEED.md](./flows/PROFESSIONAL_FEED.md), detalhes do fluxo ou modelo de dados.
+- [SUPPLIER_FEED.md](./flows/SUPPLIER_FEED.md), detalhes do fluxo ou modelo de dados.
+- [PENDENCIAS.md](./PENDENCIAS.md), questões para revisão.
 
 ## Contribuindo
 
-- [CONTRIBUTING.md](https://github.com/Solierrr/.github/blob/main/.github/CONTRIBUTING.md), convenções de commit, branch e Pull Request.
-- [CODE_OF_CONDUCT.md](https://github.com/Solierrr/.github/blob/main/CODE_OF_CONDUCT.md), código de conduta do projeto.
-- [SECURITY.md](https://github.com/Solierrr/.github/blob/main/SECURITY.md), como reportar vulnerabilidades de segurança.
+- [CONTRIBUTING.md](https://github.com/Solierrr/.github/blob/main/.github/CONTRIBUTING.md), convenções de contribuição.
+- [CODE_OF_CONDUCT.md](https://github.com/Solierrr/.github/blob/main/CODE_OF_CONDUCT.md), código de conduta.
+- [SECURITY.md](https://github.com/Solierrr/.github/blob/main/SECURITY.md), relato de vulnerabilidades.
