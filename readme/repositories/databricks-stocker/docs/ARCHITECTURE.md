@@ -1,13 +1,68 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/banners/databricks.png" alt="Databricks" width="100%">
+  <img src="../assets/readme/banners/databricks.png" alt="Databricks" width="100%">
 </p>
 
-# Arquitetura do Repositório
+# Arquitetura
 
-O `databricks-sync` é responsável pela ingestão CoreDB → Bronze. Neste primeiro ciclo, a Bronze foi preenchida manualmente com um snapshot QA para validar as transformações; a ingestão contínua ainda não foi comprovada.
+Um notebook orquestra módulos PySpark para ingestão manual, normalização e cálculo. O job versionado executa esse notebook e depois chama a exportação. O fluxo atual não é código-fonte de pipeline Lakeflow e não usa as antigas pastas de SQL.
 
-No `databricks-stocker`, o notebook `pipelines/00_medallion/transformations/my_transformation.py` lê 25 abas distribuídas em dois Excel e grava 25 tabelas Bronze, 24 Silver e 19 Gold como Delta gerenciadas comuns. O job versionado em `exports/medallion_export_job.json` executa essa transformação e chama `databricks-sync /sync/gold` somente após sucesso. A configuração ainda exige caminhos, runtime, compute e cutover dos objetos antigos; não foi instalada nem executada.
+```mermaid
+flowchart LR
+  E[Duas planilhas Excel] --> B[25 tabelas Bronze]
+  B --> S[24 tabelas Silver]
+  S --> G[19 tabelas Gold]
+  G --> D[Definições de painéis]
+  G --> X[Task de exportação]
+  X -->|HTTP e Bearer de serviço| A[Serviço de sincronização]
+  P[Identidade e mapa de acesso] --> F[Filtro de fornecedor]
+  F --> G
+  E --> L[Executor Spark local]
+  L --> J[JSON dos indicadores]
+```
 
-A Gold fornece dados para a próxima etapa, mas nenhum dashboard da nova arquitetura foi implementado nesta branch. O filtro por fornecedor exige `security/supplier_access.sql` e vínculo explícito entre identidade e fornecedor.
+## Módulos
 
-O exportador do `databricks-sync` copia as 19 tabelas Gold autorizadas para tabelas homônimas em `analyticsdb.analytics_gold`, com Row Level Security no PostgreSQL. É necessário provisionar o schema, o job, os segredos, os privilégios e os vínculos de identidade antes do uso real.
+| Caminho | Responsabilidade |
+|---|---|
+| `pipelines/00_medallion/transformations/my_transformation.py` | Parâmetros, proteção de substituição e ordem das escritas |
+| `note_bronze.py` na mesma pasta | Abas, aliases e colunas obrigatórias |
+| `note_silver.py` na mesma pasta | Projeções, tipos e validação de qualidade |
+| `note_gold.py` na mesma pasta | Construtores dos 19 indicadores |
+| `note_catalog.py` na mesma pasta | Catálogo e schemas |
+| `run_local.py` | Adaptadores Excel, Spark local e saída JSON |
+| `exports/` | Job e notebook que chama a API |
+| `security/` | Tabela de principais e função de filtro |
+| `dashboards/` | Duas definições exportadas de painéis |
+| `tests/` | Contratos e validações locais |
+
+## Integrações
+
+| Relação | Protocolo | Autenticação |
+|---|---|---|
+| Operação envia planilhas | Upload ao volume Unity Catalog | Identidade do workspace |
+| Notebook lê e escreve camadas | Spark e Delta | Principal do job |
+| Fornecedor consulta Gold | SQL Databricks | Identidade e row filter |
+| Notebook exportador chama sincronização | HTTP POST | Bearer fixo lido do secret scope |
+| Painéis consultam Gold | Dataset Databricks | Permissões de publicação e execução |
+
+Não há API HTTP própria, OpenAPI ou banco de negócio. Os objetos analíticos estão em [DATABRICKS.md](../database/DATABRICKS.md). O fluxo integrado está em [cópia analítica](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/ANALYTICS_SYNC.md), com diferenças atuais descritas aqui.
+
+## Escrita e consistência
+
+`source_mode` aceita apenas `manual`. Bronze lê 25 abas, adapta cabeçalhos antigos e mantém outras colunas. Silver valida as fontes antes de escrever as 24 projeções. Gold calcula 19 tabelas. Substituições são por tabela, sem transação global Bronze, Silver e Gold.
+
+A proteção padrão permite substituir tabelas Delta gerenciadas existentes, mas recusa views e objetos de outro formato. `allow_replace_existing` remove explicitamente essa barreira. O parâmetro falso não significa proibir toda substituição.
+
+As dez tabelas de fornecedor recebem row filter na própria criação. As outras nove não recebem essa política no escritor. O mapa de acesso começa vazio e exige provisionamento. Não há isolamento de usuário por simplesmente aplicar filtro visual no painel. <!-- PENDENTE: 4 -->
+
+## Execução local
+
+O executor usa openpyxl para representar células como texto e adapta o runtime. Reutiliza funções de transformação, substitui tabelas persistentes por views temporárias e coleta Gold para JSON. Ele não publica Delta, não aplica row filter e não chama a API de exportação.
+
+A saída é substituída só após calcular todos os indicadores. Decimais viram texto para preservar precisão. Falha pode deixar um JSON anterior intacto, então a data de geração precisa ser conferida.
+
+## Configuração e observabilidade
+
+O catálogo padrão do módulo é `workspace`, o job usa `analytics`, os painéis apontam para `workspace.gold` e o exportador atual exige `workspace.gold_core` com nomes diferentes. Não há adaptação automática entre esses contratos. <!-- PENDENTE: 1 -->
+
+O processamento informa contagens de rejeição e linhas por tabela no terminal. Não há rota de health ou serviço continuamente ativo. A main analisada é `4b1ce020`, em 2026-10-31. Fontes em [orquestrador](https://github.com/Solierrr/databricks-stocker/blob/main/pipelines/00_medallion/transformations/my_transformation.py), [Silver](https://github.com/Solierrr/databricks-stocker/blob/main/pipelines/00_medallion/transformations/note_silver.py), [executor local](https://github.com/Solierrr/databricks-stocker/blob/main/run_local.py) e [job](https://github.com/Solierrr/databricks-stocker/blob/main/exports/medallion_export_job.json).
