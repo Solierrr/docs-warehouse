@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="./assets/readme/banners/cloudflare-workers.png" alt="cloudflare-workers" width="100%">
+  <img src="./assets/readme/banners/cloudflare-workers.png" alt="Cloudflare Workers" width="100%">
 </p>
 
 <p align="center">
-  <img src="./assets/readme/stacks/typescript.png" width="100" hspace="8" alt="typescript" title="typescript">
-  <img src="./assets/readme/stacks/cloudflare.png" width="100" hspace="8" alt="cloudflare" title="cloudflare">
+  <img src="./assets/readme/stacks/typescript.png" width="100" hspace="8" alt="TypeScript" title="TypeScript">
+  <img src="./assets/readme/stacks/cloudflare.png" width="100" hspace="8" alt="Cloudflare" title="Cloudflare">
 </p>
 
 # Entrada web na borda
@@ -29,9 +29,7 @@ O Cloudflare Worker consulta uma origem com nome separado para evitar chamadas r
 - [TELEMETRY.md](./docs/TELEMETRY.md), detalhes do fluxo ou modelo de dados.
 - [DEPLOY.md](./docs/DEPLOY.md), ambientes e publicação.
 - [STATUS.md](./docs/STATUS.md), limites observados.
-- [EDGE_REQUEST.md](./flows/EDGE_REQUEST.md), detalhes do fluxo ou modelo de dados.
-- [HONEYPOT.md](./flows/HONEYPOT.md), detalhes do fluxo ou modelo de dados.
-- [LANGUAGE_ROUTING.md](./flows/LANGUAGE_ROUTING.md), detalhes do fluxo ou modelo de dados.
+- [Fluxos](./flows/), etapas e casos de erro do repositório.
 - [PENDENCIAS.md](./PENDENCIAS.md), questões para revisão.
 
 ## Contribuindo

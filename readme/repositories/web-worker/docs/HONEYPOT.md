@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../assets/readme/banners/cloudflare-workers.png" alt="cloudflare-workers" width="100%">
+  <img src="../assets/readme/banners/cloudflare-workers.png" alt="Cloudflare Workers" width="100%">
 </p>
 
 # Caminhos isca
