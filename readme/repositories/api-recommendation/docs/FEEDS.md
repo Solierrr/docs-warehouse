@@ -1,28 +1,18 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/banners/fastapi.png" alt="FastAPI" width="100%">
+  <img src="../assets/readme/banners/fastapi.png" alt="FastAPI" width="100%">
 </p>
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/python.png" width="100" hspace="8" alt="Python" title="Python">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/pydantic.png" width="100" hspace="8" alt="Pydantic" title="Pydantic">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/postgresql.png" width="100" hspace="8" alt="PostgreSQL" title="PostgreSQL">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/swagger.png" width="100" hspace="8" alt="Swagger" title="Swagger">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/bruno.png" width="100" hspace="8" alt="Bruno" title="Bruno">
-</p>
+# Critérios de ordenação
 
-# Feeds e comportamento
+As [estratégias](https://github.com/Solierrr/api-recommendation/tree/main/app/feeds) produzem métricas e motivos por item.
 
-- **Três feeds**, `GET /feeds/professionals`, `GET /feeds/offers` e `GET /feeds/suppliers` devolvem
-  os itens ranqueados por uma estratégia (`strategy`) e aceitam `company_id` e, quando faz sentido,
-  `profession_id` ou `local_unit_id`. Exigem o header `X-Recommendation-Key` e são pensados para
-  chamada servidor-a-servidor pelo `api-core`; a chave não pode ir para o navegador.
-- **Feeds públicos**, `GET /public/feeds/{professionals|offers|suppliers}` não exigem chave, nunca
-  tocam o Neo4j e respondem com `Cache-Control: public` (e `stale-if-error`) para que a Cloudflare
-  atenda os anônimos sem chegar à origem.
-- **Fallback SQL**, quando o grafo está fora do ar, sem snapshot ou não configurado, os feeds
-  autenticados respondem com `source: "fallback"` em vez de erro: uma amostra aleatória entre os
-  melhores itens elegíveis lidos do PostgreSQL, sem aplicar a estratégia pedida.
-- **Somente leitura**, o serviço não escreve no Neo4j nem no PostgreSQL. O grafo é construído pelo
-  `database-bootstrap`, e o contrato entre os dois está documentado na spec do projeto.
-- **Saúde sem reinício em cascata**, `/health/live` não depende de nada e `/health/ready` só falha
-  quando o PostgreSQL cai; o grafo aparece como `ready`, `unavailable`, `no_snapshot` ou `disabled`.
+| Domínio | Critério implementado |
+|---|---|
+| Profissionais | Avaliação bayesiana com peso prévio de cinco avaliações. Confiabilidade combina 60% de conclusão e 40% de avaliação ajustada. |
+| Melhor combinação profissional | 40% avaliação, 25% certificações normalizadas, 20% experiência normalizada e 15% confiabilidade. |
+| Ofertas | Preço em reais por Wp, eficiência, distância Haversine ou quantidade em propostas aceitas. |
+| Fornecedores | Quantidade em propostas aceitas, número de ofertas elegíveis ou distância Haversine. |
+
+Ofertas exigem modelo aprovado, fornecedor ativo com assinatura ativa, preço positivo, disponibilidade e validade. Profissionais exigem usuário ativo. Fornecedores precisam de ofertas elegíveis.
+
+O ranking tem limite de candidatos para evitar ordenar apenas parte de um conjunto global. Os desempates usam métricas auxiliares e identificadores definidos em cada estratégia. O fallback sorteia uma amostra do conjunto SQL selecionado, sem reproduzir o ranking do grafo.
