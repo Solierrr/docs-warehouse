@@ -1,37 +1,38 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/banners/postgresql.png" alt="PostgreSQL" width="100%">
+  <img src="./assets/readme/banners/postgresql.png" alt="PostgreSQL" width="100%">
 </p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/redis.png" width="100" hspace="8" alt="Redis" title="Redis">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/python.png" width="100" hspace="8" alt="Python" title="Python">
+  <img src="./assets/readme/stacks/python.png" width="100" hspace="8" alt="Python" title="Python">
+  <img src="./assets/readme/stacks/redis.png" width="100" hspace="8" alt="Redis" title="Redis">
 </p>
 
-# Console dos bancos de dados
+# Operações de dados
 
 [![License](https://img.shields.io/github/license/Solierrr/database-console)](https://github.com/Solierrr/database-console/blob/main/LICENSE)
 [![GitHub Last Commit](https://img.shields.io/github/last-commit/Solierrr/database-console)](https://github.com/Solierrr/database-console/commits)
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/database-console)](https://github.com/Solierrr/database-console/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/database-console)](https://github.com/Solierrr/database-console/releases)
 
-Este repositório reúne o necessário para criar, atualizar e consultar os bancos de dados da plataforma: os scripts que montam as tabelas e as regras, as mudanças de versão e os dados de exemplo usados em desenvolvimento. Ele permite subir uma cópia local dos bancos para testar outros serviços sem depender de ambientes compartilhados e registra a responsabilidade por cada parte do banco e as permissões de leitura de cada serviço.
+Este repositório reúne as operações de apoio aos dados da plataforma. A equipe pode preparar um ambiente local, carregar dados de desenvolvimento, conferir permissões e produzir cópias de segurança. Os dados de identidade e de negócio continuam sob responsabilidade dos serviços que os mantêm, enquanto o destino de indicadores possui uma configuração própria aqui.
+
+Os utilitários usam Python, clientes PostgreSQL e scripts de sistema. Uma composição Docker fornece PostgreSQL e Redis no desenvolvimento. As credenciais são obtidas pelo Infisical. O destino de indicadores recebe resultados calculados no Databricks, com acesso por login e escopo, e não serve de origem para calcular esses indicadores.
 
 ## Aprofunde-se no Projeto!
 
-- ARCHITECTURE.md {a confirmar: ainda não existe neste repositório}, documento de arquitetura dos bancos.
-- RUNNING.md {a confirmar: ainda não existe neste repositório}, como rodar os bancos localmente (veja os comandos nas seções acima).
-- [DEPLOYMENT.md](https://github.com/Solierrr/docs-warehouse/blob/main/.github/DEPLOYMENT.md), como o deploy funciona na organização.
-- [DATABASES.md](https://github.com/Solierrr/database-console/blob/main/docs/DATABASES.md), bancos, dono de cada schema e acesso de leitura por consumidor.
-- [SECRETS_AND_BACKUP.md](https://github.com/Solierrr/database-console/blob/main/docs/SECRETS_AND_BACKUP.md), segredos e backup do PostgreSQL.
+- [OVERVIEW.md](./docs/OVERVIEW.md), finalidade e regras de produto.
+- [ARCHITECTURE.md](./docs/ARCHITECTURE.md), componentes, dados e integrações.
+- [RUNNING.md](./docs/RUNNING.md), preparação e execução local.
+- [DEPLOY.md](./docs/DEPLOY.md), ambientes e publicação.
+- [STATUS.md](./docs/STATUS.md), limites observados.
+- [DATABASES.md](./docs/DATABASES.md), detalhes do fluxo ou modelo de dados.
+- [SECRETS_AND_BACKUP.md](./docs/SECRETS_AND_BACKUP.md), detalhes do fluxo ou modelo de dados.
+- [Dados](./database/), modelos e responsabilidades de persistência.
+- [Fluxos](./flows/), etapas e casos de erro do repositório.
+- [PENDENCIAS.md](./PENDENCIAS.md), questões para revisão.
 
 ## Contribuindo
 
-- [CONTRIBUTING.md](https://github.com/Solierrr/.github/blob/main/.github/CONTRIBUTING.md), convenções de commit, branch e Pull Request.
-- [CODE_OF_CONDUCT.md](https://github.com/Solierrr/.github/blob/main/CODE_OF_CONDUCT.md), código de conduta do projeto.
-- [SECURITY.md](https://github.com/Solierrr/.github/blob/main/SECURITY.md), como reportar vulnerabilidades de segurança.
-
-### Projetos privados (V24)
-
-V24 inclui propriedade empresarial/profissional, participação, convites, agenda, histórico e fotos privadas. Preserva empresa/local/executores dos projetos antigos e disponibiliza seus serviços na agenda, mantendo término desconhecido vazio. Status de projetos/serviços e tipo de afiliação ficam em varchar com constraints, alinhados ao JPA. Afiliação independente pode ter empresa nula; nenhuma relação de emprego é criada.
-
-Banco existente: aplicar V24 após V23. Banco novo: schema consolidado já inclui V24; baseline deve ser 24 antes de usar o executor. Testes específicos: `python -m unittest discover -s tests -p test_projects_migration.py -v` com SOLARIA_TEST_PG_DSN apontando para um PostgreSQL descartável.
+- [CONTRIBUTING.md](https://github.com/Solierrr/.github/blob/main/.github/CONTRIBUTING.md), convenções de contribuição.
+- [CODE_OF_CONDUCT.md](https://github.com/Solierrr/.github/blob/main/CODE_OF_CONDUCT.md), código de conduta.
+- [SECURITY.md](https://github.com/Solierrr/.github/blob/main/SECURITY.md), relato de vulnerabilidades.
