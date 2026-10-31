@@ -1,29 +1,37 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/banners/grafana.png" alt="Grafana" width="100%">
+  <img src="./assets/readme/banners/grafana.png" alt="grafana" width="100%">
 </p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/opentelemetry.png" width="100" hspace="8" alt="OpenTelemetry" title="OpenTelemetry">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/kubernetes.png" width="100" hspace="8" alt="Kubernetes" title="Kubernetes">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/gcp.png" width="100" hspace="8" alt="Google Cloud" title="Google Cloud">
+  <img src="./assets/readme/stacks/opentelemetry.png" width="100" hspace="8" alt="opentelemetry" title="opentelemetry">
+  <img src="./assets/readme/stacks/kubernetes.png" width="100" hspace="8" alt="kubernetes" title="kubernetes">
+  <img src="./assets/readme/stacks/docker.png" width="100" hspace="8" alt="docker" title="docker">
 </p>
 
-# Central de telemetria
+# Coleta central de telemetria
 
 [![License](https://img.shields.io/github/license/Solierrr/infra-otel-collector)](https://github.com/Solierrr/infra-otel-collector/blob/main/LICENSE)
 [![GitHub Last Commit](https://img.shields.io/github/last-commit/Solierrr/infra-otel-collector)](https://github.com/Solierrr/infra-otel-collector/commits)
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/infra-otel-collector)](https://github.com/Solierrr/infra-otel-collector/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/infra-otel-collector)](https://github.com/Solierrr/infra-otel-collector/releases)
 
-Este repositório define o ponto único que recebe os dados de funcionamento dos serviços, como tempo de resposta, erros e registros de eventos. Em vez de cada serviço enviar essas informações diretamente a uma ferramenta externa, todos as enviam para este ponto, que remove dados sensíveis, reduz o volume e repassa o resultado à plataforma de monitoramento. Dessa forma, a configuração de monitoramento fica centralizada e pode ser ajustada por ambiente.
+O coletor reúne os registros, métricas e rastros de execução dos serviços para apoiar o diagnóstico da plataforma. Ele aplica um tratamento comum antes de enviar os dados ao ambiente de observabilidade. A equipe consegue relacionar falhas e lentidão de uma operação sem configurar um destino diferente em cada aplicação.
+
+Os serviços enviam telemetria por OTLP ao OpenTelemetry Collector. A configuração controla memória, atributos, amostragem e envio em lote. Em produção, o destino configurado é o Grafana Cloud. No desenvolvimento, uma composição local oferece coleta e visualização com painéis versionados no mesmo repositório.
 
 ## Aprofunde-se no Projeto!
 
-- [ARCHITECTURE.md](https://github.com/Solierrr/infra-otel-collector/blob/main/docs/ARCHITECTURE.md), estrutura do repositório e detalhamento dos receivers/processors/exporters configurados no pipeline.
-- [RUNNING.md](https://github.com/Solierrr/infra-otel-collector/blob/main/docs/RUNNING.md), como renderizar e validar os manifestos localmente com Kustomize.
-- [TELEMETRY_FLOW.md](https://github.com/Solierrr/infra-otel-collector/blob/main/docs/TELEMETRY_FLOW.md), caminho dos logs, métricas e traces até o destino.
+- [OVERVIEW.md](./docs/OVERVIEW.md), finalidade e regras de produto.
+- [ARCHITECTURE.md](./docs/ARCHITECTURE.md), componentes, dados e integrações.
+- [RUNNING.md](./docs/RUNNING.md), preparação e execução local.
+- [API.md](./docs/API.md), autenticação e uso do contrato.
+- [DEPLOY.md](./docs/DEPLOY.md), ambientes e publicação.
+- [STATUS.md](./docs/STATUS.md), limites observados.
+- [TELEMETRY_PIPELINE.md](./flows/TELEMETRY_PIPELINE.md), detalhes do fluxo ou modelo de dados.
+- [PENDENCIAS.md](./PENDENCIAS.md), questões para revisão.
 
 ## Contribuindo
 
-- [.github/CONTRIBUTING.md](https://github.com/Solierrr/.github/blob/main/.github/CONTRIBUTING.md), convenções de commit, branch e Pull Request.
-- [.github/CODEOWNERS](https://github.com/Solierrr/infra-otel-collector/blob/main/.github/CODEOWNERS), donos responsáveis por revisar mudanças no repositório.
+- [CONTRIBUTING.md](https://github.com/Solierrr/.github/blob/main/.github/CONTRIBUTING.md), convenções de contribuição.
+- [CODE_OF_CONDUCT.md](https://github.com/Solierrr/.github/blob/main/CODE_OF_CONDUCT.md), código de conduta.
+- [SECURITY.md](https://github.com/Solierrr/.github/blob/main/SECURITY.md), relato de vulnerabilidades.
