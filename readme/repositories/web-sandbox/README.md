@@ -1,12 +1,12 @@
 <p align="center">
-  <img src="./assets/readme/banners/react.png" alt="react" width="100%">
+  <img src="./assets/readme/banners/react.png" alt="React" width="100%">
 </p>
 
 <p align="center">
-  <img src="./assets/readme/stacks/typescript.png" width="100" hspace="8" alt="typescript" title="typescript">
+  <img src="./assets/readme/stacks/typescript.png" width="100" hspace="8" alt="TypeScript" title="TypeScript">
   <img src="./assets/readme/stacks/fastify.png" width="100" hspace="8" alt="fastify" title="fastify">
-  <img src="./assets/readme/stacks/vite.png" width="100" hspace="8" alt="vite" title="vite">
-  <img src="./assets/readme/stacks/swagger.png" width="100" hspace="8" alt="swagger" title="swagger">
+  <img src="./assets/readme/stacks/vite.png" width="100" hspace="8" alt="Vite" title="Vite">
+  <img src="./assets/readme/stacks/swagger.png" width="100" hspace="8" alt="Swagger" title="Swagger">
 </p>
 
 # Portal de validação do QA
@@ -29,9 +29,7 @@ A interface React usa uma biblioteca visual compartilhada e um servidor próprio
 - [SCREENS.md](./docs/SCREENS.md), detalhes do fluxo ou modelo de dados.
 - [DEPLOY.md](./docs/DEPLOY.md), ambientes e publicação.
 - [STATUS.md](./docs/STATUS.md), limites observados.
-- [LOGIN.md](./flows/LOGIN.md), detalhes do fluxo ou modelo de dados.
-- [SERVICE_CATALOG.md](./flows/SERVICE_CATALOG.md), detalhes do fluxo ou modelo de dados.
-- [KEEPALIVE_SCREEN.md](./flows/KEEPALIVE_SCREEN.md), detalhes do fluxo ou modelo de dados.
+- [Fluxos](./flows/), etapas e casos de erro do repositório.
 - [PENDENCIAS.md](./PENDENCIAS.md), questões para revisão.
 
 ## Contribuindo

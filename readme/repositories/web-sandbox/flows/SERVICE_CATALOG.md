@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../assets/readme/banners/react.png" alt="react" width="100%">
+  <img src="../assets/readme/banners/react.png" alt="React" width="100%">
 </p>
 
 # Documentação de serviço
