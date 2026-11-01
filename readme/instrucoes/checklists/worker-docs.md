@@ -1,10 +1,10 @@
-# Checklist: `web-docs`
+# Checklist: `worker-docs`
 
-Tipo `documentação`. Repositório de origem em https://github.com/Solierrr/web-docs (só leitura). A documentação é escrita em `readme/repositories/web-docs/` deste repositório, numa branch `docs/web-docs`.
+Tipo `documentação`. Repositório de origem em https://github.com/Solierrr/worker-docs (só leitura). A documentação é escrita em `readme/repositories/worker-docs/` deste repositório, numa branch `docs/worker-docs`.
 
 ## O que já existe aqui
 
-- Nada. A pasta `readme/repositories/web-docs/` ainda não existe e é criada nesta tarefa.
+- Nada. A pasta `readme/repositories/worker-docs/` ainda não existe e é criada nesta tarefa.
 
 ## Contexto conhecido
 
@@ -14,7 +14,7 @@ Levantamento de 2026-10-29. O código na `main` é a fonte. Se ele contradiz alg
 
 ## Checklist
 
-- [ ] Branch `docs/web-docs` criada e publicada antes de começar a escrever.
+- [ ] Branch `docs/worker-docs` criada e publicada antes de começar a escrever.
 - [ ] `README.md` no [padrão de README](../../../docs/standards/REPOSITORY_README.md), com banner sugerido `a confirmar no catálogo` (confirmar no [catálogo](../../../assets/readme/README.md)) e os ícones confirmados no código.
 - [ ] Banner e ícones copiados para `assets/readme/banners/` e `assets/readme/stacks/`.
 - [ ] `docs/OVERVIEW.md`, a visão de produto.
@@ -28,4 +28,4 @@ Levantamento de 2026-10-29. O código na `main` é a fonte. Se ele contradiz alg
 - [ ] `PENDENCIAS.md` com as dúvidas, e os trechos marcados com `<!-- PENDENTE: <número> -->`.
 - [ ] Revisão de escrita feita pelo [padrão de escrita](../../../docs/standards/WRITING.md#revisão).
 - [ ] Checklist final do [padrão de documentação](../../../docs/standards/DOCUMENTATION.md#antes-de-abrir-a-pull-request).
-- [ ] Pull Request `docs: document the web-docs repository` aberta para a `main`, sem merge, e o link enviado ao dono.
+- [ ] Pull Request `docs: document the worker-docs repository` aberta para a `main`, sem merge, e o link enviado ao dono.

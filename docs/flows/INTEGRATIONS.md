@@ -8,7 +8,7 @@ flowchart LR
     WEB[web-app]
     MOB[mobile-app]
     SBX[web-sandbox]
-    WRK[web-worker]
+    WRK[worker-failover]
   end
   subgraph APIs
     AUTH[api-auth]

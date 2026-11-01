@@ -10,10 +10,10 @@ O build usa esbuild para gerar scripts k6 a partir do TypeScript. Os alvos ficam
 flowchart LR
  C[Alvo, ambiente e perfil] --> B[Build TypeScript]
  B --> K[k6]
- K -->|HTTP| W[web-app ou web-worker]
+ K -->|HTTP| W[web-app ou worker-failover]
  W --> R[Checks e métricas]
 ```
 
-`src/smoke/` e `src/stress/` contêm cenários. `src/web-app.ts` aquece a origem, descobre assets e verifica páginas. `src/web-worker.ts` verifica borda, manutenção e iscas. Os scripts genéricos usam uma lista local de URLs.
+`src/smoke/` e `src/stress/` contêm cenários. `src/web-app.ts` aquece a origem, descobre assets e verifica páginas. `src/worker-failover.ts` verifica borda, manutenção e iscas. Os scripts genéricos usam uma lista local de URLs.
 
 O stress sobe por trinta segundos, mantém pico por um minuto e desce por trinta segundos. Os picos padrão são cinquenta usuários virtuais no local, vinte no QA e dez em produção, com possibilidade de ajuste. Não há banco ou serviço próprio.

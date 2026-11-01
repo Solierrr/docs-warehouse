@@ -14,7 +14,7 @@ Levantamento de 2026-10-29. O código na `main` é a fonte. Se ele contradiz alg
 - Finalidade: aplicação web pública e operacional.
 - Externos: Firebase (login federado e Firestore só para "digitando"), chave do Google Maps direto no front (`VITE_GOOGLE_MAPS_API_KEY`), API de câmbio (`VITE_EXCHANGE_API`).
 - Chama: `api-auth`, `api-core`, `api-messenger` (REST e WebSocket), `ai-validation`.
-- Chamado por: `web-worker` (origem).
+- Chamado por: `worker-failover` (origem).
 - Ambientes: QA ✅ (a `qa` está 57 commits à frente, mas com a árvore igual à `main`); PROD ✅.
 - Lacunas: chatbot em mock (`ai-assistant`), upload sem `ai-accessibility`, feeds sem `api-recommendation`, componentes locais em vez do `lib-web`, Maps direto no front em vez do `api-google`; branches de bump do `infra-gitops` (`chore/bump-web-app-3.3.0` a `3.5.0`) não integradas, enquanto o manifesto usa `:latest`.
 
