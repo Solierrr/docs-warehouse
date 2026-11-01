@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { GitHubIcon, GroupAction, Surface, SurfaceGroup } from "@solaria.network/web-lib";
+import {
+  GalleryShell,
+  useGallery,
+  type GalleryLocale,
+  type GallerySection,
+} from "@solaria.network/web-lib/gallery";
 import {
   IconArrowsExchange,
   IconFolders,
@@ -13,10 +18,9 @@ import {
 } from "@tabler/icons-react";
 import DiagramView from "./DiagramView";
 import { diagrams, type DiagramGroup } from "./diagrams";
-import { LanguageSwitcher } from "./LanguageSwitcher";
 import RepositoryFlow from "./RepositoryFlow";
 import ServiceGraph from "./ServiceGraph";
-import { languages, labels, repository, type Labels, type Locale } from "./i18n";
+import { labels } from "./i18n";
 
 type Section = "repositoryGroup" | DiagramGroup;
 
@@ -31,6 +35,14 @@ const groupIcons: Record<DiagramGroup, TablerIcon> = {
   sequence: IconArrowsExchange,
   flow: IconRoute,
   usecase: IconUsers,
+};
+
+const sectionTitles: Record<Section, Record<GalleryLocale, string>> = {
+  architecture: { "pt-BR": "Arquitetura", "en-US": "Architecture", "es-ES": "Arquitectura" },
+  repositoryGroup: { "pt-BR": "Repositório", "en-US": "Repository", "es-ES": "Repositorio" },
+  usecase: { "pt-BR": "Casos de uso", "en-US": "Use cases", "es-ES": "Casos de uso" },
+  flow: { "pt-BR": "Fluxos", "en-US": "Flows", "es-ES": "Flujos" },
+  sequence: { "pt-BR": "Sequências", "en-US": "Sequences", "es-ES": "Secuencias" },
 };
 
 const diagramViews = (group: DiagramGroup): View[] =>
@@ -49,23 +61,55 @@ const views: View[] = [
   ...diagramViews("sequence"),
 ];
 
-function viewLabel(id: string, text: Labels) {
-  if (id === "repository" || id === "services") return text[id];
-  return diagrams.find((entry) => entry.id === id)?.title ?? id;
+const locales: GalleryLocale[] = ["pt-BR", "en-US", "es-ES"];
+
+function viewLabel(id: string): Record<GalleryLocale, string> {
+  if (id === "repository" || id === "services") {
+    return Object.fromEntries(locales.map((code) => [code, labels[code][id]])) as Record<GalleryLocale, string>;
+  }
+  const title = diagrams.find((entry) => entry.id === id)?.title ?? id;
+  return { "pt-BR": title, "en-US": title, "es-ES": title };
 }
 
-const actionClass =
-  "inline-flex size-9 shrink-0 items-center justify-center rounded-small text-operational-ink transition-colors hover:bg-operational-hover focus-visible:outline-2 focus-visible:outline-operational-ink motion-reduce:transition-none";
+const sections: GallerySection[] = views.reduce<GallerySection[]>((groups, view) => {
+  const item = {
+    id: view.id,
+    label: viewLabel(view.id),
+    icon: <view.icon size={20} className="shrink-0" aria-hidden="true" />,
+  };
+  const last = groups[groups.length - 1];
+  if (last?.id === view.section) last.items.push(item);
+  else groups.push({ id: view.section, title: sectionTitles[view.section], items: [item] });
+  return groups;
+}, []);
 
-export default function Gallery() {
+function Viewer({ view }: Readonly<{ view: string }>) {
+  const { locale } = useGallery();
   const { i18n } = useTranslation();
-  const [hash, setHash] = useState(location.hash);
-  const params = new URLSearchParams(hash.slice(1));
-  const locale: Locale =
-    languages.find((language) => language.code === params.get("locale"))?.code ?? "pt-BR";
-  const view = views.find((item) => item.id === params.get("view"))?.id ?? views[0].id;
   const entry = diagrams.find((item) => item.id === view);
   const text = labels[locale];
+
+  useEffect(() => {
+    void i18n.changeLanguage(locale);
+  }, [i18n, locale]);
+
+  let content = <ServiceGraph locale={locale} />;
+  if (entry) content = <DiagramView entry={entry} locale={locale} />;
+  else if (view === "repository") content = <RepositoryFlow locale={locale} />;
+
+  return (
+    <div className="gallery-workspace">
+      {locale === "pt-BR" ? null : <p className="gallery-note">{text.note}</p>}
+      <section className="diagram-area" aria-label={viewLabel(view)[locale]}>
+        {content}
+      </section>
+    </div>
+  );
+}
+
+export default function Gallery() {
+  const [hash, setHash] = useState(location.hash);
+  const view = views.find((item) => item.id === new URLSearchParams(hash.slice(1)).get("view"))?.id ?? views[0].id;
 
   useEffect(() => {
     const changed = () => setHash(location.hash);
@@ -73,62 +117,23 @@ export default function Gallery() {
     return () => window.removeEventListener("hashchange", changed);
   }, []);
 
-  useEffect(() => {
-    void i18n.changeLanguage(locale);
-    document.documentElement.lang = locale;
-  }, [i18n, locale]);
-
-  let content = <ServiceGraph locale={locale} />;
-  if (entry) content = <DiagramView entry={entry} locale={locale} />;
-  else if (view === "repository") content = <RepositoryFlow locale={locale} />;
-
-  function navigate(nextView: string, language: Locale) {
-    location.hash = new URLSearchParams({ view: nextView, locale: language }).toString();
-  }
-
   return (
-    <div className="gallery-shell flex h-dvh min-h-0 flex-col bg-operational-shell">
-      <header className="navbar-frame z-30 w-full justify-between gap-2 bg-operational-shell!">
-        <div className="ml-auto flex items-center gap-1 sm:gap-2">
-          <a
-            href={repository}
-            aria-label={text.github}
-            title="GitHub"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={actionClass}
-          >
-            <GitHubIcon size={20} />
-          </a>
-          <LanguageSwitcher value={locale} onChange={(language) => navigate(view, language)} />
-        </div>
-      </header>
-      <main className="gallery-workspace gallery-workspace-wide">
-        <nav aria-label={text.views} className="flex min-h-0 min-w-0 items-start">
-          <SurfaceGroup className="gallery-templates" contentClassName="gallery-template-list scrollbar-none">
-            {views.map((item, index) => {
-              const Glyph = item.icon;
-              const label = viewLabel(item.id, text);
-              const opensSection = index > 0 && views[index - 1].section !== item.section;
-              return (
-                <GroupAction
-                  key={item.id}
-                  label={label}
-                  content={label}
-                  glyph={<Glyph size={20} className="shrink-0" aria-hidden="true" />}
-                  active={view === item.id}
-                  className={opensSection ? "gallery-section-start" : undefined}
-                  onClick={() => navigate(item.id, locale)}
-                />
-              );
-            })}
-            {locale === "pt-BR" ? null : <p className="p-4 text-operational-muted">{text.note}</p>}
-          </SurfaceGroup>
-        </nav>
-        <section className="diagram-area" aria-label={viewLabel(view, text)}>
-          {content}
-        </section>
-      </main>
-    </div>
+    <GalleryShell
+      title={{
+        "pt-BR": "Previews da arquitetura",
+        "en-US": "Architecture previews",
+        "es-ES": "Vistas previas de la arquitectura",
+      }}
+      repository="docs-warehouse"
+      version={import.meta.env.VITE_VERSION}
+      commit={import.meta.env.VITE_COMMIT}
+      sections={sections}
+      selectedId={view}
+      onSelect={(id) => {
+        location.hash = new URLSearchParams({ view: id }).toString();
+      }}
+    >
+      <Viewer view={view} />
+    </GalleryShell>
   );
 }
