@@ -6,8 +6,6 @@ export const languages = [
 export type Locale = (typeof languages)[number]["code"];
 
 export interface Labels {
-  language: string;
-  github: string;
   views: string;
   note: string;
   repository: string;
@@ -35,8 +33,6 @@ export interface Labels {
 
 export const labels: Record<Locale, Labels> = {
   "pt-BR": {
-    language: "Idioma",
-    github: "Repositório no GitHub",
     views: "Diagramas",
     note: "Os diagramas e as descrições estão em português.",
     repository: "Organização do repositório",
@@ -62,8 +58,6 @@ export const labels: Record<Locale, Labels> = {
     notInOrg: "Sem repositório próprio (recurso de infraestrutura).",
   },
   "en-US": {
-    language: "Language",
-    github: "GitHub repository",
     views: "Diagrams",
     note: "The diagrams and descriptions are written in Portuguese.",
     repository: "Repository organization",
@@ -89,8 +83,6 @@ export const labels: Record<Locale, Labels> = {
     notInOrg: "No repository of its own (infrastructure resource).",
   },
   "es-ES": {
-    language: "Idioma",
-    github: "Repositorio en GitHub",
     views: "Diagramas",
     note: "Los diagramas y las descripciones están en portugués.",
     repository: "Organización del repositorio",
