@@ -97,7 +97,8 @@ Dois workflows ficam em [`.github/workflows/`](../../.github/workflows/) deste r
 | Workflow | Caller | Para quê |
 |---|---|---|
 | `openapi-lint.yml` | [`common/openapi-lint.yml`](./common/openapi-lint.yml) | Lint do contrato com o ruleset [`github/openapi/spectral.yaml`](../openapi/spectral.yaml) e conferência de drift do `openapi.yaml`. |
-| `storybook.yml` | [`typescript/storybook.yml`](./typescript/storybook.yml) | Build e testes das histórias em toda PR; publicação no GitHub Pages (ambiente `STORYBOOK`) no push da `main`. Substitui o `storybook.yml` próprio do `web-app` e do `lib-web`. |
+| `preview-storybook.yml` | [`typescript/preview-storybook.yml`](./typescript/preview-storybook.yml) | Build do Storybook em toda PR (quando o Storybook ou as histórias mudam) e publicação no GitHub Pages (ambiente `PREVIEW`) no push da `main`. Chama o workflow reutilizável do repositório `.github`; substitui o `storybook.yml` próprio do `web-app` e do `lib-web`. |
+| `preview-gallery.yml` | [`common/preview-gallery.yml`](./common/preview-gallery.yml) | Typecheck e build da galeria (`gallery/`) em toda PR e publicação no GitHub Pages (ambiente `PREVIEW`) no push da `main`. Chama o workflow reutilizável do repositório `.github`. |
 
 Entradas do `openapi-lint.yml`:
 
@@ -109,7 +110,7 @@ Entradas do `openapi-lint.yml`:
 | `python-version` | vazio | FastAPI: `"3.12"`, com a instalação das dependências no próprio `export-command` (`pip install -r requirements.txt && python scripts/export_openapi.py`) |
 | `ruleset-ref` | `main` | ref do ruleset neste repositório |
 
-Entradas do `storybook.yml`: `node-version` (padrão `"24"`), `test` (padrão `true`), `test-command` (padrão `npm run test:storybook`) e `publish` (padrão `false`). O caller precisa conceder `pages: write` e `id-token: write` para publicar.
+Entradas do `preview-storybook.yml`: `node-version` (padrão `"24"`), `test` (padrão `false`), `test-command` (padrão `npm run test:storybook`) e `publish` (padrão `false`). Entradas do `preview-gallery.yml`: `working-directory` (padrão `gallery`), `node-version`, `root-install`, `root-command` e `publish`. O caller precisa conceder `pages: write` e `id-token: write` para publicar.
 
 ## Release Please e auto-merge
 

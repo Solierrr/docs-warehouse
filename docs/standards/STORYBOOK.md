@@ -140,8 +140,8 @@ Na história, a imagem é referenciada como `/mocks/<arquivo>`.
 
 ## CI e publicação
 
-- O workflow reutilizável [`storybook.yml`](../../.github/workflows/storybook.yml) instala as dependências, roda o build e os testes das histórias e, quando pedido, publica no GitHub Pages.
-- O caller fica em [`github/workflow/typescript/storybook.yml`](../../github/workflow/typescript/storybook.yml) e substitui o `storybook.yml` próprio de cada repositório:
-  - em toda PR: build e testes, sem publicar;
-  - em push na `main`: build, testes e publicação no Pages, no ambiente `STORYBOOK`.
+- O workflow reutilizável `preview-storybook.yml`, do repositório `.github`, instala as dependências, roda o build (e os testes das histórias, quando pedido) e, quando pedido, publica no GitHub Pages. As regras comuns dos ambientes de preview estão em [PREVIEW.md](./PREVIEW.md).
+- O caller fica em [`github/workflow/typescript/preview-storybook.yml`](../../github/workflow/typescript/preview-storybook.yml) e substitui o `storybook.yml` próprio de cada repositório:
+  - em toda PR: build, sem publicar;
+  - em push na `main`: build e publicação no Pages, no ambiente `PREVIEW`.
 - O link do Storybook publicado fica no README de cada repositório e neste documento.
