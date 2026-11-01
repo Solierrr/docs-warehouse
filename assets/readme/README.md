@@ -27,6 +27,9 @@ Exemplo de README já montado: [`readme/repositories/api-notify/README.md`](../.
 | `java.png` | Java |
 | `fastapi.png` | FastAPI |
 | `fastify.png` | Fastify |
+| `hono.png` | Hono |
+| `zod.png` | Zod |
+| `brevo.png` | Brevo |
 | `vite.png` | Vite |
 | `python.png` | Python |
 | `gke.png` | Google Kubernetes Engine |
@@ -135,5 +138,8 @@ Exemplo de README já montado: [`readme/repositories/api-notify/README.md`](../.
 | `github.png` | GitHub |
 | `mcp.png` | Model Context Protocol (MCP) |
 | `jetpack-compose.png` | Jetpack Compose |
+| `hono.png` | Hono |
+| `zod.png` | Zod |
+| `brevo.png` | Brevo |
 
 Os ícones de React a Jetpack Compose vieram do [theSVG](https://thesvg.org/) (licença MIT, as marcas continuam dos seus donos), convertidos para a mesma moldura dos demais.
