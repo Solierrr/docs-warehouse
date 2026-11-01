@@ -20,13 +20,15 @@ O `web-app` e o `lib-web` documentam os componentes do mesmo jeito: mesma versã
 - A mesma versão exata do Storybook e dos addons nos dois repositórios, sem `^`, `~` nem `latest`, atualizada pelo Dependabot (hoje a linha 10.6).
 - Addons: `@storybook/addon-docs`, `@storybook/addon-a11y`, `@storybook/addon-vitest` e `@storybook/addon-mcp`. O Chromatic não é usado.
 - Node 24 nos workflows (o `lib-web` exige Node 24 no `engines`).
+- O Vitest tem dois projetos: `unit` (jsdom) e `storybook` (Chromium pelo Playwright, `@storybook/addon-vitest`). No `lib-web`, `npm test` roda só o `unit`; o `test:storybook` roda as histórias. Todo `preview.yml` roda os testes das histórias nas pull requests (`test: true` só em PR); a publicação não espera por eles.
+- As histórias rodam dentro de um `MemoryRouter` (decorator global), porque componentes de navegação usam o roteador.
 - Scripts no `package.json`, com os mesmos nomes nos dois repositórios:
 
 | Script | Comando |
 |---|---|
 | `storybook` | `storybook dev -p 6006` |
 | `build-storybook` | `storybook build` (com qualquer passo de geração antes, como os tokens do `lib-web`) |
-| `test:storybook` | `vitest run --project=storybook` |
+| `test:storybook` | `vitest run --project=storybook --maxWorkers=1 --no-file-parallelism --testTimeout=30000 --hookTimeout=60000` (no `lib-web`, depois de gerar os tokens) |
 
 `preview.tsx`:
 
