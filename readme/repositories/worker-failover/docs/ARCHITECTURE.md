@@ -4,7 +4,7 @@
 
 # Arquitetura
 
-O [entrypoint](https://github.com/Solierrr/web-worker/blob/main/src/index.ts) implementa `fetch` e `scheduled`. O fluxo verifica honeypot, redirecionamento de idioma e origem, nessa ordem.
+O [entrypoint](https://github.com/Solierrr/worker-failover/blob/main/src/index.ts) implementa `fetch` e `scheduled`. O fluxo verifica honeypot, redirecionamento de idioma e origem, nessa ordem.
 
 ```mermaid
 flowchart LR

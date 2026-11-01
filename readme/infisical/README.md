@@ -77,7 +77,7 @@ O workflow `infisical-env-check.yml` usa esse arquivo para conferir se cada vari
 - Em QA, gera erro quando o repositório tem a branch `qa`.
 - Em produção, gera erro.
 
-O check roda em Pull Requests que alteram o `.env.example` ou o `infisical.yaml`, em push na `main`, uma vez por dia e manualmente. Repositórios sem `infisical.yaml`, como o `web-worker` e os de documentação, não são conferidos. O modelo do workflow está em [`github/workflow/common/infisical-env-check.yml`](../../github/workflow/common/infisical-env-check.yml).
+O check roda em Pull Requests que alteram o `.env.example` ou o `infisical.yaml`, em push na `main`, uma vez por dia e manualmente. Repositórios sem `infisical.yaml`, como o `worker-failover` e os de documentação, não são conferidos. O modelo do workflow está em [`github/workflow/common/infisical-env-check.yml`](../../github/workflow/common/infisical-env-check.yml).
 
 ## Regras
 

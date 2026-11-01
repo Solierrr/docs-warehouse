@@ -10,10 +10,10 @@
 
 # Portal público de documentos
 
-[![License](https://img.shields.io/github/license/Solierrr/web-docs)](https://github.com/Solierrr/web-docs/blob/main/LICENSE)
-[![GitHub Last Commit](https://img.shields.io/github/last-commit/Solierrr/web-docs)](https://github.com/Solierrr/web-docs/commits)
-[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/web-docs)](https://github.com/Solierrr/web-docs/pulls)
-[![Release](https://img.shields.io/github/v/release/Solierrr/web-docs)](https://github.com/Solierrr/web-docs/releases)
+[![License](https://img.shields.io/github/license/Solierrr/worker-docs)](https://github.com/Solierrr/worker-docs/blob/main/LICENSE)
+[![GitHub Last Commit](https://img.shields.io/github/last-commit/Solierrr/worker-docs)](https://github.com/Solierrr/worker-docs/commits)
+[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/worker-docs)](https://github.com/Solierrr/worker-docs/pulls)
+[![Release](https://img.shields.io/github/v/release/Solierrr/worker-docs)](https://github.com/Solierrr/worker-docs/releases)
 
 O portal reúne documentos públicos de privacidade, termos, cookies e integração de calendário. Visitantes encontram o conteúdo organizado por assunto e idioma, com navegação lateral e sumário da página. O repositório permite manter esses textos junto da interface e revisar as alterações pelo histórico de publicação.
 

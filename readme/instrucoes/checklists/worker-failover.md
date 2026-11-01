@@ -1,6 +1,6 @@
-# Checklist: `web-worker`
+# Checklist: `worker-failover`
 
-Tipo `infra`. Repositório de origem em https://github.com/Solierrr/web-worker (só leitura). A documentação é escrita em `readme/repositories/web-worker/` deste repositório, numa branch `docs/web-worker`.
+Tipo `infra`. Repositório de origem em https://github.com/Solierrr/worker-failover (só leitura). A documentação é escrita em `readme/repositories/worker-failover/` deste repositório, numa branch `docs/worker-failover`.
 
 ## O que já existe aqui
 
@@ -24,7 +24,7 @@ Levantamento de 2026-10-29. O código na `main` é a fonte. Se ele contradiz alg
 
 ## Checklist
 
-- [ ] Branch `docs/web-worker` criada e publicada antes de começar a escrever.
+- [ ] Branch `docs/worker-failover` criada e publicada antes de começar a escrever.
 - [ ] `README.md` no [padrão de README](../../../docs/standards/REPOSITORY_README.md), com banner sugerido `cloudflare-workers` (confirmar no [catálogo](../../../assets/readme/README.md)) e os ícones confirmados no código.
 - [ ] Banner e ícones copiados para `assets/readme/banners/` e `assets/readme/stacks/`.
 - [ ] `docs/OVERVIEW.md`, a visão de produto.
@@ -38,4 +38,4 @@ Levantamento de 2026-10-29. O código na `main` é a fonte. Se ele contradiz alg
 - [ ] `PENDENCIAS.md` com as dúvidas, e os trechos marcados com `<!-- PENDENTE: <número> -->`.
 - [ ] Revisão de escrita feita pelo [padrão de escrita](../../../docs/standards/WRITING.md#revisão).
 - [ ] Checklist final do [padrão de documentação](../../../docs/standards/DOCUMENTATION.md#antes-de-abrir-a-pull-request).
-- [ ] Pull Request `docs: document the web-worker repository` aberta para a `main`, sem merge, e o link enviado ao dono.
+- [ ] Pull Request `docs: document the worker-failover repository` aberta para a `main`, sem merge, e o link enviado ao dono.

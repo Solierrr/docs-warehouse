@@ -9,10 +9,10 @@
 
 # Configuração de visualização operacional
 
-[![License](https://img.shields.io/github/license/Solierrr/infra-grafana)](https://github.com/Solierrr/infra-grafana/blob/main/LICENSE)
-[![GitHub Last Commit](https://img.shields.io/github/last-commit/Solierrr/infra-grafana)](https://github.com/Solierrr/infra-grafana/commits)
-[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/infra-grafana)](https://github.com/Solierrr/infra-grafana/pulls)
-[![Release](https://img.shields.io/github/v/release/Solierrr/infra-grafana)](https://github.com/Solierrr/infra-grafana/releases)
+[![License](https://img.shields.io/github/license/Solierrr/infra-observability)](https://github.com/Solierrr/infra-observability/blob/main/LICENSE)
+[![GitHub Last Commit](https://img.shields.io/github/last-commit/Solierrr/infra-observability)](https://github.com/Solierrr/infra-observability/commits)
+[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/infra-observability)](https://github.com/Solierrr/infra-observability/pulls)
+[![Release](https://img.shields.io/github/v/release/Solierrr/infra-observability)](https://github.com/Solierrr/infra-observability/releases)
 
 Este repositório está destinado à organização da visualização operacional da plataforma, mas sua main ainda contém a estrutura inicial de um serviço. A configuração que permite à equipe consultar métricas, registros e rastros está hoje mantida em outros repositórios de infraestrutura. Essa divisão precisa ser considerada ao localizar arquivos e planejar mudanças.
 

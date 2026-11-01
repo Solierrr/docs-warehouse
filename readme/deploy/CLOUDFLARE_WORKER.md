@@ -9,7 +9,7 @@
 
 # Deploy de um Worker na Cloudflare
 
-Um Worker roda na borda da Cloudflare, na frente da aplicação, e é publicado pelo `wrangler`. Diferente dos serviços de aplicação, **não há imagem Docker, `Dockerfile` nem workflow de imagem**: o código TypeScript é empacotado e publicado direto pela Cloudflare. O exemplo é o `web-worker`, que atende o domínio raiz da plataforma.
+Um Worker roda na borda da Cloudflare, na frente da aplicação, e é publicado pelo `wrangler`. Diferente dos serviços de aplicação, **não há imagem Docker, `Dockerfile` nem workflow de imagem**: o código TypeScript é empacotado e publicado direto pela Cloudflare. O exemplo é o `worker-failover`, que atende o domínio raiz da plataforma.
 
 ## Como é publicado
 

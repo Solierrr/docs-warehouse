@@ -10,7 +10,7 @@ O build usa esbuild para gerar scripts k6 a partir do TypeScript. Os alvos ficam
 flowchart LR
  C[Alvo, ambiente e perfil] --> B[Build TypeScript]
  B --> K[k6]
- K -->|HTTP| W[web-app ou web-worker]
+ K -->|HTTP| W[web-app ou worker-failover]
  W --> R[Checks e métricas]
 ```
 

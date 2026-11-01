@@ -7,7 +7,7 @@ Em 2026-10-28, os 39 repositórios ativos da organização foram comparados com 
 - `ai-assistant` → `api-core`: [cliente de unidades](https://github.com/Solierrr/ai-assistant/blob/main/src/infra/api_core/client.py).
 - `ai-geographic` → `api-messenger`: [cliente de mensagens](https://github.com/Solierrr/ai-geographic/blob/main/src/infra/api_messenger/client.py).
 - `infra-stress` → `web-app`: [requisições do teste de carga](https://github.com/Solierrr/infra-stress/blob/main/src/web-app.ts).
-- `web-worker` → `web-app`: [sincronização do roteamento](https://github.com/Solierrr/web-worker/blob/main/scripts/sync-language-routing.mjs).
+- `worker-failover` → `web-app`: [sincronização do roteamento](https://github.com/Solierrr/worker-failover/blob/main/scripts/sync-language-routing.mjs).
 - `infra-gitops` → serviços com [manifestos versionados](https://github.com/Solierrr/infra-gitops/tree/main/services). A existência dos arquivos não comprova deploy ativo.
 
 O inventário de repositórios e a revisão dessas relações não constituem validação exaustiva de todas as conexões nem teste de integração.

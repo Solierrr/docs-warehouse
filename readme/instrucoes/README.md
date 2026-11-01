@@ -41,7 +41,7 @@ Escolha aleatória entre os que não têm branch `docs/<repo>` nem Pull Request 
 | `infra-broker` | [checklist](./checklists/infra-broker.md) | a fazer |
 | `infra-gateway` | [checklist](./checklists/infra-gateway.md) | a fazer |
 | `infra-gitops` | [checklist](./checklists/infra-gitops.md) | a fazer |
-| `infra-grafana` | [checklist](./checklists/infra-grafana.md) | a fazer |
+| `infra-observability` | [checklist](./checklists/infra-observability.md) | a fazer |
 | `infra-keepalive` | [checklist](./checklists/infra-keepalive.md) | a fazer |
 | `infra-otel-collector` | [checklist](./checklists/infra-otel-collector.md) | a fazer |
 | `infra-platform` | [checklist](./checklists/infra-platform.md) | a fazer |
@@ -52,8 +52,8 @@ Escolha aleatória entre os que não têm branch `docs/<repo>` nem Pull Request 
 | `mobile-app` | [checklist](./checklists/mobile-app.md) | a fazer |
 | `mocks-warehouse` | [checklist](./checklists/mocks-warehouse.md) | a fazer |
 | `web-app` | [checklist](./checklists/web-app.md) | a fazer |
-| `web-docs` | [checklist](./checklists/web-docs.md) | a fazer |
+| `worker-docs` | [checklist](./checklists/worker-docs.md) | a fazer |
 | `web-sandbox` | [checklist](./checklists/web-sandbox.md) | a fazer |
-| `web-worker` | [checklist](./checklists/web-worker.md) | a fazer |
+| `worker-failover` | [checklist](./checklists/worker-failover.md) | a fazer |
 
 Ficam fora os repositórios `elos-*`, `generic-template`, `.github` e o próprio `docs-warehouse`.

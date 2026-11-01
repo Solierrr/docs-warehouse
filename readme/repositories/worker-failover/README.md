@@ -9,10 +9,10 @@
 
 # Entrada web na borda
 
-[![License](https://img.shields.io/github/license/Solierrr/web-worker)](https://github.com/Solierrr/web-worker/blob/main/LICENSE)
-[![GitHub Last Commit](https://img.shields.io/github/last-commit/Solierrr/web-worker)](https://github.com/Solierrr/web-worker/commits)
-[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/web-worker)](https://github.com/Solierrr/web-worker/pulls)
-[![Release](https://img.shields.io/github/v/release/Solierrr/web-worker)](https://github.com/Solierrr/web-worker/releases)
+[![License](https://img.shields.io/github/license/Solierrr/worker-failover)](https://github.com/Solierrr/worker-failover/blob/main/LICENSE)
+[![GitHub Last Commit](https://img.shields.io/github/last-commit/Solierrr/worker-failover)](https://github.com/Solierrr/worker-failover/commits)
+[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/worker-failover)](https://github.com/Solierrr/worker-failover/pulls)
+[![Release](https://img.shields.io/github/v/release/Solierrr/worker-failover)](https://github.com/Solierrr/worker-failover/releases)
 
 A entrada de borda recebe visitas ao domínio público, escolhe o idioma adequado e encaminha a navegação para a aplicação. Quando a origem está indisponível, apresenta uma página temporária traduzida em vez de expor uma falha bruta do servidor. Também reconhece caminhos usados para procurar arquivos e painéis que não pertencem ao produto.
 

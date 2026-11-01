@@ -12,9 +12,9 @@ REPOS=(
   api-auth api-core api-email api-google api-messenger api-notify api-recommendation
   database-bootstrap database-console database-rpa databricks-stocker databricks-sync
   docs-reports
-  infra-broker infra-gateway infra-gitops infra-grafana infra-keepalive infra-otel-collector infra-platform infra-stress
+  infra-broker infra-gateway infra-gitops infra-observability infra-keepalive infra-otel-collector infra-platform infra-stress
   lib-ai lib-web mcp-database mobile-app mocks-warehouse
-  web-app web-docs web-sandbox web-worker
+  web-app worker-docs web-sandbox worker-failover
 )
 
 mkdir -p "$DEST" || exit 1
