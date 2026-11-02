@@ -263,7 +263,7 @@ As cinco operações com convidados devolvem `rejectedParticipants`, com cada pe
 
 É o prazo para mudar a própria mensagem depois de enviada.
 
-A pessoa edita ou apaga a mensagem até 30 minutos depois do envio, e o prazo vem de `MESSAGES_MUTATION_WINDOW`. Depois dele, a resposta é `422`. <!-- PENDENTE: 1 -->
+A pessoa edita ou apaga a mensagem até 30 minutos depois do envio, e o prazo vem de `MESSAGES_MUTATION_WINDOW`. Depois dele, a resposta é `422`.
 
 ### Organização interna
 

@@ -23,13 +23,13 @@ O domínio cobre os grupos de tarefas abaixo.
 
 ## Empresas e acesso
 
-A decisão de produto permite que uma pessoa pertença a mais de uma empresa, com cargos diferentes. A implementação atual ainda limita o vínculo a uma empresa por pessoa. O texto preserva essa decisão e registra a diferença para adequação da implementação. <!-- PENDENTE: 1 -->
+A decisão de produto permite que uma pessoa pertença a mais de uma empresa, com cargos diferentes. A implementação atual ainda limita o vínculo a uma empresa por pessoa, e a adequação a essa regra está pendente.
 
 O cargo de administrador concede acesso de administração da empresa. Outros cargos dependem das permissões concedidas. A empresa deve manter ao menos um administrador. O acesso a projetos também considera a participação da pessoa, com papéis de proprietário, gestor, participante e observador.
 
 ## Fluxo principal
 
-O fluxo principal do produto começa pela unidade consumidora e sua fatura, passa pela negociação e aceite da proposta e segue para projeto, contrato e execução por técnico. No código atual, o aceite reserva o estoque e encerra a negociação. A criação do projeto e do serviço ocorre em operações separadas, sem conversão automática da proposta. <!-- PENDENTE: 2 -->
+O fluxo principal do produto começa pela unidade consumidora e sua fatura, passa pela negociação e aceite da proposta e segue para projeto, contrato e execução por técnico. No código atual, o aceite reserva o estoque e encerra a negociação. A criação do projeto e do serviço ocorre em operações separadas, sem conversão automática da proposta.
 
 Uma proposta envolve uma empresa compradora e uma fornecedora, que alternam a vez de responder aos termos até o aceite. Criar a proposta não reserva estoque, e por isso o aceite confere o saldo do momento e pode ser recusado quando a disponibilidade mudou desde a criação.
 

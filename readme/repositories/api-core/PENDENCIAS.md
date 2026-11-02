@@ -11,14 +11,14 @@ As decisões de produto já registradas foram mantidas. As dúvidas abaixo trata
 - Onde aparece: `docs/OVERVIEW.md`, `docs/ARCHITECTURE.md`, `docs/STATUS.md` e `database/POSTGRES.md`.
 - O que o código mostra: `UserCompanyService` recusa segundo vínculo, RBAC resolve um vínculo e o baseline declara unicidade de `user_company.user_id`.
 - Hipótese usada no texto: permanece válida a decisão de produto de várias empresas com cargos distintos. O comportamento atual de uma empresa é documentado como limitação da implementação, sem reabrir a decisão de negócio.
-- Resposta do dono:
+- Resposta do dono: Respondido no VersioSpec (2026-10-23): "Sim", uma pessoa pode pertencer a mais de uma empresa, com cargos diferentes. A adequação do vínculo único fica como tarefa de implementação.
 
 ## 2. Qual operação conecta a proposta aceita ao projeto e à execução
 
 - Onde aparece: `docs/OVERVIEW.md`, `docs/ARCHITECTURE.md`, `docs/STATUS.md`, `database/POSTGRES.md` e `flows/PROPOSAL_TO_PROJECT.md`.
 - O que o código mostra: o aceite reserva estoque e grava `ACCEPTED`. Projeto, serviço e contrato são criados por operações separadas, e o schema do projeto não contém uma relação de origem com proposta.
 - Hipótese usada no texto: o fluxo principal de produto continua sendo unidade e fatura, proposta, aceite, projeto e contrato executado por técnico. A integração automática entre as etapas não foi afirmada como implementada.
-- Resposta do dono:
+- Resposta do dono: Respondido no VersioSpec (2026-10-23): "é", o fluxo principal é unidade e fatura, propostas, aceite, projeto e contrato executado por técnico. A conversão automática da proposta em projeto fica como tarefa de implementação.
 
 ## 3. Qual é o procedimento de adoção do schema próprio nos ambientes existentes
 
@@ -46,4 +46,4 @@ As decisões de produto já registradas foram mantidas. As dúvidas abaixo trata
 - Onde aparece: `docs/ARCHITECTURE.md`, `docs/RUNNING.md`, `docs/API.md`, `docs/DEPLOY.md` e `docs/STATUS.md`.
 - O que o código mostra: `/dev/login` é público sem condição de perfil. E-mail, tradução e validação têm suporte à chave de serviço, mas mantêm dependências de credenciais legadas. A elegibilidade mobile interna também exige Bearer de serviço no controller.
 - Hipótese usada no texto: o atalho permanece provisório conforme a decisão registrada, e as integrações ainda estão em transição. Não foi afirmado que desligar Swagger remove o atalho nem que configurar `SERVICE_KEY` elimina as condições legadas.
-- Resposta do dono:
+- Resposta do dono: Respondido no VersioSpec (2026-10-23): "dá para oficializar, entra uma pendencia". Os atalhos e as credenciais legadas estão no relatório de pendências do `api-core`.

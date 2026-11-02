@@ -33,7 +33,7 @@ sequenceDiagram
 
 O convite não transfere a propriedade do projeto e admite os papéis de gestor, participante e observador, recusando um segundo convite pendente para o mesmo destinatário. A aceitação exige que a identidade ou o e-mail correspondam ao convite e que a sessão traga a claim de e-mail verificado.
 
-O worker faz até cinco tentativas, com espera crescente limitada a uma hora. Ele ainda depende da configuração legada de chave para iniciar, embora envie a chave de serviço quando disponível. <!-- PENDENTE: 6 --> O reenvio de um convite pendente renova a validade e reinicia o controle de tentativas.
+O worker faz até cinco tentativas, com espera crescente limitada a uma hora. Ele ainda depende da configuração legada de chave para iniciar, embora envie a chave de serviço quando disponível. O reenvio de um convite pendente renova a validade e reinicia o controle de tentativas.
 
 ## Casos de erro
 

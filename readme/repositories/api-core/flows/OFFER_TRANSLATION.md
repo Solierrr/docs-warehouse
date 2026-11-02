@@ -31,7 +31,7 @@ O worker consulta a fila a cada cinco segundos por padrão, trata até cinco ite
 
 ## Casos de erro
 
-- Credencial legada ausente impede a chamada, mesmo com chave de serviço configurada. <!-- PENDENTE: 6 -->
+- Credencial legada ausente impede a chamada, mesmo com chave de serviço configurada.
 - Resposta sem idiomas ou campos completos é recusada.
 - Oferta excluída ou versão substituída cancela o trabalho incompatível.
 - Falha externa agenda nova tentativa com backoff, até o limite configurado.

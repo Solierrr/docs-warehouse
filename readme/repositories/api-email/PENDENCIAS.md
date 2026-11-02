@@ -25,7 +25,7 @@ As dúvidas abaixo dependem de configuração ou decisão do responsável. As hi
 - Onde aparece: `docs/OVERVIEW.md`, `docs/ARCHITECTURE.md`, `docs/API.md` e `docs/STATUS.md`.
 - O que o código mostra: o serviço já aceita chaves por chamador. O cliente do `api-auth` ainda envia `X-API-Key`, enquanto o worker do `api-core` envia a chave nova quando configurada, mas ainda depende de uma configuração legada para iniciar. O fallback legado identifica o chamador como `api-core`.
 - Hipótese usada no texto: a compatibilidade permanece necessária até migrar e validar os consumidores. A existência de uma chave por chamador no destino não foi tratada como prova de que todos já usam essa identidade.
-- Resposta do dono:
+- Resposta do dono: Respondido no VersioSpec (2026-10-23): decisão delegada de uma chave por serviço que usa o envio. A chave legada sai quando os consumidores migrarem.
 
 ## 4. Qual deve ser a política de novas tentativas neste serviço
 

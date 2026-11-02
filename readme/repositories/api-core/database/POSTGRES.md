@@ -31,7 +31,7 @@ erDiagram
     user_account ||--o| platform_admin : administra
 ```
 
-`auth_id` e `username` são únicos em `user_account`. O username segue formato de letras minúsculas, números e sublinhado. `uq_user_company_user` permite somente um vínculo por pessoa, divergindo da decisão de produto de vários vínculos com cargos diferentes. <!-- PENDENTE: 1 -->
+`auth_id` e `username` são únicos em `user_account`. O username segue formato de letras minúsculas, números e sublinhado. `uq_user_company_user` permite somente um vínculo por pessoa, divergindo da decisão de produto de vários vínculos com cargos diferentes.
 
 `company.type` aceita fornecedor ou solicitante. A propriedade de um projeto técnico admite empresa ou pessoa, exatamente um dos dois. Endereços podem pertencer a empresa, com foreign key diferível para permitir a criação de relações dentro da transação.
 
@@ -73,7 +73,7 @@ erDiagram
     local_unit ||--o{ proposal_unit : recebe
 ```
 
-As quantidades de item e de alocação precisam ser positivas, e a proposta guarda o estado, as partes e o total, com o aceite reservando estoque nos serviços da aplicação. O schema não tem uma relação entre proposta e projeto técnico que represente uma conversão automática. <!-- PENDENTE: 2 -->
+As quantidades de item e de alocação precisam ser positivas, e a proposta guarda o estado, as partes e o total, com o aceite reservando estoque nos serviços da aplicação. O schema não tem uma relação entre proposta e projeto técnico que represente uma conversão automática.
 
 ## Projetos e execução
 

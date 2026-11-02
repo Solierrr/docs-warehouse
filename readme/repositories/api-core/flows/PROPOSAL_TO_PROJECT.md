@@ -4,7 +4,7 @@
 
 # Negociação e passagem ao projeto
 
-O solicitante cria uma proposta com fornecedor e itens completos. As partes alternam a vez de responder aos termos. O aceite bloqueia os saldos e reserva estoque, mas não cria projeto automaticamente. A passagem para projeto e execução permanece uma etapa separada da implementação. <!-- PENDENTE: 2 -->
+O solicitante cria uma proposta com fornecedor e itens completos. As partes alternam a vez de responder aos termos. O aceite bloqueia os saldos e reserva estoque, mas não cria projeto automaticamente. A passagem para projeto e execução permanece uma etapa separada da implementação.
 
 ```mermaid
 flowchart TD
@@ -23,7 +23,7 @@ flowchart TD
     Aceita -.-> Separado[Criação independente de projeto e serviço]
 ```
 
-A unidade e a fatura representam o ponto de partida do fluxo de produto. A criação comercial atual deriva o solicitante da empresa e não valida uma fatura como pré-requisito. <!-- PENDENTE: 2 -->
+A unidade e a fatura representam o ponto de partida do fluxo de produto. A criação comercial atual deriva o solicitante da empresa e não valida uma fatura como pré-requisito.
 
 Os itens são da mesma fornecedora da proposta. Quantidade e preço são positivos, e desconto fica entre zero e cem. A criação confere disponibilidade, mas não reserva saldo. Os termos substituem o conjunto comercial, preservam a identidade dos itens mantidos e podem remover alocações dos itens omitidos.
 

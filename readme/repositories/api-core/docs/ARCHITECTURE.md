@@ -51,7 +51,7 @@ Há três cadeias stateless. A chain de ordem zero libera health e info do Actua
 
 As chaves vêm de `SERVICE_KEY_API_AUTH`, `SERVICE_KEY_API_MESSENGER` e `SERVICE_KEY_MCP_DATABASE`. Uma chave curta impede a partida, e chave ausente não autentica. A guarda compara as chaves em tempo constante. A exceção de acesso da chain interna ainda usa o entrypoint de autenticação, portanto uma chave válida fora de seu escopo pode ser apresentada como 401 em vez do 403 normativo.
 
-Nas rotas de usuário, o interceptor RBAC combina o identificador da operação com o cargo e suas permissões. Os serviços também conferem empresa, propriedade ou participação. O contexto da requisição reaproveita consultas de identidade e autorização. A resolução atual usa um vínculo empresarial, coerente com a restrição única do banco e diferente da decisão de produto de vários vínculos. <!-- PENDENTE: 1 -->
+Nas rotas de usuário, o interceptor RBAC combina o identificador da operação com o cargo e suas permissões. Os serviços também conferem empresa, propriedade ou participação. O contexto da requisição reaproveita consultas de identidade e autorização. A resolução atual usa um vínculo empresarial, coerente com a restrição única do banco e diferente da decisão de produto de vários vínculos.
 
 ## Integrações
 
@@ -66,13 +66,13 @@ Os aplicativos e agentes usam o JWT da pessoa nas rotas de negócio. Os consumid
 | `api-recommendation` | HTTP, `X-Recommendation-Key` | feeds com cache em memória e fallback SQL |
 | Cloudinary | HTTPS com conta do provedor | imagens públicas e documentos autenticados |
 
-`SERVICE_KEY` é a chave própria enviada a e-mail, tradução e validação. Os clientes ainda têm condições que dependem das credenciais legadas antes de executar. A presença da chave nova não conclui a migração. `/dev/login` também permanece público, sem perfil que o restrinja a desenvolvimento. <!-- PENDENTE: 6 -->
+`SERVICE_KEY` é a chave própria enviada a e-mail, tradução e validação. Os clientes ainda têm condições que dependem das credenciais legadas antes de executar. A presença da chave nova não conclui a migração. `/dev/login` também permanece público, sem perfil que o restrinja a desenvolvimento.
 
 ## Dados e transações
 
 O [PostgreSQL](../database/POSTGRES.md) é a fonte de negócio. Flyway aplica V1 a V3 na partida e Hibernate valida as entidades. V1 inclui 68 tabelas, constraints, índices, triggers e a procedure de cobrança. V2 cria views de exportação com seleção de campos. V3 inclui permissões, cargo administrativo e plano de referência. A migração de bancos já existentes e de consumidores do schema anterior precisa ser coordenada. <!-- PENDENTE: 3 -->
 
-O aceite de proposta bloqueia a proposta e o estoque, reserva quantidades e grava `ACCEPTED` na mesma transação. O projeto e o serviço são criados por outras operações. Não há vínculo de proposta no schema do projeto que represente conversão automática. <!-- PENDENTE: 2 -->
+O aceite de proposta bloqueia a proposta e o estoque, reserva quantidades e grava `ACCEPTED` na mesma transação. O projeto e o serviço são criados por outras operações. Não há vínculo de proposta no schema do projeto que represente conversão automática.
 
 O checkout bloqueia ofertas em ordem estável, grava snapshots de itens e pagamento e limpa o carrinho na transação. Cancelar pedido pago devolve disponibilidade e marca o pagamento como reembolsado. As regras de compra também têm proteção por triggers no banco.
 

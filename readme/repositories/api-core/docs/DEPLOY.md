@@ -32,7 +32,7 @@ O [Deployment](https://github.com/Solierrr/infra-gitops/blob/main/services/api-c
 
 O manifesto ainda usa `latest` e sondas TCP para startup, liveness e readiness. Essas sondas verificam abertura da porta e não reproduzem o readiness PostgreSQL da aplicação. Os caminhos HTTP do serviço são `/actuator/health/liveness` e `/actuator/health/readiness`. A versão efetiva e a adoção das sondas precisam ser conferidas com o responsável. <!-- PENDENTE: 5 -->
 
-O manifesto consultado não define `DOCS_ENABLED` explicitamente, e essa configuração pode vir do Secret, cujo conteúdo não foi consultado. Desligar o Swagger também não remove o controller `/dev/login`, e a revisão desse atalho continua registrada como decisão pendente. <!-- PENDENTE: 6 -->
+O manifesto consultado não define `DOCS_ENABLED` explicitamente, e essa configuração pode vir do Secret, cujo conteúdo não foi consultado. Desligar o Swagger também não remove o controller `/dev/login`, e a oficialização desse atalho está pendente.
 
 ## Publicação e observabilidade
 

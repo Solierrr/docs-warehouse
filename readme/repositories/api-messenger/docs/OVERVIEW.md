@@ -35,15 +35,15 @@ A central de mensagens é onde as pessoas da plataforma conversam. Ela atende cl
 ## Regras das mensagens
 
 - A mensagem tem até 8000 caracteres.
-- A pessoa edita ou apaga a própria mensagem até 30 minutos depois do envio. <!-- PENDENTE: 1 --> Depois disso, a mensagem fica como está.
+- A pessoa edita ou apaga a própria mensagem até 30 minutos depois do envio. Depois disso, a mensagem fica como está.
 - A mensagem apagada continua no histórico como "mensagem apagada", sem o texto, e não volta.
 - Mensagens apagadas e as que a própria pessoa mandou não contam como não lidas.
-- O aviso no celular vai só para quem está desconectado e não silenciou nem arquivou a conversa. Ele mostra um trecho de até 100 caracteres. <!-- PENDENTE: 5 -->
+- O aviso no celular vai só para quem está desconectado e não silenciou nem arquivou a conversa. Ele mostra um trecho de até 100 caracteres.
 - Quando o envio falha sem certeza de que a mensagem foi gravada, o aplicativo consulta o histórico antes de mandar de novo, porque o serviço não descarta mensagens repetidas.
 
 ## Regras da comunidade do projeto
 
-- Cada projeto tem no máximo uma comunidade. Ela é criada por quem pediu o projeto, que vira o dono. <!-- PENDENTE: 3 -->
+- Cada projeto tem no máximo uma comunidade, que hoje é criada por quem pediu o projeto e passa a ser dele. A regra definida é que a comunidade nasça junto com o projeto e reúna a equipe e o cliente.
 - A comunidade tem três papéis. O dono faz tudo. O administrador adiciona membros, promove membros a administrador, remove membros comuns e arquiva ou reativa a comunidade. Só o dono rebaixa ou remove um administrador. O membro conversa e cria subgrupos.
 - O dono não pode ser removido nem sair, e não existe troca de dono.
 - A comunidade pertence ao projeto e nunca é apagada.
@@ -55,7 +55,7 @@ A central de mensagens é onde as pessoas da plataforma conversam. Ela atende cl
 ## Avaliações e nota do assistente
 
 - A nota do atendimento do assistente vale uma vez por conversa e vai de 0 a 10. Notas de 0 a 6 contam como detratoras, 7 e 8 como neutras e 9 e 10 como promotoras.
-- A avaliação de um profissional ou de um produto vai de 0 a 5, com comentário opcional. Ninguém avalia a si mesmo, e só quem avaliou altera a própria avaliação. <!-- PENDENTE: 2 -->
+- A avaliação de um profissional ou de um produto vai de 0 a 5, com comentário opcional, e ninguém avalia a si mesmo. Essa capacidade vai sair deste serviço, e as avaliações passam a ficar apenas no cadastro central.
 
 ## Onde aparece para a pessoa
 

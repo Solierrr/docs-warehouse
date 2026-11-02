@@ -4,7 +4,7 @@
 
 # Comunidade de projeto
 
-Acontece quando o demandante de um projeto cria a comunidade e quando os membros entram, mudam de papel ou saem. O resultado é a comunidade com os membros e os subgrupos coerentes entre si. O fluxo central de [comunidade de projeto](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/PROJECT_COMMUNITY.md) descreve a comunidade sincronizada com a equipe do projeto no `api-core`. Este serviço faz hoje só a parte abaixo. <!-- PENDENTE: 3 -->
+Acontece quando o demandante de um projeto cria a comunidade e quando os membros entram, mudam de papel ou saem. O resultado é a comunidade com os membros e os subgrupos coerentes entre si. O fluxo central de [comunidade de projeto](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/PROJECT_COMMUNITY.md) descreve a comunidade sincronizada com a equipe do projeto no `api-core`. Este serviço faz hoje só a parte abaixo.
 
 ## Criar
 

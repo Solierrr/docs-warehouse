@@ -10,7 +10,7 @@ O contrato completo está no [`openapi.yaml`](https://github.com/Solierrr/api-em
 
 As rotas de prévia e de envio exigem `X-Service-Key`, e os chamadores aceitos são o `api-core` e o `api-auth`, cada um com a sua chave nas variáveis `SERVICE_KEY_API_CORE` e `SERVICE_KEY_API_AUTH`, como declara o esquema `serviceKey` do contrato.
 
-O modo de compatibilidade aceita `X-API-Key` enquanto `EMAIL_API_KEY` estiver configurado e identifica a chamada como `api-core`. A presença de uma chave nova inválida não provoca fallback para a legada. A retirada desse caminho depende da migração dos consumidores. <!-- PENDENTE: 3 -->
+O modo de compatibilidade aceita `X-API-Key` enquanto `EMAIL_API_KEY` estiver configurado e identifica a chamada como `api-core`. A presença de uma chave nova inválida não provoca fallback para a legada. A retirada desse caminho depende da migração dos consumidores.
 
 O serviço não oferece login por JWT, e a chave de serviço pertence ao backend que chama, por isso nunca deve ser embutida no cliente web. O padrão está em [SERVICE_AUTH.md](https://github.com/Solierrr/docs-warehouse/blob/main/docs/standards/SERVICE_AUTH.md).
 

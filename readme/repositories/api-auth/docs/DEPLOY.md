@@ -8,4 +8,4 @@ O workflow de ambiente declara QA em https://api-auth-xw6o.onrender.com e verifi
 
 Configure por ambiente o banco, o Redis, as chaves JWT, o Firebase e o cliente de e-mail. O readiness usa `/actuator/health/readiness`, com o PostgreSQL como dependência, e o liveness usa `/actuator/health/liveness`.
 
-O cliente transacional de e-mail precisa de URL, chave e endereços de confirmação e recuperação. Esses endereços devem ser aceitos pelo serviço de envio. A configuração e a compatibilidade de cabeçalhos efetivas precisam de confirmação. <!-- PENDENTE: 3 -->
+O cliente transacional de e-mail precisa de URL, chave e endereços de confirmação e recuperação. Esses endereços precisam ser aceitos pelo serviço de envio, que é o caminho definido para todos os e-mails de conta.

@@ -10,9 +10,9 @@ O contrato completo está no [`openapi.yaml`](https://github.com/Solierrr/api-co
 
 As rotas de negócio recebem `Authorization: Bearer <access-token>` emitido pelo `api-auth`. O serviço valida assinatura, emissor e tipo de token. A presença de JWT não concede acesso a toda empresa ou projeto. O interceptor e os serviços conferem cargo, permissão e vínculo com o recurso.
 
-As rotas internas usam `X-Service-Key`. Os escopos são separados por chamador, conforme [ARCHITECTURE.md](./ARCHITECTURE.md). A consulta interna de elegibilidade mobile ainda exige, além da chave do `api-auth`, um Bearer de serviço validado no controller. Essa exigência adicional é uma diferença do contrato de chave única entre serviços. <!-- PENDENTE: 6 -->
+As rotas internas usam `X-Service-Key`. Os escopos são separados por chamador, conforme [ARCHITECTURE.md](./ARCHITECTURE.md). A consulta interna de elegibilidade mobile ainda exige, além da chave do `api-auth`, um Bearer de serviço validado no controller. Essa exigência adicional é uma diferença do contrato de chave única entre serviços.
 
-Os catálogos públicos de empresas, ofertas e técnicos são liberados em rotas específicas de `/api/catalog/**`. Health e info são públicos pela cadeia do Actuator. `/dev/login` continua público como proxy de conveniência, sem restrição de perfil no controller. Seu caráter provisório está registrado. <!-- PENDENTE: 6 -->
+Os catálogos públicos de empresas, ofertas e técnicos são liberados em rotas específicas de `/api/catalog/**`. Health e info são públicos pela cadeia do Actuator. `/dev/login` continua público como proxy de conveniência, sem restrição de perfil no controller. Seu caráter provisório está registrado.
 
 ## Grupos de rotas
 

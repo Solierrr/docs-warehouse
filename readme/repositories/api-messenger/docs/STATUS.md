@@ -25,9 +25,9 @@ Levantamento feito na `main` do repositório.
 - O `openapi.yaml` não traz o estado pessoal, a troca de gestor, a edição e a exclusão de mensagem nem o NPS (2026-10-31).
 - Os códigos de erro genéricos ainda não seguem o catálogo da organização, e os específicos não estão nele (2026-10-31).
 - O `README.md`, o `docs/ARCHITECTURE.md` e o `docs/RUNNING.md` do repositório ainda descrevem a estrutura antiga, com serviços no lugar dos casos de uso, a rota `/messaging/conversations/user-conversations` e o tópico `.conversations` (2026-10-31).
-- Nenhum cliente chama as rotas de avaliação nem de NPS, segundo o levantamento de 2026-10-29. <!-- PENDENTE: 2 -->
-- A comunidade é criada e mantida por pedidos ao próprio serviço. Ela não acompanha a equipe do projeto no `api-core`. <!-- PENDENTE: 3 -->
-- O aviso de mensagem nova para quem está desconectado é só por push. Não há aviso por e-mail. <!-- PENDENTE: 5 -->
+- Nenhum cliente chama as rotas de avaliação nem de NPS, segundo o levantamento de 2026-10-29.
+- A comunidade é criada e mantida por pedidos ao próprio serviço. Ela não acompanha a equipe do projeto no `api-core`.
+- O aviso de mensagem nova para quem está desconectado é só por push, e o aviso por e-mail, já definido como canal, ainda não foi implementado.
 
 ## Depende de outro repositório
 

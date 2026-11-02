@@ -59,7 +59,7 @@ No Windows, os scripts do Makefile exigem ambiente compatível com Git Bash. O w
 | `make openapi` | exporta o contrato pelo teste `OpenApiExportTests` |
 | `make format` | informa que não há comando configurado |
 
-O [Swagger local](http://localhost:8080/docs) usa o JWT informado no botão Authorize, e o contrato servido fica em `/openapi.json`, sem os caminhos internos, enquanto a [coleção Bruno](https://github.com/Solierrr/api-core/blob/main/http/README.md) acompanha as rotas por domínio. O token vem do fluxo de login do serviço de acesso, e o atalho `/dev/login` existe, mas é provisório e está pendente de revisão. <!-- PENDENTE: 6 -->
+O [Swagger local](http://localhost:8080/docs) usa o JWT informado no botão Authorize, e o contrato servido fica em `/openapi.json`, sem os caminhos internos, enquanto a [coleção Bruno](https://github.com/Solierrr/api-core/blob/main/http/README.md) acompanha as rotas por domínio. O token vem do fluxo de login do serviço de acesso, e o atalho `/dev/login` existe, mas é provisório e será substituído por um caminho oficial.
 
 ## Testes
 
@@ -71,7 +71,7 @@ O perfil padrão de testes usa H2 e criação do schema por JPA, com Flyway desl
 
 O `GET /actuator/health/liveness` verifica se o processo está no ar, o `GET /actuator/health/readiness` verifica o PostgreSQL e o `GET /actuator/info` expõe os metadados do build. O readiness não checa o Redis, a tradução, a recomendação nem o envio de e-mail.
 
-O endpoint de e-mail local usado como padrão pelo worker de convites difere da porta local do serviço de e-mail. Configure `API_EMAIL_URL` explicitamente. O worker ainda depende da chave legada para iniciar, mesmo quando a chave de serviço está presente. A tradução também mantém sua condição de credencial legada. <!-- PENDENTE: 6 -->
+O endpoint de e-mail local usado como padrão pelo worker de convites difere da porta local do serviço de e-mail. Configure `API_EMAIL_URL` explicitamente. O worker ainda depende da chave legada para iniciar, mesmo quando a chave de serviço está presente. A tradução também mantém sua condição de credencial legada.
 
 O worker de validação profissional vem desligado por padrão. Sem habilitá-lo, uma submissão que ficou em estado de fila não é processada automaticamente por ele. A compatibilidade do contrato externo deve ser confirmada antes de habilitar esse caminho. <!-- PENDENTE: 4 -->
 

@@ -19,8 +19,8 @@ O levantamento usa a main em 2026-10-30. Implementação disponível no código 
 
 ## Diferenças em relação às decisões de produto
 
-- O produto admite várias empresas por pessoa. `UserCompanyService`, RBAC e `uq_user_company_user` ainda trabalham com um vínculo. A documentação não trata a limitação como mudança da decisão de produto (2026-10-30). <!-- PENDENTE: 1 -->
-- O fluxo principal de proposta para projeto é uma decisão de produto. O aceite atual muda o estado e reserva estoque, sem criar automaticamente projeto, serviço ou contrato. Esses recursos têm operações separadas (2026-10-30). <!-- PENDENTE: 2 -->
+- O produto admite várias empresas por pessoa. `UserCompanyService`, RBAC e `uq_user_company_user` ainda trabalham com um vínculo. A adequação a vários vínculos está pendente (2026-10-30).
+- O fluxo principal de proposta para projeto é uma decisão de produto. O aceite atual muda o estado e reserva estoque, sem criar automaticamente projeto, serviço ou contrato. Esses recursos têm operações separadas (2026-10-30).
 
 ## Integrações e operação pendentes de confirmação
 
@@ -28,7 +28,7 @@ O levantamento usa a main em 2026-10-30. Implementação disponível no código 
 - A validação profissional automática vem desativada por padrão. O worker exige contrato externo específico, credencial legada e chave de serviço quando configurada. A compatibilidade deve ser confirmada antes de habilitá-lo. Itens de fila não são processados por esse worker enquanto ele estiver desligado (2026-10-30). <!-- PENDENTE: 4 -->
 - O checklist registrava integrações sem variáveis em produção e divergência entre QA e main. O estado atual dos secrets e a revisão implantada não foram consultados. Os números antigos de divergência não foram reutilizados como estado atual (2026-10-30). <!-- PENDENTE: 5 -->
 - O manifesto de produção consultado usa `latest` e sondas TCP. O job de ambiente confirma o cluster, sem comprovar health HTTP do serviço (2026-10-30). <!-- PENDENTE: 5 -->
-- `/dev/login` continua público e sem perfil específico, apesar da decisão de revisão. Clientes de e-mail e tradução ainda dependem de credenciais legadas para iniciar ou executar. Elegibilidade mobile interna exige um Bearer adicional à chave de serviço (2026-10-30). <!-- PENDENTE: 6 -->
+- `/dev/login` continua público e sem perfil específico, até a oficialização dos atalhos de autenticação. Clientes de e-mail e tradução ainda dependem de credenciais legadas para iniciar ou executar. Elegibilidade mobile interna exige um Bearer adicional à chave de serviço (2026-10-30).
 
 ## Limitações técnicas
 

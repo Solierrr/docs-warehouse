@@ -38,6 +38,6 @@ O resultado chega à caixa de e-mail, com assunto, texto e apresentação do mod
 
 ## Relação com a plataforma
 
-O cadastro central usa o serviço para convites de projeto. O serviço de acesso já contém um cliente para solicitar mensagens de conta, mas a forma de autenticação desse cliente ainda está em transição. A disponibilidade dessas integrações depende da configuração dos ambientes. <!-- PENDENTE: 3 -->
+O cadastro central usa o serviço para convites de projeto. O serviço de acesso já contém um cliente para solicitar mensagens de conta, e a autenticação desse cliente está migrando para a chave por chamador. A disponibilidade dessas integrações depende da configuração dos ambientes.
 
 O histórico de entregas em banco foi decidido pelo responsável, mas ainda não foi implementado. O serviço permanece sem armazenamento próprio de mensagens ou destinatários.

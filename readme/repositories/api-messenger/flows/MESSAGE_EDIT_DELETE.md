@@ -4,7 +4,7 @@
 
 # Edição e exclusão de mensagem
 
-Acontece quando o autor edita ou apaga a própria mensagem. O resultado é a mensagem com o texto novo, ou sem texto e marcada como apagada. A edição e a exclusão valem por `MESSAGES_MUTATION_WINDOW` depois do envio, 30 minutos por padrão. <!-- PENDENTE: 1 --> O `MessageWriteHelper` grava as duas com o `mutation_epoch` lido como condição.
+Acontece quando o autor edita ou apaga a própria mensagem. O resultado é a mensagem com o texto novo, ou sem texto e marcada como apagada. A edição e a exclusão valem por `MESSAGES_MUTATION_WINDOW` depois do envio, 30 minutos por padrão. O `MessageWriteHelper` grava as duas com o `mutation_epoch` lido como condição.
 
 ```mermaid
 flowchart TD
