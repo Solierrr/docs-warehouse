@@ -1,32 +1,24 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/banners/rabbitmq.png" alt="RabbitMQ" width="100%">
-</p>
-
-<p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/stacks/docker.png" width="100" hspace="8" alt="Docker" title="Docker">
+  <img src="../assets/readme/banners/rabbitmq.png" alt="RabbitMQ" width="100%">
 </p>
 
 # Estrutura inicial
 
-## Estrutura inicial
+O repositório ainda guarda os arquivos do modelo de criação da organização, que é completo de propósito, e cada um deles deve ser mantido, adaptado ou removido quando a tecnologia do broker for escolhida. A [matriz por tipo de repositório](https://github.com/Solierrr/docs-warehouse/blob/main/templates/README.md#matriz-por-tipo) indica quais arquivos cada tipo de repositório usa.
 
-- `http/README.md`: convenções do cliente HTTP local.
-- `http/bruno.json`: manifesto da coleção Bruno.
-- `http/environments/local.bru`: ambiente local da API, com credenciais vazias.
-- `http/`: requisições `.bru` agrupadas em diretórios em inglês (`health/`, `authentication/`, `tasks/`).
-- `.dockerignore`: exclui segredos e arquivos locais do contexto de build da imagem.
-- `entrypoint.sh`: busca configuração no Infisical em runtime quando Universal Auth está configurado; sem essas credenciais, inicia diretamente o comando da imagem.
-- `.env.example`: nomes e valores de exemplo das variáveis necessárias; não inclua credenciais reais.
-- `Dockerfile`: ponto de partida para empacotar a aplicação.
+## Arquivos do modelo
 
-## Cliente HTTP local
-
-Abra `http/` como uma coleção Bruno e edite os arquivos `.bru` para incluir as rotas reais do serviço. Consulte [`http/README.md`](https://github.com/Solierrr/infra-broker/blob/main/http/README.md) para instruções e o template canônico em [`docs-warehouse/templates/http/`](https://github.com/Solierrr/docs-warehouse/tree/main/templates/http).
-
-Antes de disponibilizar o repositório, substitua as descrições de exemplo e revise os links e comandos para refletir a stack escolhida.
+| Arquivo | Para que serve |
+|---|---|
+| `http/` | a coleção Bruno com requisições de exemplo, agrupadas em pastas em inglês como `health/`, `authentication/` e `tasks/` |
+| `http/environments/local.bru` | o ambiente local da coleção, com as credenciais vazias |
+| `Dockerfile` | o ponto de partida para empacotar a aplicação numa imagem |
+| `.dockerignore` | a lista que impede segredos e arquivos locais de entrarem no build da imagem |
+| `entrypoint.sh` | o launcher que busca a configuração no Infisical em runtime, quando há credenciais de Universal Auth |
+| `.env.example` | os nomes das variáveis necessárias, com valores de exemplo e nenhuma credencial real |
 
 ## Inicialização da imagem no Render
 
-O `entrypoint.sh` recebe o comando da aplicação definido no `CMD` do `Dockerfile`. Se `INFISICAL_CLIENT_ID` e `INFISICAL_CLIENT_SECRET` estiverem presentes em runtime, ele autentica via Universal Auth e inicia esse comando sob `infisical run`; caso contrário, executa-o diretamente com as variáveis já injetadas pela plataforma. O projeto padrão é o workspace plataforma e o ambiente padrão é `qa`; ambos podem ser substituídos por `INFISICAL_PROJECT_ID` e `INFISICAL_ENV`.
+O `entrypoint.sh` recebe o comando da aplicação definido no `CMD` do `Dockerfile`. Quando `INFISICAL_CLIENT_ID` e `INFISICAL_CLIENT_SECRET` existem em runtime, ele autentica por Universal Auth e inicia esse comando sob `infisical run`, e sem essas credenciais executa o comando diretamente, com as variáveis que a plataforma já injetou.
 
-Para ativar o caminho Infisical, instale o CLI na imagem runtime e configure as credenciais como variáveis de runtime do Render, nunca como argumentos ou variáveis de build. Quando o Render já fornecer os segredos diretamente, não configure as credenciais Universal Auth e o launcher apenas inicia a aplicação. Use um launcher específico quando o serviço precisar preparar arquivos ou fazer outra transformação antes de iniciar.
+O projeto e o ambiente do Infisical vêm de `INFISICAL_PROJECT_ID` e `INFISICAL_ENV`, com o ambiente `qa` como padrão. As credenciais de Universal Auth entram como variáveis de runtime do Render, nunca como argumento ou variável de build, porque um segredo usado no build pode ficar gravado na imagem.
