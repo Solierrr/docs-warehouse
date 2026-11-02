@@ -8,7 +8,7 @@ O serviço atende quem acompanha a disponibilidade e as falhas da plataforma. El
 
 ## Capacidades
 
-O atendimento aparece no Jira e, quando o canal está configurado, também por e-mail.
+O atendimento aparece no Jira e, quando os canais estão configurados, também por e-mail e por Telegram.
 
 - Receber alertas de falha e de recuperação do Grafana Cloud.
 - Mostrar uma prévia do conteúdo do ticket antes de enviar ao Jira.
@@ -23,9 +23,11 @@ As prioridades vão de P1 a P5. A prioridade do alerta determina a prioridade do
 
 O intervalo mínimo entre tickets é contado desde a criação do último ticket daquele alerta, serviço e ambiente. O limite diário considera uma janela móvel de 24 horas. Antes do intervalo mínimo, o aviso é ignorado. Depois dele, se o teto diário foi atingido, o serviço comenta no último ticket em vez de criar outro. Os padrões do código são 30 minutos e oito tickets, ambos configuráveis.
 
-O sinal de recuperação acrescenta uma marca de resolução e um comentário aos tickets encontrados. Ele não encerra o atendimento nem muda o status no Jira. A hipótese de operação é que a equipe do espaço de destino confirma o atendimento e encerra o ticket. A distribuição dessa responsabilidade ainda precisa ser confirmada. <!-- PENDENTE: 2 -->
+O sinal de recuperação acrescenta uma marca de resolução e um comentário aos tickets encontrados, sem encerrar o atendimento nem mudar o status no Jira. O encerramento é manual, feito pelos desenvolvedores do espaço de destino.
 
 Avisos por e-mail acompanham a criação do ticket e o registro de recuperação de alertas P1 ou P2 recebidos do Grafana. Repetições sem ticket novo, alertas das outras prioridades e alertas identificados como teste não geram esse e-mail. A indisponibilidade do e-mail não impede o registro no Jira.
+
+O aviso pelo Telegram segue a mesma regra do e-mail e chega a um ou mais chats configurados. Como ele não passa pelo cluster, continua saindo mesmo quando o cluster de produção está desligado.
 
 ## Pausa e disponibilidade
 
@@ -33,4 +35,4 @@ Durante uma pausa planejada do cluster, o serviço suspende as sondas das aplica
 
 Alertas do Grafana explicitamente marcados para silenciamento durante pausa não abrem ticket enquanto a pausa está ativa ou durante a carência posterior observada. Os sinais de recuperação continuam sendo processados. Os demais alertas continuam valendo.
 
-O código descreve a operação esperada. A configuração efetivamente publicada dos contatos, regras, destinatários e verificações ainda precisa ser confirmada. <!-- PENDENTE: 1 -->
+O serviço está em operação com os contatos, as regras, os destinatários e as verificações descritos aqui.

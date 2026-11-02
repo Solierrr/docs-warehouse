@@ -25,7 +25,7 @@ sequenceDiagram
  D->>J: Comenta fim e duração
  end
  D-->>W: end_recorded e chaves
- W->>W: Tenta e-mail elegível
+ W->>W: Tenta e-mail e Telegram elegíveis
  end
  W-->>G: HTTP 200 com resultados
 ```
@@ -37,4 +37,4 @@ A recuperação e o fechamento do atendimento têm efeitos diferentes.
 - Se o ambiente diverge, a ação é `ignored_env`.
 - Uma falha de busca, marcação ou comentário devolve 503 pelo webhook. Uma escrita anterior pode já ter ocorrido.
 - A pausa não bloqueia os sinais de recuperação recebidos do Grafana.
-- O status do ticket continua dependente de decisão humana. A responsabilidade pelo encerramento precisa ser confirmada. <!-- PENDENTE: 2 -->
+- O status do ticket continua dependente de decisão humana, e o encerramento é feito manualmente pelos desenvolvedores.

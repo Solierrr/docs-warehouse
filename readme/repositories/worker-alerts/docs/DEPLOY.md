@@ -8,7 +8,7 @@ O [wrangler.jsonc](https://github.com/Solierrr/worker-alerts/blob/main/wrangler.
 
 ## Ambientes e publicação
 
-As definições versionadas descrevem estes destinos. A publicação efetiva e os canais externos precisam de confirmação operacional. <!-- PENDENTE: 1 -->
+As definições versionadas descrevem estes destinos, que estão em operação.
 
 | Ambiente | Acesso e configuração |
 |---|---|
@@ -19,7 +19,7 @@ O [workflow Deploy](https://github.com/Solierrr/worker-alerts/blob/main/.github/
 
 O Terraform do `infra-platform` é responsável pelo domínio e pelos segredos do Worker. O [módulo de segredos](https://github.com/Solierrr/infra-platform/blob/main/modules/alerts/worker.tf) gera o token do webhook e grava os segredos pela API de segredos do script, sem substituir o bundle publicado pelo Wrangler. Os nomes de configuração e sua validação estão em [RUNNING.md](./RUNNING.md). O runtime não consulta o Infisical.
 
-O [módulo de alertas](https://github.com/Solierrr/infra-platform/blob/main/modules/alerts/grafana.tf) declara os contatos do webhook e do heartbeat. A política comum agrupa por alerta, serviço e ambiente, espera trinta segundos pelo grupo e repete a notificação a cada 35 minutos. O heartbeat tem uma política separada, com repetição a cada cinco minutos. As regras versionadas incluem ausência de métricas, erros 5xx, latência p95 e memória de JVM. Esses recursos declarados não comprovam que um apply foi executado. <!-- PENDENTE: 1 -->
+O [módulo de alertas](https://github.com/Solierrr/infra-platform/blob/main/modules/alerts/grafana.tf) declara os contatos do webhook e do heartbeat, e a política comum agrupa por alerta, serviço e ambiente, espera trinta segundos pelo grupo e repete a notificação a cada 35 minutos. O heartbeat tem uma política separada, com repetição a cada cinco minutos, e as regras incluem ausência de métricas, erros 5xx, latência p95 e memória de JVM.
 
 ## Recursos duráveis e agenda
 
@@ -35,8 +35,9 @@ A configuração operacional envolve mais do que publicar o bundle.
 - A regra de heartbeat precisa chamar `/heartbeat`. O intervalo esperado é de cinco minutos.
 - A conta de serviço do Jira precisa consultar, criar e alterar os tickets e usar os projetos, prioridades, tipo `Critic` e relação `Relates` do snapshot.
 - O canal opcional de e-mail precisa das três variáveis válidas e de uma origem de dashboard aceita pelo `api-email`.
+- O canal opcional do Telegram precisa do token do bot e de pelo menos um chat válido, com no máximo vinte.
 - Os alvos da sonda e `ephemerality.json` precisam estar acessíveis pela borda.
 
-O repositório não comprova que essas permissões e contatos estão ativos. A hipótese usada é que o contrato versionado é o destino esperado de produção. <!-- PENDENTE: 1 -->
+As permissões do Jira e os contatos do Grafana estão ativos em produção.
 
 A orientação comum está em [Cloudflare Workers](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/CLOUDFLARE_WORKER.md). A integração geral com a plataforma está no [mapa entre repositórios](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/INTEGRATIONS.md).

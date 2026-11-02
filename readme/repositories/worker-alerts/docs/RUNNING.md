@@ -25,6 +25,7 @@ Sem acesso ao cofre, use o [modelo de nomes](https://github.com/Solierrr/worker-
 | Jira | `JIRA_BASE_URL`, `JIRA_USER`, `JIRA_API_TOKEN` | Os três válidos habilitam o canal |
 | Links | `ALERT_GRAFANA_URL` | Base dos links de investigação e ação do e-mail |
 | E-mail | `EMAIL_API_URL`, `EMAIL_SERVICE_KEY`, `ALERT_EMAIL_TO` | O conjunto válido habilita o envio opcional |
+| Telegram | `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID` | O token do bot e os chats, separados por vírgula, habilitam o aviso opcional |
 | Política | `ALERT_ENVIRONMENT`, `ALERT_MIN_INTERVAL_MIN`, `ALERT_MAX_PER_24H`, `ALERT_LOG_WINDOW_MIN` | Seleção do ambiente, repetição e janela de investigação |
 
 O parse de destinatários aceita vírgula ou ponto e vírgula e exige de um a vinte endereços válidos. A configuração numérica exige inteiros positivos. Os valores comuns de execução estão no [wrangler.jsonc](https://github.com/Solierrr/worker-alerts/blob/main/wrangler.jsonc), sem depender de um arquivo `.env`.

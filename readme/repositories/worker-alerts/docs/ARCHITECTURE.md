@@ -18,6 +18,7 @@ flowchart LR
  M -->|HTTPS público| P[infra-platform]
  M -->|HTTPS público| A[Aplicações monitoradas]
  W -->|HTTPS e X-Service-Key| E[api-email]
+ W -->|HTTPS e token do bot| T[Telegram]
 ```
 
 ## Código
@@ -32,6 +33,7 @@ As fontes estão na `main` do repositório.
 | [src/incident/](https://github.com/Solierrr/worker-alerts/blob/main/src/incident/service.ts) | Intervalos, histórico, conteúdo e recuperação |
 | [src/channels/jira/](https://github.com/Solierrr/worker-alerts/blob/main/src/channels/jira/client.ts) | Jira REST v3 e conteúdo ADF |
 | [src/channels/email/](https://github.com/Solierrr/worker-alerts/blob/main/src/channels/email/client.ts) | Elegibilidade e entrega do e-mail |
+| [src/channels/telegram/](https://github.com/Solierrr/worker-alerts/blob/main/src/channels/telegram/client.ts) | Texto e envio do aviso pelo bot do Telegram |
 | [src/monitor/](https://github.com/Solierrr/worker-alerts/blob/main/src/monitor/monitor.ts) | Heartbeat, sondas e estado do cluster |
 | [src/routing/](https://github.com/Solierrr/worker-alerts/blob/main/src/routing/routing.ts) | Snapshot de destinos, nomes e hosts |
 
@@ -45,6 +47,7 @@ Cada entrada tem seu próprio mecanismo de autenticação.
 | Operação | Worker | HTTPS com o mesmo Bearer | Prévia e monitoramento manual |
 | Worker | Jira | HTTPS REST v3 com Basic da conta de serviço e token | Buscar, criar, comentar, relacionar e marcar tickets |
 | Worker | `api-email` | HTTPS com `X-Service-Key` | E-mail opcional após o ticket |
+| Worker | Telegram | HTTPS com o token do bot | Aviso opcional após o ticket, fora do cluster |
 | Worker | `infra-platform` | HTTPS público, sem credencial | Ler `ephemerality.json` na `main` |
 | Worker | Alvos da sonda | HTTPS público, sem credencial | Conferir respostas HTTP |
 | Script de sincronização | GitHub | API pela sessão da CLI `gh` | Ler `alerts.json` dos serviços |
@@ -63,6 +66,6 @@ Os arquivos `alerts.json` dos serviços e [routing.shared.json](https://github.c
 
 O binding `MONITOR` mantém heartbeat, baseline, falhas e incidentes abertos em Durable Objects. O modelo e os acessos estão em [DURABLE_OBJECTS.md](../database/DURABLE_OBJECTS.md).
 
-O cliente Jira usa timeout de dez segundos. E-mail, sondas e leitura do estado do cluster usam oito segundos. Redirects externos não são seguidos. A API responde 503 quando o Jira falha no webhook para permitir nova tentativa do Grafana. Falhas ao relacionar tickets após a criação retornam avisos, sem desfazer o ticket.
+O cliente Jira usa timeout de dez segundos. E-mail, Telegram, sondas e leitura do estado do cluster usam oito segundos. Redirects externos não são seguidos. A API responde 503 quando o Jira falha no webhook para permitir nova tentativa do Grafana. Falhas ao relacionar tickets após a criação retornam avisos, sem desfazer o ticket.
 
 Os logs registram ações e códigos de falha, sem corpo de resposta do Jira nem credenciais. O `wrangler.jsonc` habilita observabilidade da Cloudflare. A aplicação expõe `/health`, sem consultar dependências, e não publica `/ready`, OpenAPI ou versão HTTP. Essas diferenças estão em [STATUS.md](./STATUS.md).

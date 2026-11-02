@@ -64,7 +64,7 @@ O webhook responde 200 com uma ação por alerta processado. A ação explica o 
 | `end_recorded` | Tickets marcados e comentados com a recuperação, sem mudança de status |
 | `no_open_ticket` | Nenhum ticket não marcado como resolvido no histórico consultado |
 
-Se o e-mail está configurado, a resposta também contém `email.sent` e `email.failed`. O envio elegível ocorre apenas depois que todos os itens do lote terminam sem falha de processamento. Se algum item falha, o webhook responde 503, mesmo que outros itens já tenham alterado o Jira.
+Se o e-mail está configurado, a resposta também contém `email.sent` e `email.failed`, e com o Telegram configurado ela traz `telegram.sent` e `telegram.failed`. O envio elegível ocorre apenas depois que todos os itens do lote terminam sem falha de processamento. Se algum item falha, o webhook responde 503, mesmo que outros itens já tenham alterado o Jira.
 
 A prévia retorna `would_create`, `would_record_end` ou `ignored_env` sem consultar o histórico, o intervalo, o teto diário ou a pausa, por isso um `would_create` não garante que o webhook criará um ticket.
 
@@ -83,4 +83,4 @@ O corpo implementado contém `code`, `message` e, quando aplicável, `errors`, c
 | 503 | `JIRA_REQUEST_FAILED` | Falha de processamento de pelo menos um alerta no Jira |
 | 500 | `INTERNAL_ERROR` | Exceção não tratada, inclusive configuração base inválida |
 
-As rotas inexistentes usam a resposta padrão do Hono, e o Worker não repete internamente as chamadas ao Jira, deixando a repetição do webhook a cargo da configuração do remetente. <!-- PENDENTE: 1 -->
+As rotas inexistentes usam a resposta padrão do Hono, e o Worker não repete internamente as chamadas ao Jira, deixando a repetição do webhook a cargo do Grafana.
