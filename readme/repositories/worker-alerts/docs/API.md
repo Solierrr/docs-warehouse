@@ -2,32 +2,85 @@
   <img src="../assets/readme/banners/hono.png" alt="Hono" width="100%">
 </p>
 
-# API
+# Contrato HTTP de alertas
 
-O serviço tem poucas rotas e um único chamador de fato, o Grafana Cloud, que envia os alertas e a batida do heartbeat. A única rota pública é a de saúde, e todas as outras exigem o token bearer que o Grafana conhece.
+As rotas são definidas em [src/index.ts](https://github.com/Solierrr/worker-alerts/blob/main/src/index.ts) e o schema do webhook fica em [src/ingest/schema.ts](https://github.com/Solierrr/worker-alerts/blob/main/src/ingest/schema.ts), sem contrato OpenAPI nem Swagger publicado no código.
 
-## Autenticação
+## Autenticação e rotas
 
-O Grafana envia o cabeçalho `Authorization: Bearer <token>`, e o Worker compara o token em tempo constante com o segredo `WEBHOOK_TOKEN`. A mesma regra vale para o heartbeat e para a execução da sonda sob demanda, porque as três rotas são chamadas pelo mesmo lado.
+Todas as rotas POST exigem `Authorization: Bearer <token>` com o token compartilhado configurado em `WEBHOOK_TOKEN`, e a autenticação não aceita uma sessão JWT da plataforma, enquanto o health é público.
 
-## Rotas
-
-| Rota | Para quê |
+| Método e caminho | Resultado |
 |---|---|
-| `POST /grafana` | recebe o webhook e cria, comenta ou registra o fim do incidente no Jira |
-| `POST /grafana/preview` | mostra o ticket que seria criado, sem nenhum contato com o Jira |
-| `POST /heartbeat` | recebe a batida do Grafana Cloud, enviada a cada cinco minutos |
-| `POST /monitor/run` | roda a conferência do heartbeat e a sonda na hora e devolve o resultado |
-| `GET /health` | responde se o Worker está no ar, sem autenticação |
+| `GET /health` | HTTP 200 com `{"status":"ok"}`, sem consultar Jira, e-mail ou aplicações |
+| `POST /grafana` | Processa de um a cinquenta alertas e retorna `results` |
+| `POST /grafana/preview` | Retorna `tickets`, sem chamar Jira ou enviar e-mail |
+| `POST /heartbeat` | Grava o instante atual do recebimento e responde `status` |
+| `POST /monitor/run` | Executa o monitor e retorna heartbeat, idade, pausa, sondas e transições |
 
-## Contrato do alerta
+O webhook e a prévia exigem `application/json` e limitam o corpo a 256 KiB. O limite não é aplicado às duas rotas de monitoramento, que não precisam do corpo para executar.
 
-Cada envio traz de 1 a 50 alertas, e cada alerta precisa dos rótulos `alert_id`, `priority` (de P1 a P5), `service_name` e `deployment_environment`. Os rótulos `test` e `silence_on_pause` são opcionais, assim como `category` e `escalation_group`, este último usado para ligar tickets relacionados do mesmo grupo.
+## Mensagem de entrada
 
-## Limites
+O envelope contém uma lista não vazia de até cinquenta alertas, e cada item exige `status`, `startsAt` e os labels `alert_id`, `priority`, `service_name` e `deployment_environment`. A prioridade aceita de P1 a P5, e os instantes usam ISO 8601 com offset.
 
-O corpo do envio tem no máximo 256 KiB, e as anotações de cada alerta têm no máximo 4.000 caracteres. A cadência dos avisos é definida pela política de notificação do Grafana, e o Worker aplica por cima o intervalo mínimo de 30 minutos e o teto de 8 tickets em 24 horas.
+```json
+{
+  "alerts": [
+    {
+      "status": "firing",
+      "labels": {
+        "alert_id": "A03",
+        "priority": "P1",
+        "service_name": "core",
+        "deployment_environment": "prod",
+        "test": "true"
+      },
+      "annotations": {
+        "summary": "Serviço indisponível",
+        "impact": "Acesso às operações interrompido"
+      },
+      "startsAt": "2026-11-01T12:00:00Z"
+    }
+  ]
+}
+```
+
+`test=true` marca o ticket e impede e-mail, mas não impede a criação de ticket se o corpo for enviado ao webhook real. Para uma conferência sem escrita externa, use `/grafana/preview`.
+
+Os labels opcionais `category` e `escalation_group` organizam e relacionam tickets. `silence_on_pause=true` permite silenciar apenas o disparo durante pausa observada do cluster e sua carência posterior. `endsAt` é usado na recuperação. A data de fim sentinela recebida em alertas ainda ativos é descartada.
+
+## Resultados
+
+O webhook responde 200 com uma ação por alerta processado. A ação explica o efeito sem depender do status HTTP do provedor.
+
+| Ação | Efeito |
+|---|---|
+| `created` | Ticket criado, com `issueKey` e possíveis `warnings` |
+| `skipped_interval` | Ainda não passou o intervalo desde o último ticket |
+| `ceiling_comment` | Teto de tickets em 24 horas atingido, com comentário no último |
+| `ignored_env` | Ambiente diferente do configurado |
+| `skipped_pause` | Disparo marcado para silenciamento durante pausa ou carência |
+| `end_recorded` | Tickets marcados e comentados com a recuperação, sem mudança de status |
+| `no_open_ticket` | Nenhum ticket não marcado como resolvido no histórico consultado |
+
+Se o e-mail está configurado, a resposta também contém `email.sent` e `email.failed`. O envio elegível ocorre apenas depois que todos os itens do lote terminam sem falha de processamento. Se algum item falha, o webhook responde 503, mesmo que outros itens já tenham alterado o Jira.
+
+A prévia retorna `would_create`, `would_record_end` ou `ignored_env` sem consultar o histórico, o intervalo, o teto diário ou a pausa, por isso um `would_create` não garante que o webhook criará um ticket.
 
 ## Erros
 
-Os erros seguem o formato `application/problem+json`. O Jira sem configuração responde 503 com `CHANNEL_NOT_CONFIGURED`, e uma falha na consulta ou na criação também responde 503, para que o Grafana repita o envio.
+O corpo implementado contém `code`, `message` e, quando aplicável, `errors`, com media type `application/problem+json`. Ele difere do [contrato comum](https://github.com/Solierrr/docs-warehouse/blob/main/docs/standards/ERRORS.md), que exige outros campos. Os códigos específicos ainda não estão no [catálogo central](https://github.com/Solierrr/docs-warehouse/blob/main/docs/standards/ERROR_CODES.md).
+
+| HTTP | Código | Causa |
+|---|---|---|
+| 401 | `UNAUTHENTICATED` | Token ausente, inválido ou não configurado |
+| 413 | `PAYLOAD_TOO_LARGE` | Corpo do webhook ou da prévia acima do limite |
+| 415 | `UNSUPPORTED_MEDIA_TYPE` | Corpo sem media type JSON |
+| 422 | `MALFORMED_REQUEST` | JSON ilegível |
+| 422 | `VALIDATION_FAILED` | Envelope ou alertas fora do schema |
+| 503 | `CHANNEL_NOT_CONFIGURED` | Webhook real sem canal Jira válido |
+| 503 | `JIRA_REQUEST_FAILED` | Falha de processamento de pelo menos um alerta no Jira |
+| 500 | `INTERNAL_ERROR` | Exceção não tratada, inclusive configuração base inválida |
+
+As rotas inexistentes usam a resposta padrão do Hono, e o Worker não repete internamente as chamadas ao Jira, deixando a repetição do webhook a cargo da configuração do remetente. <!-- PENDENTE: 1 -->

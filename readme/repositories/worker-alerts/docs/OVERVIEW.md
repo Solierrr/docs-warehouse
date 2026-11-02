@@ -2,36 +2,35 @@
   <img src="../assets/readme/banners/hono.png" alt="Hono" width="100%">
 </p>
 
-# Visão de produto
+# Atendimento de incidentes
 
-A central de alertas existe para que a equipe saiba de um problema em produção por um caminho que não depende da própria plataforma estar de pé. Ela recebe os alertas do monitoramento, abre um incidente no quadro de trabalho do time responsável pelo serviço afetado e registra quando o problema termina, deixando o histórico de cada ocorrência num só lugar.
+O serviço atende quem acompanha a disponibilidade e as falhas da plataforma. Ele transforma os avisos do monitoramento em tickets que podem ser investigados e acompanhados pela equipe. Os tickets apresentam o impacto informado, a prioridade, o horário do problema, os primeiros passos e links para investigar registros e rastros de execução.
 
-## O que a equipe recebe
+## Capacidades
 
-- Um ticket novo no Jira quando um alerta dispara, já com o resumo do problema, o impacto, o serviço, o ambiente e o link do painel de monitoramento.
-- Um comentário no ticket existente quando o mesmo alerta volta a disparar em pouco tempo, em vez de um ticket repetido.
-- O registro do fim do incidente, com a duração, quando o monitoramento avisa que o problema foi resolvido.
-- Um e-mail para a equipe quando um ticket de prioridade P1 ou P2 é aberto ou encerrado.
-- Um incidente próprio quando o monitoramento para de mandar sinal ou quando um serviço principal deixa de responder.
+O atendimento aparece no Jira e, quando o canal está configurado, também por e-mail.
 
-## Regras de negócio
+- Receber alertas de falha e de recuperação do Grafana Cloud.
+- Mostrar uma prévia do conteúdo do ticket antes de enviar ao Jira.
+- Direcionar cada serviço ao espaço de atendimento correspondente.
+- Relacionar ocorrências e níveis de alerta do mesmo problema.
+- Detectar a ausência do sinal periódico do Grafana Cloud.
+- Verificar aplicações por fora do cluster para perceber indisponibilidade do caminho público.
 
-- Só os alertas do ambiente de produção viram ticket, porque os ambientes de testes geram ruído e não pedem resposta imediata da equipe.
-- Um alerta só abre ticket novo se o último ticket do mesmo alerta, serviço e ambiente tiver pelo menos 30 minutos, o que evita que uma instabilidade curta encha o quadro de tickets.
-- Em 24 horas, o mesmo alerta abre no máximo 8 tickets, e a partir daí cada novo disparo vira um comentário no último ticket aberto.
-- O serviço registra o fim do incidente com uma etiqueta e um comentário, mas nunca muda a situação nem fecha o ticket, porque encerrar o trabalho continua sendo uma decisão de quem atendeu.
-- Cada serviço tem um quadro de destino, e um serviço sem destino cadastrado vai para o quadro padrão, para que nenhum alerta se perca.
-- Os alertas de infraestrutura, como banco de grafos, gateway, cluster, monitoramento e entrega contínua, vão para o quadro de banco de dados e infraestrutura.
-- Um alerta marcado como teste abre o ticket com a marca de teste no título e nunca envia e-mail.
-- Enquanto o cluster está desligado de propósito, e por mais 30 minutos depois que ele volta, os alertas de "serviço sem dados" não abrem ticket, porque a falta de dados é esperada nesse período.
-- O e-mail é um aviso de melhor esforço e acompanha o ticket, por isso sai só quando o ticket é aberto ou encerrado, e uma falha no envio não impede o registro no Jira.
+## Regras de atendimento
 
-## Quadros de destino
+As prioridades vão de P1 a P5. A prioridade do alerta determina a prioridade do ticket, da mais alta à mais baixa. Alertas de ambiente diferente do configurado são ignorados.
 
-O destino de cada serviço fica declarado no próprio repositório do serviço, e este serviço reúne essas declarações numa tabela única. A tabela é conferida todos os dias e a cada mudança, para que um serviço novo ou um destino alterado não fiquem de fora.
+O intervalo mínimo entre tickets é contado desde a criação do último ticket daquele alerta, serviço e ambiente. O limite diário considera uma janela móvel de 24 horas. Antes do intervalo mínimo, o aviso é ignorado. Depois dele, se o teto diário foi atingido, o serviço comenta no último ticket em vez de criar outro. Os padrões do código são 30 minutos e oito tickets, ambos configuráveis.
 
-| Quadro | O que recebe |
-|---|---|
-| Desenvolvimento | os serviços de aplicação, como acesso, cadastro, mensagens, notificações, recomendação, e-mail, integração com o Google e a aplicação web |
-| Banco de dados e infraestrutura | o banco de grafos e a rotina que o monta, a consulta de dados para os assistentes, o gateway, o cluster, o coletor de telemetria, a entrega contínua e o próprio monitoramento quando ele para de mandar sinal |
-| Inteligência artificial | os assistentes e os serviços de validação com inteligência artificial |
+O sinal de recuperação acrescenta uma marca de resolução e um comentário aos tickets encontrados. Ele não encerra o atendimento nem muda o status no Jira. A hipótese de operação é que a equipe do espaço de destino confirma o atendimento e encerra o ticket. A distribuição dessa responsabilidade ainda precisa ser confirmada. <!-- PENDENTE: 2 -->
+
+Avisos por e-mail acompanham a criação do ticket e o registro de recuperação de alertas P1 ou P2 recebidos do Grafana. Repetições sem ticket novo, alertas das outras prioridades e alertas identificados como teste não geram esse e-mail. A indisponibilidade do e-mail não impede o registro no Jira.
+
+## Pausa e disponibilidade
+
+Durante uma pausa planejada do cluster, o serviço suspende as sondas das aplicações e registra a recuperação dos incidentes de sonda que estavam abertos. A verificação do sinal do Grafana Cloud continua ativa porque esse provedor funciona fora do cluster.
+
+Alertas do Grafana explicitamente marcados para silenciamento durante pausa não abrem ticket enquanto a pausa está ativa ou durante a carência posterior observada. Os sinais de recuperação continuam sendo processados. Os demais alertas continuam valendo.
+
+O código descreve a operação esperada. A configuração efetivamente publicada dos contatos, regras, destinatários e verificações ainda precisa ser confirmada. <!-- PENDENTE: 1 -->

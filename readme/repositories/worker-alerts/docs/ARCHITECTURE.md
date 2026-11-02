@@ -2,59 +2,67 @@
   <img src="../assets/readme/banners/hono.png" alt="Hono" width="100%">
 </p>
 
-# Arquitetura
+# Coordenação de alertas
 
-O serviço é um Cloudflare Worker em TypeScript, com as rotas montadas em Hono e as entradas validadas com Zod. Ele roda na borda da Cloudflare, e não no cluster, porque precisa continuar avisando a equipe justamente quando o cluster cai ou é desligado para economizar custo. O estado de cada incidente fica no próprio Jira, consultado por etiqueta antes de qualquer criação, e o Worker guarda apenas o necessário para organizar os avisos e acompanhar o heartbeat.
+O Worker separa entrada HTTP, normalização, coordenação por incidente, clientes de saída e monitoramento. Hono expõe as rotas, Zod valida o corpo e a configuração, e Durable Objects concentram a execução de cada incidente e a persistência do monitor. O Jira é a fonte do histórico dos tickets.
 
 ```mermaid
 flowchart LR
-    Grafana[Grafana Cloud] -->|HTTP + Bearer| Worker[worker-alerts]
-    Cron[Cron Trigger a cada 5 minutos] --> Worker
-    Worker --> Incidentes[Durable Object IncidentCoordinator]
-    Worker --> Monitor[Durable Object MonitorState]
-    Worker -->|HTTP + token de API| Jira
-    Worker -->|HTTP + X-Service-Key| Email[api-email]
-    Worker -->|HTTP| Saude[health dos serviços principais]
-    Worker -->|HTTP| Efemeridade[ephemerality.json do infra-platform]
+ G[Grafana Cloud] -->|HTTPS e Bearer| W[Worker Hono]
+ C[Cron da Cloudflare] --> M[Monitor]
+ W --> I[Coordenação por incidente]
+ W --> M
+ I -->|HTTPS e Basic| J[Jira]
+ M --> I
+ M --> S[(Estado durável)]
+ M -->|HTTPS público| P[infra-platform]
+ M -->|HTTPS público| A[Aplicações monitoradas]
+ W -->|HTTPS e X-Service-Key| E[api-email]
 ```
 
-## Pastas
+## Código
 
-| Pasta | O que guarda |
+As fontes estão na `main` do repositório.
+
+| Caminho | Papel |
 |---|---|
-| `src/index.ts` | as rotas em Hono, a tarefa agendada e a exportação dos Durable Objects |
-| `src/config.ts` | a leitura e a validação, com Zod, das variáveis do Worker |
-| `src/ingest/` | a conferência do token, o schema do webhook e a conversão de cada alerta num incidente |
-| `src/incident/` | as regras do ticket, os textos e o Durable Object que organiza os avisos de cada incidente |
-| `src/channels/jira/` | o cliente do Jira e a montagem do corpo do ticket no formato ADF |
-| `src/channels/email/` | a chamada ao `api-email` e a regra de quando o e-mail sai |
-| `src/monitor/` | o heartbeat, a sonda dos serviços, o estado e a lista de alvos |
-| `src/routing/` | a tabela que liga cada serviço ao seu quadro no Jira |
-| `scripts/` | a sincronização da tabela de rotas a partir dos repositórios de cada serviço |
+| [src/index.ts](https://github.com/Solierrr/worker-alerts/blob/main/src/index.ts) | Rotas Hono, limites de entrada, despacho por incidente e evento agendado |
+| [src/config.ts](https://github.com/Solierrr/worker-alerts/blob/main/src/config.ts) | Validação das variáveis e ativação dos canais |
+| [src/ingest/](https://github.com/Solierrr/worker-alerts/blob/main/src/ingest/model.ts) | Autenticação, schema e normalização do alerta |
+| [src/incident/](https://github.com/Solierrr/worker-alerts/blob/main/src/incident/service.ts) | Intervalos, histórico, conteúdo e recuperação |
+| [src/channels/jira/](https://github.com/Solierrr/worker-alerts/blob/main/src/channels/jira/client.ts) | Jira REST v3 e conteúdo ADF |
+| [src/channels/email/](https://github.com/Solierrr/worker-alerts/blob/main/src/channels/email/client.ts) | Elegibilidade e entrega do e-mail |
+| [src/monitor/](https://github.com/Solierrr/worker-alerts/blob/main/src/monitor/monitor.ts) | Heartbeat, sondas e estado do cluster |
+| [src/routing/](https://github.com/Solierrr/worker-alerts/blob/main/src/routing/routing.ts) | Snapshot de destinos, nomes e hosts |
 
 ## Integrações
 
-| Integração | Direção | Para quê |
-|---|---|---|
-| Grafana Cloud | recebe | os alertas por webhook e a batida do heartbeat, os dois com o mesmo token bearer |
-| Jira | chama | a consulta, a criação e os comentários dos tickets, com a conta de serviço e o token de API |
-| `api-email` | chama | o e-mail dos incidentes P1 e P2, com o modelo `operational-alert` e a chave própria do Worker |
-| Serviços principais | chama | a sonda do `web-app`, do `api-core`, do `api-auth`, do `api-messenger` e do `api-email` |
-| `infra-platform` | lê | o arquivo de efemeridade, que diz se o cluster está desligado de propósito |
+Cada entrada tem seu próprio mecanismo de autenticação.
 
-## Dados
+| Origem | Destino | Protocolo e autenticação | Finalidade |
+|---|---|---|---|
+| Grafana Cloud | Worker | HTTPS com Bearer compartilhado | Alertas e heartbeat |
+| Operação | Worker | HTTPS com o mesmo Bearer | Prévia e monitoramento manual |
+| Worker | Jira | HTTPS REST v3 com Basic da conta de serviço e token | Buscar, criar, comentar, relacionar e marcar tickets |
+| Worker | `api-email` | HTTPS com `X-Service-Key` | E-mail opcional após o ticket |
+| Worker | `infra-platform` | HTTPS público, sem credencial | Ler `ephemerality.json` na `main` |
+| Worker | Alvos da sonda | HTTPS público, sem credencial | Conferir respostas HTTP |
+| Script de sincronização | GitHub | API pela sessão da CLI `gh` | Ler `alerts.json` dos serviços |
 
-O Worker não tem banco próprio. O Durable Object `IncidentCoordinator` existe um por chave de incidente e serve só para que os avisos do mesmo incidente sejam tratados um de cada vez, enquanto o `MonitorState` guarda a última batida do heartbeat e as falhas seguidas da sonda. A chave do incidente é um SHA-1 do alerta, do serviço e do ambiente, o que faz o mesmo problema cair sempre no mesmo ticket.
+O token de entrada é validado por comparação de hashes SHA-256 em tempo constante. Sem token configurado ou recebido, o acesso protegido é recusado. Essa entrada não usa JWT nem `X-Service-Key`. O contexto comum das chamadas entre serviços está em [autenticação entre serviços](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/SERVICE_TO_SERVICE_AUTH.md).
 
-## Decisões técnicas
+## Incidentes e roteamento
 
-- O serviço roda fora do cluster porque o aviso precisa sair quando o cluster cai, decisão registrada como D30 nas decisões de infraestrutura.
-- O Jira é a fonte do estado do incidente, consultado pela etiqueta da chave, porque assim o Worker não precisa de banco e o ticket mostra a mesma verdade para quem atende.
-- O Worker nunca fecha o ticket e só marca o fim com a etiqueta `inc-resolvido`, porque encerrar o trabalho é uma decisão de quem atendeu.
-- Os quadros do Jira são do tipo gerenciado pela equipe, e por isso o Worker usa etiquetas no lugar de campos personalizados.
-- O destino de cada serviço mora no `alerts.json` do repositório dele e vira um snapshot aqui, conferido no CI e todo dia, para que a mudança de destino passe por revisão no próprio serviço.
-- Uma falha ao consultar ou criar no Jira responde 503, para que o Grafana tente de novo em vez de o alerta se perder.
+A chave é formada pelos 12 primeiros caracteres hexadecimais do SHA-1 de `alert_id`, `service_name` e `deployment_environment`, separados por `|`. Cada chave seleciona um `IncidentCoordinator` que executa as chamadas em série. O objeto não guarda histórico de tickets em storage. Esse histórico é consultado no Jira pelo rótulo `inc-key-<chave>`.
 
-## Erros, health e versão
+O snapshot [routing.json](https://github.com/Solierrr/worker-alerts/blob/main/src/routing/routing.json) mapeia os serviços para os espaços `DEV`, `DB` e `AI`, com o tipo `Critic`. Serviços desconhecidos usam o espaço padrão. `names` fornece nomes de exibição e `hosts` fornece links HTTPS. Esses aliases não alteram a chave do incidente.
 
-As respostas de erro seguem o formato `application/problem+json`, com 401 para token inválido, 413 para envio acima de 256 KiB, 415 para formato errado, 422 para alerta fora do contrato e 503 quando o Jira não está configurado ou falha. A rota `GET /health` é pública e responde só se o Worker está no ar, e a versão segue o release do repositório.
+Os arquivos `alerts.json` dos serviços e [routing.shared.json](https://github.com/Solierrr/worker-alerts/blob/main/src/routing/routing.shared.json) alimentam o snapshot por [sync-routing.mjs](https://github.com/Solierrr/worker-alerts/blob/main/scripts/sync-routing.mjs). O script recusa aliases repetidos e projetos desconhecidos. O Worker usa apenas o snapshot no runtime, sem consultar repositórios para decidir o destino. O percurso completo está em [ROUTING_SYNC.md](../flows/ROUTING_SYNC.md).
+
+## Dados e operação
+
+O binding `MONITOR` mantém heartbeat, baseline, falhas e incidentes abertos em Durable Objects. O modelo e os acessos estão em [DURABLE_OBJECTS.md](../database/DURABLE_OBJECTS.md).
+
+O cliente Jira usa timeout de dez segundos. E-mail, sondas e leitura do estado do cluster usam oito segundos. Redirects externos não são seguidos. A API responde 503 quando o Jira falha no webhook para permitir nova tentativa do Grafana. Falhas ao relacionar tickets após a criação retornam avisos, sem desfazer o ticket.
+
+Os logs registram ações e códigos de falha, sem corpo de resposta do Jira nem credenciais. O `wrangler.jsonc` habilita observabilidade da Cloudflare. A aplicação expõe `/health`, sem consultar dependências, e não publica `/ready`, OpenAPI ou versão HTTP. Essas diferenças estão em [STATUS.md](./STATUS.md).

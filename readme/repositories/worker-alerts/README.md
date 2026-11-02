@@ -28,7 +28,8 @@ O Grafana Cloud envia os alertas por webhook, autenticado com um token próprio,
 - [API.md](./docs/API.md), como o monitoramento chama o serviço.
 - [DEPLOY.md](./docs/DEPLOY.md), domínio, segredos e publicação.
 - [STATUS.md](./docs/STATUS.md), o que já funciona e o que falta.
-- [Fluxos](./flows/), o alerta que vira incidente, o heartbeat com a sonda e a sincronização das rotas.
+- [DURABLE_OBJECTS.md](./database/DURABLE_OBJECTS.md), o estado guardado pelos monitores e a coordenação de cada incidente.
+- [Fluxos](./flows/), o recebimento do alerta, o registro da recuperação, a verificação independente e a sincronização das rotas.
 
 ## Contribuindo
 
