@@ -60,7 +60,7 @@ OkHttp envia o token e usa `TokenAuthenticator` após 401. A renovação é sinc
 
 ## Dados e sincronização
 
-O Room guarda cinco tabelas, descritas em [SQLITE.md](../database/SQLITE.md), e esse banco próprio contraria a hipótese inicial do checklist. A versão atual é a 3, com migração destrutiva de contingência, e a preservação da fila entre versões ainda depende de decisão. <!-- PENDENTE: 1 -->
+O Room guarda cinco tabelas, descritas em [SQLITE.md](../database/SQLITE.md), e esse banco próprio contraria a hipótese inicial do checklist. A versão atual é a 3, com migração destrutiva de contingência, e a fila precisa ser preservada entre versões, o que exige migrações ainda não implementadas.
 
 Eventos e catch-up usam versões. O cursor só avança por catch-up. Mudança da época do servidor limpa mensagens e cursor e refaz bootstrap, preservando a fila nesse caminho.
 

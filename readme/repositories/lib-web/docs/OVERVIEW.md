@@ -8,4 +8,4 @@ A biblioteca atende equipes que constroem interfaces e mensagens da plataforma. 
 
 Os componentes recebem dados e ações do consumidor. Eles não definem quem pode operar a plataforma nem guardam os dados de negócio. O catálogo permite comparar estados e exemplos de uso.
 
-A identidade visual também é compartilhada com os e-mails por tokens e assets gerados no build. A adoção completa pelos aplicativos permanece gradual. <!-- PENDENTE: 1 -->
+A identidade visual também é compartilhada com os e-mails por tokens e assets gerados no build, e a adoção pelos aplicativos acontece de forma gradual.

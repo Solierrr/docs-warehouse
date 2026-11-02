@@ -28,7 +28,7 @@ Copie o `.env.example` para `.env`, com `Copy-Item .env.example .env` no PowerSh
 | `APP_ENV`, `NODE_ENV`, `HOST`, `PORT` | ambiente e escuta HTTP |
 | `DOCS_ENABLED`, `CORS_ALLOWED_ORIGINS` | documentação pública e origens do navegador |
 
-O `make vault` existe, mas `VAULT_FOLDERS` está vazio, e sem as pastas autorizadas o comando não gera o `.env`, por isso a forma de obter as configurações de QA ainda precisa ser confirmada. <!-- PENDENTE: 1 --> O procedimento comum está no [guia de segredos](https://github.com/Solierrr/docs-warehouse/blob/main/readme/infisical/README.md).
+O `make vault` existe, mas `VAULT_FOLDERS` está vazio, e sem as pastas autorizadas o comando não gera o `.env`, por isso as configurações locais vêm do `.env.example`. O procedimento comum está no [guia de segredos](https://github.com/Solierrr/docs-warehouse/blob/main/readme/infisical/README.md).
 
 ## Servidor e caixa local
 

@@ -8,4 +8,4 @@ A equipe pode fazer uma verificação breve e uma execução de carga para o apl
 
 A manutenção esperada da origem é aceita pelo teste de borda e medida separadamente. O teste de páginas exige resposta válida e os recursos estáticos. A intensidade varia por ambiente e produção exige confirmação explícita.
 
-Os critérios de capacidade e aceite operacional precisam ser definidos pelo responsável. Os valores presentes no código não comprovam uma capacidade contratada. <!-- PENDENTE: 1 -->
+Não há metas de capacidade nem critérios de aceite definidos, por isso os valores presentes no código servem como referência de medição, sem representar uma capacidade garantida.

@@ -31,12 +31,12 @@ sequenceDiagram
     Grafo-->>Pessoa: resposta HTTP com outcome e reason
 ```
 
-As listagens de conta mostram até quinze registros por ferramenta. O total retornado permite informar que a lista foi reduzida. Essas consultas não alteram dados. A ampliação documentada aqui usa HTTP direto, embora o [fluxo central](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/ASSISTANT_CHAT.md) ainda cite ferramentas MCP. <!-- PENDENTE: 4 -->
+As listagens de conta mostram até quinze registros por ferramenta, e o total retornado permite informar que a lista foi reduzida, sem que essas consultas alterem dados. A ampliação documentada aqui usa HTTP direto, embora o [fluxo central](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/ASSISTANT_CHAT.md) ainda cite ferramentas MCP.
 
 ## Casos de erro
 
 - Sem token no contexto, a ferramenta devolve mensagem de falta de autenticação.
 - Permissão negada, recurso ausente e indisponibilidade do cadastro central viram mensagens da ferramenta. Nem toda falha de consulta é marcada como `TOOL_FAILED`.
-- Guia ou tela sem correspondência não autoriza inventar uma operação. O catálogo estático precisa de validação com a interface final. <!-- PENDENTE: 5 -->
+- Um guia ou uma tela sem correspondência no catálogo estático não autoriza inventar uma operação.
 - Recusa de entrada encerra o fluxo antes da consulta. O juiz pode rejeitar a resposta composta.
 - Falha do histórico remoto ou do provedor pode impedir a resposta, mesmo com MongoDB pronto.

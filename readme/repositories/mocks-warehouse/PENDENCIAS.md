@@ -9,4 +9,4 @@
 - Onde aparece: `docs/OVERVIEW.md`, `docs/VALIDATION.md` e `docs/STATUS.md`.
 - O que o código mostra: nome original e metadados técnicos, sem prova de autorização de todos os arquivos.
 - Hipótese usada no texto: o acervo é descrito sem presumir licença individual de cada imagem.
-- Resposta do dono:
+- Resposta do dono: Respondido em 2026-11-01: "tem acervo de uso, apenas isso".

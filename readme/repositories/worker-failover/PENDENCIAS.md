@@ -9,4 +9,4 @@
 - Onde aparece: `docs/OVERVIEW.md`, `docs/HONEYPOT.md`, `docs/DEPLOY.md` e `docs/STATUS.md`.
 - O que o código mostra: rota, origem separada e operações de lista, mas DNS, Ingress e regra WAF são definidos externamente.
 - Hipótese usada no texto: descreve-se o comportamento configurado sem presumir que toda a infraestrutura esteja ativa.
-- Resposta do dono:
+- Resposta do dono: Respondido em 2026-11-01: "Tá tudo no ar". QA no Render e produção no cluster efêmero, que o dono desliga, com o `worker-failover` tratando esse período.

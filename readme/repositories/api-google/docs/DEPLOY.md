@@ -10,10 +10,10 @@
 |---|---|---|
 | Local | `http://localhost:8000` | Iniciado por `make dev`. |
 | QA | [Render](https://google-registry.onrender.com) | URL declarada no contrato OpenAPI. |
-| PROD | Acesso interno no GKE | O checklist registra `ClusterIP`, sem URL pública confirmada. <!-- PENDENTE: 3 --> |
+| PROD | Acesso interno no GKE | `ClusterIP`, sem Ingress próprio |
 
 Os procedimentos comuns estão em [QA no Render](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/QA_RENDER.md) e [PROD no GKE](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/PROD_GKE_ARGOCD.md). O [Dockerfile](https://github.com/Solierrr/api-google/blob/main/Dockerfile) instala o pacote e inicia Uvicorn na porta 8000.
 
 ## Configuração específica
 
-O ambiente fornece credenciais do Google, OAuth do Calendar, endereço do serviço de autenticação e chaves dos chamadores. `DOCS_ENABLED=false` desliga Swagger e contrato servido. A prontidão é `/ready`, e o processo é verificado por `/health`. Os nomes do repositório, da imagem e do serviço publicado divergem no levantamento de implantação. <!-- PENDENTE: 4 -->
+O ambiente fornece as credenciais do Google, o OAuth do Calendar, o endereço do serviço de autenticação e as chaves dos chamadores, e `DOCS_ENABLED=false` desliga o Swagger e o contrato servido. A prontidão é `/ready` e o processo é verificado por `/health`. O nome oficial do serviço é `api-google`, que substituiu `google-registry`, e as referências antigas ainda aparecem na imagem e no serviço publicado.

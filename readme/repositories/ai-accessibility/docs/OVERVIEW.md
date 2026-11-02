@@ -8,4 +8,4 @@ O serviço apoia a análise de imagens de produtos, empresas, profissionais e ou
 
 Um conteúdo explícito de risco, identificado com alta confiança, pode ser rejeitado, enquanto a incerteza, os sinais de risco e o bloqueio do provedor levam a imagem para revisão humana. Uma falha técnica nunca significa aprovação, e uma descrição vazia, incerta ou fora do formato também exige revisão antes de a imagem seguir.
 
-A aprovação não publica a imagem. O responsável pelo upload ainda precisa decidir como revisar o texto e concluir a publicação. O consumidor autorizado e essa etapa de confirmação permanecem pendentes. <!-- PENDENTE: 1 -->
+A aprovação não publica a imagem, e a descrição é gerada automaticamente, sem revisão ou confirmação da pessoa que enviou a imagem. A evolução prevista restringe o serviço às imagens de produto e processa cada uma de forma assíncrona, sem prazo imediato de resposta.

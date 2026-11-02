@@ -9,4 +9,4 @@
 - Onde aparece: `docs/OVERVIEW.md` e `docs/STATUS.md`.
 - O que o código mostra: perfis, checks e estágios de carga, sem decisão de negócio sobre capacidade e janela de execução.
 - Hipótese usada no texto: os cenários são ferramentas de medição e não prova de capacidade garantida.
-- Resposta do dono:
+- Resposta do dono: Respondido em 2026-11-01: "ainda não" há metas de capacidade, "mas isso não importa para fazer .md no repo".

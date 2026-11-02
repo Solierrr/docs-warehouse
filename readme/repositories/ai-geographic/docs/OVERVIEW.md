@@ -15,4 +15,4 @@ As capacidades implementadas incluem as seguintes atividades.
 
 A estimativa solar não é um estudo de projeto. A falta de cobertura de imagens é comunicada na resposta. Uma falha em uma ferramenta pode produzir uma resposta com informação de indisponibilidade, em vez de uma recomendação sem fonte.
 
-O código oferece conversa e depuração administrativa. A presença efetiva dessas capacidades no aplicativo depende da integração dos clientes. <!-- PENDENTE: 1 -->
+O código oferece a conversa e a depuração administrativa, e o serviço está publicado no QA e na produção.

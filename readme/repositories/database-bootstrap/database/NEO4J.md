@@ -52,8 +52,8 @@ MERGE por chave não implica que o número retornado por estágio seja quantidad
 
 São dez datasets, de unidades, ofertas, profissões, técnicos, registros, vínculos, turnos, serviços, experiência e atribuições. Apenas profissionais aprovados ligados a conta ativa alimentam os datasets dependentes de elegibilidade. Geolocalização só publica coordenadas quando há exatamente um registro correspondente.
 
-Oferta elegível exige fornecedor ativo, assinatura paga vigente, modelo aprovado, preço e disponibilidade positivos, estoque e medidas físicas válidas. O extrator converte preço para centavos e dimensão para largura vezes comprimento. Os nomes antigos usados no SQL precisam de alinhamento com a origem atual. <!-- PENDENTE: 1 -->
+Uma oferta elegível exige fornecedor ativo, assinatura paga vigente, modelo aprovado, preço e disponibilidade positivos, estoque e medidas físicas válidas, e o extrator converte o preço para centavos e a dimensão para largura vezes comprimento. Os nomes antigos usados no SQL precisam ser atualizados para o schema atual do `api-core`, que é a origem de referência.
 
-A versão ativa e a anterior são sempre preservadas, uma falha antes da ativação tenta remover o staging e as versões órfãs ficam registradas para limpeza posterior, sem TTL automático no banco. A forma como o leitor escolhe a versão correta ainda precisa ser confirmada na implantação. <!-- PENDENTE: 3 -->
+A versão ativa e a anterior são sempre preservadas, uma falha antes da ativação tenta remover o staging e as versões órfãs ficam registradas para limpeza posterior, sem TTL automático no banco. O leitor escolhe a versão pelo ponteiro `active_version`.
 
 Fontes em [schema](https://github.com/Solierrr/database-bootstrap/blob/main/src/graphs/schema.cypher), [nós](https://github.com/Solierrr/database-bootstrap/tree/main/src/graphs/nodes), [relações](https://github.com/Solierrr/database-bootstrap/tree/main/src/graphs/relationships) e [extração](https://github.com/Solierrr/database-bootstrap/blob/main/src/extract.sql).

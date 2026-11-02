@@ -35,7 +35,7 @@ O PostgreSQL e o Neo4j recebem as credenciais do ambiente, e a rotina não tem a
 
 A conexão PostgreSQL usa REPEATABLE READ e somente leitura. O extrator acumula os dez datasets em memória com fetchall antes de gravar o grafo. `SYNC_BATCH_SIZE` limita o envio ao Neo4j, sem limitar a memória da extração.
 
-As queries ainda usam `users` e colunas `fk_*`, enquanto a main atual do cadastro passou a nomes como `user_account` e referências terminadas em `_id`. O job não executa migração nem adapta esses nomes. <!-- PENDENTE: 1 -->
+As queries ainda usam `users` e colunas `fk_*`, enquanto a main atual do cadastro passou a nomes como `user_account` e referências terminadas em `_id`, e o job não adapta esses nomes. A atualização para o schema atual do `api-core` está pendente.
 
 O modelo está em [NEO4J.md](../database/NEO4J.md), e o `graph_key` inclui a fonte e a versão, o que permite montar o staging sem alterar os nós da versão ativa, com cada execução recebendo um UUID próprio.
 
@@ -45,9 +45,9 @@ O schema é aplicado antes do lock, que fica em `SyncState` com lease e o token 
 
 Cada estágio devolve quantidade de linhas processadas. Ela deve coincidir com o dataset enviado, inclusive quando múltiplas linhas convergem no mesmo nó por MERGE. Isso detecta relações sem ponta, sem equivaler a contar nós únicos.
 
-A validação compara labels e tipos de relação por volume, não o conteúdo completo. Domínio sem registros na versão ativa não estabelece um mínimo inicial. A política operacional precisa distinguir queda legítima de extração incompleta. <!-- PENDENTE: 2 -->
+A validação compara labels e tipos de relação por volume, não o conteúdo completo, e um domínio sem registros na versão ativa não estabelece um mínimo inicial. Uma queda maior que a proporção configurada bloqueia a troca e exige liberação manual.
 
-A ativação troca `active_version` e registra a anterior. Se a resposta se perde, o código tenta reconciliar a troca antes de abortar. Limpeza e liberação são best effort e podem deixar pendências recuperadas na próxima execução. O consumidor precisa respeitar o ponteiro ativo. <!-- PENDENTE: 3 -->
+A ativação troca `active_version` e registra a anterior, e se a resposta se perde o código tenta reconciliar a troca antes de abortar. A limpeza e a liberação são best effort e podem deixar pendências recuperadas na próxima execução, e o consumidor respeita o ponteiro ativo.
 
 ## Observabilidade e versão
 

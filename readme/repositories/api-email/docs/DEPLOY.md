@@ -16,15 +16,15 @@ Os destinos abaixo vêm do contrato e dos manifestos, sem comprovação de dispo
 | QA | Render | [API de QA](https://api-email-6swz.onrender.com) |
 | Produção declarada | Service interno no GKE | `http://api-email:8083`, acessível dentro do cluster |
 
-O checklist registrava configuração incompleta no QA. A main já contém os dois transportes, mas não revela qual está ativo nem quais configurações estão presentes no Render. Essas condições precisam ser confirmadas pelo responsável. <!-- PENDENTE: 1 -->
+O QA está publicado no Render, e a main contém os dois transportes, com a escolha feita pela configuração do ambiente.
 
-O checklist antigo registrava que não havia produção, mas hoje existem a [aplicação do Argo CD](https://github.com/Solierrr/infra-gitops/blob/main/apps/api/api-email.yaml), o [Deployment](https://github.com/Solierrr/infra-gitops/blob/main/services/api-email/deployment.yaml) e o [Service](https://github.com/Solierrr/infra-gitops/blob/main/services/api-email/service.yaml), este do tipo `ClusterIP` e sem Ingress no diretório. Os manifestos não comprovam que o pod esteja pronto. <!-- PENDENTE: 2 -->
+Os manifestos de produção são a [aplicação do Argo CD](https://github.com/Solierrr/infra-gitops/blob/main/apps/api/api-email.yaml), o [Deployment](https://github.com/Solierrr/infra-gitops/blob/main/services/api-email/deployment.yaml) e o [Service](https://github.com/Solierrr/infra-gitops/blob/main/services/api-email/service.yaml), este do tipo `ClusterIP` e sem Ingress, e o serviço está em operação no cluster.
 
 ## Imagem e segredos
 
 O Dockerfile tem build em duas etapas, instala pelo lockfile e copia o pacote visual de `vendor/`. O runtime usa a porta 8083 e escuta em todas as interfaces na imagem. O `.env` não é incorporado.
 
-O entrypoint inicia diretamente o comando quando não recebe as duas credenciais Universal Auth. Se elas estiverem presentes, tenta executar o CLI do Infisical. Esse CLI não é instalado pela imagem atual. Portanto a configuração compatível com a imagem atual é a injeção de variáveis pela plataforma. A forma adotada no QA continua pendente. <!-- PENDENTE: 1 -->
+O entrypoint inicia o comando diretamente quando não recebe as duas credenciais Universal Auth e, se elas estiverem presentes, tenta executar o CLI do Infisical, que a imagem atual não instala. Por isso o QA recebe as variáveis injetadas pela plataforma.
 
 As variáveis `EMAIL_FROM` e `EMAIL_ALLOWED_ORIGINS` são obrigatórias, o transporte SMTP exige o host e, quando usados, o usuário e a senha em par, e o Brevo exige `BREVO_API_KEY`. O `APP_ENV` distingue desenvolvimento, QA e produção e controla a exigência de HTTPS nos links, e as chaves por chamador continuam necessárias nos dois transportes.
 
@@ -34,7 +34,7 @@ O serviço não cria conta de provedor nem configura autorização de domínio o
 
 O Deployment aponta para a imagem de versão `0.3.0`, seleciona Brevo, carrega `api-email-secrets` e declara uma réplica. Readiness e liveness ainda apontam para `/health`, portanto a prontidão do manifesto não verifica o transporte. O caminho apropriado para essa verificação no serviço é `/ready`.
 
-O manifesto não define `DOCS_ENABLED` explicitamente, e a variável pode vir do Secret, cujo conteúdo não foi consultado, por isso o desligamento da documentação em produção precisa ser confirmado. O workflow `environment-status.yml` do serviço cobre apenas QA. <!-- PENDENTE: 2 -->
+O manifesto não define `DOCS_ENABLED` explicitamente, e a variável pode vir do Secret, enquanto o workflow `environment-status.yml` do serviço cobre apenas o QA.
 
 ## Publicação e operação
 

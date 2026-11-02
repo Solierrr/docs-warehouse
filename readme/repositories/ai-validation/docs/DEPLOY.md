@@ -20,6 +20,6 @@ O Dockerfile usa base `python:latest` e instala dependências sem lock de versõ
 
 O workflow de ambiente consulta `/ready` em QA. Em produção, ele verifica o cluster, sem validar a resposta HTTP deste serviço. O manifesto de infraestrutura consultado na revisão `2f053a24` tem uma réplica, imagem `latest`, secret `ai-validation-secrets` e ambas as sondas em `/health`. A sonda de pronto ainda não usa `/ready`.
 
-As revisões implantadas, `DOCS_ENABLED`, exigência JWT, issuer e lista administrativa de debug precisam ser conferidos nos ambientes. Debug admite também o ambiente PROD no código quando há administrador configurado. Não presumir que desligar Swagger desliga debug. <!-- PENDENTE: 3 -->
+Os ambientes de QA e de produção estão publicados, e o debug também é admitido em PROD quando há administrador configurado, por isso desligar o Swagger não desliga o debug.
 
 Fontes em [Dockerfile](https://github.com/Solierrr/ai-validation/blob/main/Dockerfile), [entrypoint](https://github.com/Solierrr/ai-validation/blob/main/entrypoint.sh), [workflow de ambiente](https://github.com/Solierrr/ai-validation/blob/main/.github/workflows/environment-status.yml), [deployment](https://github.com/Solierrr/infra-gitops/blob/main/services/ai-validation/deployment.yaml) e [ingress](https://github.com/Solierrr/infra-gitops/blob/main/services/ai-validation/ingress.yaml).

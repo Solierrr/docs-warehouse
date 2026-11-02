@@ -10,4 +10,4 @@ Leitura da main em 2026-10-31.
 - O teste de SPA verifica HTML e assets, sem executar React ou jornadas autenticadas.
 - O teste de manutenção compara texto específico em português, o que pode exigir alinhamento com a página traduzida da borda.
 - O CI constrói scripts e não mede carga remota.
-- Limites de capacidade e critérios de aceite operacionais precisam de confirmação. <!-- PENDENTE: 1 -->
+- Não há metas de capacidade nem critérios de aceite definidos.

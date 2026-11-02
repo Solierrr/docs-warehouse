@@ -8,4 +8,4 @@ A equipe usa os utilitários para preparar dados de desenvolvimento, manter aces
 
 O carregamento planejado cria empresas, profissionais, ofertas, projetos e pedidos para o trabalho de desenvolvimento. Repetir a carga não deve duplicar os identificadores do plano. A carga de QA exige configuração própria, e a carga completa não é permitida em produção.
 
-O acesso direto aos dados é definido por consumidor e pelo menor conjunto de permissões previsto no contrato. Indicadores de fornecedores, demandantes e profissionais são separados por identidade e escopo. A política operacional de backup e restauração depende de confirmação. <!-- PENDENTE: 1 -->
+O acesso direto aos dados é definido por consumidor e pelo menor conjunto de permissões previsto no contrato, e os indicadores de fornecedores, demandantes e profissionais são separados por identidade e escopo. O backup dos bancos é diário.

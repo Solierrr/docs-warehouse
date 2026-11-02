@@ -32,7 +32,7 @@ O cliente escolhe `conversation_id` e reutiliza o mesmo identificador para conti
 | `DEGRADED` | avaliação indisponível ou resposta degradada marcada pelo fluxo |
 | `TOOL_FAILED` | preparação ou execução da ação falhou |
 
-Os motivos incluem `OUT_OF_SCOPE`, `MANIPULATION_ATTEMPT`, `INTERNAL_DATA_REQUEST`, `FALSE_INFORMATION`, `GUARDRAIL_REFUSED`, `GUARDRAIL_UNAVAILABLE`, `ANSWER_REJECTED` e `ACTION_FAILED`. Eles existem no código, mas ainda não constam na seção de agentes do [catálogo central](https://github.com/Solierrr/docs-warehouse/blob/main/docs/standards/ERROR_CODES.md). A manutenção desse catálogo precisa ser definida. <!-- PENDENTE: 4 -->
+Os motivos incluem `OUT_OF_SCOPE`, `MANIPULATION_ATTEMPT`, `INTERNAL_DATA_REQUEST`, `FALSE_INFORMATION`, `GUARDRAIL_REFUSED`, `GUARDRAIL_UNAVAILABLE`, `ANSWER_REJECTED` e `ACTION_FAILED`. Eles existem no código, mas ainda não constam na seção de agentes do [catálogo central](https://github.com/Solierrr/docs-warehouse/blob/main/docs/standards/ERROR_CODES.md).
 
 ## Exemplo de conversa
 

@@ -8,4 +8,4 @@ A implantação usa Kustomize. O overlay dev conserva todos os traces normais e 
 
 O Secret `grafana-cloud-otlp` deve existir no namespace do Deployment. A Application atual do GitOps já aponta para `overlays/prod`, ao contrário do checklist antigo. O processo comum está em [PROD_GKE_ARGOCD.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/PROD_GKE_ARGOCD.md).
 
-Não há URL pública declarada para ingestão. A existência do manifesto não comprova o funcionamento da coleta e do destino. <!-- PENDENTE: 1 -->
+Não há URL pública declarada para a ingestão, que acontece dentro do cluster.

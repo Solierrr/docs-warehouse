@@ -6,7 +6,7 @@
 
 O serviço lê e escreve no banco `assessor_inteligente`, por meio de `MONGO_URI` ou de sua alternativa `MONGODB_URI`. O código fixa o nome do banco. A URI não seleciona outro nome para essas operações.
 
-O checklist previa ausência de banco próprio, mas o checkpointer e o repositório de memória persistem dados diretamente. Este documento cobre o uso feito pelo serviço. A responsabilidade pelo banco compartilhado e a política dos fatos duráveis precisam de confirmação. <!-- PENDENTE: 3 -->
+O checklist previa a ausência de banco próprio, mas o checkpointer e o repositório de memória persistem dados diretamente, e este documento cobre esse uso. Cada agente é dono da própria coleção de memória, e os fatos duráveis ficam guardados até a exclusão da conta.
 
 ```mermaid
 classDiagram
@@ -35,7 +35,7 @@ As duas coleções de checkpoint são administradas por `MongoDBSaver`. `estado_
 
 O lifespan cria índice único em `user_id`. Não há TTL, versão de documento ou identificação do agente nessa coleção. O runner lê antes do turno e agenda a atualização depois da resposta. A extração mantém no máximo vinte linhas de fatos.
 
-O banco e a coleção também aparecem no contexto compartilhado dos agentes. Com a mesma URI, a chave somente por pessoa permite compartilhar e sobrescrever fatos entre grafos. A hipótese usada é de memória compartilhada, sem exclusividade deste serviço. <!-- PENDENTE: 3 -->
+O banco e a coleção ainda aparecem no contexto compartilhado dos agentes, e com a mesma URI a chave somente por pessoa permite que um grafo sobrescreva os fatos de outro. A regra definida é que cada agente tenha a sua coleção, e essa separação está pendente.
 
 ## Checkpoints
 
@@ -51,4 +51,4 @@ O grafo lê e grava checkpoints para retomar o contexto. O replay de debug lê u
 
 Conversas, mensagens e etapas enviadas ao `api-messenger` pertencem ao armazenamento daquele serviço. As constantes `conversations`, `messages`, `ai_logs`, `agent_executions`, `rag_documents` e `hallucination_reviews` existem no módulo de coleções, mas não têm leitura ou gravação ativa neste repositório. Não representam coleções geridas por este fluxo.
 
-Não há coleção Qdrant nem persistência ativa no Redis neste grafo. Backup e acesso administrativo devem seguir o responsável pelo banco compartilhado. <!-- PENDENTE: 3 -->
+Não há coleção Qdrant nem persistência ativa no Redis neste grafo, e o backup e o acesso administrativo seguem a operação do banco de agentes.

@@ -11,5 +11,5 @@ Leitura da main em 2026-10-31.
 - O `/chat` retorna a resposta inteira, sem streaming.
 - O vínculo entre thread e conversa de mensagens fica em memória do processo. Reinícios podem abrir outra conversa para a mesma thread.
 - O lock por thread também é local ao processo, sem coordenação distribuída.
-- A atualização de fatos ocorre em tarefa de fundo, sem fila durável. A política de isolamento e retenção precisa de confirmação. <!-- PENDENTE: 2 -->
-- O Dockerfile usa versão flutuante de Python. A implantação efetiva permanece por confirmar. <!-- PENDENTE: 1 -->
+- A atualização de fatos ocorre em tarefa de fundo, sem fila durável, e os fatos ficam guardados até a exclusão da conta. A separação da memória em uma coleção própria deste agente está pendente.
+- O Dockerfile usa uma versão flutuante de Python, diferente da versão fixa do CI.

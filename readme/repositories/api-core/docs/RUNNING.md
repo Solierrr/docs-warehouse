@@ -10,7 +10,7 @@ O preparo comum está em [JAVA.md](https://github.com/Solierrr/docs-warehouse/bl
 
 Use JDK 21 e PostgreSQL compatível com o schema. O job de schema do CI usa PostgreSQL 16. Para os alvos do Makefile, use `make`, shell compatível com `sh` e Infisical CLI autenticado.
 
-O banco vazio recebe as migrations Flyway durante a partida. Um banco que já contém o schema antigo exige procedimento de adoção do baseline, pois `baseline-on-migrate` está desativado. Não trate a nova sequência V1 a V3 como atualização automática de qualquer instalação existente. <!-- PENDENTE: 3 -->
+O banco vazio recebe as migrations Flyway durante a partida, mas um banco que já contém o schema antigo exige a adoção manual do baseline, porque o `baseline-on-migrate` está desativado. A sequência V1 a V3 não atualiza automaticamente uma instalação existente.
 
 Para chamadas JWT, o `api-auth` precisa publicar seu JWKS. Credenciais de Cloudinary são lidas por propriedades obrigatórias. Sem PostgreSQL acessível, o Flyway e a validação JPA impedem a partida. A indisponibilidade de Redis é tratada pelo cache de busca, sem impedir o acesso direto ao banco.
 
@@ -35,7 +35,7 @@ O `make vault` escreve o `.env` com as pastas `/database`, `/redis`, `/cloudinar
 | `DOCS_ENABLED`, `CORS_ALLOWED_ORIGINS` | documentação e origens do navegador |
 | `OTEL_EXPORTER_OTLP_ENDPOINT`, `SERVICE_VERSION`, `DEPLOYMENT_ENVIRONMENT` | observabilidade |
 
-O conjunto retornado pelo vault precisa incluir as propriedades obrigatórias do serviço, como `AUTH_SERVICE_URL`. As pastas declaradas no Makefile não comprovam quais variáveis foram preenchidas ou importadas em cada ambiente. <!-- PENDENTE: 5 -->
+O conjunto retornado pelo vault precisa incluir as propriedades obrigatórias do serviço, como `AUTH_SERVICE_URL`.
 
 ## Comandos
 
@@ -73,6 +73,6 @@ O `GET /actuator/health/liveness` verifica se o processo está no ar, o `GET /ac
 
 O endpoint de e-mail local usado como padrão pelo worker de convites difere da porta local do serviço de e-mail. Configure `API_EMAIL_URL` explicitamente. O worker ainda depende da chave legada para iniciar, mesmo quando a chave de serviço está presente. A tradução também mantém sua condição de credencial legada.
 
-O worker de validação profissional vem desligado por padrão. Sem habilitá-lo, uma submissão que ficou em estado de fila não é processada automaticamente por ele. A compatibilidade do contrato externo deve ser confirmada antes de habilitar esse caminho. <!-- PENDENTE: 4 -->
+O worker de validação profissional vem desligado por padrão, e sem habilitá-lo uma submissão em estado de fila não é processada automaticamente. A habilitação depende da rota profissional do serviço de validação.
 
 Sem coletor configurado, os exportadores de observabilidade podem registrar falhas no destino local padrão. Isso é separado da saúde do PostgreSQL e das operações de negócio.

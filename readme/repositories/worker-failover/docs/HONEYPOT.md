@@ -8,4 +8,4 @@ Os caminhos vêm do snapshot de `robots.txt` do aplicativo e ficam em `src/honey
 
 A inclusão depende de `CF_API_TOKEN`, `CF_ACCOUNT_ID` e `HONEYPOT_LIST_ID`, e sem eles a detecção continua respondendo localmente, mas não inclui o IP na lista. O IPv6 é reduzido a um prefixo de 64 bits, e as tentativas repetidas são deduplicadas por um minuto em cada instância.
 
-O cron `0 */16 * * *` roda às 00h e 16h UTC. A idade mínima de remoção é configurável e a limpeza só remove itens marcados pelo honeypot. Portanto a duração real ultrapassa o TTL até a próxima execução. A regra WAF que consome a lista é configuração externa. <!-- PENDENTE: 1 -->
+O cron `0 */16 * * *` roda às 00h e às 16h UTC, a idade mínima de remoção é configurável e a limpeza só remove itens marcados pelo honeypot, por isso a duração real ultrapassa o TTL até a próxima execução. A regra WAF que consome a lista é configurada fora deste repositório.

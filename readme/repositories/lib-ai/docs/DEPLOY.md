@@ -12,10 +12,10 @@ O [workflow](https://github.com/Solierrr/lib-ai/blob/main/.github/workflows/publ
 
 A validação instala dependências congeladas, roda Ruff e pytest e executa `uv build`. O job seguinte recebe `dist/` e publica com Trusted Publishing, ambiente `pypi` e permissão `id-token: write`.
 
-A distribuição declarada é `solaria-network`, versão `0.2.1`, com import `ai_lib`. A disponibilidade dessa versão no índice e a forma de adoção pelos consumidores precisam de confirmação. <!-- PENDENTE: 2 -->
+A distribuição é `solaria-network`, versão `0.2.1`, com import `ai_lib`, publicada no índice e consumida pelos agentes por faixa de versão.
 
 O [release-please](https://github.com/Solierrr/lib-ai/blob/main/release-please-config.json) usa release simples e atualiza a versão TOML como arquivo adicional. Publicar depende da main e da ausência da versão no índice, não apenas de uma tag. O processo comum está em [publicação de pacotes](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/PACKAGE_RELEASE.md).
 
 ## Adoção
 
-Publicar uma versão não altera os serviços fixados em um SHA do Git, e o checklist anterior apontava SHAs diferentes entre os agentes, informação que não foi tratada como o estado atual de todos os consumidores. Cada consumidor precisa atualizar e validar a sua dependência. <!-- PENDENTE: 2 -->
+Publicar uma versão não altera os serviços fixados numa faixa anterior, por isso cada consumidor atualiza e valida a sua dependência.

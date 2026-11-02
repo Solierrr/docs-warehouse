@@ -9,4 +9,4 @@
 - Onde aparece: `docs/OVERVIEW.md`, `docs/DEPLOY.md` e `docs/STATUS.md`.
 - O que o código mostra: recursos, migração de endereços e marcador declarativo, sem comprovar state aplicado, disponibilidade e política de recuperação.
 - Hipótese usada no texto: descrevem-se definições e efeitos dos scripts sem afirmar que o ambiente real coincide com a main.
-- Resposta do dono:
+- Resposta do dono: Respondido em 2026-11-01: "Tá tudo no ar". QA no Render e produção no cluster efêmero, que o dono desliga, com o `worker-failover` tratando esse período.

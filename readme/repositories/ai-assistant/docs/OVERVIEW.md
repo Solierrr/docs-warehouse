@@ -10,4 +10,4 @@ As recomendações partem dos dados e critérios de ranking disponíveis na plat
 
 A conversa pode ser retomada e fatos extraídos podem apoiar próximos atendimentos. Perguntas fora do escopo e pedidos de dados internos podem ser recusados. Falhas de ferramentas precisam ser informadas no resultado, sem inventar dados.
 
-A main do aplicativo web já contém cliente para este serviço, ao contrário do checklist antigo. A disponibilidade efetiva depende da configuração do ambiente. <!-- PENDENTE: 1 -->
+A main do aplicativo web já contém um cliente para este serviço, que está publicado no QA e na produção.

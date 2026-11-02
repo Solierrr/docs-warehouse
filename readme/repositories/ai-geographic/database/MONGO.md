@@ -17,4 +17,4 @@ classDiagram
 
 A coleção tem índice único em `user_id`, e as gravações usam upsert, substituindo a lista de fatos da pessoa a cada atualização, sem TTL declarado para essa coleção.
 
-O `MongoDBSaver` mantém `checkpoints_conversas` e `checkpoints_conversas_writes`. A estrutura serializada e os índices são administrados pela biblioteca `langgraph-checkpoint-mongodb`. O TTL é convertido de `CHECKPOINT_TTL_DIAS` para segundos, com padrão de trinta dias. A criação tenta conectar três vezes e falha se o Mongo continuar indisponível. A política de compartilhamento entre agentes precisa ser confirmada. <!-- PENDENTE: 2 -->
+O `MongoDBSaver` mantém `checkpoints_conversas` e `checkpoints_conversas_writes`, com a estrutura serializada e os índices administrados pela biblioteca `langgraph-checkpoint-mongodb`. O TTL é convertido de `CHECKPOINT_TTL_DIAS` para segundos, com padrão de trinta dias, e a criação tenta conectar três vezes antes de falhar. Cada agente é dono da própria coleção, sem compartilhar a memória com os demais, e a separação e a troca para nomes em inglês estão pendentes.

@@ -11,14 +11,14 @@ As dúvidas abaixo dependem de configuração ou decisão do responsável. As hi
 - Onde aparece: `docs/RUNNING.md`, `docs/DEPLOY.md` e `docs/STATUS.md`.
 - O que o código mostra: o endereço de QA existe no contrato, e há SMTP e Brevo disponíveis. O checklist registrava variáveis ausentes no Render. O Makefile deixa `VAULT_FOLDERS` vazio, e o entrypoint pode tentar usar um CLI ausente na imagem.
 - Hipótese usada no texto: o endereço é um destino declarado. A configuração compatível com a imagem atual recebe as variáveis pela plataforma, sem ativar o caminho do CLI ausente. Disponibilidade, transporte ativo e pastas autorizadas do ambiente precisam de confirmação.
-- Resposta do dono:
+- Resposta do dono: Respondido em 2026-11-01: "Tá tudo no ar". QA no Render e produção no cluster efêmero, que o dono desliga, com o `worker-failover` tratando esse período.
 
 ## 2. Qual é o estado da implantação já declarada em produção
 
 - Onde aparece: `docs/DEPLOY.md` e `docs/STATUS.md`.
 - O que o código mostra: há aplicação Argo CD, Service interno e Deployment com imagem `0.3.0` e Brevo, contrariando o levantamento antigo. Readiness usa `/health`, o manifesto não define `DOCS_ENABLED` e o workflow do serviço não tem job de produção.
 - Hipótese usada no texto: os manifestos representam a configuração declarada, sem comprovar operação. O serviço permanece destinado à produção conforme a decisão já registrada, e a prontidão e a exposição da documentação ainda precisam ser verificadas no ambiente.
-- Resposta do dono:
+- Resposta do dono: Respondido em 2026-11-01: "Tá tudo no ar". QA no Render e produção no cluster efêmero, que o dono desliga, com o `worker-failover` tratando esse período. Produção decidida em 2026-10-23 ("vai").
 
 ## 3. Quando os consumidores podem abandonar a chave legada
 

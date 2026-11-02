@@ -9,11 +9,11 @@
 - Onde aparece em `docs/RUNNING.md` e `docs/STATUS.md`.
 - O que o código mostra é que `make vault` lê `/service-urls`, mas chamadas reais exigem chaves dos provedores.
 - Hipótese usada no texto é que o consumidor fornece as chaves e carrega o ambiente. Confirmar o procedimento local esperado.
-- Resposta do dono fica em aberto.
+- Resposta do dono: Respondido em 2026-11-01: "Tá tudo no ar". QA no Render e produção no cluster efêmero, que o dono desliga, com o `worker-failover` tratando esse período.
 
 ## 2. Distribuição e adoção
 
 - Onde aparece em `docs/DEPLOY.md` e `docs/STATUS.md`.
 - O que o código mostra é `solaria-network` em `0.2.1`, publicado na main se a versão estiver ausente no índice. A documentação antiga usava outro nome e o checklist apontava SHAs diferentes nos consumidores.
 - Hipótese usada no texto é seguir a configuração atual sem afirmar publicação ou adoção uniforme. Confirmar versão disponível e modo de consumo esperado.
-- Resposta do dono fica em aberto.
+- Resposta do dono: Respondido em 2026-11-01: "Tá tudo no ar". QA no Render e produção no cluster efêmero, que o dono desliga, com o `worker-failover` tratando esse período.

@@ -8,4 +8,4 @@ O workflow declara QA em https://ai-accessibility.onrender.com e verificação d
 
 Os processos comuns estão em [QA_RENDER.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/QA_RENDER.md) e [PROD_GKE_ARGOCD.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/PROD_GKE_ARGOCD.md). Configure modelos, credenciais e origens CORS por ambiente.
 
-O carregamento padrão não aceita nenhum serviço chamador, pois `SERVICE_CALLERS` está vazio. O cliente web encontrado envia JWT, enquanto esta rota exige chave de serviço. A implantação de um caminho autorizado de upload precisa de definição. <!-- PENDENTE: 1 -->
+O carregamento padrão não aceita nenhum serviço chamador, pois `SERVICE_CALLERS` está vazio, e o cliente web encontrado envia JWT, enquanto esta rota exige chave de serviço. A evolução prevista troca a chamada direta por um processamento assíncrono das imagens de produto, recebidas por fila.

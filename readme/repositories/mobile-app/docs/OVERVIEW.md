@@ -31,6 +31,6 @@ O nome do projeto tem entre 3 e 160 caracteres e a descrição tem até 4000, e 
 
 A navegação reúne início, projetos, conversas, chamados, agenda, mapa, perfis, conexões e configurações. A existência da tela não comprova integração remota.
 
-A agenda, os locais salvos, os chamados e as notificações usam conteúdo de exemplo, sem recebimento de push integrado, e a busca de endereço só tem destino configurado no QA. O escopo dessas áreas ainda precisa ser confirmado para a distribuição. <!-- PENDENTE: 4 -->
+A agenda, os locais salvos, os chamados e as notificações usam conteúdo de exemplo, sem recebimento de push integrado, e a busca de endereço só tem destino configurado no QA. As áreas com conteúdo de exemplo ficam fora da versão distribuída.
 
 Login, projetos, perfis e conversas já possuem integrações remotas. A descrição antiga que colocava todo o aplicativo sem APIs não representa esta versão.

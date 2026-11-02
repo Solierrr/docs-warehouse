@@ -29,6 +29,6 @@ O [consumidor](https://github.com/Solierrr/api-auth/blob/main/src/main/kotlin/co
 | Consumidores do JWKS | Consulta pública para obter chave de validação |
 | Rotas `/internal/**` | Liberadas na configuração de segurança, sem filtro de chave de serviço nesta main |
 
-A autenticação interna precisa de decisão de implantação. <!-- PENDENTE: 2 --> Os dados estão em [POSTGRES.md](../database/POSTGRES.md) e [REDIS.md](../database/REDIS.md).
+As rotas internas devem exigir a `X-Service-Key` de cada chamador, sem depender só do gateway. Os dados estão em [POSTGRES.md](../database/POSTGRES.md) e [REDIS.md](../database/REDIS.md).
 
 As senhas usam BCrypt com custo 12, os access tokens duram quinze minutos por padrão e os refresh tokens aleatórios duram sete dias, guardados por hash e trocados a cada uso, com a sessão revogada quando um deles é reutilizado. O readiness considera o PostgreSQL e deixa de fora o Redis e o e-mail, o Actuator expõe health e info, e a telemetria usa OpenTelemetry.

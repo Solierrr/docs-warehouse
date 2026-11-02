@@ -4,7 +4,7 @@
 
 # Publicação
 
-O [workflow da galeria](https://github.com/Solierrr/docs-reports/blob/main/.github/workflows/gallery.yml) valida PRs e publica a main no GitHub Pages. O ambiente do deploy se chama `PREVIEW` e recebe a URL retornada pelo serviço. A URL efetiva precisa de confirmação. <!-- PENDENTE: 1 -->
+O [workflow da galeria](https://github.com/Solierrr/docs-reports/blob/main/.github/workflows/gallery.yml) valida as PRs e publica a main no GitHub Pages, com o ambiente de deploy `PREVIEW` recebendo a URL retornada pelo serviço.
 
 O build usa Node.js 24, instala as dependências com scripts de instalação desativados e publica `gallery/dist`. PRs não executam o job de publicação. A concorrência cancela execuções anteriores do mesmo grupo.
 

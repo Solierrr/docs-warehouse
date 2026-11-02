@@ -9,4 +9,4 @@
 - Onde aparece: `docs/OVERVIEW.md`, `docs/DEPLOY.md` e `docs/STATUS.md`.
 - O que o código mostra: documentos e traduções com avisos de revisão pendente, além de configuração de domínio público.
 - Hipótese usada no texto: o catálogo é descrito como conteúdo existente, sem afirmar vigência legal ou aprovação de traduções.
-- Resposta do dono:
+- Resposta do dono: Respondido em 2026-11-01: os textos legais ainda não foram aprovados, e isso não impede a documentação.

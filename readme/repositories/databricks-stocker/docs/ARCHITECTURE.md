@@ -53,7 +53,7 @@ O `source_mode` aceita apenas `manual`. A Bronze lê 25 abas, adapta os cabeçal
 
 A proteção padrão permite substituir tabelas Delta gerenciadas existentes, mas recusa views e objetos de outro formato. `allow_replace_existing` remove explicitamente essa barreira. O parâmetro falso não significa proibir toda substituição.
 
-As dez tabelas de fornecedor recebem row filter na própria criação. As outras nove não recebem essa política no escritor. O mapa de acesso começa vazio e exige provisionamento. Não há isolamento de usuário por simplesmente aplicar filtro visual no painel. <!-- PENDENTE: 4 -->
+As dez tabelas de fornecedor recebem row filter na própria criação, e as outras nove não recebem essa política no escritor. O mapa de acesso começa vazio e exige provisionamento, e um filtro visual no painel não isola os usuários.
 
 ## Execução local
 
@@ -63,6 +63,6 @@ A saída é substituída só após calcular todos os indicadores. Decimais viram
 
 ## Configuração e observabilidade
 
-O catálogo padrão do módulo é `workspace`, o job usa `analytics`, os painéis apontam para `workspace.gold` e o exportador atual exige `workspace.gold_core` com nomes diferentes. Não há adaptação automática entre esses contratos. <!-- PENDENTE: 1 -->
+O catálogo padrão do módulo é `workspace`, o job usa `analytics`, os painéis apontam para `workspace.gold` e o exportador atual ainda exige `workspace.gold_core` com outros nomes. O contrato deste repositório é a referência, e o exportador é que precisa se adaptar a ele.
 
 O processamento informa no terminal as contagens de rejeição e as linhas de cada tabela, sem rota de health nem serviço sempre ativo, e a main analisada é a `4b1ce020`, de 2026-10-31. As fontes principais são o [orquestrador](https://github.com/Solierrr/databricks-stocker/blob/main/pipelines/00_medallion/transformations/my_transformation.py), a [Silver](https://github.com/Solierrr/databricks-stocker/blob/main/pipelines/00_medallion/transformations/note_silver.py), o [executor local](https://github.com/Solierrr/databricks-stocker/blob/main/run_local.py) e o [job](https://github.com/Solierrr/databricks-stocker/blob/main/exports/medallion_export_job.json).

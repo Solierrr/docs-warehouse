@@ -40,7 +40,7 @@ As responsabilidades ficam separadas entre entrada, execução e acesso aos serv
 
 ## Integrações
 
-O código atual usa o `api-core` para dados operacionais. Os clientes MCP e Redis permanecem na infraestrutura, sem chamada no grafo ativo. O mapa central ainda descreve MCP como dependência da delegação. <!-- PENDENTE: 4 -->
+O código atual usa o `api-core` para os dados operacionais, e os clientes MCP e Redis permanecem na infraestrutura, sem chamada no grafo ativo, embora o mapa central ainda descreva o MCP como dependência da delegação.
 
 | Com quem | Direção | Protocolo | Autenticação |
 |---|---|---|---|

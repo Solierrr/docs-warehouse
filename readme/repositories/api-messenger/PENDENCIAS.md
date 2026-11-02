@@ -28,7 +28,7 @@ Dúvidas que o código não responde, ou em que o código diverge de uma decisã
 - Onde aparece: `docs/ARCHITECTURE.md`, integrações, `docs/API.md`, autenticação, e `docs/STATUS.md`.
 - O que o código mostra: `/internal/**` é `permitAll`, sem token nem `X-Service-Key`. O levantamento do checklist fala em rota interna com token de serviço.
 - Hipótese usada no texto: as rotas internas não têm autenticação de aplicação e dependem do Kong não publicar o prefixo `/internal`.
-- Resposta do dono:
+- Resposta do dono: Respondido em 2026-11-01: "OK, concordo plenamente". Toda rota interna exige a `X-Service-Key` de cada chamador, nenhuma depende só do gateway, e os caminhos legados saem quando os consumidores migrarem.
 
 ## 5. Aviso de mensagem nova para quem está desconectado
 

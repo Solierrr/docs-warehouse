@@ -23,6 +23,6 @@ flowchart TD
 
 ## Falhas e limites
 
-A ausência de uma aba ou coluna impede a leitura correspondente, e uma falha pode deixar atualizadas as tabelas processadas antes dela. O job declara uma única execução concorrente, e a conclusão da primeira task não comprova a compatibilidade com o manifesto do serviço de destino. <!-- PENDENTE: 1 -->
+A ausência de uma aba ou coluna impede a leitura correspondente, e uma falha pode deixar atualizadas as tabelas processadas antes dela. O job declara uma única execução concorrente, e a exportação só funciona depois que o exportador adotar o contrato deste repositório.
 
 Fonte em [implementação](https://github.com/Solierrr/databricks-stocker/blob/main/pipelines/00_medallion/transformations/my_transformation.py). O contexto integrado está em [cópia analítica](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/ANALYTICS_SYNC.md).

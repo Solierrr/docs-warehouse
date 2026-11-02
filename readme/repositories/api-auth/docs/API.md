@@ -24,4 +24,4 @@ Authorization: Bearer <access token>
 
 Os erros seguem [ERRORS.md](https://github.com/Solierrr/docs-warehouse/blob/main/docs/standards/ERRORS.md), e a recuperação de senha pode retornar `INVALID_OR_EXPIRED_TOKEN`, `PASSWORD_POLICY`, `EMAIL_NOT_CONFIGURED` e `EMAIL_UNAVAILABLE`. O contrato descreve os demais códigos, sem que seja preciso repetir aqui cada parâmetro.
 
-As rotas internas são liberadas pela configuração de segurança atual, o que difere do padrão entre serviços. <!-- PENDENTE: 2 -->
+As rotas internas são liberadas pela configuração de segurança atual, e o padrão definido exige a `X-Service-Key` de cada chamador nessas rotas, adequação que está pendente.

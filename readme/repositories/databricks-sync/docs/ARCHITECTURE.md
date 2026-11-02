@@ -35,7 +35,7 @@ flowchart LR
 
 ## Autenticação e concorrência
 
-O token fixo vem de `SYNC_API_TOKEN` e é comparado com `hmac.compare_digest`, sem ser um JWT de pessoa nem uma `X-Service-Key`. A ausência de configuração responde 503 e uma credencial inválida responde 401, e a adoção do padrão de chaves por chamador ainda depende de decisão. <!-- PENDENTE: 2 -->
+O token fixo vem de `SYNC_API_TOKEN` e é comparado com `hmac.compare_digest`, sem ser um JWT de pessoa nem uma `X-Service-Key`, e a ausência de configuração responde 503 enquanto uma credencial inválida responde 401. A adoção da `X-Service-Key` por chamador está pendente.
 
 O `JobManager` aceita uma execução por processo, compartilhada entre a Bronze e a Gold, guarda até 20 jobs e roda a Bronze assíncrona numa thread daemon. Reiniciar o processo perde o histórico e pode interromper uma execução, e várias réplicas não compartilham esse lock, enquanto a Gold acrescenta uma trava transacional no PostgreSQL entre os exportadores.
 
@@ -45,7 +45,7 @@ Bronze descobre tabelas `BASE TABLE` de `public`, consulta colunas e lê por cur
 
 Gold descreve todas as fontes antes de escrever, verifica tipos e coluna de escopo e usa staging temporário. As 19 substituições ocorrem em uma transação PostgreSQL. Leitura das fontes Databricks não é snapshot transacional entre tabelas. Não atualizar Gold durante a exportação.
 
-Os contratos estão em [DATABRICKS.md](../database/DATABRICKS.md) e [POSTGRES.md](../database/POSTGRES.md). A função de autorização precisa existir previamente no AnalyticsDB. O exportador aplica RLS forçado, mas o isolamento efetivo depende da função e dos principais provisionados. <!-- PENDENTE: 4 -->
+Os contratos estão em [DATABRICKS.md](../database/DATABRICKS.md) e [POSTGRES.md](../database/POSTGRES.md), e a função de autorização é provisionada antes no AnalyticsDB, de modo que o exportador aplica RLS forçado sobre a função e os principais já existentes.
 
 ## Saúde e versão
 

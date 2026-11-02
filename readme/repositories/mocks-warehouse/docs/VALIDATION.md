@@ -6,4 +6,4 @@
 
 O validador confere versão, IDs, categorias, caminhos reais, metadados, WebP, dimensões, tamanho e hash. Recusa duplicatas e arquivos sem entrada no manifesto. A área de recorte usa inteiros e precisa caber na imagem.
 
-O CI executa validação e testes. A integridade técnica não comprova origem e direitos de uso. <!-- PENDENTE: 1 -->
+O CI executa a validação e os testes da integridade técnica do catálogo.

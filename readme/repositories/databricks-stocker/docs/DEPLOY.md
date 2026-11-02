@@ -8,23 +8,23 @@ O repositório versiona os notebooks, o job, a segurança e os painéis, mas ess
 
 ## Preparação do job
 
-O job contém uma task de transformação e outra de exportação dependente da primeira, com uma execução concorrente. Os caminhos de workspace presentes no JSON são específicos de um ambiente e precisam ser substituídos por caminhos autorizados, sem reproduzir identificação pessoal na documentação. <!-- PENDENTE: 2 -->
+O job contém uma task de transformação e outra de exportação dependente da primeira, com uma execução concorrente, e os caminhos de workspace do JSON são específicos do ambiente instalado.
 
 O notebook exige parâmetros de catálogo, modo manual e caminhos das duas planilhas no volume. O leitor declara necessidade de runtime com suporte a Excel. Confirmar runtime e compute antes de instalar. O notebook só cria os schemas Silver e Gold, portanto catálogo, volume e origem Bronze precisam estar disponíveis.
 
-As tabelas antigas controladas por pipelines exigem cutover. Remover os arquivos antigos do Git não remove objetos no workspace. A proteção de substituição permite Delta gerenciada e recusa views ou formatos diferentes, salvo override explícito. <!-- PENDENTE: 2 -->
+As tabelas antigas controladas por pipelines exigem cutover, e remover os arquivos antigos do Git não remove os objetos do workspace. A proteção de substituição permite Delta gerenciada e recusa views ou formatos diferentes, salvo override explícito.
 
 ## Segurança e exportação
 
-Provisionar a função de filtro e o mapa de principais no catálogo correto. O SQL de segurança começa em `workspace`, com comentário para ajuste ao catálogo do job. Confirmar acessos de job, exportador e usuários finais antes da publicação. <!-- PENDENTE: 4 -->
+Provisione a função de filtro e o mapa de principais no catálogo do job, já que o SQL de segurança começa em `workspace`, com um comentário para esse ajuste.
 
 O notebook de exportação lê `endpoint-url` e `api-token` de um secret scope. Envia `POST /sync/gold` com Bearer e timeout de 1800 segundos e exige resposta com status completed. Ele não traduz nomes nem schemas.
 
-O produtor atual publica `gold` com nomes em inglês, enquanto o exportador exige `gold_core` e manifesto com nomes em português. A integração exige migração ou camada de compatibilidade, não só configurar o endpoint. <!-- PENDENTE: 1 -->
+O produtor publica `gold` com nomes em inglês, que é o contrato de referência, enquanto o exportador ainda exige `gold_core` e um manifesto com nomes em português. A adaptação do exportador está pendente.
 
 ## Painéis
 
-Há duas definições `.lvdash.json`, a de administração com 19 datasets e a de fornecedor com dez, e as fontes declaradas apontam para `workspace.gold`, enquanto o job declara `analytics`, por isso o catálogo e a publicação efetiva precisam ser confirmados depois do job. O README de origem ainda diz que não há painéis, apesar desses arquivos. <!-- PENDENTE: 2 -->
+Há duas definições `.lvdash.json`, a de administração com 19 datasets e a de fornecedor com dez, e as fontes declaradas apontam para `workspace.gold`, enquanto o job declara `analytics`. O README de origem ainda diz que não há painéis, apesar desses arquivos.
 
 Não foram instalados jobs, enviados arquivos ou executadas chamadas nesta revisão. O processo comum está em [cópia dos dados para análise](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/ANALYTICS_SYNC.md).
 

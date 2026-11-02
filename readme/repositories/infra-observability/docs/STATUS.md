@@ -10,4 +10,4 @@ Leitura da main em 2026-10-31.
 - Não há aplicação, configuração Grafana ou Dockerfile executável próprios.
 - O workflow de release Docker não corresponde a uma imagem implementada.
 - Deployment, volume, fontes e acesso estão no GitOps. Os painéis estão no coletor.
-- O papel definitivo e a política de consolidação precisam ser confirmados. <!-- PENDENTE: 1 -->
+- O repositório continua existindo como a base da configuração de visualização.

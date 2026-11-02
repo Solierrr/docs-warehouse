@@ -53,6 +53,6 @@ Não há `make openapi`, Swagger ou API própria.
 | 3 | Snapshot inseguro, contagem divergente ou posse perdida |
 | 64 | Configuração ausente ou inválida |
 
-Confirmar o schema de origem antes de qualquer execução. A rotina auxiliar de schema é externa ao carregamento normal e não deve ser tratada como correção automática de incompatibilidade. <!-- PENDENTE: 1 -->
+Confira se o extrator está alinhado ao schema atual do `api-core` antes de executar. A rotina auxiliar de schema é externa ao carregamento normal e não corrige automaticamente uma incompatibilidade.
 
 Fontes em [Makefile](https://github.com/Solierrr/database-bootstrap/blob/main/Makefile), [CI](https://github.com/Solierrr/database-bootstrap/blob/main/.github/workflows/ci.yml) e [configuração](https://github.com/Solierrr/database-bootstrap/blob/main/src/config.json).

@@ -8,9 +8,9 @@ O contrato versionado fica em [openapi.yaml](https://github.com/Solierrr/ai-vali
 
 ## Autenticação
 
-Os dois endpoints de validação exigem `Authorization` com Bearer JWT por padrão. `AUTH_REQUIRED` pode desativar essa verificação, portanto a exposição real depende do ambiente. O resumo do bootstrap que chama as rotas de públicas está desatualizado em relação às dependências dos routers. <!-- PENDENTE: 3 -->
+Os dois endpoints de validação exigem `Authorization` com Bearer JWT por padrão, e `AUTH_REQUIRED` pode desativar essa verificação. O resumo do bootstrap que chama as rotas de públicas está desatualizado em relação às dependências dos routers.
 
-O health e o readiness são públicos, enquanto o debug é separado, exige o JWT de um administrador configurado e não aparece no OpenAPI. Esta main ainda não tem uma rota profissional protegida por chave de serviço. <!-- PENDENTE: 1 -->
+O health e o readiness são públicos, enquanto o debug é separado, exige o JWT de um administrador configurado e não aparece no OpenAPI. A rota de validação profissional, chamada pelo `api-core`, deve exigir a `X-Service-Key` do chamador, e ainda não existe nesta main.
 
 ## Grupos
 

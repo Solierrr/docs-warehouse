@@ -6,4 +6,4 @@
 
 A infraestrutura base fornece o ambiente onde as aplicações funcionam. Ela reúne máquinas, rede, entrada pública, certificados e configuração por serviço.
 
-A equipe pode reduzir o número de máquinas quando o ambiente não precisa atender e retomá-lo depois. Essa operação afeta a disponibilidade das aplicações. O estado declarado no repositório não comprova que os recursos já foram aplicados ou estão saudáveis. <!-- PENDENTE: 1 -->
+A equipe reduz o número de máquinas quando o ambiente não precisa atender e o retoma depois, o que afeta a disponibilidade das aplicações. Enquanto o cluster está desligado, o `worker-failover` responde no lugar delas.

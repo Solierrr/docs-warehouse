@@ -24,7 +24,7 @@ Os testes ficam em `tests/`, separados por módulo. O CI usa Python 3.14, uv 0.1
 
 ## Configuração
 
-`make vault` lê `/service-urls` por padrão e não carrega automaticamente as chaves dos provedores no processo. O consumidor deve disponibilizar as credenciais no ambiente. Confirmar o procedimento local de obtenção delas. <!-- PENDENTE: 1 -->
+O `make vault` lê `/service-urls` por padrão e não carrega automaticamente as chaves dos provedores no processo, por isso o consumidor disponibiliza as credenciais no ambiente.
 
 | Nome | Uso |
 |---|---|

@@ -30,7 +30,7 @@ O `make vault` lê as pastas `/database` e `/databricks`, e a API carrega o `.en
 | `ANALYTICS_READER_ROLE` | Role leitora já existente, opcional |
 | `DOCS_ENABLED`, `CORS_ALLOWED_ORIGINS` | Documentação e origens do navegador |
 
-O lote Bronze padrão é 500 e deve ser positivo. Gold admite lotes de 1 a 10000. O catálogo e schema Gold devem coincidir com o manifesto, não apenas apontar para um objeto existente. <!-- PENDENTE: 1 -->
+O lote Bronze padrão é 500 e deve ser positivo, a Gold admite lotes de 1 a 10000 e o catálogo e o schema Gold precisam coincidir com o manifesto, e não apenas apontar para um objeto existente.
 
 ## Verificar
 

@@ -4,7 +4,7 @@
 
 # Aprovação profissional
 
-A pessoa envia documentos e uma versão de seu cadastro. A submissão guarda uma cópia do rascunho e da política da profissão. O perfil aprovado só é promovido depois de uma decisão válida. O processamento automático depende de configuração e contrato externo compatível. <!-- PENDENTE: 4 -->
+A pessoa envia os documentos e uma versão do seu cadastro, e a submissão guarda uma cópia do rascunho e da política da profissão. O perfil aprovado só é promovido depois de uma decisão válida, e o processamento automático depende da integração de validação.
 
 ```mermaid
 flowchart TD

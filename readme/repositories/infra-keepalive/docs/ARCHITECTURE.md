@@ -42,4 +42,4 @@ Não há banco próprio. Os destinos vêm do ambiente e são ordenados pelo nome
 
 ## Observabilidade e health
 
-O script imprime o nome e o endereço completo de cada destino e um total de respostas. Ele não expõe endpoint de health nem versão própria. A URL é usada exatamente como configurada, sem acrescentar `/health`. Portanto o caminho efetivamente consultado depende da configuração. <!-- PENDENTE: 2 --> Evite incluir credenciais ou dados sensíveis nos endereços, pois eles aparecem no log.
+O script imprime o nome e o endereço completo de cada destino e um total de respostas, sem expor endpoint de health nem versão própria. A URL é usada exatamente como configurada, sem acrescentar `/health`. Evite incluir credenciais ou dados sensíveis nos endereços, pois eles aparecem no log.

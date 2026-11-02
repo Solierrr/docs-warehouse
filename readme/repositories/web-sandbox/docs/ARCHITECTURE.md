@@ -19,4 +19,4 @@ A pasta `src/config/` mantém o catálogo e a configuração, a `src/features/` 
 
 O backend valida assinatura RS256, emissor, expiração e tipo access. O navegador não escolhe URLs arbitrárias. O proxy bloqueia redirecionamentos, referências OpenAPI externas e caminhos internos. O JWT passa entre abas por comunicação com validação de origem e identificação da aba.
 
-O portal não tem banco próprio, e as credenciais específicas são injetadas apenas no servidor, segundo o mapa de `upstreamHeaders`. A compatibilidade com os contratos atuais dos serviços ainda precisa ser confirmada. <!-- PENDENTE: 1 -->
+O portal não tem banco próprio, e as credenciais específicas são injetadas apenas no servidor, segundo o mapa de `upstreamHeaders`.

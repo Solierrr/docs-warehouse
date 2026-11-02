@@ -6,7 +6,7 @@
 
 Use Python 3.12, a versão do Dockerfile, `make` e Infisical CLI autenticado. O guia comum está em [PYTHON.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/running/PYTHON.md).
 
-Execute `make install`, `make vault` e `make dev`, lembrando que a exportação do cofre usa somente a pasta `/llm` e que o servidor inicia na porta 8080. A análise depende de uma credencial de visão e de um chamador autorizado, mas o mapa de chamadores da configuração padrão está vazio nesta main. <!-- PENDENTE: 1 -->
+Execute `make install`, `make vault` e `make dev`, lembrando que a exportação do cofre usa somente a pasta `/llm` e que o servidor inicia na porta 8080. A análise depende de uma credencial de visão e de um chamador autorizado, e o mapa de chamadores da configuração padrão está vazio nesta main.
 
 | Comando | Efeito |
 |---|---|

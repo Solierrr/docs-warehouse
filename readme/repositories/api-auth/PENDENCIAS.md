@@ -16,7 +16,7 @@
 - Onde aparece: `docs/ARCHITECTURE.md`, `docs/API.md` e `docs/STATUS.md`.
 - O que o código mostra: `SecurityConfig` permite `/internal/**`, diferentemente do padrão que exige chave por chamador.
 - Hipótese usada no texto: a documentação descreve a main e não pressupõe proteção externa de rede.
-- Resposta do dono:
+- Resposta do dono: Respondido em 2026-11-01: "OK, concordo plenamente". Toda rota interna exige a `X-Service-Key` de cada chamador, nenhuma depende só do gateway, e os caminhos legados saem quando os consumidores migrarem.
 
 ## 3. Transporte de e-mail implantado
 

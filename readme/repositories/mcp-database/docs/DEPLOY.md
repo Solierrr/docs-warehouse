@@ -8,4 +8,4 @@ O workflow declara QA em https://api-mcp-wey6.onrender.com e verificação de cl
 
 A proteção de transporte aceita hosts locais e o host de QA declarados no código. Um novo host interno ou público precisa ser compatível com essa lista. O script de Render depende do executável Infisical disponível no caminho esperado.
 
-Os nomes de secrets, as variáveis e os privilégios de banco precisam ser conferidos com a infraestrutura antes de afirmar que a implantação funciona. <!-- PENDENTE: 1 -->
+O serviço está em operação no cluster de produção, com os Secrets, as variáveis e os privilégios de banco fornecidos pela infraestrutura.

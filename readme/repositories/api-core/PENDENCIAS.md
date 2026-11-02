@@ -25,21 +25,21 @@ As decisões de produto já registradas foram mantidas. As dúvidas abaixo trata
 - Onde aparece: `docs/ARCHITECTURE.md`, `docs/RUNNING.md`, `docs/DEPLOY.md`, `docs/STATUS.md` e `database/POSTGRES.md`.
 - O que o código mostra: Flyway tem baseline V1, views V2 e referências V3, com adoção automática de baseline desligada. Nomes como `user_account` e `company_plan` diferem do schema esperado por consumidores anteriores. Textos centrais ainda atribuem o DDL ao repositório de administração de bancos.
 - Hipótese usada no texto: a main é dona do DDL atual, mas bancos não vazios e consumidores antigos precisam de procedimento coordenado. A documentação não presume uma atualização automática nem compatibilidade com SQL antigo.
-- Resposta do dono:
+- Resposta do dono: Respondido em 2026-11-01: "OK". O contrato Gold de referência é o do `databricks-stocker`, o bootstrap e as consultas acompanham o schema atual do `api-core`, e o backup é diário. As demais hipóteses do texto ficam como estado documentado.
 
 ## 4. Qual contrato de validação profissional está habilitado e compatível
 
 - Onde aparece: `docs/OVERVIEW.md`, `docs/ARCHITECTURE.md`, `docs/RUNNING.md`, `docs/STATUS.md` e `flows/PROFESSIONAL_VALIDATION.md`.
 - O que o código mostra: o worker vem desativado, espera validação em `/api/v1/professionals/validate` e confere submissão, revisão, política, critérios e evidências. O checklist registra incompatibilidade anterior com a main do serviço externo.
 - Hipótese usada no texto: a revisão manual existe e a validação automática é um caminho opcional que depende da conferência do contrato externo e da configuração. Não foi presumido que toda submissão de imagem seja processada hoje.
-- Resposta do dono:
+- Resposta do dono: Respondido em 2026-11-01: "OK, concordo plenamente". Toda rota interna exige a `X-Service-Key` de cada chamador, nenhuma depende só do gateway, e os caminhos legados saem quando os consumidores migrarem. O profissional só aparece depois da aprovação (resposta de 2026-10-23).
 
 ## 5. Quais revisões e integrações estão efetivamente configuradas em QA e produção
 
 - Onde aparece: `docs/RUNNING.md`, `docs/DEPLOY.md` e `docs/STATUS.md`.
 - O que o código mostra: há destinos de QA e produção, Secret no Deployment, imagem `latest` e sondas TCP. O workflow verifica readiness no QA e existência de cluster em produção. O levantamento antigo registrava variáveis ausentes e branches divergentes, sem comprovação atual desses valores.
 - Hipótese usada no texto: os ambientes são declarados, e a disponibilidade e a configuração de cada integração permanecem sem confirmação operacional. Não foram consultados segredos nem repetidos números antigos de divergência.
-- Resposta do dono:
+- Resposta do dono: Respondido em 2026-11-01: "Tá tudo no ar". QA no Render e produção no cluster efêmero, que o dono desliga, com o `worker-failover` tratando esse período.
 
 ## 6. Qual etapa conclui a revisão do login provisório e das credenciais legadas
 

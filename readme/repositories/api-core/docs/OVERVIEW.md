@@ -39,7 +39,7 @@ Serviços técnicos começam abertos, passam a andamento no aceite e podem ser c
 
 O profissional só aparece no catálogo de clientes depois de aprovado. O cadastro permite rascunho, envio de documentos, acompanhamento da análise e revisão administrativa. Uma nova submissão registra uma cópia da versão enviada, sem substituir imediatamente o perfil aprovado.
 
-A política da profissão define documentos e critérios exigidos. Documentos fora do caminho automático e políticas não configuradas seguem para revisão manual. O processamento automático depende da ativação e compatibilidade da integração de validação. <!-- PENDENTE: 4 -->
+A política da profissão define os documentos e os critérios exigidos, e os documentos fora do caminho automático e as políticas não configuradas seguem para revisão manual. O processamento automático depende da ativação da integração de validação.
 
 ## Transações e catálogos
 

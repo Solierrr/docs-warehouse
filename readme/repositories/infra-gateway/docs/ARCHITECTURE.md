@@ -19,4 +19,4 @@ flowchart LR
 
 O plugin de correlação gera o `X-Request-Id`, o CORS libera as origens enumeradas sem credenciais e as rotas removem o prefixo do serviço. O `api-messenger` tem timeout de leitura e escrita de cinco minutos para a comunicação persistente, e o gateway não tem banco próprio.
 
-A configuração Helm habilita o controlador de Ingress. A estrutura dos valores e sua compatibilidade com o chart consumido precisam de confirmação. <!-- PENDENTE: 1 -->
+A configuração Helm habilita o controlador de Ingress, e os valores são consumidos pelo chart instalado pelo `infra-platform`.

@@ -8,4 +8,4 @@ O coletor recebe sinais dos serviços e os encaminha para a equipe observar erro
 
 Rastros com erro ou lentidão têm tratamento de amostragem diferente dos demais. A remoção de atributos reduz exposição de cabeçalhos e volume de séries, mas não substitui o cuidado de cada aplicação ao registrar conteúdo.
 
-A disponibilidade da coleta depende de aplicações configuradas para enviar e do destino de observabilidade ativo. <!-- PENDENTE: 1 -->
+A coleta recebe os sinais das aplicações configuradas para enviar e os entrega ao destino de observabilidade.

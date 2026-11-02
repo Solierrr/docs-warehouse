@@ -18,7 +18,7 @@ As rotas `/v1/address` e `/v1/geo` exigem `Authorization: Bearer <token>` com o 
 | Energia solar | Dados solares do telhado mais próximo. |
 | Saúde | Estado do processo e prontidão. |
 
-As rotas antigas `/v1/i18n/translate` e `/v1/solar/roof-viability` permanecem abertas e fora do contrato. <!-- PENDENTE: 1 -->
+As rotas antigas `/v1/i18n/translate` e `/v1/solar/roof-viability` permanecem abertas e fora do contrato, e saem depois que os chamadores migrarem para as rotas `/internal` com a `X-Service-Key`.
 
 ## Erros
 

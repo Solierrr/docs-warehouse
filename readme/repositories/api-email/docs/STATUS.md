@@ -13,14 +13,14 @@ Os itens abaixo refletem a main analisada em 2026-10-30. Configurações declara
 - Transportes SMTP e Brevo, seleção por configuração e verificação de prontidão. O levantamento anterior citava somente SMTP e provedor ainda não escolhido (2026-10-30).
 - Swagger, OpenAPI exportado e conferido no CI, erros padronizados, liveness e readiness (2026-10-30).
 - Mailpit no compose, coleção Bruno, exemplos dos modelos e testes com transportes substituídos por mocks (2026-10-30).
-- Manifestos de Service, Deployment e aplicação Argo CD já existem, contrariando a ausência registrada no checklist (2026-10-30). <!-- PENDENTE: 2 -->
+- Os manifestos de Service, Deployment e aplicação do Argo CD estão em uso na produção (2026-10-30).
 
 ## Integrações e ambientes
 
 - O worker de convites do `api-core` chama o serviço e mantém suas próprias tentativas duráveis. Isso não significa que o `api-email` tenha retry (2026-10-30).
 - O `api-auth` já tem cliente de envio, embora o fluxo central ainda descreva SMTP próprio. O cliente usa o cabeçalho legado, e sua habilitação depende de configuração (2026-10-30).
-- O estado do QA, o transporte ativo e a forma de obter as variáveis não foram confirmados. O Makefile deixa `VAULT_FOLDERS` vazio, e a imagem não instala o CLI usado pelo caminho opcional do entrypoint (2026-10-30). <!-- PENDENTE: 1 -->
-- Produção tem imagem versionada e transporte Brevo declarados. O manifesto usa `/health` para readiness, não desliga explicitamente o Swagger e o workflow de ambiente só verifica QA (2026-10-30). <!-- PENDENTE: 2 -->
+- O QA recebe as variáveis injetadas pelo Render, já que o Makefile deixa `VAULT_FOLDERS` vazio e a imagem não instala o CLI usado pelo caminho opcional do entrypoint (2026-10-30).
+- A produção usa imagem versionada e o transporte Brevo, e o manifesto usa `/health` para readiness, não desliga explicitamente o Swagger e tem o workflow de ambiente verificando só o QA (2026-10-30).
 - A chave legada ainda pode identificar o cliente de autenticação como `api-core`. O worker de convites também mantém dependência de configuração legada para iniciar. A retirada exige coordenação entre consumidores (2026-10-30).
 
 ## Limitações

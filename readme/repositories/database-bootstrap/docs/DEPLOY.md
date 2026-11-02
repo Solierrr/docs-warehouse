@@ -20,6 +20,6 @@ Os manifestos consultados no repositório de infraestrutura, revisão `2f053a24`
 
 Forbid vale para o CronJob, sem substituir o lock entre execução inicial e periódica. A carga mantém a ativa e a anterior, portanto precisa de espaço para staging e versões durante a atualização.
 
-O workflow de release dispara publicação da imagem em push na main. O Secret, o acesso efetivo aos bancos e a leitura do ponteiro ativo pelo consumidor precisam de confirmação no ambiente. Não foi executado job nesta revisão. <!-- PENDENTE: 3 -->
+O workflow de release publica a imagem a cada push na main, e o Job roda no cluster de produção com o Secret de acesso aos bancos.
 
 Fontes em [Dockerfile](https://github.com/Solierrr/database-bootstrap/blob/main/Dockerfile), [publicação](https://github.com/Solierrr/database-bootstrap/blob/main/.github/workflows/release.yml), [Job](https://github.com/Solierrr/infra-gitops/blob/main/services/feeddb/bootstrap-job.yaml) e [CronJob](https://github.com/Solierrr/infra-gitops/blob/main/services/feeddb/bootstrap-cronjob.yaml).

@@ -9,7 +9,7 @@
 - Onde aparece em `docs/ARCHITECTURE.md, docs/DEPLOY.md, docs/STATUS.md e database/SQLITE.md`.
 - O que o código mostra é que há cinco tabelas Room, versão 3, sem migração no módulo e com fallback destrutivo. A fila contém mensagens não enviadas e não há TTL de histórico nesse caminho.
 - Hipótese usada no texto é documentar o banco próprio, contrariando a hipótese inicial. Confirmar preservação da fila, retenção e limite de armazenamento.
-- Resposta do dono:
+- Resposta do dono: Respondido em 2026-11-01: "Sim", a fila precisa sobreviver às atualizações do app.
 
 
 ## 2. Destinos por variante
@@ -33,7 +33,7 @@
 - Onde aparece em `docs/OVERVIEW.md e docs/STATUS.md`.
 - O que o código mostra é que agenda, locais salvos, chamados e notificações usam exemplos. Firebase Installations não acrescenta push e há atalhos com ids fixos.
 - Hipótese usada no texto é limitar capacidades conectadas às comprovadas. Confirmar escopo dessas telas para distribuição.
-- Resposta do dono:
+- Resposta do dono: Respondido em 2026-11-01: "Acho que sim", as áreas de exemplo saem da versão distribuída. O dono valida de novo depois de subir todo o mobile.
 
 
 ## 5. Garantia de reenvio

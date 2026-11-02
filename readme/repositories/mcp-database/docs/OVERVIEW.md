@@ -8,4 +8,4 @@ Os assistentes podem consultar profissões, técnicos credenciados e itens de fi
 
 As recomendações mantêm a ordenação produzida pelo motor de feeds. Os assistentes devem explicar os resultados sem inventar itens ou reordenar as posições. Quando o motor usa uma amostra alternativa, a origem e os avisos acompanham a resposta.
 
-As consultas diretas têm finalidade de leitura. A compatibilidade dos dados e dos acessos com os contratos atuais precisa de confirmação. <!-- PENDENTE: 1 -->
+As consultas diretas têm finalidade apenas de leitura.

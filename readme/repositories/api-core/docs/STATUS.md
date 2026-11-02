@@ -24,10 +24,10 @@ O levantamento usa a main em 2026-10-30. Implementação disponível no código 
 
 ## Integrações e operação pendentes de confirmação
 
-- Bancos já existentes e consumidores do schema anterior precisam acompanhar a nova sequência Flyway. Os nomes de tabela e colunas mudaram, e a adoção automática de baseline está desativada (2026-10-30). <!-- PENDENTE: 3 -->
-- A validação profissional automática vem desativada por padrão. O worker exige contrato externo específico, credencial legada e chave de serviço quando configurada. A compatibilidade deve ser confirmada antes de habilitá-lo. Itens de fila não são processados por esse worker enquanto ele estiver desligado (2026-10-30). <!-- PENDENTE: 4 -->
-- O checklist registrava integrações sem variáveis em produção e divergência entre QA e main. O estado atual dos secrets e a revisão implantada não foram consultados. Os números antigos de divergência não foram reutilizados como estado atual (2026-10-30). <!-- PENDENTE: 5 -->
-- O manifesto de produção consultado usa `latest` e sondas TCP. O job de ambiente confirma o cluster, sem comprovar health HTTP do serviço (2026-10-30). <!-- PENDENTE: 5 -->
+- Os bancos já existentes e os consumidores do schema anterior acompanham a nova sequência Flyway, com nomes de tabela e coluna novos e a adoção automática de baseline desativada (2026-10-30).
+- A validação profissional automática vem desativada por padrão, e o worker exige o contrato externo, a credencial legada e a chave de serviço quando configurada. Enquanto ele estiver desligado, os itens de fila não são processados (2026-10-30).
+- O QA e a produção estão publicados com as variáveis de cada ambiente (2026-10-30).
+- O manifesto de produção usa `latest` e sondas TCP, e o job de ambiente confirma o cluster sem verificar o health HTTP do serviço (2026-10-30).
 - `/dev/login` continua público e sem perfil específico, até a oficialização dos atalhos de autenticação. Clientes de e-mail e tradução ainda dependem de credenciais legadas para iniciar ou executar. Elegibilidade mobile interna exige um Bearer adicional à chave de serviço (2026-10-30).
 
 ## Limitações técnicas

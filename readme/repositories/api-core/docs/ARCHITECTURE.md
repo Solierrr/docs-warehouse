@@ -70,7 +70,7 @@ Os aplicativos e agentes usam o JWT da pessoa nas rotas de negócio. Os consumid
 
 ## Dados e transações
 
-O [PostgreSQL](../database/POSTGRES.md) é a fonte de negócio. Flyway aplica V1 a V3 na partida e Hibernate valida as entidades. V1 inclui 68 tabelas, constraints, índices, triggers e a procedure de cobrança. V2 cria views de exportação com seleção de campos. V3 inclui permissões, cargo administrativo e plano de referência. A migração de bancos já existentes e de consumidores do schema anterior precisa ser coordenada. <!-- PENDENTE: 3 -->
+O [PostgreSQL](../database/POSTGRES.md) é a fonte de negócio, com o Flyway aplicando V1 a V3 na partida e o Hibernate validando as entidades. A V1 inclui 68 tabelas, constraints, índices, triggers e a procedure de cobrança, a V2 cria as views de exportação com seleção de campos e a V3 inclui permissões, cargo administrativo e plano de referência. Os consumidores do schema anterior acompanham esta versão.
 
 O aceite de proposta bloqueia a proposta e o estoque, reserva quantidades e grava `ACCEPTED` na mesma transação. O projeto e o serviço são criados por outras operações. Não há vínculo de proposta no schema do projeto que represente conversão automática.
 
@@ -82,7 +82,7 @@ O [Redis](../database/REDIS.md) guarda somente buscas elegíveis de fornecedores
 
 Traduções usam `offer_translation_job`, com versão da origem, lease e token de posse. O worker chama o tradutor fora da transação de claim e confere a versão antes de concluir. Falhas recebem backoff e limite de tentativas.
 
-O onboarding profissional guarda rascunho, snapshot, política e evidências. A aprovação promove a versão e atualiza o técnico. A validação automática vem desativada por padrão, e sua compatibilidade com o serviço externo precisa ser verificada. <!-- PENDENTE: 4 -->
+O onboarding profissional guarda rascunho, snapshot, política e evidências, e a aprovação promove a versão e atualiza o técnico. A validação automática vem desativada por padrão e depende da rota profissional do serviço de validação, ainda por implementar.
 
 Os arquivos não ficam num único armazenamento. As fotos públicas de cadastros e as faturas vão para o Cloudinary, as fotos de projeto ficam em `project_photo.content` e os documentos profissionais começam no PostgreSQL, podendo ser arquivados no Cloudinary autenticado depois de validados, com conferência de SHA-256 na leitura, como detalha o [fluxo de arquivos](../flows/MEDIA_UPLOAD.md).
 

@@ -10,7 +10,7 @@ O contrato fica no [`openapi.yaml`](https://github.com/Solierrr/api-messenger/bl
 
 - As rotas `/messaging/**` exigem o JWT de acesso do `api-auth` em `Authorization: Bearer`, com conta ativa. A conta é consultada no `api-auth` a cada requisição.
 - As rotas `/messaging/admin/**` exigem também que o `sub` do JWT esteja em `DEBUG_ADMIN_SUBS`.
-- As rotas `/internal/**` não têm autenticação de aplicação. O Kong não roteia esse prefixo, e só os serviços da rede interna chegam nelas. <!-- PENDENTE: 4 -->
+- As rotas `/internal/**` ainda não têm autenticação de aplicação e hoje dependem de o Kong não rotear esse prefixo. O padrão definido exige a `X-Service-Key` de cada chamador nessas rotas, adequação que está pendente.
 - O WebSocket autentica no CONNECT STOMP, com o mesmo JWT.
 
 ## Grupos de rotas

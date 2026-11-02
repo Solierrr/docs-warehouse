@@ -58,7 +58,7 @@ Os dois adaptadores executam as mesmas regras. Mandar mensagem por `POST /messag
 |---|---|---|---|
 | `web-app`, `mobile-app` | chamam este serviço | HTTP REST e WebSocket STOMP | JWT do `api-auth` |
 | `web-sandbox` | chama o histórico administrativo | HTTP REST em `/messaging/admin/**` | JWT de um usuário listado em `DEBUG_ADMIN_SUBS` |
-| `ai-assistant`, `ai-operational`, `ai-geographic` | chamam este serviço | HTTP REST em `/internal/**` | nenhuma de aplicação. O Kong não roteia esse prefixo <!-- PENDENTE: 4 --> |
+| `ai-assistant`, `ai-operational`, `ai-geographic` | chamam este serviço | HTTP REST em `/internal/**` | hoje nenhuma de aplicação, com a `X-Service-Key` por chamador pendente |
 | `api-auth` | este serviço chama | JWKS em `/.well-known/jwks.json` e `GET /internal/users/{authId}/activity` | nenhuma |
 | `api-core` | este serviço chama | `GET /internal/technical-projects/{projectId}/requester-access/{authId}` | `X-Service-Key` (`SERVICE_KEY_API_MESSENGER`) |
 | `api-notify` | este serviço chama | `POST /internal/notifications` | `X-Service-Key` (`SERVICE_KEY_API_MESSENGER`) |

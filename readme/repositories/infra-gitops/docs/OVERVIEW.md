@@ -8,4 +8,4 @@ O repositório reúne a configuração dos componentes que atendem a plataforma 
 
 Uma alteração aprovada pode iniciar uma atualização automática do ambiente, e os recursos removidos da configuração podem ser removidos do cluster, enquanto as alterações feitas diretamente no ambiente podem ser desfeitas pela sincronização.
 
-A existência de um componente nos arquivos não comprova que ele está saudável ou disponível no ambiente atual. <!-- PENDENTE: 1 -->
+O cluster de produção é efêmero e pode ser desligado, e enquanto ele está fora o `worker-failover` responde no lugar das aplicações.

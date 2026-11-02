@@ -6,4 +6,4 @@
 
 O acervo atende ao desenvolvimento de telas e à preparação de dados, com imagens de pessoas, empresas, unidades, placas e infraestrutura, e as categorias, descrições e palavras-chave orientam a escolha.
 
-Os consumidores mantêm os identificadores estáveis, e a escolha das imagens por entidade pertence ao plano de carga. A origem e as permissões de uso precisam ser documentadas quando forem conhecidas, porque o nome original do arquivo não comprova autorização. <!-- PENDENTE: 1 -->
+Os consumidores mantêm os identificadores estáveis, e a escolha das imagens por entidade pertence ao plano de carga. O acervo tem autorização de uso.

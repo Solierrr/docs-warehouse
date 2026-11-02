@@ -10,4 +10,4 @@ A navegação respeita o contexto da conta, e algumas telas exigem empresa, tipo
 
 A pessoa pode conversar com assistentes, enviar documentos profissionais para revisão e ativar avisos no navegador. As imagens podem passar por análise antes do uso. Os dados locais de desenvolvimento são desativados na compilação de produção.
 
-A disponibilidade e o conjunto final de telas expostas em cada ambiente precisam de confirmação. <!-- PENDENTE: 1 -->
+O web está publicado no QA e na produção.

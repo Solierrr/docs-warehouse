@@ -10,7 +10,7 @@ O serviço é dono do DDL do `coredb` na main analisada. Flyway aplica as migrat
 
 [V1__baseline.sql](https://github.com/Solierrr/api-core/blob/main/src/main/resources/db/migration/V1__baseline.sql) contém 68 tabelas, chaves, índices, triggers e a procedure de cobrança. [V2__export_views.sql](https://github.com/Solierrr/api-core/blob/main/src/main/resources/db/migration/V2__export_views.sql) cria as views de exportação. [V3__reference_data.sql](https://github.com/Solierrr/api-core/blob/main/src/main/resources/db/migration/V3__reference_data.sql) adiciona permissões, cargo administrativo e plano de referência.
 
-O baseline tem nomes como `user_account`, `job_position` e `company_plan`, diferentes dos nomes usados por consumidores do schema anterior. A aplicação desativa baseline automático para banco não vazio. A adoção em ambientes existentes e a atualização dos consumidores precisam de coordenação. <!-- PENDENTE: 3 -->
+O baseline tem nomes como `user_account`, `job_position` e `company_plan`, diferentes dos usados pelos consumidores do schema anterior, e a aplicação desativa o baseline automático para banco não vazio. Os consumidores, como a carga de dados e o grafo, acompanham o schema atual do `api-core`.
 
 Todas as tabelas do baseline têm chave primária `id` em UUID e campos de criação e atualização. A metadata `flyway_schema_history` é administrada pelo Flyway e não é uma entidade de negócio. Os diagramas abaixo mostram recortes das relações. O DDL vinculado é a referência para todos os campos e ações de foreign key.
 
@@ -272,6 +272,6 @@ Os índices abaixo vêm diretamente do DDL do baseline. Predicados indicam índi
 
 A aplicação escreve por serviços e repositories JPA. `api-auth` solicita provisionamento por HTTP e não é escritor direto do domínio neste contrato. O serviço de conversas consulta participação por rotas internas. Agentes operacionais usam as rotas com o JWT da pessoa.
 
-As views do schema `export` são o contrato SQL de leitura para consumidores em lote. Elas selecionam campos e excluem, em várias entidades, dados como documentos pessoais, conteúdo de arquivos e contatos. Essa seleção não deve ser interpretada como anonimização de todas as views. Permissões de leitura e escopo de cada consumidor precisam acompanhar a adoção do schema atual. <!-- PENDENTE: 3 -->
+As views do schema `export` são o contrato SQL de leitura para os consumidores em lote, e elas selecionam campos e excluem, em várias entidades, dados como documentos pessoais, conteúdo de arquivos e contatos. Essa seleção não equivale à anonimização de todas as views, e as permissões de leitura acompanham o escopo de cada consumidor.
 
 O fluxo de análise está em [ANALYTICS_SYNC.md](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/ANALYTICS_SYNC.md). Os nomes e as relações atuais devem ser usados ao atualizar rotinas de importação ou análise que ainda esperam o schema anterior. Backup e administração operacional do banco continuam ligados ao ambiente, descritos em [DEPLOY.md](../docs/DEPLOY.md).

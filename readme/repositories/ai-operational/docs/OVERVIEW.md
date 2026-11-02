@@ -32,7 +32,7 @@ O assistente não compra, paga, transfere valores, exclui contas ou empresas, ne
 
 ## Onde a pessoa encontra
 
-O assistente principal delega os pedidos operacionais. O portal de QA permite testar a conversa e, para administradores autorizados, inspecionar as etapas. A presença desse fluxo na interface final e os textos dos guias ainda precisam da confirmação do responsável. <!-- PENDENTE: 5 -->
+O assistente principal delega os pedidos operacionais, e o portal de QA permite testar a conversa e, para administradores autorizados, inspecionar as etapas.
 
 ## Relação com a plataforma
 

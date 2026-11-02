@@ -8,4 +8,4 @@ O Worker publica o portal no domínio próprio `docs.solarianetwork.site`, serve
 
 A publicação é feita pelo workflow manual `Deploy`, que gera o build e executa `npm run deploy` com os segredos `CLOUDFLARE_API_TOKEN` e `CLOUDFLARE_ACCOUNT_ID` do repositório, criados pelo Terraform no `infra-platform`. Enquanto a integração da Cloudflare com o GitHub estiver ligada no painel, ela também publica a cada mudança, por isso o caminho único depende de desligá-la. O procedimento comum aos Workers está em [CLOUDFLARE_WORKER.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/CLOUDFLARE_WORKER.md).
 
-A configuração versionada não comprova que o domínio está no ar nem que os textos publicados foram aprovados. <!-- PENDENTE: 1 -->
+O domínio está no ar, e os textos publicados ainda estão em revisão editorial e legal.

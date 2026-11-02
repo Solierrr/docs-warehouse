@@ -15,8 +15,8 @@ A rotina procura manter acessíveis os serviços de QA usados para validar a pla
 
 ## Regras e limites
 
-- A lista é definida pela configuração de QA e pode mudar sem alteração no script. A presença dos serviços de e-mail e de notificações depende dessa configuração. <!-- PENDENTE: 1 -->
-- Uma resposta aceita pela consulta conta como sucesso. O resultado não verifica se todas as funções de um serviço estão prontas para uso. <!-- PENDENTE: 2 -->
+- A lista é definida pela configuração de QA e pode mudar sem alteração no script.
+- Uma resposta aceita pela consulta conta como sucesso, sem verificar se todas as funções de um serviço estão prontas.
 - O histórico da execução registra o resultado por serviço. A rotina não oferece tela própria nem mantém banco de dados.
 
 Os serviços consultados fazem parte do ambiente de QA. A publicação desses serviços no Render é descrita no [processo de QA](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/QA_RENDER.md).

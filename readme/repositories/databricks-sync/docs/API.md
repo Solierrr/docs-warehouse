@@ -8,7 +8,7 @@ O contrato está em [openapi.yaml](https://github.com/Solierrr/databricks-sync/b
 
 ## Autenticação
 
-As chamadas usam Bearer com o token fixo `SYNC_API_TOKEN`, e o esquema chamado `bearerAuth` no contrato não representa o JWT de uma pessoa. O health e o readiness são públicos, e nenhuma rota aceita chave por chamador nesta main. <!-- PENDENTE: 2 -->
+As chamadas usam Bearer com o token fixo `SYNC_API_TOKEN`, e o esquema chamado `bearerAuth` no contrato não representa o JWT de uma pessoa. O health e o readiness são públicos, e a troca do token fixo pela `X-Service-Key` de cada chamador, padrão definido para chamadas entre serviços, está pendente.
 
 ## Operações
 

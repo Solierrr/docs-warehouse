@@ -9,11 +9,11 @@
 - Onde aparece: `docs/ARCHITECTURE.md` e `docs/STATUS.md`.
 - O que o código mostra: caminhos de OpenAPI e cabeçalhos específicos que diferem dos padrões atuais de alguns serviços.
 - Hipótese usada no texto: o proxy está implementado, mas não se presume sucesso de todas as integrações no ambiente.
-- Resposta do dono:
+- Resposta do dono: Respondido em 2026-11-01: "Tá tudo no ar". QA no Render e produção no cluster efêmero, que o dono desliga, com o `worker-failover` tratando esse período.
 
 ## 2. URL vigente da publicação
 
 - Onde aparece: `docs/DEPLOY.md` e `docs/STATUS.md`.
 - O que o código mostra: README e workflow apontam instâncias diferentes durante a migração para Web Service.
 - Hipótese usada no texto: os dois registros são descritos sem escolher uma instância como comprovadamente ativa.
-- Resposta do dono:
+- Resposta do dono: Respondido em 2026-11-01: "Tá tudo no ar". QA no Render e produção no cluster efêmero, que o dono desliga, com o `worker-failover` tratando esse período.

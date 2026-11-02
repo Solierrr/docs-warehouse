@@ -9,4 +9,4 @@
 - Onde aparece: `docs/OVERVIEW.md`, `docs/DEPLOY.md` e `docs/STATUS.md`.
 - O que o código mostra: contratos públicos e privados, alvo de QA e verificação de cluster. O checklist relata clientes finais sem integração e divergência de branches.
 - Hipótese usada no texto: são descritas as capacidades da main e a configuração declarada, sem afirmar adoção nas telas ou disponibilidade atual.
-- Resposta do dono:
+- Resposta do dono: Respondido em 2026-11-01: "Tá tudo no ar". QA no Render e produção no cluster efêmero, que o dono desliga, com o `worker-failover` tratando esse período.

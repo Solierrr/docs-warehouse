@@ -17,7 +17,7 @@ make install
 make dev
 ```
 
-O servidor local usa a porta 8000, e o `make vault` consulta apenas a pasta `/llm`, por isso as configurações de acesso, as URLs e as origens também precisam estar no ambiente ou no `.env`, já que essa pasta sozinha não traz toda a configuração necessária. <!-- PENDENTE: 3 -->
+O servidor local usa a porta 8000, e o `make vault` consulta apenas a pasta `/llm`, por isso as configurações de acesso, as URLs e as origens também precisam estar no ambiente ou no `.env`.
 
 | Nome | Uso |
 |---|---|

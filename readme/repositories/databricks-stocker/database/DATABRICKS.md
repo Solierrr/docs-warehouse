@@ -4,7 +4,7 @@
 
 # Modelo das camadas analíticas
 
-O notebook grava tabelas Delta gerenciadas. O módulo define catálogo padrão `workspace`, schemas `bronze_core`, `silver`, `gold` e `gold_security`. O job usa catálogo `analytics`, e os painéis usam `workspace.gold`. A escolha canônica e o contrato com o exportador precisam de alinhamento. <!-- PENDENTE: 1 -->
+O notebook grava tabelas Delta gerenciadas, e o módulo define o catálogo padrão `workspace` e os schemas `bronze_core`, `silver`, `gold` e `gold_security`. O job usa o catálogo `analytics` e os painéis usam `workspace.gold`, e o contrato Gold deste repositório é a referência que o exportador deve seguir.
 
 ```mermaid
 flowchart LR
@@ -167,12 +167,12 @@ O fornecedor das propostas é derivado por item e oferta, e o valor aceito multi
 
 A função de filtro, que usa `session_user()`, libera a linha para um ADMIN ativo ou para um SUPPLIER ativo associado a exatamente um fornecedor, igual ao da linha. A tabela de acesso começa vazia, e as identidades do job e do exportador também precisam ter o acesso validado.
 
-O escritor aplica row filter na criação das dez tabelas de fornecedor. As outras tabelas exigem grants e política próprios para consumo final. O executor local ignora esse filtro, conforme metadado da saída. Confirmar o desenho por persona e execução dos painéis. <!-- PENDENTE: 4 -->
+O escritor aplica row filter na criação das dez tabelas de fornecedor, e as demais tabelas usam grants próprios para o consumo final, enquanto o executor local ignora esse filtro, conforme o metadado da saída.
 
 ## Escritores, leitores e ciclo
 
-O notebook escreve as três camadas, com a Silver lendo a Bronze e a Gold lendo a Silver, e os painéis e o exportador são os leitores previstos da Gold. O notebook não define CDC nem agendamento de carga contínua e não cria TTL nem tabela de auditoria dos rejeitados, relatando a qualidade apenas no terminal. <!-- PENDENTE: 3 -->
+O notebook escreve as três camadas, com a Silver lendo a Bronze e a Gold lendo a Silver, e os painéis e o exportador são os leitores previstos da Gold. O notebook não define CDC nem agendamento de carga contínua e não cria TTL nem tabela de auditoria dos rejeitados, relatando a qualidade apenas no terminal.
 
-As substituições são feitas tabela a tabela, e uma interrupção pode deixar as camadas com atualizações diferentes, por isso a virada precisa evitar disputa com as pipelines antigas e com a carga Bronze automática. <!-- PENDENTE: 2 -->
+As substituições são feitas tabela a tabela, e uma interrupção pode deixar as camadas com atualizações diferentes, por isso a virada evita disputa com as pipelines antigas e com a carga Bronze automática.
 
 Fontes em [Bronze](https://github.com/Solierrr/databricks-stocker/blob/main/pipelines/00_medallion/transformations/note_bronze.py), [Silver](https://github.com/Solierrr/databricks-stocker/blob/main/pipelines/00_medallion/transformations/note_silver.py), [Gold](https://github.com/Solierrr/databricks-stocker/blob/main/pipelines/00_medallion/transformations/note_gold.py), [catálogo](https://github.com/Solierrr/databricks-stocker/blob/main/pipelines/00_medallion/transformations/note_catalog.py) e [segurança](https://github.com/Solierrr/databricks-stocker/blob/main/security/supplier_access.sql).

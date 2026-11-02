@@ -16,9 +16,9 @@ Os endereços abaixo vêm do contrato HTTP e dos manifestos.
 | QA | Render | [API de QA](https://ai-operational.onrender.com) |
 | Produção | GKE, com ingresso Kong declarado | [API de produção declarada](https://operational.solarianetwork.site) |
 
-O levantamento de 2026-10-29 registrava QA impedido por credenciais do Infisical. A main analisada não contém `render.yaml` nem `render-entrypoint.sh`, portanto o mecanismo de injeção e o estado atual do painel continuam sem confirmação. O endereço acima é um destino configurado. <!-- PENDENTE: 1 -->
+O QA está publicado no Render, no endereço acima, e a main analisada não contém `render.yaml` nem `render-entrypoint.sh`, porque a configuração é injetada pela plataforma.
 
-O checklist antigo registrava que não havia produção, mas hoje existem o [Deployment](https://github.com/Solierrr/infra-gitops/blob/main/services/ai-operational/deployment.yaml), o [Service](https://github.com/Solierrr/infra-gitops/blob/main/services/ai-operational/service.yaml), o [Ingress](https://github.com/Solierrr/infra-gitops/blob/main/services/ai-operational/ingress.yaml) e a [aplicação do Argo CD](https://github.com/Solierrr/infra-gitops/blob/main/apps/ai/ai-operational.yaml). A hipótese é que esses arquivos representam a configuração pretendida, ainda sem comprovação de que estão em operação. <!-- PENDENTE: 2 -->
+Os manifestos de produção são o [Deployment](https://github.com/Solierrr/infra-gitops/blob/main/services/ai-operational/deployment.yaml), o [Service](https://github.com/Solierrr/infra-gitops/blob/main/services/ai-operational/service.yaml), o [Ingress](https://github.com/Solierrr/infra-gitops/blob/main/services/ai-operational/ingress.yaml) e a [aplicação do Argo CD](https://github.com/Solierrr/infra-gitops/blob/main/apps/ai/ai-operational.yaml), e o serviço está em operação no cluster de produção.
 
 ## Particularidades
 
@@ -26,7 +26,7 @@ O Dockerfile instala `requirements.txt` sobre `python:latest`, expõe a porta 80
 
 O workflow `environment-status.yml` consulta `/ready` no QA. A verificação de produção consulta a existência do cluster e não faz uma chamada de prontidão específica deste serviço. No Render, o caminho de prontidão a configurar é `/ready`.
 
-O Deployment declarado usa uma réplica, `envFrom` com `ai-operational-secrets`, acesso interno ao `api-core` e URL A2A interna. Readiness e liveness ainda apontam para `/health`. A imagem ainda usa a tag `latest`, em desacordo com o padrão de versão imutável. O manifesto não desliga explicitamente a documentação HTTP, embora o segredo possa conter essa configuração. <!-- PENDENTE: 2 -->
+O Deployment usa uma réplica, `envFrom` com `ai-operational-secrets`, acesso interno ao `api-core` e URL A2A interna, com readiness e liveness ainda apontando para `/health`. A imagem ainda usa a tag `latest`, em desacordo com o padrão de versão imutável, e o manifesto não desliga explicitamente a documentação HTTP, embora o segredo possa conter essa configuração.
 
 `A2A_PUBLIC_URL` precisa corresponder ao endereço que o chamador consegue acessar. O padrão local em `settings.py` anuncia a porta 8003, enquanto `make dev` escuta na 8000. Ajuste a configuração do ambiente antes de usar descoberta A2A.
 

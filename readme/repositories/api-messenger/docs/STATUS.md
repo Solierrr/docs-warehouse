@@ -33,4 +33,4 @@ Levantamento feito na `main` do repositório.
 
 - Criar comunidade depende de `GET /internal/technical-projects/{projectId}/requester-access/{authId}` no `api-core` (2026-10-31).
 - O aviso no celular depende do `api-notify` aceitar a chave `SERVICE_KEY_API_MESSENGER` (2026-10-31).
-- As rotas `/internal/**` dependem do Kong não publicar esse prefixo (2026-10-31). <!-- PENDENTE: 4 -->
+- As rotas `/internal/**` ainda dependem de o Kong não publicar esse prefixo, e a adoção da `X-Service-Key` por chamador está pendente (2026-10-31).

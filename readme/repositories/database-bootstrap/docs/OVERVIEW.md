@@ -19,10 +19,10 @@ A disponibilidade efetiva de uma oferta é o menor valor entre a oferta e o esto
 
 ## Atualização
 
-Cada execução constrói uma versão separada e, antes de ativá-la, compara o volume de cada domínio com a versão ativa, bloqueando a troca quando a queda passa da proporção configurada, que por padrão é metade do volume anterior. A política para quedas legítimas e para uma primeira carga vazia ainda precisa ser confirmada. <!-- PENDENTE: 2 -->
+Cada execução constrói uma versão separada e, antes de ativá-la, compara o volume de cada domínio com a versão ativa, bloqueando a troca quando a queda passa da proporção configurada, que por padrão é metade do volume anterior. Uma queda legítima ou uma primeira carga vazia exigem liberação manual.
 
 A troca aponta para a versão nova e mantém a anterior, enquanto a limpeza remove as versões mais antigas quando possível. Uma falha antes da ativação conserva a versão ativa, e uma falha na limpeza depois da ativação não desfaz a publicação.
 
 ## Limite de integração
 
-O serviço de recomendação deve consultar somente a versão ativa. A rotina não controla a decisão final de ranqueamento nem atende pedidos HTTP. A compatibilidade do extrator com o cadastro atual precisa ser alinhada antes de afirmar atualização operacional concluída. <!-- PENDENTE: 1 -->
+O serviço de recomendação consulta somente a versão ativa, e a rotina não controla a decisão final de ranqueamento nem atende pedidos HTTP. O extrator ainda precisa ser atualizado para o schema atual do cadastro.

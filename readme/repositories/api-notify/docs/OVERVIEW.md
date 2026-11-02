@@ -4,7 +4,7 @@
 
 # Visão de produto
 
-A central de notificações avisa a pessoa no celular quando algo acontece na plataforma e guarda o histórico desses avisos. Ela atende o aplicativo mobile e, pelo mesmo mecanismo, o navegador. <!-- PENDENTE: 2 -->
+A central de notificações avisa a pessoa no celular quando algo acontece na plataforma e guarda o histórico desses avisos, atendendo apenas o aplicativo mobile, sem notificação no navegador.
 
 ## O que a pessoa consegue fazer
 
@@ -31,7 +31,7 @@ A central de notificações avisa a pessoa no celular quando algo acontece na pl
 | Serviço agendado | um serviço contratado ganhou data |
 | Mudança no serviço | um serviço contratado mudou de situação |
 
-<!-- PENDENTE: 1 -->
+
 
 ## Relação com o resto da plataforma
 

@@ -12,8 +12,8 @@
 
 ## Limitações
 
-- Em 2026-10-30, duas rotas antigas permanecem abertas durante a migração dos chamadores. <!-- PENDENTE: 1 -->
-- Em 2026-10-30, o cliente de token do Calendar não é usado por uma rota, embora suas configurações de OAuth sejam exigidas. <!-- PENDENTE: 2 -->
-- Em 2026-10-30, o acesso de PROD é interno segundo o checklist. O caminho para o aplicativo móvel não está decidido. <!-- PENDENTE: 3 -->
-- Em 2026-10-30, os nomes do repositório, da imagem e do serviço publicado divergem. <!-- PENDENTE: 4 -->
+- Em 2026-10-30, duas rotas antigas permanecem abertas até a migração dos chamadores para `/internal`.
+- Em 2026-10-30, o cliente de token do Calendar ainda não é usado por uma rota, embora as configurações de OAuth sejam exigidas, e o Calendar faz parte do escopo do serviço.
+- Em 2026-10-30, o acesso de PROD é interno ao cluster, por `ClusterIP`.
+- Em 2026-10-30, o nome oficial é `api-google`, e a imagem e o serviço publicado ainda trazem o nome antigo `google-registry`.
 - Em 2026-10-30, o `Dockerfile` usa `python:latest` e o `pyproject.toml` exige Python 3.14 ou superior.

@@ -10,5 +10,5 @@ Leitura da main em 2026-10-31.
 - Secrets de acessibilidade e e-mail existem, e o nome de MCP já corresponde ao consumidor.
 - O DNS do domínio raiz não é criado neste módulo, pois pertence ao Worker. O wildcard permanece separado de registros proxied de serviços.
 - O endereço do Kong é reservado no Terraform, diferentemente de descrições antigas de IP sempre transitório.
-- O pool declara seis nós na revisão consultada. O marcador de ambiente é declarativo e não comprova disponibilidade. <!-- PENDENTE: 1 -->
+- O pool declara seis nós na revisão consultada, e o marcador de ambiente indica se o cluster efêmero está ativo.
 - Scripts de escala e estado contêm merge administrativo automático, que precisa ser considerado no processo de operação.

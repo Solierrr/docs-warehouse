@@ -19,7 +19,7 @@ O serviço atende ao envio de certificados de profissionais e à conferência de
 
 A conferência dos certificados exige aprovação de segurança e das duas análises. A consolidação reprova carga inferior a 20 horas no certificado de instalações elétricas e a 8 horas no de trabalho em altura. Datas legíveis com mais de 730 dias são reprovadas. Nomes ausentes são reprovados e a comparação deve alcançar similaridade de pelo menos 85 por cento.
 
-Esses números descrevem os critérios do produto implementados. A política de aceitação, inclusive o tratamento de datas ausentes ou inválidas, precisa de confirmação do responsável. <!-- PENDENTE: 2 -->
+Esses números são os critérios de aceitação do produto, e uma data ausente ou inválida não reprova o documento por verificação independente.
 
 A consulta de empresa remove a pontuação do CNPJ e exige 14 dígitos, sem conferir localmente os dígitos verificadores, e reprova a empresa ausente ou sem situação ativa antes de analisar as atividades. A classificação considera a atividade principal e as secundárias.
 
@@ -27,4 +27,4 @@ Documento ou empresa reprovados são resultados da análise, acompanhados de jus
 
 ## Relação com a plataforma
 
-O serviço retorna o resultado ao cliente que enviou a solicitação. Não grava uma aprovação no cadastro central. A integração automática de validação profissional esperada por esse cadastro ainda não está disponível na versão analisada. <!-- PENDENTE: 1 -->
+O serviço retorna o resultado ao cliente que enviou a solicitação, sem gravar uma aprovação no cadastro central, e a integração automática de validação profissional esperada por esse cadastro ainda não existe nesta versão.

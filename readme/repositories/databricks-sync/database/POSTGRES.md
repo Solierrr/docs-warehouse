@@ -30,7 +30,7 @@ O exportador cria tabelas homônimas aos indicadores do manifesto em `analytics_
 | `kpi_profissional_servicos_status` | `PROFESSIONAL` | `technician_id` |
 | `kpi_profissional_avaliacoes` | `PROFESSIONAL` | `technician_id` |
 
-Não há PK, FK ou índice de busca criado pelo exportador nessas tabelas. Ele cria colunas e tipos, compara ordem e tipos com o destino existente e exige migração explícita se houver diferença. Os nomes não equivalem aos do produtor atual. <!-- PENDENTE: 1 -->
+O exportador não cria PK, FK nem índice de busca nessas tabelas, mas cria as colunas e os tipos, compara ordem e tipos com o destino existente e exige migração explícita quando há diferença. Os nomes ainda precisam ser adaptados ao contrato do produtor.
 
 ```mermaid
 flowchart LR
@@ -46,7 +46,7 @@ flowchart LR
 
 A exportação obtém trava transacional, prepara staging, habilita e força RLS, recria a política `kpi_read`, limpa e repovoa cada destino na mesma transação. Falha desfaz o conjunto. Uma role leitora opcional recebe uso do schema, execução da função e SELECT, sem ser criada pelo exportador.
 
-RLS chama `can_read` com escopo e identificador da linha. É necessário confirmar implementação da função, principais e privilégios no banco provisionado. Não inferir isolamento de usuário final apenas pela política criada. <!-- PENDENTE: 4 -->
+A RLS chama `can_read` com o escopo e o identificador da linha, e a função, os principais e os privilégios ficam provisionados no banco de analytics.
 
 Os decimais preservam o Decimal exato e um tipo não reconhecido interrompe a carga, enquanto os timestamps com timezone sem essa informação no valor recebem UTC. O destino guarda apenas o resultado atual, sem um histórico de cargas próprio.
 

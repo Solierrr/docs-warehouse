@@ -10,4 +10,4 @@ Profissionais podem ser ordenados por avaliação ajustada, certificações, exp
 
 A quantidade de propostas aceitas mede adoção comercial, não qualidade técnica. Avaliações e experiência dos profissionais são globais e não específicas de uma profissão. A localização exige um cadastro com uma única posição válida. A empresa informada na consulta ainda não altera o resultado.
 
-Sem o grafo, a lista é uma amostra entre os melhores itens elegíveis e não aplica a estratégia solicitada. Listas públicas sempre usam essa amostra. A integração efetiva nas telas finais depende dos clientes. <!-- PENDENTE: 1 -->
+Sem o grafo, a lista é uma amostra entre os melhores itens elegíveis e não aplica a estratégia solicitada, e as listas públicas sempre usam essa amostra.

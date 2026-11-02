@@ -8,4 +8,4 @@ O portal permite consultar documentos públicos por categoria, trocar o idioma e
 
 A seleção de idioma considera a preferência salva e o navegador, com português como padrão. Uma tradução ausente usa o texto padrão. O download de PDFs ainda não está implementado.
 
-Os textos legais e traduções possuem avisos de revisão pendente no repositório de origem. A aprovação editorial e legal precisa ser confirmada antes de tratá-los como políticas vigentes. <!-- PENDENTE: 1 -->
+Os textos legais e as traduções têm avisos de revisão pendente no repositório de origem e ainda não foram aprovados como políticas vigentes.

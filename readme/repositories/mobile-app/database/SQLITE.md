@@ -6,7 +6,7 @@
 
 O SQLite local usa Room e pertence ao aplicativo. Guarda cache de conversas humanas e fila de envio, sem ser fonte de verdade do cadastro ou do serviço de mensagens. A versão é 3, com cinco entidades e `exportSchema=false`.
 
-O módulo define o nome físico do banco e usa `fallbackToDestructiveMigration(true)`, sem declarar uma migração que preserve os dados, por isso o ciclo de atualização e de retenção ainda precisa ser confirmado. <!-- PENDENTE: 1 -->
+O módulo define o nome físico do banco e usa `fallbackToDestructiveMigration(true)`, sem declarar uma migração que preserve os dados. A fila de mensagens não enviadas precisa sobreviver às atualizações do app, e as migrações que garantem isso estão pendentes.
 
 ## Estrutura
 
@@ -92,6 +92,6 @@ Chatbots podem ter linha na lista, mas suas mensagens não ficam no cache persis
 
 Logout ou troca de conta limpa todas as tabelas. Perda de acesso mantém conteúdo local em leitura. Mudança de época limpa mensagens e cursor e refaz sincronização, mantendo pendências. Migração destrutiva pode perder também a fila, portanto cache recuperável e mensagem não enviada têm riscos diferentes.
 
-Não foi encontrada limpeza por TTL ou limite de histórico nesse caminho. A sincronização tenta completar o histórico humano até o início, sem comprovar teto de armazenamento. <!-- PENDENTE: 1 -->
+Não foi encontrada limpeza por TTL nem limite de histórico nesse caminho, e a sincronização tenta completar o histórico humano até o início, sem teto de armazenamento definido.
 
 Fontes em [entidades e DAOs](https://github.com/Solierrr/mobile-app/tree/main/app/src/main/kotlin/com/project/solaria_mobile/core/database), [registro das entidades](https://github.com/Solierrr/mobile-app/blob/main/app/src/main/kotlin/com/project/solaria_mobile/core/database/AppDatabase.kt), [abertura](https://github.com/Solierrr/mobile-app/blob/main/app/src/main/kotlin/com/project/solaria_mobile/di/DatabaseModule.kt) e [sincronização](https://github.com/Solierrr/mobile-app/blob/main/app/src/main/kotlin/com/project/solaria_mobile/feature/communication/data/MessageSync.kt).

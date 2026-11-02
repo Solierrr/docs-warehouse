@@ -46,13 +46,13 @@ flowchart LR
 
 A dependência `require_access_token` protege os dois routers de negócio, e como `AUTH_REQUIRED` vem ligado por padrão, a falta de JWKS configurado responde 503. A validação exige `exp` e `sub`, aceita apenas RS256 e recusa `token_type` diferente de `access`, tratando o token como access quando o campo não existe, e confere o issuer quando ele está configurado.
 
-A função `require_caller` e a variável `SERVICE_KEY_API_CORE` existem. Nenhuma rota de validação desta main usa essa dependência. Definir uma chave não cria a rota profissional nem substitui a autenticação JWT. <!-- PENDENTE: 1 -->
+A função `require_caller` e a variável `SERVICE_KEY_API_CORE` já existem, mas nenhuma rota de validação desta main usa essa dependência. O padrão definido para chamadas entre serviços é a `X-Service-Key` de cada chamador, e a rota profissional deve adotá-lo.
 
 ## Execução e dados
 
 O grafo público é compilado sem checkpointer. Ele baixa as duas imagens, aplica segurança, executa os especialistas e consolida. Base64 e MIME são reutilizados no estado durante a solicitação. Falhas capturadas na leitura ou nos nós podem gerar reprovação de documento, enquanto exceções não tratadas viram erro HTTP.
 
-O download segue redirecionamentos e usa timeout de 30 segundos. O código não declara limite de bytes ou restrição de origem. A política de imagens precisa ser definida antes de descrever essa entrada como restrita a um armazenamento aprovado. <!-- PENDENTE: 4 -->
+O download segue redirecionamentos e usa timeout de 30 segundos, sem limite de bytes nem restrição de origem no código. A origem definida para os documentos é o Cloudinary, e a restrição a essa origem está pendente.
 
 O fallback externo só avança por erro reconhecido como rate limit. Chamadas de imagem excluem o provedor marcado como apenas texto. A biblioteca compartilhada também administra rodízio de chaves. Dependências instaladas não comprovam uso de PostgreSQL, MongoDB ou índice vetorial.
 

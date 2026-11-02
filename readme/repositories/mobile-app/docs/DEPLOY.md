@@ -25,7 +25,7 @@ O workflow de release apenas informa que a publicação ainda não foi configura
 
 ## Atualização
 
-Mudança da versão Room sem migração pode recriar o banco e perder mensagens pendentes. Esse caminho não representa preservação de histórico ou rascunhos. <!-- PENDENTE: 1 -->
+Uma mudança de versão do Room sem migração pode recriar o banco e perder mensagens pendentes, e a regra definida é que a fila sobreviva às atualizações do app, por isso cada mudança de versão precisa de migração.
 
 O CI roda os testes unitários dos dois flavors com o JDK 21, o que não equivale a instrumentação, assinatura ou distribuição. O fluxo geral está em [release e deploy](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/RELEASE_AND_DEPLOY.md).
 

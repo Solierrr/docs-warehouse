@@ -20,6 +20,6 @@ A carga atual de entrada usa somente o banco de negócio. O banco de autenticaç
 
 A cópia inicial substitui cada tabela de destino e pode terminar com algumas tabelas copiadas e outras com erro. A publicação dos indicadores é diferente. Ela prepara o conjunto e troca os dados em uma única transação no banco de destino, preservando o estado anterior se essa transação falhar.
 
-O serviço não calcula indicadores. Ele exige que o pipeline anterior tenha terminado e que o resultado corresponda ao contrato revisado. As versões atuais do produtor e do exportador ainda usam nomes diferentes e precisam de alinhamento. <!-- PENDENTE: 1 -->
+O serviço não calcula indicadores e exige que o pipeline anterior tenha terminado com o resultado no contrato revisado. O contrato de referência é o do produtor, e o exportador ainda usa nomes diferentes.
 
-Uma execução ocupa a instância até terminar. O histórico é temporário e não comprova a atualidade de todos os indicadores após reinício. A operação deve definir quando repetir a carga e como tratar resultados parciais. <!-- PENDENTE: 3 -->
+Uma execução ocupa a instância até terminar, e o histórico é temporário, por isso não comprova a atualidade de todos os indicadores depois de um reinício. Depois de uma falha, a carga é repetida por inteiro.

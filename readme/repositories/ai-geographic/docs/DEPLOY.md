@@ -8,4 +8,4 @@ O [workflow de ambiente](https://github.com/Solierrr/ai-geographic/blob/main/.gi
 
 O processo comum de publicação está em [QA_RENDER.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/QA_RENDER.md), e os workflows de release e de promoção ficam em `.github/workflows/`. Como o Dockerfile inicia o Uvicorn diretamente, o serviço não extrai segredos por um entrypoint próprio.
 
-Não há confirmação no repositório de uma URL de produção para este serviço. O escopo de publicação precisa de confirmação operacional. <!-- PENDENTE: 1 -->
+O serviço está publicado no QA, no Render, e na produção, no cluster.

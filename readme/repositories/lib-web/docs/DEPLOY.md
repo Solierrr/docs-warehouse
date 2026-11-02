@@ -8,4 +8,4 @@ O workflow [npm-publisher](https://github.com/Solierrr/lib-web/blob/main/.github
 
 O processo comum está em [PACKAGE_RELEASE.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/PACKAGE_RELEASE.md), com a versão mantida pelo release-please e o pacote publicado como público no registro npm.
 
-O workflow Storybook publica `storybook-static` em Pages e registra a URL de saída no ambiente STORYBOOK. A URL atual e a adoção das versões pelos consumidores precisam de confirmação. <!-- PENDENTE: 1 -->
+O workflow Storybook publica `storybook-static` no Pages e registra a URL de saída no ambiente STORYBOOK.

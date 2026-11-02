@@ -40,7 +40,7 @@ flowchart LR
 | Serviço → `api-auth` | HTTP | JWKS público para validar JWT. |
 | Serviço → APIs Google | HTTPS | Chave do provedor. |
 
-O cliente de token do Calendar existe, mas nenhuma rota o usa. <!-- PENDENTE: 2 --> O [fluxo compartilhado](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/SERVICE_TO_SERVICE_AUTH.md) descreve chamadas entre serviços.
+O cliente de token do Calendar existe, mas nenhuma rota o usa ainda, e o Calendar faz parte do escopo do serviço. O [fluxo compartilhado](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/SERVICE_TO_SERVICE_AUTH.md) descreve chamadas entre serviços.
 
 ## Decisões e operação
 
