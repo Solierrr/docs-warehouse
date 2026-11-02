@@ -7,6 +7,7 @@
   <img src="./assets/readme/stacks/spring-security.png" width="100" hspace="8" alt="Spring Security" title="Spring Security">
   <img src="./assets/readme/stacks/postgresql.png" width="100" hspace="8" alt="PostgreSQL" title="PostgreSQL">
   <img src="./assets/readme/stacks/redis.png" width="100" hspace="8" alt="Redis" title="Redis">
+  <img src="./assets/readme/stacks/upstash.png" width="100" hspace="8" alt="Upstash" title="Upstash">
   <img src="./assets/readme/stacks/cloudinary.png" width="100" hspace="8" alt="Cloudinary" title="Cloudinary">
   <img src="./assets/readme/stacks/swagger.png" width="100" hspace="8" alt="Swagger" title="Swagger">
   <img src="./assets/readme/stacks/bruno.png" width="100" hspace="8" alt="Bruno" title="Bruno">

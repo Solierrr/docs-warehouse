@@ -6,6 +6,7 @@
   <img src="./assets/readme/stacks/typescript.png" width="100" hspace="8" alt="TypeScript" title="TypeScript">
   <img src="./assets/readme/stacks/zod.png" width="100" hspace="8" alt="Zod" title="Zod">
   <img src="./assets/readme/stacks/cloudflare.png" width="100" hspace="8" alt="Cloudflare" title="Cloudflare">
+  <img src="./assets/readme/stacks/jira.png" width="100" hspace="8" alt="Jira" title="Jira">
 </p>
 
 # Central de alertas operacionais

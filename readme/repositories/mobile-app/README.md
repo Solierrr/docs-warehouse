@@ -6,6 +6,7 @@
   <img src="./assets/readme/stacks/kotlin.png" width="100" hspace="8" alt="Kotlin" title="Kotlin">
   <img src="./assets/readme/stacks/android.png" width="100" hspace="8" alt="Android" title="Android">
   <img src="./assets/readme/stacks/gradle.png" width="100" hspace="8" alt="Gradle" title="Gradle">
+  <img src="./assets/readme/stacks/sqlite.png" width="100" hspace="8" alt="SQLite" title="SQLite">
   <img src="./assets/readme/stacks/firebase.png" width="100" hspace="8" alt="Firebase" title="Firebase">
 </p>
 
