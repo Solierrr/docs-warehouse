@@ -112,7 +112,7 @@ O que funciona, o que está incompleto, as dívidas técnicas e o que depende de
 
 - Um arquivo por banco, coleção ou índice que o repositório é dono, como `POSTGRES.md`, `MONGO.md`, `FIRESTORE.md`, `QDRANT.md`, `REDIS.md` ou `NEO4J.md`.
 - Cada arquivo traz o diagrama Mermaid `erDiagram` (ou a estrutura do documento, para bancos de documentos e vetores), a descrição de cada tabela ou coleção, os índices e quem lê ou escreve.
-- A fonte é o schema real, ou seja, migrations, entidades, modelos e `schema.sql` do repositório. Os diagramas antigos de `database/` e `diagrams/` na raiz do `docs-warehouse` estão desatualizados e só servem de referência.
+- A fonte é o schema real, ou seja, migrations, entidades, modelos e `schema.sql` do repositório.
 - Cada banco é documentado pelo repositório dono do domínio. Postgres de negócio no `api-core`, Postgres de autenticação no `api-auth`, coleções do Mongo de conversas no `api-messenger`. O `database-console` documenta o mapa geral, com quais bancos existem, quem é dono de cada um, acesso e backup.
 
 ### `PENDENCIAS.md`
