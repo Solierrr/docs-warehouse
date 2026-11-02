@@ -6,6 +6,6 @@
 
 O serviço apoia a análise de imagens de produtos, empresas, profissionais e outros usos. Ele devolve uma decisão e, quando a análise é aprovada, uma descrição curta em português.
 
-Conteúdo explícito de risco com alta confiança pode ser rejeitado. Incerteza, sinais de risco ou bloqueio do provedor levam à revisão. Uma falha técnica não significa aprovação. Uma descrição vazia, incerta ou fora do formato também exige revisão.
+Um conteúdo explícito de risco, identificado com alta confiança, pode ser rejeitado, enquanto a incerteza, os sinais de risco e o bloqueio do provedor levam a imagem para revisão humana. Uma falha técnica nunca significa aprovação, e uma descrição vazia, incerta ou fora do formato também exige revisão antes de a imagem seguir.
 
 A aprovação não publica a imagem. O responsável pelo upload ainda precisa decidir como revisar o texto e concluir a publicação. O consumidor autorizado e essa etapa de confirmação permanecem pendentes. <!-- PENDENTE: 1 -->

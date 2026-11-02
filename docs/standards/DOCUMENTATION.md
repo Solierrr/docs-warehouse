@@ -56,7 +56,7 @@ Uma regra de negócio aparece no `OVERVIEW.md` como regra ("quem sai do projeto 
 ### `docs/OVERVIEW.md`
 
 1. Para quem é e qual problema resolve.
-2. O que dá para fazer, em frases curtas, uma por capacidade.
+2. O que dá para fazer, uma capacidade por item, cada uma numa frase completa.
 3. Regras de negócio, cada uma com o motivo quando ele for conhecido.
 4. Onde o repositório aparece para o usuário (tela, app, e-mail, notificação), com imagem quando houver.
 5. Relação com outras partes da plataforma, em linguagem de produto.

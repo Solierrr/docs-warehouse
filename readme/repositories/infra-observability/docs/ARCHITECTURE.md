@@ -15,6 +15,6 @@ flowchart LR
  P --> F
 ```
 
-A [Application de Grafana](https://github.com/Solierrr/infra-gitops/blob/main/apps/infra/grafana.yaml) usa duas fontes. O GitOps fornece Deployment, Service, Ingress, volume e fontes de dados. O coletor fornece os ConfigMaps dos painéis.
+A [Application de Grafana](https://github.com/Solierrr/infra-gitops/blob/main/apps/infra/grafana.yaml) usa duas fontes, com o GitOps fornecendo o Deployment, o Service, o Ingress, o volume e as fontes de dados, e o coletor fornecendo os ConfigMaps dos painéis.
 
 A configuração externa usa Grafana 13.2.5, volume persistente e consulta a Prometheus, Loki e Tempo do backend de observabilidade. O acesso externo usa JWT do Cloudflare Access e papéis configurados no Secret. Esses recursos não são construídos a partir deste Dockerfile.

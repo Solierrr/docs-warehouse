@@ -18,4 +18,4 @@ flowchart TD
  G -->|sim| H[Aprova com texto alternativo]
 ```
 
-Arquivo inválido impede a análise. Incerteza, risco ou bloqueio de segurança exige revisão. Falha técnica pode usar o provedor alternativo, mas não autoriza contornar um bloqueio de segurança. O serviço não publica a imagem após a aprovação.
+Um arquivo inválido impede a análise, e a incerteza, o risco ou um bloqueio de segurança levam a imagem para revisão. Uma falha técnica pode acionar o provedor alternativo, mas isso nunca autoriza contornar um bloqueio de segurança, e o serviço não publica a imagem depois da aprovação.

@@ -6,7 +6,7 @@
 
 ## Autenticação e contrato
 
-`/v1/address` e `/v1/geo` exigem `Authorization: Bearer <token>` com JWT do `api-auth`. `/internal/i18n/translate` e `/internal/solar/roof-viability` exigem `X-Service-Key` do chamador permitido. Saúde e prontidão são públicas. O [contrato exportado](https://github.com/Solierrr/api-google/blob/main/openapi.yaml) inclui as rotas internas. O [Swagger em QA](https://google-registry.onrender.com/docs) e o `/openapi.json` servido exibem apenas rotas públicas quando a documentação está ligada.
+As rotas `/v1/address` e `/v1/geo` exigem `Authorization: Bearer <token>` com o JWT do `api-auth`, e as rotas `/internal/i18n/translate` e `/internal/solar/roof-viability` exigem a `X-Service-Key` de um chamador permitido, enquanto a saúde e a prontidão são públicas. O [contrato exportado](https://github.com/Solierrr/api-google/blob/main/openapi.yaml) inclui as rotas internas, mas o [Swagger em QA](https://google-registry.onrender.com/docs) e o `/openapi.json` servido mostram apenas as rotas públicas quando a documentação está ligada.
 
 ## Operações
 
@@ -22,7 +22,7 @@ As rotas antigas `/v1/i18n/translate` e `/v1/solar/roof-viability` permanecem ab
 
 ## Erros
 
-Erros de entrada e de dependência usam `application/problem+json` com `errorCode`. Chave inválida retorna `UNAUTHENTICATED`. Chamador não permitido retorna `FORBIDDEN`. Uma rejeição do provedor pode retornar `UPSTREAM_REQUEST_REJECTED`. Falhas externas podem gerar 502, 503 ou 504. Consulte o [catálogo de erros](https://github.com/Solierrr/docs-warehouse/blob/main/docs/standards/ERROR_CODES.md). O `/ready` usa JSON simples.
+Os erros de entrada e de dependência usam `application/problem+json` com `errorCode`, com `UNAUTHENTICATED` para chave inválida, `FORBIDDEN` para chamador não permitido e `UPSTREAM_REQUEST_REJECTED` quando o provedor rejeita o pedido. As falhas externas podem gerar 502, 503 ou 504, conforme o [catálogo de erros](https://github.com/Solierrr/docs-warehouse/blob/main/docs/standards/ERROR_CODES.md), e o `/ready` responde em JSON simples.
 
 ## Exemplo local
 

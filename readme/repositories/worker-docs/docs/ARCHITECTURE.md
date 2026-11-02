@@ -25,4 +25,4 @@ flowchart LR
 | `scripts-prerender.mjs` | HTML das rotas conhecidas e página 404 |
 | `wrangler.jsonc` | Build, assets e domínio |
 
-As seções exigem identificadores únicos. Links são limitados a esquemas e caminhos aceitos pela validação. O prerender possui lista fixa de documentos, independente do manifesto. Não há autenticação, banco ou API de negócio neste portal.
+As seções exigem identificadores únicos, e os links ficam limitados aos esquemas e caminhos aceitos pela validação, enquanto o prerender usa uma lista fixa de documentos, independente do manifesto. O portal não tem autenticação, banco nem API de negócio.

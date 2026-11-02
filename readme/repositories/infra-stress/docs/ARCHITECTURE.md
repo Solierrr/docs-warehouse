@@ -14,6 +14,6 @@ flowchart LR
  W --> R[Checks e métricas]
 ```
 
-`src/smoke/` e `src/stress/` contêm cenários. `src/web-app.ts` aquece a origem, descobre assets e verifica páginas. `src/worker-failover.ts` verifica borda, manutenção e iscas. Os scripts genéricos usam uma lista local de URLs.
+As pastas `src/smoke/` e `src/stress/` contêm os cenários, o `src/web-app.ts` aquece a origem, descobre os assets e verifica as páginas e o `src/web-worker.ts` verifica a borda, a manutenção e as iscas, enquanto os scripts genéricos usam uma lista local de URLs.
 
 O stress sobe por trinta segundos, mantém pico por um minuto e desce por trinta segundos. Os picos padrão são cinquenta usuários virtuais no local, vinte no QA e dez em produção, com possibilidade de ajuste. Não há banco ou serviço próprio.

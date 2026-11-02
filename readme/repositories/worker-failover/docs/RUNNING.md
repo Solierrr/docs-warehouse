@@ -6,7 +6,7 @@
 
 Use Node.js capaz de executar testes TypeScript nativos, npm e Wrangler 4. A configuração não fixa a versão do Node no manifesto. O guia comum está em [TYPESCRIPT.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/running/TYPESCRIPT.md).
 
-Execute `make install` e `make dev`. O repositório não configura `make vault`. Variáveis locais podem ficar em `.dev.vars`, seguindo o exemplo sem copiar credenciais.
+Execute `make install` e `make dev`, sabendo que o repositório não configura o `make vault` e que as variáveis locais podem ficar em `.dev.vars`, seguindo o exemplo sem copiar credenciais.
 
 | Comando | Efeito |
 |---|---|

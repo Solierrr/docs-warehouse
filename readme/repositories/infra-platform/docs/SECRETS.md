@@ -25,7 +25,7 @@ Os nomes de Secrets declarados no módulo incluem os seguintes itens.
 - `ai-operational-secrets`.
 - `api-email-secrets`.
 - `infra-broker-secrets`.
-- `infra-observability-secrets`.
+- `infra-grafana-secrets`.
 - `grafana-cloud-otlp`.
 
 As definições atuais já incluem acessibilidade, e-mail e `mcp-database-secrets`, corrigindo as ausências e o nome divergente registrados no checklist antigo. O Secret do coletor fica no namespace do overlay correspondente. A existência de um bloco Terraform não comprova que ele já foi aplicado.

@@ -4,7 +4,7 @@
 
 # Executando localmente
 
-A execução local usa Bash e `curl`. O `Makefile` também requer `make` e `sh`. No Windows, use Git Bash. O código não fixa versões dessas ferramentas.
+A execução local usa Bash e `curl`, e o `Makefile` também requer `make` e `sh`, por isso no Windows o recomendado é o Git Bash. O código não fixa as versões dessas ferramentas.
 
 ## Preparação
 

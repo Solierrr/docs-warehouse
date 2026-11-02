@@ -14,7 +14,7 @@ REPOS=(
   docs-reports
   infra-broker infra-gateway infra-gitops infra-observability infra-keepalive infra-otel-collector infra-platform infra-stress
   lib-ai lib-web mcp-database mobile-app mocks-warehouse
-  web-app worker-docs web-sandbox worker-failover
+  web-app web-sandbox worker-alerts worker-docs worker-failover
 )
 
 mkdir -p "$DEST" || exit 1

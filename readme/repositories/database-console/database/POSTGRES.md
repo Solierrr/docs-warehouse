@@ -4,7 +4,7 @@
 
 # PostgreSQL e autorização analítica
 
-`coredb` pertence ao `api-core` e `authdb` ao `api-auth`. Seus relacionamentos são documentados pelos donos. O schema criado aqui é `gold`, em analytics.
+O `coredb` pertence ao `api-core` e o `authdb` ao `api-auth`, e os relacionamentos de cada um são documentados pelos donos, enquanto o schema criado aqui é o `gold`, no banco de analytics.
 
 ```mermaid
 erDiagram
@@ -20,4 +20,4 @@ erDiagram
 
 A chave composta identifica login, escopo e entidade. Os escopos aceitos são `ADMIN`, `EXPORTER`, `SUPPLIER`, `REQUESTER` e `PROFESSIONAL`. O registro começa vazio e não é público. A função `gold.can_read` usa `session_user`, mesmo como `SECURITY DEFINER`, e autoriza o proprietário da função, administradores, exportadores ou o login associado a uma única entidade ativa no escopo consultado.
 
-As tabelas KPI e suas políticas RLS são criadas pelo exportador, a partir do contrato de views Gold. Uma alteração de estrutura exige migração revisada. O schema local não antecipa as colunas dessas tabelas. A fonte é [schema.sql](https://github.com/Solierrr/database-console/blob/main/db/analytics/schema.sql).
+As tabelas de KPI e as suas políticas de RLS são criadas pelo exportador a partir do contrato das views Gold, e o schema local não antecipa as colunas dessas tabelas, por isso uma mudança de estrutura exige uma migração revisada. A fonte é o [schema.sql](https://github.com/Solierrr/database-console/blob/main/db/analytics/schema.sql).

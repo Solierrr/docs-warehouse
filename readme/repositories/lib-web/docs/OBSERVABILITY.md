@@ -4,7 +4,7 @@
 
 # Observabilidade do navegador
 
-`initObservability` configura logger e exportador. Sem endpoint, somente o console é usado. Com exportação ativa, logs e traces seguem por OTLP/HTTP para o destino configurado pelo consumidor.
+O `initObservability` configura o logger e o exportador, e sem um endpoint apenas o console é usado. Com a exportação ativa, os logs e os traces seguem por OTLP/HTTP para o destino configurado pelo consumidor.
 
 A instrumentação de `fetch` propaga `traceparent` para a mesma origem e os destinos permitidos. A URL do span remove a query. A limpeza tenta ocultar credenciais e identificadores sensíveis dos dados exportados.
 

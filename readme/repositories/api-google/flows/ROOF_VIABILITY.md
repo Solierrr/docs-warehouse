@@ -24,4 +24,4 @@ sequenceDiagram
 
 ## Casos de erro
 
-Chave ausente ou inválida retorna 401. Chamador sem permissão retorna 403. Coordenada inválida retorna 422. Sem cobertura solar, a chamada retorna 404. Falha do provedor retorna erro de dependência.
+Uma chave ausente ou inválida retorna 401, um chamador sem permissão retorna 403 e uma coordenada inválida retorna 422, enquanto a falta de cobertura solar retorna 404 e uma falha do provedor retorna erro de dependência.

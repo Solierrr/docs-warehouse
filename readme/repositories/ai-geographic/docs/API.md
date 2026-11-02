@@ -4,7 +4,7 @@
 
 # API
 
-As chamadas a `/chat` exigem `Authorization: Bearer <token>`. O [contrato](https://github.com/Solierrr/ai-geographic/blob/main/openapi.yaml) é exportado por `make openapi`. A interface `/docs` depende de `DOCS_ENABLED`.
+As chamadas a `/chat` exigem `Authorization: Bearer <token>`, e o [contrato](https://github.com/Solierrr/ai-geographic/blob/main/openapi.yaml) é exportado por `make openapi`, com a interface `/docs` disponível apenas quando `DOCS_ENABLED` está ligado.
 
 | Grupo | Uso |
 |---|---|
@@ -22,4 +22,4 @@ Content-Type: application/json
 {"conversation_id":"visita-local","message":"Quais condições devo verificar antes da visita?"}
 ```
 
-Erros HTTP usam o [padrão de erros](https://github.com/Solierrr/docs-warehouse/blob/main/docs/standards/ERRORS.md). Uma resposta 200 pode indicar `REFUSED`, `DEGRADED` ou `TOOL_FAILED`, acompanhada de `reason`. O cliente precisa avaliar esses campos, além do status HTTP.
+Os erros HTTP seguem o [padrão de erros](https://github.com/Solierrr/docs-warehouse/blob/main/docs/standards/ERRORS.md), mas uma resposta 200 ainda pode trazer `REFUSED`, `DEGRADED` ou `TOOL_FAILED` acompanhado de `reason`, e por isso o cliente precisa avaliar esses campos além do status HTTP.

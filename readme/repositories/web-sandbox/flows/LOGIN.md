@@ -15,4 +15,4 @@ flowchart TD
  E --> F[Backend valida JWT e encaminha chamada]
 ```
 
-Token inválido impede o proxy. Uma sessão de mock local não concede acesso aos serviços. O fluxo central está em [LOGIN_AND_TOKEN.md](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/LOGIN_AND_TOKEN.md).
+Um token inválido impede o uso do proxy, e uma sessão de mock local não concede acesso aos serviços. O fluxo central está em [LOGIN_AND_TOKEN.md](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/LOGIN_AND_TOKEN.md).

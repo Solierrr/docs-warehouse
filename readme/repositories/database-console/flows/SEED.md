@@ -15,4 +15,4 @@ flowchart TD
  E --> F[Grava core e auth]
 ```
 
-Ambiente não permitido, configuração ausente e imagens insuficientes no modo estrito interrompem a carga. QA exige hash de senha próprio. `--core-only` evita gravar identidade. `--reset` remove somente os identificadores gerados pelo plano.
+Um ambiente não permitido, uma configuração ausente ou imagens insuficientes no modo estrito interrompem a carga, e em QA a carga exige um hash de senha próprio. A opção `--core-only` evita gravar a identidade, e a `--reset` remove apenas os identificadores gerados pelo plano.

@@ -21,6 +21,6 @@ flowchart TD
 
 ## Falhas e limites
 
-Não há row filter local, escrita Delta ou exportação HTTP. Fórmulas não são recalculadas. Um resultado anterior pode permanecer após falha, então conferir geração e conclusão. O conjunto local pode conter vários fornecedores.
+A execução local não aplica row filter, não escreve em Delta nem exporta por HTTP, e as fórmulas não são recalculadas. Um resultado anterior pode continuar no lugar depois de uma falha, por isso convém conferir a geração e a conclusão, lembrando que o conjunto local pode conter vários fornecedores.
 
 Fonte em [implementação](https://github.com/Solierrr/databricks-stocker/blob/main/run_local.py). O contexto integrado está em [cópia analítica](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/ANALYTICS_SYNC.md).

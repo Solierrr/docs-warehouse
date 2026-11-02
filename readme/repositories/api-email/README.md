@@ -4,10 +4,12 @@
 
 <p align="center">
   <img src="./assets/readme/stacks/typescript.png" width="100" hspace="8" alt="TypeScript" title="TypeScript">
+  <img src="./assets/readme/stacks/zod.png" width="100" hspace="8" alt="Zod" title="Zod">
   <img src="./assets/readme/stacks/react.png" width="100" hspace="8" alt="React" title="React">
   <img src="./assets/readme/stacks/swagger.png" width="100" hspace="8" alt="Swagger" title="Swagger">
   <img src="./assets/readme/stacks/bruno.png" width="100" hspace="8" alt="Bruno" title="Bruno">
   <img src="./assets/readme/stacks/mailpit.png" width="100" hspace="8" alt="Mailpit" title="Mailpit">
+  <img src="./assets/readme/stacks/brevo.png" width="100" hspace="8" alt="Brevo" title="Brevo">
 </p>
 
 # E-mails transacionais

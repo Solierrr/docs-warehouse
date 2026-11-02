@@ -6,7 +6,7 @@
 
 ## Pré-requisitos
 
-Use Python 3.14 ou superior, `make` e um shell compatível. O Infisical CLI autenticado fornece o ambiente. As dependências estão em [`pyproject.toml`](https://github.com/Solierrr/api-google/blob/main/pyproject.toml). Consulte também o [guia comum de Python](https://github.com/Solierrr/docs-warehouse/blob/main/readme/running/PYTHON.md).
+É preciso ter Python 3.14 ou superior, `make` e um shell compatível, além do Infisical CLI autenticado, que fornece o ambiente. As dependências estão no [`pyproject.toml`](https://github.com/Solierrr/api-google/blob/main/pyproject.toml), e o [guia comum de Python](https://github.com/Solierrr/docs-warehouse/blob/main/readme/running/PYTHON.md) complementa estes passos.
 
 ## Preparação e comandos
 
@@ -25,4 +25,4 @@ make openapi
 
 ## Verificação e falhas comuns
 
-Abra `http://localhost:8000/docs` para testar a API. `/health` confirma o processo e `/ready` confirma a criação dos clientes. As operações de endereço e fuso exigem JWT. Tradução e energia solar exigem a chave do chamador. Sem chave do provedor, a consulta externa falha. Sem JWKS, as rotas de usuário retornam indisponibilidade da autenticação. Uma chave de serviço curta impede a inicialização.
+Abra `http://localhost:8000/docs` para testar a API, usando o `/health` para confirmar o processo e o `/ready` para confirmar que os clientes foram criados. As operações de endereço e fuso exigem JWT e as de tradução e energia solar exigem a chave do chamador. Sem a chave do provedor a consulta externa falha, sem JWKS as rotas de usuário respondem que a autenticação está indisponível, e uma chave de serviço curta demais impede a inicialização.

@@ -43,7 +43,7 @@ A carga básica cria as correspondências de um `usuario` para `users`, `contact
 
 A extração usa o mapeamento de `person` para decidir quais usuários ainda precisam de carga. As etapas complementares consultam os pais antes de inserir filhos. A etapa de fotos consulta o mapeamento para limitar a seleção a cadastros migrados.
 
-Um registro legado pode ter vários destinos. `produto`, por exemplo, gera correspondências para `model`, `inventory` e `offer`. Um mesmo contato pode aparecer no mapeamento da pessoa e no do telefone escolhido. A restrição única não proíbe esse compartilhamento.
+Um registro legado pode ter vários destinos, como o `produto`, que gera correspondências em `model`, `inventory` e `offer`, e um mesmo contato pode aparecer no mapeamento da pessoa e no do telefone escolhido, já que a restrição única não proíbe esse compartilhamento.
 
 As gravações de negócio e suas correspondências ficam na transação da respectiva etapa. A garantia não abrange processos concorrentes que tenham lido o mesmo estado antes de inserir. O workflow serializa suas próprias execuções, sem impor bloqueio de banco global.
 

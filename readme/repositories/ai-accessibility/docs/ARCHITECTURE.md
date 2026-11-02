@@ -26,6 +26,6 @@ flowchart LR
 
 O arquivo é autenticado antes do parser multipart na rota principal. A normalização remove metadados, aplica orientação e aceita somente JPEG, PNG e WebP de um quadro. O limite é oito MiB, vinte milhões de pixels e 8192 pixels por lado.
 
-Gemini é preferido quando configurado. Groq pode funcionar como principal ou fallback técnico. Um bloqueio de segurança não é contornado por fallback. O processamento tem semáforo configurável. O `/health` informa versão de `version.txt` e `/ready` verifica configuração de provedor, sem chamada remota.
+O Gemini é o provedor preferido quando está configurado, e o Groq pode atuar como principal ou como alternativa para falhas técnicas, mas nunca para contornar um bloqueio de segurança do provedor. O processamento simultâneo é limitado por um semáforo configurável, o `/health` informa a versão lida de `version.txt` e o `/ready` confere se há provedor configurado, sem fazer chamada remota.
 
 Não há banco próprio. O debug guarda imagens temporariamente em memória para replay, com expiração de quinze minutos, limite de dez execuções por administrador e orçamento global de 64 MiB. Os dados somem em reinício. A integração entre serviços está no [mapa central](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/INTEGRATIONS.md).

@@ -6,7 +6,7 @@
 
 Use Node.js 24 ou superior, npm, shell `sh` com utilitários Unix e Chrome ou Edge. O guia comum está em [TYPESCRIPT.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/running/TYPESCRIPT.md).
 
-Execute `make install` e `make dev` para abrir a galeria. `make vault` exporta `/reports` quando uma atividade precisa de configuração externa. A galeria em si é construída a partir dos arquivos locais.
+Execute `make install` e `make dev` para abrir a galeria, e use o `make vault` para exportar a pasta `/reports` quando uma atividade precisar de configuração externa, já que a galeria em si é construída a partir dos arquivos locais.
 
 | Comando | Efeito |
 |---|---|
@@ -17,4 +17,4 @@ Execute `make install` e `make dev` para abrir a galeria. `make vault` exporta `
 | `sh scripts/check.sh NNN` | Confere estrutura e arquivos |
 | `sh scripts/pdf.sh NNN` | Imprime o HTML final em PDF |
 
-Os scripts de documento exigem a estrutura criada pelo processo de autoria. O build instala dependências da galeria se `pagedjs` estiver ausente. Sem navegador configurado, o PDF não é produzido. A variável `BROWSER` permite selecionar o executável.
+Os scripts de documento exigem a estrutura criada pelo processo de autoria, e o build instala as dependências da galeria quando o `pagedjs` está ausente. Sem um navegador configurado o PDF não é produzido, e a variável `BROWSER` permite escolher o executável.

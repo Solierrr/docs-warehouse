@@ -51,7 +51,7 @@ O leitor exige as colunas abaixo, adapta aliases de nomes antigos e preserva out
 
 ## Silver
 
-As 23 especificações diretas e a junção especial de técnicos com pessoas formam 24 tabelas. Identificadores ficam em texto. Textos vazios viram null e regras de situação usam maiúsculas.
+As 23 especificações diretas e a junção especial de técnicos com pessoas formam 24 tabelas, com os identificadores em texto, os textos vazios convertidos em null e as regras de situação escritas em maiúsculas.
 
 | Tabela | Origem Bronze | Colunas publicadas |
 |---|---|---|
@@ -135,7 +135,7 @@ erDiagram
 
 ## Gold
 
-As 19 tabelas são resultados atuais, substituídos em cada atualização. Os nomes vêm dos construtores em `note_gold.py`. Dez têm prefixo `kpi_supplier_` e recebem filtro por fornecedor.
+As 19 tabelas guardam os resultados atuais e são substituídas a cada atualização, com os nomes definidos pelos construtores em `note_gold.py`, e as dez que têm o prefixo `kpi_supplier_` recebem o filtro por fornecedor.
 
 | Tabela | Grão | Conteúdo |
 |---|---|---|
@@ -159,20 +159,20 @@ As 19 tabelas são resultados atuais, substituídos em cada atualização. Os no
 | `kpi_supplier_accepted_value_by_month` | Fornecedor e mês de criação da proposta | Valor negociado aceito, com data aproximada |
 | `kpi_supplier_accepted_offers_by_date` | Fornecedor, oferta, modelo e data de criação | Contagem de propostas aceitas, com data aproximada |
 
-O fornecedor das propostas é derivado por item e oferta. Valor aceito usa preço negociado vezes quantidade sem reaplicar desconto. Taxas com denominador zero ficam nulas. Preço ausente não é substituído por estimativa. As datas dos indicadores temporais são proxies da criação, sem histórico efetivo de aceite.
+O fornecedor das propostas é derivado por item e oferta, e o valor aceito multiplica o preço negociado pela quantidade, sem reaplicar o desconto. As taxas com denominador zero ficam nulas e um preço ausente não é substituído por estimativa, enquanto as datas dos indicadores temporais são aproximações pela data de criação, já que não há histórico efetivo de aceite.
 
 ## Segurança e índices
 
 `gold_security.supplier_access` é tabela Delta com `principal`, `scope`, `supplier_id`, `active`, `validated_by` e `validated_at`. Todos os campos exceto fornecedor têm NOT NULL no SQL de provisionamento. Não há PK, FK ou índice secundário explícito criado no código das camadas.
 
-A função permite ADMIN ativo ou SUPPLIER ativo com exatamente um fornecedor distinto associado e correspondente à linha. Ela usa `session_user()`. A tabela começa vazia. As identidades do job e do exportador também precisam de acesso validado.
+A função de filtro, que usa `session_user()`, libera a linha para um ADMIN ativo ou para um SUPPLIER ativo associado a exatamente um fornecedor, igual ao da linha. A tabela de acesso começa vazia, e as identidades do job e do exportador também precisam ter o acesso validado.
 
 O escritor aplica row filter na criação das dez tabelas de fornecedor. As outras tabelas exigem grants e política próprios para consumo final. O executor local ignora esse filtro, conforme metadado da saída. Confirmar o desenho por persona e execução dos painéis. <!-- PENDENTE: 4 -->
 
 ## Escritores, leitores e ciclo
 
-O notebook escreve as três camadas. Silver lê Bronze e Gold lê Silver. Painéis e exportador são leitores previstos de Gold. Não há CDC ou agendamento de carga contínua definido pelo notebook. Não há TTL ou tabela de auditoria de rejeitados criada por ele. A qualidade é relatada no terminal. <!-- PENDENTE: 3 -->
+O notebook escreve as três camadas, com a Silver lendo a Bronze e a Gold lendo a Silver, e os painéis e o exportador são os leitores previstos da Gold. O notebook não define CDC nem agendamento de carga contínua e não cria TTL nem tabela de auditoria dos rejeitados, relatando a qualidade apenas no terminal. <!-- PENDENTE: 3 -->
 
-As substituições são individuais. Interrupção pode deixar camadas com atualizações diferentes. O cutover precisa evitar disputa com pipelines antigas e com a carga Bronze automática. <!-- PENDENTE: 2 -->
+As substituições são feitas tabela a tabela, e uma interrupção pode deixar as camadas com atualizações diferentes, por isso a virada precisa evitar disputa com as pipelines antigas e com a carga Bronze automática. <!-- PENDENTE: 2 -->
 
 Fontes em [Bronze](https://github.com/Solierrr/databricks-stocker/blob/main/pipelines/00_medallion/transformations/note_bronze.py), [Silver](https://github.com/Solierrr/databricks-stocker/blob/main/pipelines/00_medallion/transformations/note_silver.py), [Gold](https://github.com/Solierrr/databricks-stocker/blob/main/pipelines/00_medallion/transformations/note_gold.py), [catálogo](https://github.com/Solierrr/databricks-stocker/blob/main/pipelines/00_medallion/transformations/note_catalog.py) e [segurança](https://github.com/Solierrr/databricks-stocker/blob/main/security/supplier_access.sql).

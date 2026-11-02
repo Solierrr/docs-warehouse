@@ -25,7 +25,7 @@ flowchart TD
 
 A origem recebe somente consultas SQL emitidas pelo programa. O destino recebe o DDL de controle e as alterações de negócio. As consultas usam as credenciais das respectivas URLs de conexão, sem chamadas autenticadas às APIs.
 
-As etapas complementares executam mesmo quando não há pessoas novas. O mapeamento permite reaproveitar registros, mas cada etapa decide o que atualizar ou pular. O telefone escolhido pode ser atualizado novamente. As demais limitações estão em [STATUS.md](../docs/STATUS.md).
+As etapas complementares rodam mesmo quando não há pessoas novas, e o mapeamento permite reaproveitar registros, mas cada etapa decide o que atualizar ou pular, o que pode atualizar de novo o telefone escolhido. As demais limitações estão em [STATUS.md](../docs/STATUS.md).
 
 ## Casos de erro
 

@@ -39,4 +39,4 @@ Para ações comuns, "sim" é uma das fórmulas aceitas. Encerrar oferta e cance
 - Falha HTTP do cadastro central gera `TOOL_FAILED` com `ACTION_FAILED` e limpa a proposta.
 - Falha de transporte não comprova se a alteração ocorreu. A resposta orienta conferir a tela antes de repetir.
 
-O bloqueio por conversa vale apenas no processo. Os riscos de concorrência estão em [STATUS.md](../docs/STATUS.md). O percurso que leva o pedido até este serviço está em [ASSISTANT_CHAT.md](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/ASSISTANT_CHAT.md).
+O bloqueio por conversa vale apenas dentro do processo, e os riscos de concorrência que isso traz estão em [STATUS.md](../docs/STATUS.md). O percurso que leva o pedido até este serviço está em [ASSISTANT_CHAT.md](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/ASSISTANT_CHAT.md).

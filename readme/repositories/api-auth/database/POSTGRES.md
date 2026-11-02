@@ -4,7 +4,7 @@
 
 # PostgreSQL de autenticação
 
-O serviço escreve identidade, credenciais, sessões, tokens e outbox. As fontes são as migrations [V1](https://github.com/Solierrr/api-auth/blob/main/src/main/resources/db/migration/V1__create_auth_schema.sql) e [V2](https://github.com/Solierrr/api-auth/blob/main/src/main/resources/db/migration/V2__mobile_authorization.sql). O cadastro de negócio pertence ao `api-core`.
+O serviço grava a identidade, as credenciais, as sessões, os tokens e a outbox, conforme as migrations [V1](https://github.com/Solierrr/api-auth/blob/main/src/main/resources/db/migration/V1__create_auth_schema.sql) e [V2](https://github.com/Solierrr/api-auth/blob/main/src/main/resources/db/migration/V2__mobile_authorization.sql), enquanto o cadastro de negócio pertence ao `api-core`.
 
 ```mermaid
 erDiagram

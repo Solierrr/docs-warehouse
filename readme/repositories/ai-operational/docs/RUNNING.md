@@ -8,7 +8,7 @@ O preparo comum de Python está em [PYTHON.md](https://github.com/Solierrr/docs-
 
 ## Pré-requisitos
 
-O CI usa Python 3.14. O Dockerfile usa `python:latest`, portanto não fixa a mesma versão. Use a versão do CI no ambiente local.
+O CI usa Python 3.14, mas o Dockerfile usa `python:latest` e não fixa a mesma versão, por isso o ambiente local deve seguir a versão do CI.
 
 - Git, Python 3.14, `make` e shell compatível com `sh`, como Git Bash no Windows.
 - Infisical CLI autenticado para obter a configuração local.
@@ -27,7 +27,7 @@ make install
 make dev
 ```
 
-`make vault` obtém `/database`, `/redis`, `/llm`, `/service-urls`, `/mcp` e `/service-keys`. Em QA também inclui `/observability`. Nenhum valor de segredo deve ser versionado. O processo de obtenção está no [guia de segredos](https://github.com/Solierrr/docs-warehouse/blob/main/readme/infisical/README.md).
+O `make vault` obtém as pastas `/database`, `/redis`, `/llm`, `/service-urls`, `/mcp` e `/service-keys`, e em QA inclui também `/observability`, sem que nenhum valor de segredo seja versionado. O processo de obtenção está no [guia de segredos](https://github.com/Solierrr/docs-warehouse/blob/main/readme/infisical/README.md).
 
 As variáveis são carregadas de `.env`, com as chaves dos provedores expostas ao ambiente pelo carregador de LLM.
 

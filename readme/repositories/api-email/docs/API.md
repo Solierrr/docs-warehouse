@@ -8,11 +8,11 @@ O contrato completo está no [`openapi.yaml`](https://github.com/Solierrr/api-em
 
 ## Autenticação
 
-As rotas de prévia e envio exigem `X-Service-Key`. Os chamadores aceitos são `api-core` e `api-auth`, com chaves próprias nas variáveis `SERVICE_KEY_API_CORE` e `SERVICE_KEY_API_AUTH`. O contrato declara o esquema `serviceKey`.
+As rotas de prévia e de envio exigem `X-Service-Key`, e os chamadores aceitos são o `api-core` e o `api-auth`, cada um com a sua chave nas variáveis `SERVICE_KEY_API_CORE` e `SERVICE_KEY_API_AUTH`, como declara o esquema `serviceKey` do contrato.
 
 O modo de compatibilidade aceita `X-API-Key` enquanto `EMAIL_API_KEY` estiver configurado e identifica a chamada como `api-core`. A presença de uma chave nova inválida não provoca fallback para a legada. A retirada desse caminho depende da migração dos consumidores. <!-- PENDENTE: 3 -->
 
-O serviço não oferece login por JWT. A chave de serviço pertence ao backend chamador e não deve ser incorporada ao cliente web. O padrão está em [SERVICE_AUTH.md](https://github.com/Solierrr/docs-warehouse/blob/main/docs/standards/SERVICE_AUTH.md).
+O serviço não oferece login por JWT, e a chave de serviço pertence ao backend que chama, por isso nunca deve ser embutida no cliente web. O padrão está em [SERVICE_AUTH.md](https://github.com/Solierrr/docs-warehouse/blob/main/docs/standards/SERVICE_AUTH.md).
 
 ## Operações
 
@@ -25,7 +25,7 @@ O contrato tem dois grupos de rotas.
 | Saúde | `GET /health` | processo e versão, sem autenticação |
 | Saúde | `GET /ready` | verificação do transporte, sem autenticação |
 
-`accepted` não comprova entrega na caixa postal. Não há identificador de idempotência, histórico consultável nem retry automático neste serviço. Repetir após timeout pode duplicar a mensagem. <!-- PENDENTE: 4 -->
+O estado `accepted` não comprova a entrega na caixa postal, e como o serviço não tem identificador de idempotência, histórico consultável nem nova tentativa automática, repetir o pedido depois de um timeout pode duplicar a mensagem. <!-- PENDENTE: 4 -->
 
 ## Modelos e limites
 
@@ -42,7 +42,7 @@ Os identificadores do contrato correspondem aos nove modelos de produto.
 
 O corpo aceita um destinatário e usa `pt-BR` como idioma padrão. Também aceita `en-US` e `es-ES`. Nome e contexto adicional são validados pelo modelo escolhido. Os campos obrigatórios por modelo estão no contrato gerado, sem necessidade de enviar HTML, assunto ou remetente.
 
-O limite do corpo é de 16 KiB. Campos desconhecidos são recusados. O `actionUrl` precisa ter origem exata na lista autorizada e não pode conter credenciais. HTTPS é exigido fora de desenvolvimento. A imagem opcional de modelo aceita HTTPS sem credenciais, mas não compartilha a restrição de origens do link de ação. O servidor não busca essa imagem.
+O corpo tem limite de 16 KiB e campos desconhecidos são recusados, e o `actionUrl` precisa ter uma origem exata da lista autorizada, sem credenciais, com HTTPS obrigatório fora do desenvolvimento. A imagem opcional do modelo aceita HTTPS sem credenciais, mas não segue a restrição de origens do link de ação, e o servidor nunca busca essa imagem.
 
 ## Exemplo de prévia
 
@@ -65,7 +65,7 @@ Content-Type: application/json
 }
 ```
 
-A resposta 200 contém `subject`, `html` e `text`. Para enviar a mesma mensagem, use o mesmo corpo em `POST /emails`. Em desenvolvimento, configure primeiro o Mailpit para capturar o envio. O passo a passo está em [RUNNING.md](./RUNNING.md).
+A resposta 200 traz `subject`, `html` e `text`, e para enviar a mesma mensagem basta repetir o corpo em `POST /emails`. Em desenvolvimento, configure antes o Mailpit para capturar o envio, como mostra o passo a passo em [RUNNING.md](./RUNNING.md).
 
 ## Erros
 

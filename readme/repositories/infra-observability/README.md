@@ -4,6 +4,9 @@
 
 <p align="center">
   <img src="./assets/readme/stacks/github-actions.png" width="100" hspace="8" alt="GitHub Actions" title="GitHub Actions">
+  <img src="./assets/readme/stacks/prometheus.png" width="100" hspace="8" alt="Prometheus" title="Prometheus">
+  <img src="./assets/readme/stacks/grafana-loki.png" width="100" hspace="8" alt="Grafana Loki" title="Grafana Loki">
+  <img src="./assets/readme/stacks/grafana-tempo.png" width="100" hspace="8" alt="Grafana Tempo" title="Grafana Tempo">
   <img src="./assets/readme/stacks/infisical.png" width="100" hspace="8" alt="Infisical" title="Infisical">
 </p>
 

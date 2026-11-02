@@ -9,6 +9,7 @@ flowchart LR
     MOB[mobile-app]
     SBX[web-sandbox]
     WRK[worker-failover]
+    ALR[worker-alerts]
   end
   subgraph APIs
     AUTH[api-auth]
@@ -29,6 +30,8 @@ flowchart LR
   end
 
   WRK --> WEB
+  ALR -->|e-mail de incidente| EMAIL
+  ALR -->|sonda de saúde| WEB & CORE & AUTH & MSG
   WEB --> AUTH & CORE & MSG & VALID
   MOB --> AUTH & CORE & MSG
   MOB -->|só QA| GOOG

@@ -19,7 +19,7 @@ flowchart LR
  A --> J
 ```
 
-O [consumidor](https://github.com/Solierrr/api-auth/blob/main/src/main/kotlin/com/solaria/auth/outbox/consumer/UserRegisteredEventListener.kt) é deste serviço e chama o `api-core`. O evento só é confirmado após o processamento. Falhas deixam a entrada pendente para retry.
+O [consumidor](https://github.com/Solierrr/api-auth/blob/main/src/main/kotlin/com/solaria/auth/outbox/consumer/UserRegisteredEventListener.kt) pertence a este serviço e chama o `api-core`, confirmando o evento só depois do processamento, de modo que uma falha deixa a entrada pendente para uma nova tentativa.
 
 | Integração | Autenticação |
 |---|---|
@@ -31,4 +31,4 @@ O [consumidor](https://github.com/Solierrr/api-auth/blob/main/src/main/kotlin/co
 
 A autenticação interna precisa de decisão de implantação. <!-- PENDENTE: 2 --> Os dados estão em [POSTGRES.md](../database/POSTGRES.md) e [REDIS.md](../database/REDIS.md).
 
-Senhas usam BCrypt com custo 12. Access tokens têm duração configurável com padrão de quinze minutos. Refresh tokens aleatórios duram sete dias por padrão, são armazenados por hash e rotacionados. Reuso revoga a sessão. O readiness considera PostgreSQL e exclui Redis e e-mail. O Actuator expõe health e info, e a telemetria usa OpenTelemetry.
+As senhas usam BCrypt com custo 12, os access tokens duram quinze minutos por padrão e os refresh tokens aleatórios duram sete dias, guardados por hash e trocados a cada uso, com a sessão revogada quando um deles é reutilizado. O readiness considera o PostgreSQL e deixa de fora o Redis e o e-mail, o Actuator expõe health e info, e a telemetria usa OpenTelemetry.

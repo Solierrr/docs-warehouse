@@ -5,7 +5,8 @@ Padrões que valem para todos os repositórios de código da organização. Cada
 | Padrão | Documento | Arquivos reutilizáveis |
 |---|---|---|
 | OpenAPI e Swagger | [OPENAPI.md](./OPENAPI.md) | [`github/openapi/spectral.yaml`](../../github/openapi/spectral.yaml), [`openapi-lint.yml`](../../.github/workflows/openapi-lint.yml) |
-| Storybook | [STORYBOOK.md](./STORYBOOK.md) | [`storybook.yml`](../../.github/workflows/storybook.yml) |
+| Storybook | [STORYBOOK.md](./STORYBOOK.md) | [`preview-storybook.yml`](../../github/workflow/typescript/preview-storybook.yml) |
+| Ambientes de preview | [PREVIEW.md](./PREVIEW.md) | [`preview-gallery.yml`](../../github/workflow/common/preview-gallery.yml), [`preview-storybook.yml`](../../github/workflow/typescript/preview-storybook.yml) |
 | Contrato de erro | [ERRORS.md](./ERRORS.md) | [catálogo de erros](./ERROR_CODES.md) |
 | Versão e release | [VERSIONING.md](./VERSIONING.md) | templates `release-please-config.*.json` em [`github/workflow/common/`](../../github/workflow/common/) |
 | Autenticação entre serviços | [SERVICE_AUTH.md](./SERVICE_AUTH.md) | |

@@ -16,4 +16,4 @@ flowchart LR
  I --> D[Seed do database-console]
 ```
 
-`scripts/catalog.mjs` valida o catálogo. `sync.mjs` copia ao frontend e `cloudinary.mjs` publica no armazenamento. O upload usa HTTPS com assinatura e credenciais de ambiente. Não há banco próprio. A integração com os consumidores está no [mapa central](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/INTEGRATIONS.md).
+O `scripts/catalog.mjs` valida o catálogo, o `sync.mjs` copia os arquivos para o frontend e o `cloudinary.mjs` publica no armazenamento, com upload por HTTPS assinado e credenciais do ambiente. O repositório não tem banco próprio, e a integração com os consumidores está no [mapa central](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/INTEGRATIONS.md).

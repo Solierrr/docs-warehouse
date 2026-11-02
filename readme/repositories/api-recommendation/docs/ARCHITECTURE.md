@@ -23,6 +23,6 @@ flowchart LR
 | Neo4j | Leitura Bolt pelo driver, credenciais de banco |
 | PostgreSQL | Leitura SQL, credenciais e modo SSL configuráveis |
 
-Os clientes de dados estão em `app/database.py`. Consultas Cypher e SQL ficam junto dos domínios. O snapshot usa `SyncState.active_version`. Não se aplica fallback para toda exceção de negócio, pois contexto inválido deve ser informado ao chamador.
+Os clientes de dados ficam em `app/database.py` e as consultas Cypher e SQL ficam junto dos domínios, com o snapshot escolhido por `SyncState.active_version`. A alternativa sem grafo não vale para toda exceção de negócio, porque um contexto inválido precisa ser informado ao chamador.
 
-O `/health` informa versão de `version.txt`. O `/ready` testa somente PostgreSQL, com timeout de dois segundos. A ausência do grafo não tira o serviço de prontidão. O modelo consumido está em [NEO4J.md](../database/NEO4J.md).
+O `/health` informa a versão lida de `version.txt`, e o `/ready` testa somente o PostgreSQL, com limite de dois segundos, de modo que a ausência do grafo não tira o serviço da prontidão. O modelo consumido está em [NEO4J.md](../database/NEO4J.md).

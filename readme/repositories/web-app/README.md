@@ -4,6 +4,7 @@
 
 <p align="center">
   <img src="./assets/readme/stacks/typescript.png" width="100" hspace="8" alt="TypeScript" title="TypeScript">
+  <img src="./assets/readme/stacks/zod.png" width="100" hspace="8" alt="Zod" title="Zod">
   <img src="./assets/readme/stacks/vite.png" width="100" hspace="8" alt="Vite" title="Vite">
   <img src="./assets/readme/stacks/firebase.png" width="100" hspace="8" alt="Firebase" title="Firebase">
   <img src="./assets/readme/stacks/storybook.png" width="100" hspace="8" alt="Storybook" title="Storybook">

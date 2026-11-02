@@ -1,0 +1,14 @@
+{
+  "name": "docs-warehouse",
+  "kind": "gallery",
+  "title": {
+    "pt-BR": "Previews da arquitetura",
+    "en-US": "Architecture previews",
+    "es-ES": "Vistas previas de la arquitectura"
+  },
+  "description": {
+    "pt-BR": "Diagramas da plataforma, organização dos repositórios e relação entre os serviços.",
+    "en-US": "Platform diagrams, repository organization and the relations between services.",
+    "es-ES": "Diagramas de la plataforma, organización de los repositorios y relación entre los servicios."
+  }
+}

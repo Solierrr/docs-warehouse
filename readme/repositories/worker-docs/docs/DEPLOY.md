@@ -4,8 +4,8 @@
 
 # Deploy
 
-O [Wrangler](https://github.com/Solierrr/worker-docs/blob/main/wrangler.jsonc) configura https://docs.solarianetwork.site e publica `dist/` com tratamento de página 404. `workers_dev` está desligado. O serviço não depende do GKE.
+O Worker publica o portal no domínio próprio `docs.solarianetwork.site`, serve a pasta `dist/` gerada pelo build com página 404 própria e não depende do cluster GKE. O endereço `workers.dev` fica desligado, e o script na Cloudflare tem o mesmo nome do repositório, `worker-docs`, como define o [`wrangler.jsonc`](https://github.com/Solierrr/worker-docs/blob/main/wrangler.jsonc).
 
-A publicação é feita por `npm run deploy`, com autenticação e acesso ao domínio no Cloudflare. O procedimento comum está em [CLOUDFLARE_WORKER.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/CLOUDFLARE_WORKER.md).
+A publicação é feita pelo workflow manual `Deploy`, que gera o build e executa `npm run deploy` com os segredos `CLOUDFLARE_API_TOKEN` e `CLOUDFLARE_ACCOUNT_ID` do repositório, criados pelo Terraform no `infra-platform`. Enquanto a integração da Cloudflare com o GitHub estiver ligada no painel, ela também publica a cada mudança, por isso o caminho único depende de desligá-la. O procedimento comum aos Workers está em [CLOUDFLARE_WORKER.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/CLOUDFLARE_WORKER.md).
 
-O CI confere tipos e lint, mas não executa o build no workflow consultado. O workflow de ambiente consulta o domínio público. Configuração versionada não comprova disponibilidade ou aprovação dos textos. <!-- PENDENTE: 1 -->
+A configuração versionada não comprova que o domínio está no ar nem que os textos publicados foram aprovados. <!-- PENDENTE: 1 -->

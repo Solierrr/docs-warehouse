@@ -6,7 +6,7 @@
 
 Use Terraform 1.16 ou superior, Google Cloud CLI, `kubectl`, Helm e PowerShell para os utilitários. O guia comum está em [TERRAFORM.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/running/TERRAFORM.md).
 
-`make vault` exporta `/infisical`. O carregamento de credenciais é descrito em `scripts/ensure-secrets.ps1`, que considera ambiente, arquivo local e sessão do operador. Arquivos de credenciais não devem entrar no Git.
+O `make vault` exporta a pasta `/infisical`, e o carregamento das credenciais está descrito em `scripts/ensure-secrets.ps1`, que considera o ambiente, o arquivo local e a sessão do operador. Os arquivos de credenciais nunca devem entrar no Git.
 
 | Comando | Efeito |
 |---|---|

@@ -15,4 +15,4 @@ flowchart TD
  E --> F[Visitante consulta documento]
 ```
 
-JSON inválido, tarball ausente e falha de build impedem a entrega. Falta de autorização no Cloudflare impede publicar. Documentos sem tradução usam o idioma padrão.
+Um JSON inválido, a falta do tarball ou uma falha de build impedem a entrega, e a falta de autorização no Cloudflare impede a publicação, enquanto os documentos sem tradução usam o idioma padrão.
