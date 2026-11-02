@@ -4,10 +4,9 @@
 
 # Situação
 
-Leitura da main em 2026-10-31.
+Leitura da main em 2026-11-02.
 
-- O repositório continua com o molde, conforme o checklist antigo.
-- Não há aplicação, configuração Grafana ou Dockerfile executável próprios.
-- O workflow de release Docker não corresponde a uma imagem implementada.
-- Deployment, volume, fontes e acesso estão no GitOps. Os painéis estão no coletor.
-- O repositório continua existindo como a base da configuração de visualização.
+- Há quatro painéis e quinze regras de alerta, com três pontos de contato e as políticas de notificação.
+- Os contatos apontam para as rotas de alerta do `api-email`, enquanto o roteamento atual dos incidentes passa pelo `worker-alerts`.
+- Não há workflow que aplique os painéis e os alertas no Grafana.
+- O Dockerfile, o entrypoint e o workflow de release Docker continuam com o molde, sem uma imagem de aplicação.

@@ -28,7 +28,6 @@ O Argo CD acompanha os arquivos versionados e aplica as mudanças no Kubernetes.
 - [STATUS.md](./docs/STATUS.md), limites observados.
 - [HOW_IT_WORKS.md](./docs/HOW_IT_WORKS.md), detalhes do fluxo ou modelo de dados.
 - [Fluxos](./flows/), etapas e casos de erro do repositório.
-- [PENDENCIAS.md](./PENDENCIAS.md), questões para revisão.
 
 ## Contribuindo
 

@@ -2,10 +2,10 @@
   <img src="../assets/readme/banners/grafana.png" alt="Grafana" width="100%">
 </p>
 
-# Inspeção local
+# Execução local
 
-O Makefile exige `make`, shell e Git, mas instalação, desenvolvimento, build, teste e lint não têm comandos configurados. `make vault` também não tem pastas definidas.
+Os painéis e as regras são arquivos de texto, e o Makefile não tem comandos de instalação, build, teste ou lint configurados, nem pastas para o `make vault`.
 
-Não há instrução válida para iniciar uma instância Grafana a partir desta main, pois o Dockerfile não define imagem base ou comando. A coleção Bruno contém exemplos de outro tipo de serviço e não representa uma API implementada aqui.
+Para ver os painéis com dados locais, suba a stack de telemetria do coletor com `make obs-up`, como descreve o [TRY-LOCAL.md](https://github.com/Solierrr/docs-warehouse/blob/main/helps/TRY-LOCAL.md), e importe o JSON do painel desejado pela interface do Grafana local.
 
-Para uma visualização local de telemetria, o procedimento existente é `make obs-up` no repositório do coletor, descrito em [TRY-LOCAL.md](https://github.com/Solierrr/docs-warehouse/blob/main/helps/TRY-LOCAL.md). Esse procedimento não usa este repositório.
+As regras de alerta usam a fonte de dados com uid `prometheus` e os contatos dependem da variável `API_EMAIL_KEY`, por isso um teste local precisa de uma fonte com esse uid e de uma chave de teste.

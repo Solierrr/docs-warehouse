@@ -26,7 +26,6 @@ O GitHub Actions agenda a execução e carrega do Infisical os endereços config
 - [DEPLOY.md](./docs/DEPLOY.md), agendamento e configuração da execução no GitHub.
 - [STATUS.md](./docs/STATUS.md), limites observados no código.
 - [Fluxo](./flows/PING_CYCLE.md), etapas e falhas de cada ciclo.
-- [PENDENCIAS.md](./PENDENCIAS.md), questões para revisão pelo responsável.
 
 ## Contribuindo
 

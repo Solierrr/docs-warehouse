@@ -13,5 +13,5 @@ Leitura da main em 2026-11-02.
 - O readiness verifica presença de configuração e não disponibilidade do provedor.
 - O serviço não armazena mídia persistentemente. O debug mantém cópias temporárias em memória para reexecução.
 - A migração para a biblioteca compartilhada foi validada com a API da Groq simulada por HTTP (rodízio de chaves e falha de provedor incluídos). O caminho do Gemini ainda não foi exercitado com chave real (2026-11-02).
-- A fila de processamento assíncrono das imagens de produto ainda não existe: falta decidir o desenho (fila, nova tentativa, idempotência e devolução da descrição ao `api-core`) (2026-11-02).
+- A fila de processamento assíncrono das imagens de produto ainda não existe, e falta decidir o desenho (fila, nova tentativa, idempotência e devolução da descrição ao `api-core`) (2026-11-02).
 - A branch `qa` tem uma linha própria, com a política de adequação da imagem à finalidade e login por JWT de usuário, que a `main` não tem. As duas ainda não foram reconciliadas (2026-11-02).

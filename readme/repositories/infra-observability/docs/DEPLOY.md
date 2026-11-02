@@ -4,8 +4,8 @@
 
 # Estado da implantação
 
-Este repositório não possui uma imagem Grafana própria implementada. O workflow de release ainda chama um publicador Docker genérico, mas o Dockerfile contém somente instruções pendentes.
+A instância do Grafana definida no GitOps tem Ingress em https://grafana.solarianetwork.site, porta 3000, probes em `/api/health` e Secret `infra-grafana-secrets`. Os painéis e os alertas deste repositório são provisionados nessa instância.
 
-A instância definida no GitOps tem Ingress em https://grafana.solarianetwork.site, porta 3000, probes em `/api/health` e Secret `infra-grafana-secrets`. Painéis são lidos do repositório do coletor. A existência desses manifestos não comprova disponibilidade atual.
+Não há workflow que aplique os arquivos de `dashboards/` e `alerting/` automaticamente, por isso a atualização no Grafana acompanha o processo da instância. O workflow de release ainda chama um publicador Docker genérico, sem uma imagem de aplicação.
 
-O processo comum está em [PROD_GKE_ARGOCD.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/PROD_GKE_ARGOCD.md), e o repositório continua como a base da configuração de visualização.
+O processo comum está em [PROD_GKE_ARGOCD.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/PROD_GKE_ARGOCD.md).
