@@ -66,6 +66,7 @@ Exemplo de README já montado: [`readme/repositories/api-notify/README.md`](../.
 | `langchain.png` | LangChain, usado na arquitetura dos serviços de IA |
 | `bruno.png` | Bruno, usado em `readme/bruno/` |
 | `atlassian.png` | Atlassian |
+| `telegram.png` | Telegram |
 | `template.png` | Banner exclusivo do `generic-template`: hexágono com um quadrado translúcido no lugar do logo da stack |
 
 ## Ícones de stack
@@ -150,5 +151,6 @@ Exemplo de README já montado: [`readme/repositories/api-notify/README.md`](../.
 | `upstash.png` | Upstash |
 | `langchain.png` | LangChain |
 | `jira.png` | Jira |
+| `telegram.png` | Telegram |
 
 Os ícones de React a Jetpack Compose vieram do [theSVG](https://thesvg.org/) (licença MIT, as marcas continuam dos seus donos), convertidos para a mesma moldura dos demais.
