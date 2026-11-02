@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../assets/readme/banners/cloudflare-workers.png" alt="Cloudflare Workers" width="100%">
+  <img src="../assets/readme/banners/hono.png" alt="Hono" width="100%">
 </p>
 
 # Publicação na Cloudflare
@@ -23,7 +23,7 @@ O [módulo de alertas](https://github.com/Solierrr/infra-platform/blob/main/modu
 
 ## Recursos duráveis e agenda
 
-O binding `INCIDENTS` usa `IncidentCoordinator`. O binding `MONITOR` usa `MonitorState`. As migrations `v1` e `v2` criam essas classes como objetos SQLite. O evento agendado roda a cada cinco minutos, conforme `*/5 * * * *`.
+O binding `INCIDENTS` usa o `IncidentCoordinator` e o `MONITOR` usa o `MonitorState`, com as migrations `v1` e `v2` criando essas classes como objetos SQLite. O evento agendado roda a cada cinco minutos, conforme `*/5 * * * *`.
 
 O histórico de tickets permanece no Jira. O estado do monitor permanece no Durable Object de nome `main`, inclusive após novas versões do código. Não há rotina de expiração desse storage. Mudanças nos bindings e migrations precisam preservar o acesso a esse estado.
 

@@ -16,4 +16,4 @@ flowchart LR
  C -->|Falha| R[Entrada pendente]
 ```
 
-A stream transporta tipo de evento e payload. `USER_REGISTERED` contém o identificador de autenticação. Outros eventos são confirmados sem provisionamento por esse consumidor. O reclaimer trata entradas pendentes conforme as propriedades da outbox. Os nomes e parâmetros operacionais são configurados em `OutboxProperties`. Redis não participa do readiness da aplicação.
+A stream transporta o tipo do evento e o payload, e o `USER_REGISTERED` leva o identificador de autenticação, enquanto os outros eventos são confirmados por este consumidor sem provisionar nada. O reclaimer trata as entradas pendentes conforme as propriedades da outbox, configuradas em `OutboxProperties`, e o Redis não participa do readiness da aplicação.

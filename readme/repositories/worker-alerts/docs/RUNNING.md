@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../assets/readme/banners/cloudflare-workers.png" alt="Cloudflare Workers" width="100%">
+  <img src="../assets/readme/banners/hono.png" alt="Hono" width="100%">
 </p>
 
 # Execução local
@@ -49,7 +49,7 @@ Os comandos disponíveis não dependem da execução de um serviço Node permane
 
 ## Conferência local
 
-Use o endereço que o Wrangler exibir. O health é público. A prévia é o caminho para conferir autenticação e formato sem criar ticket ou enviar e-mail.
+Use o endereço exibido pelo Wrangler, lembrando que o health é público e que a prévia permite conferir a autenticação e o formato sem criar ticket nem enviar e-mail.
 
 ```bash
 curl "$ALERTS_URL/health"

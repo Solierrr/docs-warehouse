@@ -43,7 +43,7 @@ O banco e a coleção também aparecem no contexto compartilhado dos agentes. Co
 
 O estado inclui mensagens, resumo, dono, especialistas percorridos, proposta pendente e contador de gravações. A thread normal recebe `operational:<conversation_id>`. O debug recebe `operational:debug:<sub>:<conversation_id>`. O namespace separa os checkpoints dos usados pelo assistente principal, mesmo quando a coleção é a mesma.
 
-O checkpointer usa cliente síncrono. A memória durável e o readiness usam cliente assíncrono. Ambos apontam para a mesma configuração de conexão. A criação do saver tenta novamente em falha de seleção do servidor, até três tentativas.
+O checkpointer usa um cliente síncrono, e a memória durável e o readiness usam um cliente assíncrono, todos apontando para a mesma configuração de conexão. A criação do saver tenta de novo quando falha a seleção do servidor, em até três tentativas.
 
 ## Quem lê e escreve
 

@@ -4,7 +4,7 @@
 
 # Visão do serviço
 
-Este serviço reúne consultas de localização, tradução e energia solar para a plataforma. Pessoas podem conferir um endereço, obter o fuso de uma localização e consultar dados solares. Outros serviços podem traduzir textos. As respostas são devolvidas a quem consultou. O serviço não guarda esses dados.
+Este serviço reúne as consultas de localização, tradução e energia solar da plataforma. Por meio dele, as pessoas conferem um endereço, descobrem o fuso horário de uma localização e consultam dados solares, enquanto outros serviços traduzem textos, e as respostas voltam para quem consultou sem que o serviço guarde esses dados.
 
 ## Capacidades
 

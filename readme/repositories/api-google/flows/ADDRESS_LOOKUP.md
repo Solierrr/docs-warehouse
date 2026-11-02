@@ -32,4 +32,4 @@ sequenceDiagram
 
 ## Casos de erro
 
-Lugar ou texto sem resultado retorna 404. JWT ausente ou inválido retorna 401. Falha de localização no provedor retorna erro de dependência. A falha da validação após localizar o endereço não descarta o endereço.
+Um lugar ou texto sem resultado retorna 404, um JWT ausente ou inválido retorna 401 e uma falha de localização no provedor retorna erro de dependência. Quando a validação falha depois de o endereço ter sido localizado, o endereço encontrado não é descartado.

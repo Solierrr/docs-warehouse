@@ -14,8 +14,8 @@ flowchart LR
  B -->|OTLP HTTP e Authorization| G[Grafana Cloud]
 ```
 
-`k8s/` contém a base. `overlays/` ajusta ambiente e amostragem. `local/` oferece Compose e override sem detector GCP. `grafana/` mantém painéis e seu provider.
+A pasta `k8s/` contém a base, a `overlays/` ajusta o ambiente e a amostragem, a `local/` oferece o Compose e um override sem o detector GCP e a `grafana/` mantém os painéis e o seu provider.
 
-O limite de memória antecede o processamento. Os pipelines enriquecem atributos e removem cabeçalhos selecionados. Traces têm SQL esvaziado e tail sampling. Métricas removem rótulos de alta cardinalidade. Logs usam a remoção de cabeçalhos, sem aplicar o transform SQL de traces.
+O limite de memória vem antes do processamento, e os pipelines enriquecem os atributos e removem os cabeçalhos selecionados. Os traces têm o SQL esvaziado e passam por tail sampling, as métricas perdem os rótulos de alta cardinalidade e os logs usam a remoção de cabeçalhos, sem o transform SQL aplicado aos traces.
 
 O tail sampling espera dez segundos, mantém erros e traces acima de dois segundos e aplica amostragem probabilística ao restante. O Deployment usa uma réplica para concentrar os spans. O envio usa lotes com timeout de cinco segundos. O health da extensão usa a porta 13133.

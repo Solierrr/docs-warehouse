@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../assets/readme/banners/cloudflare-workers.png" alt="Cloudflare Workers" width="100%">
+  <img src="../assets/readme/banners/hono.png" alt="Hono" width="100%">
 </p>
 
 # Estado durável dos monitores
@@ -36,10 +36,10 @@ O binding `MONITOR` usa uma única instância com nome `main`. Os instantes são
 | `open:heartbeat` | Instante de abertura da condição de heartbeat | Monitor cria na falha e remove na recuperação |
 | `open:probe:<nome>` | Instante de abertura da condição da sonda | Monitor cria na falha e remove na recuperação ou pausa |
 
-Os nomes dos alvos vêm de [targets.json](https://github.com/Solierrr/worker-alerts/blob/main/src/monitor/targets.json). Não há TTL, limpeza periódica, índice adicional ou cópia local do conteúdo dos alertas. A pausa não limpa o contador `failures:<nome>`. A implementação está em [state.ts](https://github.com/Solierrr/worker-alerts/blob/main/src/monitor/state.ts).
+Os nomes dos alvos vêm de [targets.json](https://github.com/Solierrr/worker-alerts/blob/main/src/monitor/targets.json), e o storage não tem TTL, limpeza periódica, índice adicional nem cópia local do conteúdo dos alertas. A pausa não limpa o contador `failures:<nome>`, como mostra a implementação em [state.ts](https://github.com/Solierrr/worker-alerts/blob/main/src/monitor/state.ts).
 
 ## Consistência e acesso
 
-A API pública não permite consultar ou apagar diretamente esse storage. `/monitor/run` devolve um relatório calculado e pode alterar as condições registradas. O cron executa a mesma lógica.
+A API pública não permite consultar nem apagar esse storage diretamente, e o `/monitor/run` devolve um relatório calculado que pode alterar as condições registradas, a mesma lógica que o cron executa.
 
 As leituras e escritas de cada chave são individuais. O código não estabelece uma transação conjunta entre storage do monitor e Jira nem uma exclusão global entre duas execuções do monitor. As limitações operacionais estão em [STATUS.md](../docs/STATUS.md).

@@ -24,4 +24,4 @@ flowchart LR
 
 A chave recebida identifica `ai-assistant` ou `ai-operational`. A chave própria `SERVICE_KEY` identifica este servidor na chamada ao motor de recomendações. A comparação usa tempo constante. A chave legada continua aceita apenas quando configurada e sem uma chave nova no cabeçalho.
 
-Consultas SQL são parametrizadas. O código não impõe sessão SQL read-only, portanto o privilégio do login é parte da configuração de acesso. O readiness abre conexão separada do pool e executa `SELECT 1`. A versão vem de `version.txt`. Não há schema próprio. O fluxo completo está em [ASSISTANT_CHAT.md](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/ASSISTANT_CHAT.md).
+As consultas SQL são parametrizadas, mas o código não impõe uma sessão SQL somente leitura, por isso o privilégio do login faz parte da configuração de acesso. O readiness abre uma conexão separada do pool e executa `SELECT 1`, a versão vem de `version.txt` e o serviço não tem schema próprio, com o fluxo completo descrito em [ASSISTANT_CHAT.md](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/ASSISTANT_CHAT.md).

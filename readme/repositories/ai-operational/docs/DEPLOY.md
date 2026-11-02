@@ -18,7 +18,7 @@ Os endereços abaixo vêm do contrato HTTP e dos manifestos.
 
 O levantamento de 2026-10-29 registrava QA impedido por credenciais do Infisical. A main analisada não contém `render.yaml` nem `render-entrypoint.sh`, portanto o mecanismo de injeção e o estado atual do painel continuam sem confirmação. O endereço acima é um destino configurado. <!-- PENDENTE: 1 -->
 
-O checklist também registrava ausência de produção. Hoje existem [Deployment](https://github.com/Solierrr/infra-gitops/blob/main/services/ai-operational/deployment.yaml), [Service](https://github.com/Solierrr/infra-gitops/blob/main/services/ai-operational/service.yaml), [Ingress](https://github.com/Solierrr/infra-gitops/blob/main/services/ai-operational/ingress.yaml) e [aplicação Argo CD](https://github.com/Solierrr/infra-gitops/blob/main/apps/ai/ai-operational.yaml). A hipótese é que representam a configuração pretendida, ainda sem comprovação de operação. <!-- PENDENTE: 2 -->
+O checklist antigo registrava que não havia produção, mas hoje existem o [Deployment](https://github.com/Solierrr/infra-gitops/blob/main/services/ai-operational/deployment.yaml), o [Service](https://github.com/Solierrr/infra-gitops/blob/main/services/ai-operational/service.yaml), o [Ingress](https://github.com/Solierrr/infra-gitops/blob/main/services/ai-operational/ingress.yaml) e a [aplicação do Argo CD](https://github.com/Solierrr/infra-gitops/blob/main/apps/ai/ai-operational.yaml). A hipótese é que esses arquivos representam a configuração pretendida, ainda sem comprovação de que estão em operação. <!-- PENDENTE: 2 -->
 
 ## Particularidades
 
@@ -32,7 +32,7 @@ O Deployment declarado usa uma réplica, `envFrom` com `ai-operational-secrets`,
 
 ## Publicação e configuração
 
-O push na main chama o workflow compartilhado `docker-publish.yml`. O release-please atualiza a versão, incluindo `version.txt` e `openapi.yaml`. O fluxo entre repositórios está em [RELEASE_AND_DEPLOY.md](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/RELEASE_AND_DEPLOY.md).
+O push na main chama o workflow compartilhado `docker-publish.yml`, e o release-please atualiza a versão, inclusive em `version.txt` e no `openapi.yaml`. O fluxo entre os repositórios está em [RELEASE_AND_DEPLOY.md](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/RELEASE_AND_DEPLOY.md).
 
 O MongoDB deve aceitar criação de índices na partida e gravação dos checkpoints. O JWT depende de JWKS e emissor configurados. O histórico precisa de URL do `api-messenger` e da chave de serviço. Para manter propostas verificáveis após reinícios, configure uma chave de assinatura estável. Isso não substitui controle de concorrência entre réplicas.
 

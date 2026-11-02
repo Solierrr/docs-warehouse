@@ -28,4 +28,4 @@ flowchart LR
 | `scripts/` | Criação, build, verificação, PDF e publicação |
 | `gallery/` | Galeria e ferramentas de paginação |
 
-O [build](https://github.com/Solierrr/docs-reports/blob/main/scripts/build.sh) chama a ferramenta Node de paginação. Gráficos usam ECharts. O PDF usa Chrome ou Edge headless. O gerador da galeria copia documentos numerados que possuam `index.html` e gera o catálogo JSON. Não há banco próprio ou API HTTP de negócio.
+O [build](https://github.com/Solierrr/docs-reports/blob/main/scripts/build.sh) chama a ferramenta Node de paginação, os gráficos usam ECharts e o PDF é gerado pelo Chrome ou pelo Edge em modo headless. O gerador da galeria copia os documentos numerados que têm `index.html` e gera o catálogo JSON, sem banco próprio nem API HTTP de negócio.

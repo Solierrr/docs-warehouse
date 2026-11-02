@@ -15,8 +15,8 @@ flowchart LR
  K --> S
 ```
 
-`src/config/` mantém catálogo e configuração. `src/features/` organiza acesso, catálogo, keepalive e Swagger. `server/portal/` valida JWT, caminhos, credenciais e contratos. `shared/` fornece os destinos fixos.
+A pasta `src/config/` mantém o catálogo e a configuração, a `src/features/` organiza o acesso, o catálogo, o keepalive e o Swagger, a `server/portal/` valida o JWT, os caminhos, as credenciais e os contratos e a `shared/` fornece os destinos fixos.
 
 O backend valida assinatura RS256, emissor, expiração e tipo access. O navegador não escolhe URLs arbitrárias. O proxy bloqueia redirecionamentos, referências OpenAPI externas e caminhos internos. O JWT passa entre abas por comunicação com validação de origem e identificação da aba.
 
-Não há banco próprio. As credenciais específicas são injetadas apenas no servidor, segundo o mapa de `upstreamHeaders`. A compatibilidade com contratos atuais dos serviços precisa de confirmação. <!-- PENDENTE: 1 -->
+O portal não tem banco próprio, e as credenciais específicas são injetadas apenas no servidor, segundo o mapa de `upstreamHeaders`. A compatibilidade com os contratos atuais dos serviços ainda precisa ser confirmada. <!-- PENDENTE: 1 -->

@@ -4,7 +4,7 @@
 
 # Arquitetura
 
-O servidor FastAPI separa contratos de domínio, orquestração, adaptadores e rotas HTTP. Clientes HTTP são criados na inicialização. Endereços, tradução e energia solar usam APIs Google, enquanto o fuso usa uma base local. Não há banco próprio.
+O servidor FastAPI separa os contratos de domínio, a orquestração, os adaptadores e as rotas HTTP, criando os clientes HTTP na inicialização. Endereços, tradução e energia solar usam as APIs do Google, o fuso horário usa uma base local e o serviço não tem banco próprio.
 
 ```mermaid
 flowchart LR
@@ -46,4 +46,4 @@ O cliente de token do Calendar existe, mas nenhuma rota o usa. <!-- PENDENTE: 2 
 
 O `AddressService` combina Places, Geocoding e Address Validation. Uma falha na validação durante a resolução mantém o endereço e devolve `validation: null`. O `TranslationService` agrupa textos por idioma de destino. O cliente Google repete falhas transitórias até três vezes nas operações permitidas. `tzfpy` e `ZoneInfo` calculam fusos sem consumir quota externa.
 
-`/health` informa a versão de `version.txt`. `/ready` verifica a criação dos clientes HTTP sem chamar o Google. OpenTelemetry registra traces, logs e métricas. A chave em URLs é ocultada nos registros. O contrato público oculta `/internal`, e o exportado inclui essas rotas.
+O `/health` informa a versão lida de `version.txt`, e o `/ready` confere se os clientes HTTP foram criados, sem chamar o Google. O OpenTelemetry registra traces, logs e métricas com a chave ocultada nas URLs, e o contrato público esconde o caminho `/internal`, que só aparece no contrato exportado.

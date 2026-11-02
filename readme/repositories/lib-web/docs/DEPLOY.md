@@ -4,8 +4,8 @@
 
 # Publicação
 
-O workflow [npm-publisher](https://github.com/Solierrr/lib-web/blob/main/.github/workflows/npm-publisher.yml) roda em push na main. Ele consulta a versão do manifesto e só publica se ela ainda não existir. Antes, executa lint, typecheck, build e conferência do pacote. A publicação usa `NPM_TOKEN` e provenance.
+O workflow [npm-publisher](https://github.com/Solierrr/lib-web/blob/main/.github/workflows/npm-publisher.yml) roda a cada push na main, consulta a versão do manifesto e só publica quando ela ainda não existe no registro. Antes da publicação ele executa o lint, o typecheck, o build e a conferência do pacote, e a publicação usa o `NPM_TOKEN` com provenance.
 
-O processo comum está em [PACKAGE_RELEASE.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/PACKAGE_RELEASE.md). A versão é mantida pelo release-please. O pacote é público no registro npm.
+O processo comum está em [PACKAGE_RELEASE.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/PACKAGE_RELEASE.md), com a versão mantida pelo release-please e o pacote publicado como público no registro npm.
 
 O workflow Storybook publica `storybook-static` em Pages e registra a URL de saída no ambiente STORYBOOK. A URL atual e a adoção das versões pelos consumidores precisam de confirmação. <!-- PENDENTE: 1 -->

@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Solierrr/docs-warehouse/main/assets/readme/banners/rabbitmq.png" alt="RabbitMQ" width="100%">
+  <img src="./assets/readme/banners/rabbitmq.png" alt="RabbitMQ" width="100%">
 </p>
 
 <p align="center">
@@ -13,11 +13,11 @@
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Solierrr/infra-broker)](https://github.com/Solierrr/infra-broker/pulls)
 [![Release](https://img.shields.io/github/v/release/Solierrr/infra-broker)](https://github.com/Solierrr/infra-broker/releases)
 
-Este repositório é destinado ao broker de mensagens da plataforma, o componente que permite aos serviços trocar avisos entre si sem depender de estarem disponíveis ao mesmo tempo. No momento, ele contém apenas a estrutura-base de repositório da organização, sem código próprio. Ainda não há definição registrada da tecnologia nem dos serviços que vão utilizá-lo. Os arquivos do modelo de criação foram mantidos de propósito e serão substituídos quando o serviço for implementado.
+Este repositório é destinado ao broker de mensagens da plataforma, o componente que permite aos serviços trocar avisos entre si sem que precisem estar disponíveis ao mesmo tempo. No momento ele contém apenas a estrutura-base de repositório da organização, sem código próprio, e ainda não há definição registrada da tecnologia nem dos serviços que vão utilizá-lo. Os arquivos do modelo de criação foram mantidos de propósito e serão substituídos quando o serviço for implementado.
 
 ## Aprofunde-se no Projeto!
 
-- [STRUCTURE.md](https://github.com/Solierrr/infra-broker/blob/main/docs/STRUCTURE.md), arquivos do molde, cliente HTTP local e inicialização no Render.
+- [STRUCTURE.md](./docs/STRUCTURE.md), os arquivos que vieram do modelo de criação e para que cada um serve.
 
 ## Contribuindo
 

@@ -26,4 +26,4 @@ flowchart LR
 | `db/analytics/` | Schema de indicadores e autorização |
 | `docker/` | Criação inicial dos bancos locais |
 
-As conexões PostgreSQL usam credenciais do ambiente. O backup usa `pg_dump`. A stack local inicia as APIs para que seus Flyway criem as estruturas. O mapa de bancos está em [POSTGRES.md](../database/POSTGRES.md) e o fluxo analítico em [ANALYTICS_SYNC.md](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/ANALYTICS_SYNC.md).
+As conexões com o PostgreSQL usam as credenciais do ambiente, o backup usa `pg_dump` e a stack local inicia as APIs para que o Flyway de cada uma crie as suas estruturas. O mapa dos bancos está em [POSTGRES.md](../database/POSTGRES.md), e o fluxo analítico está em [ANALYTICS_SYNC.md](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/ANALYTICS_SYNC.md).

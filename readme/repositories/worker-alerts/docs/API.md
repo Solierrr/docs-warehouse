@@ -1,14 +1,14 @@
 <p align="center">
-  <img src="../assets/readme/banners/cloudflare-workers.png" alt="Cloudflare Workers" width="100%">
+  <img src="../assets/readme/banners/hono.png" alt="Hono" width="100%">
 </p>
 
 # Contrato HTTP de alertas
 
-As rotas são definidas em [src/index.ts](https://github.com/Solierrr/worker-alerts/blob/main/src/index.ts). O schema do webhook fica em [src/ingest/schema.ts](https://github.com/Solierrr/worker-alerts/blob/main/src/ingest/schema.ts). Não há contrato OpenAPI nem Swagger publicado no código.
+As rotas são definidas em [src/index.ts](https://github.com/Solierrr/worker-alerts/blob/main/src/index.ts) e o schema do webhook fica em [src/ingest/schema.ts](https://github.com/Solierrr/worker-alerts/blob/main/src/ingest/schema.ts), sem contrato OpenAPI nem Swagger publicado no código.
 
 ## Autenticação e rotas
 
-Todas as rotas POST exigem `Authorization: Bearer <token>` com o token compartilhado configurado em `WEBHOOK_TOKEN`. A autenticação não aceita uma sessão JWT da plataforma. O health é público.
+Todas as rotas POST exigem `Authorization: Bearer <token>` com o token compartilhado configurado em `WEBHOOK_TOKEN`, e a autenticação não aceita uma sessão JWT da plataforma, enquanto o health é público.
 
 | Método e caminho | Resultado |
 |---|---|
@@ -22,7 +22,7 @@ O webhook e a prévia exigem `application/json` e limitam o corpo a 256 KiB. O l
 
 ## Mensagem de entrada
 
-O envelope contém uma lista não vazia de até cinquenta alertas. Cada item exige `status`, `startsAt` e os labels `alert_id`, `priority`, `service_name` e `deployment_environment`. A prioridade aceita P1 a P5. Os instantes usam ISO 8601 com offset.
+O envelope contém uma lista não vazia de até cinquenta alertas, e cada item exige `status`, `startsAt` e os labels `alert_id`, `priority`, `service_name` e `deployment_environment`. A prioridade aceita de P1 a P5, e os instantes usam ISO 8601 com offset.
 
 ```json
 {
@@ -66,7 +66,7 @@ O webhook responde 200 com uma ação por alerta processado. A ação explica o 
 
 Se o e-mail está configurado, a resposta também contém `email.sent` e `email.failed`. O envio elegível ocorre apenas depois que todos os itens do lote terminam sem falha de processamento. Se algum item falha, o webhook responde 503, mesmo que outros itens já tenham alterado o Jira.
 
-A prévia retorna `would_create`, `would_record_end` ou `ignored_env`. Ela não consulta histórico, intervalo, teto diário ou pausa. `would_create` não é uma promessa de que o webhook criará um ticket.
+A prévia retorna `would_create`, `would_record_end` ou `ignored_env` sem consultar o histórico, o intervalo, o teto diário ou a pausa, por isso um `would_create` não garante que o webhook criará um ticket.
 
 ## Erros
 
@@ -83,4 +83,4 @@ O corpo implementado contém `code`, `message` e, quando aplicável, `errors`, c
 | 503 | `JIRA_REQUEST_FAILED` | Falha de processamento de pelo menos um alerta no Jira |
 | 500 | `INTERNAL_ERROR` | Exceção não tratada, inclusive configuração base inválida |
 
-Rotas inexistentes usam a resposta padrão do Hono. O Worker não implementa repetição interna das chamadas Jira. A repetição do webhook depende da configuração do remetente. <!-- PENDENTE: 1 -->
+As rotas inexistentes usam a resposta padrão do Hono, e o Worker não repete internamente as chamadas ao Jira, deixando a repetição do webhook a cargo da configuração do remetente. <!-- PENDENTE: 1 -->

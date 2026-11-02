@@ -72,9 +72,9 @@ O envio é síncrono. Uma falha após aceite pelo provedor pode deixar o resulta
 
 ## Dados e observabilidade
 
-Não há driver, schema ou conexão MongoDB na main. A coleção `email_deliveries` é uma decisão registrada, ainda sem implementação. Por isso não há modelo de banco publicado nesta documentação.
+A main não tem driver, schema nem conexão com o MongoDB, e a coleção `email_deliveries` é uma decisão registrada, ainda sem implementação, por isso esta documentação não publica um modelo de banco.
 
-Os logs registram método, caminho sem query, modelo, identificador da mensagem e códigos de falha. Headers e corpo são ocultados. O erro HTTP inclui `requestId`, sem detalhes do provedor. Não há instrumentação OpenTelemetry no código analisado.
+Os logs registram o método, o caminho sem query, o modelo, o identificador da mensagem e os códigos de falha, ocultando os headers e o corpo, e o erro HTTP traz o `requestId` sem detalhes do provedor. O código analisado não tem instrumentação OpenTelemetry.
 
 `/health` informa processo e versão de `package.json`. `/ready` limita a espera pela verificação do transporte a dois segundos e retorna apenas `UP` ou `DOWN`. Esse limite não cancela necessariamente a operação interna do transporte. Swagger e contrato usam a mesma versão do pacote, mantida pelo release-please.
 

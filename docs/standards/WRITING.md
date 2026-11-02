@@ -4,7 +4,8 @@ Regras para todo texto que vai para os repositórios, ou seja, README, `docs/`, 
 
 ## Tom
 
-- Português formal e direto. Frases curtas e declarativas.
+- Português formal e direto, em frases declarativas completas.
+- Sem períodos curtos demais. Um parágrafo não é uma sequência de frases de quatro ou cinco palavras, como "O serviço usa Redis. O cache dura 12 minutos. A chave é o filtro.". Ideias da mesma linha vão na mesma frase, ligadas por vírgula ou conectivo ("porque", "quando", "e", "mas", "enquanto"), como "O serviço guarda em cache do Redis, por 12 minutos, as buscas mais repetidas, usando o filtro como chave". Na média, cada frase do parágrafo fica entre 12 e 25 palavras.
 - Descrever o que existe hoje. Sem promessa, sem roadmap no texto e sem suspense ("antes mesmo de", "nunca fica vazio").
 - Explicar o porquê junto com o quê. "As notificações ficam 90 dias porque o app só mostra o último trimestre" vale mais que "as notificações têm retenção configurável".
 - Exemplo real, tirado do código ou da tela, no lugar de exemplo genérico.
@@ -58,6 +59,7 @@ O que o código não responde não é inventado. A dúvida vai para o `PENDENCIA
 - [ ] Li o texto em voz alta e cortei o que soou genérico ou que serviria para qualquer projeto.
 - [ ] Nenhuma palavra da lista de enfeites.
 - [ ] Nenhum dois-pontos no meio de frase, nenhum `**Termo:**`, nenhum ponto e vírgula, nenhum travessão.
+- [ ] Nenhum parágrafo picotado em frases curtas. A média de cada parágrafo fica entre 12 e 25 palavras por frase.
 - [ ] Nenhuma menção ao nome do projeto ou da organização fora de URL.
 - [ ] Cada afirmação tem base no código, numa decisão registrada ou está marcada como pendente.
 - [ ] O `OVERVIEW.md` e o contexto do README fazem sentido para quem não programa.

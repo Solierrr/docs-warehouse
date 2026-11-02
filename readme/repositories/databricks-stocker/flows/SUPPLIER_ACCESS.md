@@ -20,6 +20,6 @@ flowchart TD
 
 ## Falhas e limites
 
-Vínculos ausentes, inativos ou ambíguos não liberam linhas de fornecedor. A função não substitui grants e políticas dos outros indicadores. Execução local não usa esse controle. Confirmar a identidade efetiva de execução dos painéis. <!-- PENDENTE: 4 -->
+Vínculos ausentes, inativos ou ambíguos não liberam linhas de fornecedor, e a função não substitui os grants e as políticas dos outros indicadores. A execução local não usa esse controle, e a identidade efetiva com que os painéis são executados ainda precisa ser confirmada. <!-- PENDENTE: 4 -->
 
 Fonte em [implementação](https://github.com/Solierrr/databricks-stocker/blob/main/security/supplier_access.sql). O contexto integrado está em [cópia analítica](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/ANALYTICS_SYNC.md).

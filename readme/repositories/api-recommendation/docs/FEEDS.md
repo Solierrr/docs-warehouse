@@ -13,6 +13,6 @@ As [estratégias](https://github.com/Solierrr/api-recommendation/tree/main/app/f
 | Ofertas | Preço em reais por Wp, eficiência, distância Haversine ou quantidade em propostas aceitas. |
 | Fornecedores | Quantidade em propostas aceitas, número de ofertas elegíveis ou distância Haversine. |
 
-Ofertas exigem modelo aprovado, fornecedor ativo com assinatura ativa, preço positivo, disponibilidade e validade. Profissionais exigem usuário ativo. Fornecedores precisam de ofertas elegíveis.
+As ofertas só entram com modelo aprovado, fornecedor ativo com assinatura ativa, preço positivo, disponibilidade e validade, os profissionais precisam de usuário ativo e os fornecedores precisam ter ofertas elegíveis.
 
 O ranking tem limite de candidatos para evitar ordenar apenas parte de um conjunto global. Os desempates usam métricas auxiliares e identificadores definidos em cada estratégia. O fallback sorteia uma amostra do conjunto SQL selecionado, sem reproduzir o ranking do grafo.

@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../assets/readme/banners/cloudflare-workers.png" alt="Cloudflare Workers" width="100%">
+  <img src="../assets/readme/banners/hono.png" alt="Hono" width="100%">
 </p>
 
 # Coordenação de alertas
@@ -57,7 +57,7 @@ A chave é formada pelos 12 primeiros caracteres hexadecimais do SHA-1 de `alert
 
 O snapshot [routing.json](https://github.com/Solierrr/worker-alerts/blob/main/src/routing/routing.json) mapeia os serviços para os espaços `DEV`, `DB` e `AI`, com o tipo `Critic`. Serviços desconhecidos usam o espaço padrão. `names` fornece nomes de exibição e `hosts` fornece links HTTPS. Esses aliases não alteram a chave do incidente.
 
-Os arquivos `alerts.json` dos serviços e [routing.shared.json](https://github.com/Solierrr/worker-alerts/blob/main/src/routing/routing.shared.json) alimentam o snapshot por [sync-routing.mjs](https://github.com/Solierrr/worker-alerts/blob/main/scripts/sync-routing.mjs). O script recusa aliases repetidos e projetos desconhecidos. O Worker usa apenas o snapshot no runtime, sem consultar repositórios para decidir o destino.
+Os arquivos `alerts.json` dos serviços e [routing.shared.json](https://github.com/Solierrr/worker-alerts/blob/main/src/routing/routing.shared.json) alimentam o snapshot por [sync-routing.mjs](https://github.com/Solierrr/worker-alerts/blob/main/scripts/sync-routing.mjs). O script recusa aliases repetidos e projetos desconhecidos. O Worker usa apenas o snapshot no runtime, sem consultar repositórios para decidir o destino. O percurso completo está em [ROUTING_SYNC.md](../flows/ROUTING_SYNC.md).
 
 ## Dados e operação
 

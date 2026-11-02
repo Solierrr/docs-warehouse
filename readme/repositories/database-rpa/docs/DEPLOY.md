@@ -35,7 +35,7 @@ O disparo manual por `workflow_dispatch` não depende de `RPA_SCHEDULE_ENABLED`.
 
 Com as conexões presentes, o runner faz checkout do código e somente do manifesto do `mocks-warehouse`, instala Python 3.14 e as dependências, e executa `python main.py`. A permissão declarada é `contents: read`. O acesso ao outro repositório depende das permissões disponíveis ao checkout.
 
-O grupo de concorrência `scheduled-migration` impede duas execuções simultâneas desse workflow. Uma execução em andamento não é cancelada por uma nova. O timeout do job é de trinta minutos. Isso não bloqueia processos iniciados fora do Actions.
+O grupo de concorrência `scheduled-migration` impede duas execuções simultâneas desse workflow, sem cancelar a que está em andamento quando uma nova começa, e o job tem limite de trinta minutos. Essa proteção não alcança processos iniciados fora do GitHub Actions.
 
 ## Resultado e recuperação
 

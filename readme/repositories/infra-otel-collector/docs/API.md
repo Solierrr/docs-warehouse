@@ -4,7 +4,7 @@
 
 # Protocolo OTLP
 
-A base expõe OTLP gRPC na porta 4317 e OTLP HTTP na 4318. O health usa HTTP na porta 13133. Não há OpenAPI de negócio.
+A base expõe o OTLP gRPC na porta 4317 e o OTLP HTTP na 4318, com o health em HTTP na porta 13133, e o coletor não tem OpenAPI de negócio.
 
 No OTLP HTTP, as aplicações enviam sinais para `/v1/traces`, `/v1/metrics` e `/v1/logs`. A configuração de receivers não declara autenticação ou TLS de entrada. A exposição de rede pertence à infraestrutura.
 

@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../assets/readme/banners/cloudflare-workers.png" alt="Cloudflare Workers" width="100%">
+  <img src="../assets/readme/banners/hono.png" alt="Hono" width="100%">
 </p>
 
 # Situação atual
@@ -26,7 +26,7 @@ Os limites abaixo fazem parte da implementação analisada.
 - 2026-11-01. O monitor chama a coordenação Jira diretamente e não passa pelo envio de e-mail do webhook. Seus incidentes H01 e S01 não recebem e-mail por esse caminho.
 - 2026-11-01. Durante pausa, as sondas não incrementam nem zeram os contadores anteriores. Quando voltam, uma falha pode continuar a contagem anterior. A carência de trinta minutos é aplicada aos alertas do Grafana com `silence_on_pause`, não às sondas.
 - 2026-11-01. Não há trava global para sobreposição entre cron e `/monitor/run`. O estado usa leituras e escritas individuais, enquanto a coordenação de cada incidente é serializada separadamente.
-- 2026-11-01. Não há canal WhatsApp no código analisado.
+- 2026-11-01. Não há canal WhatsApp no código analisado, e o README de origem o cita como um canal futuro. <!-- PENDENTE: 3 -->
 
 ## Padrões e operação
 

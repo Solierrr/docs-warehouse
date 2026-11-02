@@ -19,4 +19,4 @@ flowchart TD
  H --> I[Main e galeria]
 ```
 
-Sem aprovação de escopo, a autoria não começa. Falha estrutural, paginação incompleta ou revisão visual pendente impede declarar o documento pronto. Após três ciclos sem convergência, o processo volta ao responsável. O PDF exige um navegador disponível.
+A autoria só começa depois da aprovação do escopo, e uma falha estrutural, uma paginação incompleta ou uma revisão visual pendente impedem que o documento seja declarado pronto. Depois de três ciclos sem convergência o processo volta ao responsável, e o PDF exige um navegador disponível.

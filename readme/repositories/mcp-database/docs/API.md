@@ -4,7 +4,7 @@
 
 # Protocolo de ferramentas
 
-O transporte é MCP Streamable HTTP em `/mcp`, com `X-Service-Key` de um dos agentes autorizados. `x-api-key` permanece como alternativa legada quando `MCP_API_KEY` existe. `/health` e `/ready` são públicos.
+O transporte é o MCP Streamable HTTP em `/mcp`, com a `X-Service-Key` de um dos agentes autorizados, e o `x-api-key` continua aceito como alternativa legada quando `MCP_API_KEY` existe. O `/health` e o `/ready` são públicos.
 
 | Ferramenta | Uso |
 |---|---|

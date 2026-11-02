@@ -23,4 +23,4 @@ sequenceDiagram
  end
 ```
 
-Chave inválida impede a chamada. Problemas de schema ou conexão afetam consultas diretas. A ausência de ranking não deve ser substituída por ofertas inventadas pelo agente.
+Uma chave inválida impede a chamada, e problemas de schema ou de conexão afetam as consultas diretas. Quando não houver ranking, o agente não deve substituí-lo por ofertas inventadas.

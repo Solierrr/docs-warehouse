@@ -75,11 +75,11 @@ Cada função complementar abre sua própria transação. Uma falha posterior n�
 
 `schema_v29.py` deriva usernames de e-mail, nome ou identificador legado e evita colisões com sufixos. Slugs de empresa, técnico e oferta são normalizados e consultados no destino antes da inserção. UUIDs são aleatórios na criação, e a estabilidade entre execuções depende do mapeamento persistido.
 
-Empresas são reutilizadas por CNPJ. Um reaproveitamento não muda o `company.type` já gravado. O vínculo de responsável usa `ADMIN`, e outro vínculo empresarial faz a nova associação ser ignorada. A decisão de negócio para esses casos permanece pendente. <!-- PENDENTE: 5 -->
+As empresas são reaproveitadas pelo CNPJ, sem mudar o `company.type` já gravado, e o vínculo do responsável usa `ADMIN`, de modo que outro vínculo empresarial já existente faz a nova associação ser ignorada. A decisão de negócio para esses casos continua pendente. <!-- PENDENTE: 5 -->
 
-Produtos exigem `equipamento_eletrico`. Largura e comprimento são convertidos de milímetros para metros. Eficiência é limitada entre zero e cem, estoque ausente ou negativo vira zero e preço ausente ou não positivo recebe valor sintético. Marcas criadas ficam privadas e legadas. Modelos recebem `PANEL`, `MONOCRYSTALLINE` e `UNDER_ANALYSIS`.
+Os produtos exigem `equipamento_eletrico`, e a largura e o comprimento são convertidos de milímetros para metros, com a eficiência limitada entre zero e cem. Um estoque ausente ou negativo vira zero e um preço ausente ou não positivo recebe um valor sintético, enquanto as marcas criadas ficam privadas e legadas e os modelos recebem `PANEL`, `MONOCRYSTALLINE` e `UNDER_ANALYSIS`.
 
-Assinaturas traduzem situações conhecidas e usam `PAID` para situação não reconhecida. Data inicial ausente e renovação automática ausente recebem padrões. Qualificações com marcadores de conselho viram registro profissional, e outras viram certificação. Registro sem validade recebe emissão acrescida de 3.650 dias. Esses preenchimentos precisam da validação do responsável. <!-- PENDENTE: 2 -->
+As assinaturas traduzem as situações conhecidas e usam `PAID` para as que não são reconhecidas, e uma data inicial ou uma renovação automática ausentes recebem valores padrão. As qualificações com marcadores de conselho viram registro profissional e as demais viram certificação, e um registro sem validade recebe a data de emissão acrescida de 3.650 dias, preenchimentos que ainda precisam da validação do responsável. <!-- PENDENTE: 2 -->
 
 ## Dados e limites de propriedade
 

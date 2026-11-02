@@ -18,7 +18,7 @@ flowchart LR
  G --> L[Provedores de linguagem]
 ```
 
-As rotas e schemas ficam em `src/api/`. O grafo e seus nós ficam em `src/workflow/`. Prompts estão em `src/agents/`. Clientes externos e persistência estão em `src/infra/`. As configurações e a validação JWT ficam em `src/core/`.
+As rotas e os schemas ficam em `src/api/`, o grafo e os seus nós em `src/workflow/` e os prompts em `src/agents/`. Os clientes externos e a persistência ficam em `src/infra/`, enquanto as configurações e a validação do JWT ficam em `src/core/`.
 
 | Integração | Protocolo e autenticação |
 |---|---|
@@ -28,6 +28,6 @@ As rotas e schemas ficam em `src/api/`. O grafo e seus nós ficam em `src/workfl
 | `ai-assistant` | A2A com JWT do profissional e persona `profissional` |
 | `api-messenger` | Rotas internas HTTP com `X-Service-Key` |
 
-O especialista de produtos usa a biblioteca A2A. Este serviço não publica Agent Card. Os detalhes da memória estão em [MONGO.md](../database/MONGO.md). As integrações seguem o [mapa central](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/INTEGRATIONS.md).
+O especialista de produtos usa a biblioteca A2A para delegar ao assistente principal, mas este serviço não publica um Agent Card próprio. Os detalhes da memória estão em [MONGO.md](../database/MONGO.md), e as integrações seguem o [mapa central](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/INTEGRATIONS.md).
 
-O `/health` informa processo e versão de `version.txt`. O `/ready` testa o Mongo com limite de dois segundos. LLMs ficam fora do readiness por terem fallback. A instrumentação OpenTelemetry é iniciada na aplicação e pode ser desligada com `OTEL_SDK_DISABLED`.
+O `/health` informa se o processo está no ar e a versão lida de `version.txt`, enquanto o `/ready` testa o Mongo com limite de dois segundos e deixa os modelos de linguagem de fora, porque eles têm alternativa em caso de falha. A instrumentação OpenTelemetry é iniciada pela aplicação e pode ser desligada com `OTEL_SDK_DISABLED`.

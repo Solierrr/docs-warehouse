@@ -13,7 +13,7 @@ Tipo `infra`. Repositório de origem em https://github.com/Solierrr/infra-stress
 
 Levantamento de 2026-10-29. O código na `main` é a fonte. Se ele contradiz algo daqui, vale o código e a diferença vai para o `PENDENCIAS.md`.
 
-- k6 manual contra `web-app` e `web-worker`.
+- k6 manual contra `web-app` e `worker-failover`.
 
 ## Checklist
 

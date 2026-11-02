@@ -11,6 +11,6 @@ import { Button } from '@solaria.network/web-lib'
 import '@solaria.network/web-lib/style.css'
 ```
 
-A raiz fornece controles e layouts. `/email` fornece `EmailLayout`, `EmailText` e `EmailAction`. `/tokens` fornece tokens e tema. `/observability` fornece `initObservability` e `createLogger`. Os estilos podem ser importados por `/style.css`, `/theme.css` e `/scrollbar.css`.
+A raiz fornece os controles e os layouts, o `/email` fornece `EmailLayout`, `EmailText` e `EmailAction`, o `/tokens` fornece os tokens e o tema e o `/observability` fornece `initObservability` e `createLogger`. Os estilos podem ser importados por `/style.css`, `/theme.css` e `/scrollbar.css`.
 
 Não há autenticação ou API HTTP própria. O consumidor instala as peer dependencies usadas pelas suas entradas e fornece contextos de navegação e tradução. Assinaturas de props e tipos distribuídos são a referência de parâmetros.

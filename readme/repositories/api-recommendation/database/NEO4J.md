@@ -4,7 +4,7 @@
 
 # Projeção de recomendações
 
-O serviço somente lê o grafo. O produtor e dono da reconstrução é o `database-bootstrap`, conforme o [fluxo de recomendações](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/RECOMMENDATION_FEED.md). As [consultas](https://github.com/Solierrr/api-recommendation/tree/main/app/feeds) filtram `source` e `sync_version`.
+O serviço apenas lê o grafo, que é produzido e reconstruído pelo `database-bootstrap`, como descreve o [fluxo de recomendações](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/RECOMMENDATION_FEED.md), e as [consultas](https://github.com/Solierrr/api-recommendation/tree/main/app/feeds) sempre filtram por `source` e `sync_version`.
 
 ```mermaid
 flowchart LR
@@ -14,6 +14,6 @@ flowchart LR
  SS[SyncState] --> V[Versão ativa]
 ```
 
-`Technician` fornece identificador, nome, usuário ativo, avaliações e contagens globais de serviços. `REGISTERED_AS` fornece certificações válidas e seus nomes. `SolarOffer` fornece preço em centavos, disponibilidade, vencimento e quantidade em propostas aceitas. `SolarModel` fornece aprovação, marca, modelo, potência, eficiência, dimensão e peso. `Supplier` fornece identificação, situação, assinatura, localização e nome comercial. `SyncState` seleciona o snapshot ativo.
+O `Technician` fornece o identificador, o nome, o usuário ativo, as avaliações e as contagens globais de serviços, e a relação `REGISTERED_AS` fornece as certificações válidas e os seus nomes. O `SolarOffer` traz o preço em centavos, a disponibilidade, o vencimento e a quantidade em propostas aceitas, o `SolarModel` traz a aprovação, a marca, o modelo, a potência, a eficiência, as dimensões e o peso, e o `Supplier` traz a identificação, a situação, a assinatura, a localização e o nome comercial, enquanto o `SyncState` seleciona o snapshot ativo.
 
-Índices e constraints pertencem ao produtor e não são criados por esta API. PostgreSQL é consultado somente como fonte alternativa. Não há migrations de dados próprias nesta aplicação.
+Os índices e as constraints pertencem ao produtor do grafo e não são criados por esta API, que consulta o PostgreSQL apenas como fonte alternativa e não tem migrations de dados próprias.

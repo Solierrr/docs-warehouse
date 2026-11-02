@@ -4,9 +4,9 @@
 
 # Execução local
 
-Use Python, `make`, MongoDB, acesso aos modelos e aos serviços integrados. O Dockerfile usa `python:latest` e não fixa uma versão. O guia comum está em [PYTHON.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/running/PYTHON.md).
+Para rodar, é preciso ter Python, `make`, MongoDB e acesso aos modelos e aos serviços integrados, lembrando que o Dockerfile usa `python:latest` e não fixa uma versão. O guia comum aos serviços Python está em [PYTHON.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/running/PYTHON.md).
 
-Execute `make install`, `make vault` e `make dev`. O vault exporta `/database`, `/redis`, `/llm`, `/agent-queue` e `/service-keys`. O servidor usa `src.api.app:app`.
+Execute `make install`, `make vault` e `make dev`, sabendo que o cofre exporta as pastas `/database`, `/redis`, `/llm`, `/agent-queue` e `/service-keys` e que o servidor sobe a aplicação `src.api.app:app`.
 
 | Comando | Efeito |
 |---|---|
@@ -16,4 +16,4 @@ Execute `make install`, `make vault` e `make dev`. O vault exporta `/database`, 
 | `make openapi` | Exportação do contrato |
 | `python -m src.rag.indexing.ingest_faq` | Reconstrói explicitamente o índice do FAQ |
 
-Abra `/docs` e teste `/ready` antes de `/chat`. O JWT deve vir do `api-auth`. Sem JWKS configurado fora de `LOCAL`, o acesso é recusado. O índice do FAQ não é criado durante uma requisição. Sua ausência produz informação de indisponibilidade no especialista.
+Abra `/docs` e teste `/ready` antes de chamar `/chat`, usando um JWT emitido pelo `api-auth`, porque fora do ambiente `LOCAL` o acesso é recusado quando o JWKS não está configurado. O índice do FAQ não é criado durante uma requisição, e enquanto ele não existir o especialista responde que a informação está indisponível.

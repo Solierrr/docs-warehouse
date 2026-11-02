@@ -4,7 +4,7 @@
 
 # Execução local
 
-O preparo do ambiente virtual segue [PYTHON.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/running/PYTHON.md). Neste repositório, `make dev` executa uma migração e encerra o processo. Não inicia um servidor de desenvolvimento.
+O preparo do ambiente virtual segue o [PYTHON.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/running/PYTHON.md), mas neste repositório o `make dev` executa uma migração e encerra, sem iniciar um servidor de desenvolvimento.
 
 ## Pré-requisitos
 
@@ -29,7 +29,7 @@ Use bases isoladas para conferir a transformação e os relacionamentos antes da
 | `MOCKS_MANIFEST` | caminho do manifesto JSON |
 | `MOCKS_PUBLIC_PREFIX` | prefixo dos identificadores públicos de imagens |
 
-O alvo `make vault` existe, mas `VAULT_FOLDERS` está vazio. Sem indicar as pastas autorizadas, o comando falha e não gera `.env`. O local correto dos segredos precisa de confirmação. <!-- PENDENTE: 1 --> O procedimento compartilhado está no [guia de segredos](https://github.com/Solierrr/docs-warehouse/blob/main/readme/infisical/README.md).
+O alvo `make vault` existe, mas `VAULT_FOLDERS` está vazio, e sem as pastas autorizadas o comando falha sem gerar o `.env`, por isso o local correto dos segredos ainda precisa ser confirmado. <!-- PENDENTE: 1 --> O procedimento compartilhado está no [guia de segredos](https://github.com/Solierrr/docs-warehouse/blob/main/readme/infisical/README.md).
 
 ## Comandos
 

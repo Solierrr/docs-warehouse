@@ -6,7 +6,7 @@
 
 Use Java 21, Maven Wrapper, PostgreSQL com `pgcrypto` e `citext`, Redis e Infisical CLI autenticado. O guia comum está em [KOTLIN_SPRINGBOOT.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/running/KOTLIN_SPRINGBOOT.md).
 
-Execute `make vault` para exportar `/database`, `/redis`, `/auth`, `/outbox`, `/service-keys`, `/otel`, `/fcm` e `/service-urls`. Depois execute `make install` e `make dev`. Configure as chaves JWT e os bancos antes de iniciar.
+Execute `make vault` para exportar as pastas `/database`, `/redis`, `/auth`, `/outbox`, `/service-keys`, `/otel`, `/fcm` e `/service-urls`, e depois `make install` e `make dev`, com as chaves JWT e os bancos configurados antes de iniciar.
 
 | Comando | Efeito |
 |---|---|

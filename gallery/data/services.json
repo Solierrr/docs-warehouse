@@ -33,7 +33,7 @@
    "repo": true
   },
   {
-   "id": "web-worker",
+   "id": "worker-failover",
    "group": "edge",
    "icon": "cloudflare-workers",
    "stack": "Cloudflare Worker",
@@ -313,7 +313,7 @@
    "repo": true
   },
   {
-   "id": "infra-grafana",
+   "id": "infra-observability",
    "group": "infra",
    "icon": "grafana",
    "stack": "Grafana",
@@ -341,7 +341,7 @@
    "group": "infra",
    "icon": "k6",
    "stack": "k6",
-   "role": "Testes de carga do web-app e do web-worker.",
+   "role": "Testes de carga do web-app e do worker-failover.",
    "repo": true
   },
   {
@@ -548,12 +548,12 @@
  "edges": [
   {
    "source": "web-app",
-   "target": "web-worker",
+   "target": "worker-failover",
    "kind": "http",
    "label": "rotas do domínio"
   },
   {
-   "source": "web-worker",
+   "source": "worker-failover",
    "target": "infra-gateway",
    "kind": "http",
    "label": "origem"
@@ -692,7 +692,7 @@
   },
   {
    "source": "infra-stress",
-   "target": "web-worker",
+   "target": "worker-failover",
    "kind": "http",
    "label": "testes de carga"
   },
@@ -781,7 +781,7 @@
    "label": "relay STOMP"
   },
   {
-   "source": "web-worker",
+   "source": "worker-failover",
    "target": "web-app",
    "kind": "source",
    "label": "sincronização de rotas e idiomas"
@@ -1201,7 +1201,7 @@
    "label": "OTLP"
   },
   {
-   "source": "web-worker",
+   "source": "worker-failover",
    "target": "infra-otel-collector",
    "kind": "observability",
    "label": "OTLP"
@@ -1220,7 +1220,7 @@
   },
   {
    "source": "infra-otel-collector",
-   "target": "infra-grafana",
+   "target": "infra-observability",
    "kind": "planned",
    "label": "Grafana self-hosted"
   },
@@ -1477,7 +1477,7 @@
    "label": "imagens"
   },
   {
-   "source": "web-worker",
+   "source": "worker-failover",
    "target": "env-cloudflare",
    "kind": "deploy",
    "label": ""
@@ -1586,7 +1586,7 @@
   },
   {
    "source": "generic-template",
-   "target": "web-worker",
+   "target": "worker-failover",
    "kind": "standards",
    "label": "molde"
   },
@@ -1736,7 +1736,7 @@
   },
   {
    "source": "generic-template",
-   "target": "infra-grafana",
+   "target": "infra-observability",
    "kind": "standards",
    "label": "molde"
   },
