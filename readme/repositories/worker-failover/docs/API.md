@@ -4,8 +4,8 @@
 
 # Contrato de borda
 
-Não há OpenAPI próprio. A interface é o tráfego HTTP do domínio público. O Worker preserva requisições encaminhadas à origem, exceto pelo ajuste de host e propagação do trace.
+O Worker não tem OpenAPI próprio, porque a sua interface é o tráfego HTTP do domínio público, e ele preserva as requisições encaminhadas à origem, exceto pelo ajuste de host e pela propagação do trace.
 
-Navegações HTML podem receber 302 para normalizar idioma. Iscas recebem 404 local sem cache. Origem indisponível recebe HTML 503 com `Retry-After` e sem cache. Respostas de negócio válidas continuam sob o contrato da aplicação de origem.
+As navegações HTML podem receber 302 para normalizar o idioma, e as iscas recebem 404 local sem cache, enquanto uma origem indisponível gera um HTML 503 com `Retry-After`, também sem cache. As respostas de negócio válidas continuam seguindo o contrato da aplicação de origem.
 
 O job agendado limpa entradas antigas da lista de proteção. A API da Cloudflare usa Bearer token de conta e a telemetria pode usar Authorization configurado como segredo. Nenhuma dessas credenciais é entregue ao visitante.

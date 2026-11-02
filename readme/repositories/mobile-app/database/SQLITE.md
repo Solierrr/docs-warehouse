@@ -6,11 +6,11 @@
 
 O SQLite local usa Room e pertence ao aplicativo. Guarda cache de conversas humanas e fila de envio, sem ser fonte de verdade do cadastro ou do serviço de mensagens. A versão é 3, com cinco entidades e `exportSchema=false`.
 
-O módulo define o nome físico do banco e usa `fallbackToDestructiveMigration(true)`. Não declara migração de preservação. Confirmar o ciclo de atualização e retenção. <!-- PENDENTE: 1 -->
+O módulo define o nome físico do banco e usa `fallbackToDestructiveMigration(true)`, sem declarar uma migração que preserve os dados, por isso o ciclo de atualização e de retenção ainda precisa ser confirmado. <!-- PENDENTE: 1 -->
 
 ## Estrutura
 
-O diagrama lista os campos do schema. Referências entre identificadores são lógicas. As entidades não declaram chaves estrangeiras.
+O diagrama lista os campos do schema, e as referências entre identificadores são apenas lógicas, já que as entidades não declaram chaves estrangeiras.
 
 ```mermaid
 erDiagram
@@ -78,11 +78,11 @@ erDiagram
 | `users` | PK `authId` | Nome e avatar do chat. UserDirectory preenche pelo cadastro central |
 | `sync_state` | PK `id`, uma linha convencionada como zero | Época e cursor. Somente catch-up avança o cursor |
 
-São três índices explícitos além das chaves primárias. `conversationId` referencia logicamente `conversations.id`. `senderId` é uma identidade que pode não ter linha em `users`. `clientMessageId` associa pendência e confirmação. Não há cascata relacional declarada.
+Há três índices explícitos além das chaves primárias, e o `conversationId` referencia logicamente `conversations.id`, enquanto o `senderId` é uma identidade que pode não ter linha em `users`. O `clientMessageId` associa a pendência à confirmação, e nenhuma cascata relacional é declarada.
 
 ## Leitura e escrita
 
-Mensagens são ordenadas por `sequence`. O merge transacional aceita versão mais nova e remove conteúdo na exclusão. Conversas usam época e versão para descartar eventos antigos. O cursor é gravado depois da aplicação da página, permitindo reaplicação após interrupção.
+As mensagens são ordenadas por `sequence`, e o merge transacional aceita a versão mais nova e remove o conteúdo na exclusão, enquanto as conversas usam época e versão para descartar eventos antigos. O cursor é gravado depois que a página é aplicada, o que permite reaplicá-la após uma interrupção.
 
 `localReadSequence` é a leitura no aparelho. A diferença para `lastReadSequence` representa pendência sem tabela de fila. A contagem exibida fica zero quando a pessoa já viu a última mensagem localmente.
 

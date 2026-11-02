@@ -31,7 +31,7 @@ O cargo de administrador concede acesso de administração da empresa. Outros ca
 
 O fluxo principal do produto começa pela unidade consumidora e sua fatura, passa pela negociação e aceite da proposta e segue para projeto, contrato e execução por técnico. No código atual, o aceite reserva o estoque e encerra a negociação. A criação do projeto e do serviço ocorre em operações separadas, sem conversão automática da proposta. <!-- PENDENTE: 2 -->
 
-Uma proposta envolve uma empresa compradora e uma fornecedora. As partes alternam a vez de responder aos termos. Criar a proposta não reserva estoque. O aceite confere o saldo corrente e pode ser recusado quando a disponibilidade mudou.
+Uma proposta envolve uma empresa compradora e uma fornecedora, que alternam a vez de responder aos termos até o aceite. Criar a proposta não reserva estoque, e por isso o aceite confere o saldo do momento e pode ser recusado quando a disponibilidade mudou desde a criação.
 
 Serviços técnicos começam abertos, passam a andamento no aceite e podem ser concluídos depois. O contrato só pode ser criado para um serviço em andamento, e cada serviço tem no máximo um contrato. A identidade de quem aceita é obtida da sessão, sem aceitar que outra pessoa seja indicada como autora do aceite.
 

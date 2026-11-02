@@ -53,9 +53,9 @@ erDiagram
     model ||--o{ model_photo : apresenta
 ```
 
-`inventory` é único por fornecedor e modelo. A oferta exige preço positivo e disponibilidade não negativa. A tradução é única por oferta e idioma. O job é único por oferta e versão de texto de origem. A fila tem índice parcial para trabalhos disponíveis e token de claim.
+O `inventory` é único por fornecedor e modelo, e a oferta exige preço positivo e disponibilidade não negativa, com uma tradução única por oferta e idioma. O job de tradução é único por oferta e versão do texto de origem, e a fila tem um índice parcial para os trabalhos disponíveis e para o token de claim.
 
-Marcas privadas ativas são únicas por empresa e nome normalizado. Marcas públicas têm nome único. A solicitação pendente de marca também tem índice único parcial. Modelos separam campos de placa e de infraestrutura por constraints. Fotos de modelo e unidade têm no máximo uma principal pelo índice parcial correspondente.
+As marcas privadas ativas são únicas por empresa e nome normalizado, as marcas públicas têm nome único e a solicitação pendente de marca também tem um índice único parcial. Os modelos separam os campos de placa e de infraestrutura por constraints, e as fotos de modelo e de unidade têm no máximo uma foto principal, garantida pelo índice parcial correspondente.
 
 ## Propostas e unidades
 
@@ -73,7 +73,7 @@ erDiagram
     local_unit ||--o{ proposal_unit : recebe
 ```
 
-Quantidades de item e alocação devem ser positivas. A proposta guarda estado, partes e total. O aceite reserva estoque nos serviços da aplicação. O schema não contém uma relação de proposta com projeto técnico que represente conversão automática. <!-- PENDENTE: 2 -->
+As quantidades de item e de alocação precisam ser positivas, e a proposta guarda o estado, as partes e o total, com o aceite reservando estoque nos serviços da aplicação. O schema não tem uma relação entre proposta e projeto técnico que represente uma conversão automática. <!-- PENDENTE: 2 -->
 
 ## Projetos e execução
 
@@ -91,7 +91,7 @@ erDiagram
     technician_affiliation ||--o{ service_executor : executa
 ```
 
-Participação é única por projeto e pessoa. Fotos de projeto ficam em `bytea`, com constraint de até 8 MiB e MIME JPEG ou PNG. A galeria tem índice de principal único. O serviço limita a quantidade de fotos. Cada serviço técnico tem no máximo um contrato. Atividades têm período validado e vínculo único opcional com serviço.
+A participação é única por projeto e pessoa, e as fotos de projeto ficam em `bytea`, com constraint de até 8 MiB e tipo JPEG ou PNG, num índice que permite uma única foto principal e numa quantidade limitada pelo serviço. Cada serviço técnico tem no máximo um contrato, e as atividades têm o período validado e um vínculo único opcional com o serviço.
 
 ## Aprovação profissional
 
@@ -129,13 +129,13 @@ erDiagram
     subscription ||--o{ charge : gera
 ```
 
-O pedido guarda snapshots de preços, descontos e totais. Pagamento é único por pedido. Excluir a oferta pode anular sua referência no item histórico, preservando o snapshot. Itens do carrinho e do pedido têm quantidade positiva. Totais, preço líquido e situação de reembolso têm constraints.
+O pedido guarda um retrato dos preços, dos descontos e dos totais, com um pagamento único por pedido, e excluir a oferta pode anular a referência no item histórico sem perder esse retrato. Os itens do carrinho e do pedido têm quantidade positiva, e os totais, o preço líquido e a situação de reembolso têm constraints.
 
 As triggers impedem compras da própria empresa e aplicam elegibilidade de comprador. Outra trigger impede que conta gerenciada por uma empresa seja vinculada a outra. `generate_subscription_charge` bloqueia a assinatura, não repete a cobrança do mesmo vencimento e exige preço positivo do plano.
 
 ## Inventário de tabelas
 
-Cada linha descreve uma tabela do baseline. Os índices declarados por `CREATE INDEX` estão na tabela seguinte. Chaves primárias e constraints únicas também criam índices no PostgreSQL.
+Cada linha descreve uma tabela do baseline, e os índices declarados por `CREATE INDEX` estão na tabela seguinte, lembrando que as chaves primárias e as constraints únicas também criam índices no PostgreSQL.
 
 | Tabela | Responsabilidade | Unicidade declarada além da chave primária |
 |---|---|---|

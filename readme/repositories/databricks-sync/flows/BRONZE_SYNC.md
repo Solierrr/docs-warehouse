@@ -23,6 +23,6 @@ flowchart TD
 
 ## Falhas e limites
 
-Falha por tabela não desfaz destinos anteriores. Em modo assíncrono, 202 apenas aceita o job. Reinício pode interromper a thread e perder o histórico.
+Uma falha numa tabela não desfaz os destinos já gravados, e no modo assíncrono a resposta 202 apenas aceita o job, enquanto um reinício pode interromper a thread e perder o histórico.
 
 Fonte em [implementação](https://github.com/Solierrr/databricks-sync/blob/main/app/services/sync_service.py). O contexto está em [cópia analítica](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/ANALYTICS_SYNC.md).

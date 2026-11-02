@@ -4,7 +4,7 @@
 
 # Execução local
 
-O CI usa Python 3.14 e PostgreSQL 16. Use também `make`, Docker, clientes `psql` e `pg_dump`. O backup usa PowerShell. Instale as dependências com `make install` e obtenha configuração com `make vault`, que exporta `/database`.
+O CI usa Python 3.14 e PostgreSQL 16, e localmente também são necessários o `make`, o Docker e os clientes `psql` e `pg_dump`, além do PowerShell para o backup. As dependências são instaladas com `make install`, e o `make vault` traz a configuração da pasta `/database`.
 
 O procedimento comum de Python está em [PYTHON.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/running/PYTHON.md). A stack local exige os repositórios `api-core`, `api-auth` e `mocks-warehouse` nas posições esperadas por `scripts/dev-stack.sh`.
 
@@ -20,4 +20,4 @@ O procedimento comum de Python está em [PYTHON.md](https://github.com/Solierrr/
 | `make lint` | Ruff nos scripts |
 | `make build` | Compila scripts e seed |
 
-Para testes com banco descartável, configure `SOLARIA_TEST_PG_DSN`. O teste de seed também precisa de `SOLARIA_TEST_CORE_BASELINE`. Não há contrato OpenAPI, pois a interface é de linha de comando.
+Os testes com banco descartável usam a variável `SOLARIA_TEST_PG_DSN`, e o teste de seed precisa também de `SOLARIA_TEST_CORE_BASELINE`. Como a interface é de linha de comando, o repositório não tem contrato OpenAPI.

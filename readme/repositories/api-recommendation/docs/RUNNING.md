@@ -6,7 +6,7 @@
 
 Use Python 3.12, conforme o Dockerfile, `make`, Infisical CLI autenticado e PostgreSQL com o schema de negócio. Neo4j é opcional para executar o fallback. O guia comum está em [PYTHON.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/running/PYTHON.md).
 
-Execute `make install`, `make vault` e `make dev`. As pastas exportadas são `/database`, `/recommendation` e `/service-keys`. O servidor escuta localmente na porta 8000.
+Execute `make install`, `make vault` e `make dev`, sabendo que as pastas exportadas são `/database`, `/recommendation` e `/service-keys` e que o servidor escuta localmente na porta 8000.
 
 | Comando | Efeito |
 |---|---|
@@ -15,4 +15,4 @@ Execute `make install`, `make vault` e `make dev`. As pastas exportadas são `/d
 | `make build` | Compilação dos módulos |
 | `make openapi` | Exportação do contrato |
 
-A coleção Bruno em `http/` contém os três feeds privados, públicos e health. Teste primeiro `/ready`. Sem Neo4j configurado, os feeds usam PostgreSQL. Sem chave de serviço válida, as rotas privadas recusam a chamada.
+A coleção Bruno em `http/` traz os três feeds privados, os públicos e o health, e o primeiro teste deve ser o `/ready`. Sem Neo4j configurado os feeds usam o PostgreSQL, e sem uma chave de serviço válida as rotas privadas recusam a chamada.

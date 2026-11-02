@@ -13,6 +13,6 @@ make smoke TARGET=web-app ENV=local
 make stress TARGET=web-app ENV=local PEAK_VUS=10
 ```
 
-O alvo local precisa estar iniciado. `BASE_URL` substitui o endereço do catálogo. O Worker não possui QA declarado. Para cenários genéricos, prepare a lista local a partir do exemplo e use os scripts `test:smoke` ou `test:stress` do npm.
+O alvo local precisa estar iniciado, e a variável `BASE_URL` substitui o endereço do catálogo, lembrando que o Worker não tem QA declarado. Para os cenários genéricos, prepare a lista local a partir do exemplo e use os scripts `test:smoke` ou `test:stress` do npm.
 
 Produção é bloqueada sem a opção exigida pelo código. As iscas são opt-in e podem registrar o IP na proteção de borda fora do modo local. Não há execução automática de carga no CI consultado.

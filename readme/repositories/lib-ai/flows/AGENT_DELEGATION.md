@@ -26,6 +26,6 @@ sequenceDiagram
 
 ## Falhas e limites
 
-Transporte, timeout ou resposta sem tarefa gera DelegationError. O consumidor protege as rotas. O fluxo integrado está em [conversa com assistentes](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/ASSISTANT_CHAT.md).
+Uma falha de transporte, um timeout ou uma resposta sem tarefa geram o `DelegationError`, e a proteção das rotas fica com o consumidor. O fluxo integrado está em [conversa com assistentes](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/ASSISTANT_CHAT.md).
 
 Fonte em [implementação](https://github.com/Solierrr/lib-ai/blob/main/src/ai_lib/a2a/executor.py).

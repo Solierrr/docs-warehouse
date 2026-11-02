@@ -60,7 +60,7 @@ O JWT no `api-core` preserva as permissões de quem pediu a operação. As chama
 
 O roteador escolhe `screen_finder`, `how_to_guide`, `data_reader` ou `action_proposer`. Cada especialista é consultado no máximo uma vez por turno, com limite de três especialistas. Os três primeiros voltam ao roteador. O orquestrador compõe a resposta, o juiz pode pedir revisão e o guardrail de saída filtra o texto.
 
-Se há `pending_proposal`, o roteador envia a mensagem ao `proposal_decision`. Ajuste ou mudança de assunto limpa a proposta e retorna ao roteador. Aceite e recusa encerram o turno. Os detalhes estão no [fluxo de aprovação](../flows/ACTION_APPROVAL.md).
+Quando existe uma `pending_proposal`, o roteador envia a mensagem ao nó `proposal_decision`, que limpa a proposta e volta ao roteador se a pessoa pedir ajuste ou mudar de assunto, e encerra o turno no aceite ou na recusa. Os detalhes estão no [fluxo de aprovação](../flows/ACTION_APPROVAL.md).
 
 O registro em [`src/actions/registry.py`](https://github.com/Solierrr/ai-operational/blob/main/src/actions/registry.py) limita as operações possíveis. Cada `ActionSpec` define schema, preparação, execução e resposta. O LLM extrai um rascunho, e a preparação resolve identificadores nas respostas do `api-core`. A proposta recebe HMAC-SHA256, dono e hora de criação. A assinatura usa `PROPOSAL_SIGNING_KEY`, depois `SERVICE_KEY` como alternativa e, sem ambas, uma chave aleatória do processo.
 
@@ -82,8 +82,8 @@ O `StepTracker` envia etapas e chamadas de LLM ao `api-messenger`. O custo por c
 
 O tracing LangSmith é opcional, com amostragem e mascaramento de documentos, telefone, e-mail, JWT e chaves. Nomes e endereços não são mascarados. O tracing global do SDK recebe apenas um aviso de configuração e deve permanecer desligado para usar o caminho com mascaramento.
 
-OpenTelemetry instrumenta FastAPI, HTTPX, MongoDB e Redis. A configuração lê `OTEL_EXPORTER_OTLP_ENDPOINT`, `SERVICE_VERSION`, `DEPLOYMENT_ENVIRONMENT` e `OTEL_TRACES_SAMPLING_PROBABILITY`. `OTEL_SDK_DISABLED` permite desativá-la. Respostas com span válido levam `X-Trace-Id`. A exclusão automática cobre `/health`, mas não `/ready`.
+O OpenTelemetry instrumenta FastAPI, HTTPX, MongoDB e Redis a partir de `OTEL_EXPORTER_OTLP_ENDPOINT`, `SERVICE_VERSION`, `DEPLOYMENT_ENVIRONMENT` e `OTEL_TRACES_SAMPLING_PROBABILITY`, e pode ser desligado com `OTEL_SDK_DISABLED`. As respostas com um span válido levam o cabeçalho `X-Trace-Id`, e a exclusão automática de rastreamento cobre o `/health`, mas não o `/ready`.
 
-`/health` informa processo e versão. `/ready` faz somente `ping` no MongoDB, com timeout de dois segundos. Falha de LLM ou do serviço de mensagens não muda essa resposta. `version.txt` alimenta API, OpenAPI, Agent Card e health. A versão de telemetria depende da configuração do ambiente.
+O `/health` informa o processo e a versão, e o `/ready` faz apenas um `ping` no MongoDB com limite de dois segundos, sem mudar quando o modelo de linguagem ou o serviço de mensagens falham. O `version.txt` alimenta a API, o OpenAPI, o Agent Card e o health, enquanto a versão enviada à telemetria depende da configuração do ambiente.
 
 A análise usa a main em [`d1a5e666`](https://github.com/Solierrr/ai-operational/commit/d1a5e666df853aba51ab49f190c7c0b631613b80), conferida em 2026-10-30.

@@ -23,6 +23,6 @@ flowchart TD
 
 ## Falhas e limites
 
-Configuração ausente sai 64. Contagens divergentes, queda anormal ou perda da posse saem 3. Exceção inesperada sai 1. Extração ou estágio falho conserva a ativa. O leitor deve usar o ponteiro, não todos os nós.
+A falta de configuração encerra com código 64, as contagens divergentes, a queda anormal e a perda da posse encerram com 3, e uma exceção inesperada encerra com 1. Uma falha na extração ou no estágio conserva a versão ativa, e o leitor deve seguir o ponteiro da versão em vez de ler todos os nós.
 
 Fonte em [implementação](https://github.com/Solierrr/database-bootstrap/blob/main/src/main.py). O contexto está em [feed de recomendações](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/RECOMMENDATION_FEED.md).

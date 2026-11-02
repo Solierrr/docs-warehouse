@@ -4,7 +4,7 @@
 
 # Grafo de recomendações
 
-O grafo é uma projeção reconstruível do cadastro de negócio. Há dez labels de domínio e um label de controle. A rotina lê PostgreSQL e escreve Neo4j. O serviço de recomendação é o leitor previsto.
+O grafo é uma projeção reconstruível do cadastro de negócio, com dez labels de domínio e um label de controle, montada por esta rotina a partir do PostgreSQL e lida pelo serviço de recomendação.
 
 ## Relações
 
@@ -21,7 +21,7 @@ flowchart LR
   C[SyncState]
 ```
 
-`LocalUnit` não recebe relação própria nos arquivos atuais. `TechnicalService.local_unit_id` é referência por propriedade. `ASSIGNED_TO` guarda `executor_id` e função. `REGISTERED_AS` guarda contagem e nomes de certificações válidas. Todas as relações recebem fonte e versão.
+O `LocalUnit` não recebe relação própria nos arquivos atuais, e o `TechnicalService.local_unit_id` é uma referência por propriedade. A relação `ASSIGNED_TO` guarda o `executor_id` e a função, a `REGISTERED_AS` guarda a contagem e os nomes das certificações válidas, e todas as relações recebem a fonte e a versão.
 
 ## Propriedades dos nós
 
@@ -42,9 +42,9 @@ flowchart LR
 
 ## Identidade e índices
 
-Cada nó de domínio tem constraint única de `graph_key`. São dez constraints mais uma de `SyncState.source`. A chave de domínio inclui fonte, versão e id. Experiência usa técnico e propósito normalizado. Isso separa versões mesmo quando o id operacional é igual.
+Cada nó de domínio tem uma constraint única de `graph_key`, num total de dez, além de uma em `SyncState.source`. A chave de domínio combina fonte, versão e id, e a de experiência usa o técnico e o propósito normalizado, o que separa as versões mesmo quando o id operacional se repete.
 
-Há cinco índices explícitos além dos de unicidade. `LocalUnit`, `Profession` e `TechnicalService` indexam fonte, versão e id. `SolarOffer` indexa fonte e versão. `TechnicianAffiliation` indexa fonte, versão e atividade.
+Além dos índices de unicidade, há cinco índices explícitos. `LocalUnit`, `Profession` e `TechnicalService` indexam fonte, versão e id, o `SolarOffer` indexa fonte e versão e o `TechnicianAffiliation` indexa fonte, versão e atividade.
 
 MERGE por chave não implica que o número retornado por estágio seja quantidade de nós distintos. O estágio de modelo ou fornecedor pode receber várias ofertas da mesma entidade e processar todas as linhas.
 
@@ -54,6 +54,6 @@ São dez datasets, de unidades, ofertas, profissões, técnicos, registros, vín
 
 Oferta elegível exige fornecedor ativo, assinatura paga vigente, modelo aprovado, preço e disponibilidade positivos, estoque e medidas físicas válidas. O extrator converte preço para centavos e dimensão para largura vezes comprimento. Os nomes antigos usados no SQL precisam de alinhamento com a origem atual. <!-- PENDENTE: 1 -->
 
-A ativa e a anterior são preservadas. Falha prévia à ativação tenta remover o staging. Versões órfãs são registradas para limpeza posterior, sempre protegendo ativa e anterior. Não há TTL automático do banco. A seleção da versão correta pelo leitor precisa ser confirmada na implantação. <!-- PENDENTE: 3 -->
+A versão ativa e a anterior são sempre preservadas, uma falha antes da ativação tenta remover o staging e as versões órfãs ficam registradas para limpeza posterior, sem TTL automático no banco. A forma como o leitor escolhe a versão correta ainda precisa ser confirmada na implantação. <!-- PENDENTE: 3 -->
 
 Fontes em [schema](https://github.com/Solierrr/database-bootstrap/blob/main/src/graphs/schema.cypher), [nós](https://github.com/Solierrr/database-bootstrap/tree/main/src/graphs/nodes), [relações](https://github.com/Solierrr/database-bootstrap/tree/main/src/graphs/relationships) e [extração](https://github.com/Solierrr/database-bootstrap/blob/main/src/extract.sql).

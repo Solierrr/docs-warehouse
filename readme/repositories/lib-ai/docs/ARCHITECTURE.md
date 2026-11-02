@@ -45,12 +45,12 @@ flowchart LR
 
 O cliente padrão de chaves é criado uma vez por processo. Rodízio, chaves inválidas e cooldown ficam em memória protegida por lock. Não há banco próprio ou coordenação entre réplicas. Reconstruir o cliente ou reiniciar o processo permite carregar alterações do ambiente.
 
-`get_chat_model_with_fallback` monta uma dupla pelos argumentos. `get_chat_model_from_env` usa a ordem dos provedores com chave. Embeddings usam o adaptador Gemini, sem herdar a cadeia de chat.
+O `get_chat_model_with_fallback` monta uma dupla a partir dos argumentos, e o `get_chat_model_from_env` segue a ordem dos provedores que têm chave, enquanto os embeddings usam o adaptador Gemini, sem herdar a cadeia de chat.
 
-`decode_user_id` verifica RS256 e issuer e devolve `None` em falha. O cliente JWKS é reutilizado por URL. A função não verifica cargo ou participação em recurso. `mount_a2a` usa `InMemoryTaskStore` e não adiciona autenticação por si só. O consumidor protege as rotas e armazena a conversa.
+O `decode_user_id` verifica o RS256 e o issuer e devolve `None` quando falha, reutilizando o cliente JWKS por URL, mas não verifica cargo nem participação em recurso. O `mount_a2a` usa o `InMemoryTaskStore` e não adiciona autenticação, por isso cabe ao consumidor proteger as rotas e armazenar a conversa.
 
 ## Observabilidade e versão
 
-`StepTracker` envia documentos ao callback recebido. Falha no envio gera aviso sem interromper o fluxo. O custo é estimado pela tabela local e pelos tokens reportados. Não há endpoint de health próprio.
+O `StepTracker` envia os documentos ao callback recebido, e uma falha nesse envio gera um aviso sem interromper o fluxo. O custo é estimado pela tabela local e pelos tokens reportados, e a biblioteca não tem endpoint de health próprio.
 
 A main analisada é `a3e62c9b`, de 2026-10-30, com versão declarada `0.2.1`. As fontes são [configuração do pacote](https://github.com/Solierrr/lib-ai/blob/main/pyproject.toml), [chat](https://github.com/Solierrr/lib-ai/blob/main/src/ai_lib/llm/chat.py), [credenciais](https://github.com/Solierrr/lib-ai/blob/main/src/ai_lib/llm/env_keys.py), [JWT](https://github.com/Solierrr/lib-ai/blob/main/src/ai_lib/security/jwt.py) e [medição](https://github.com/Solierrr/lib-ai/blob/main/src/ai_lib/observability/step_tracker.py).

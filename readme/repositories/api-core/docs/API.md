@@ -4,7 +4,7 @@
 
 # API de negócio
 
-O contrato completo está no [`openapi.yaml`](https://github.com/Solierrr/api-core/blob/main/openapi.yaml), gerado das anotações e DTOs. A revisão analisada contém 254 caminhos. O [Swagger de QA](https://api-core-cqfn.onrender.com/docs) usa `/openapi.json`. As rotas internas aparecem no arquivo exportado, mas são removidas do contrato servido em execução normal.
+O contrato completo está no [`openapi.yaml`](https://github.com/Solierrr/api-core/blob/main/openapi.yaml), gerado a partir das anotações e dos DTOs, e a revisão analisada tem 254 caminhos. O [Swagger de QA](https://api-core-cqfn.onrender.com/docs) usa o `/openapi.json`, e as rotas internas aparecem no arquivo exportado, mas são removidas do contrato servido em execução normal.
 
 ## Autenticação e autorização
 
@@ -32,7 +32,7 @@ Os detalhes de parâmetros, campos e respostas ficam no contrato gerado.
 | Recomendações | `/api/feeds` | proxy e fallback de profissionais, ofertas e fornecedores |
 | Interno | `/internal/users`, `/internal/projects`, `/internal/technical-projects`, `/internal/catalog` | provisionamento e consultas entre serviços |
 
-Fotos, endereços, contatos, certificados e agenda têm recursos próprios no contrato. Listas variam entre arrays e respostas paginadas. Não presuma paginação ou formato único sem conferir a operação.
+Fotos, endereços, contatos, certificados e agenda têm recursos próprios no contrato, e as listas variam entre arrays simples e respostas paginadas, por isso o formato de cada operação deve ser conferido antes do uso.
 
 ## Exemplos
 
@@ -44,7 +44,7 @@ Host: localhost:8080
 Authorization: Bearer <access-token>
 ```
 
-O aceite é feito pela parte que está com a vez na negociação. Substitua o identificador pelo de uma proposta acessível ao usuário. Essa chamada reserva estoque.
+O aceite é feito pela parte que está com a vez na negociação e reserva o estoque da proposta, por isso o identificador do exemplo deve ser trocado pelo de uma proposta a que o usuário tenha acesso.
 
 ```http
 POST /api/proposals/<proposal-id>/acceptance HTTP/1.1
@@ -67,7 +67,7 @@ O fluxo completo de criação está em [USER_PROVISIONING.md](https://github.com
 
 ## Erros
 
-As respostas de erro usam `application/problem+json` e o [contrato comum](https://github.com/Solierrr/docs-warehouse/blob/main/docs/standards/ERRORS.md). `errorCode` é estável, `traceId` correlaciona o erro com traces e `errors` detalha validação. O [catálogo](https://github.com/Solierrr/docs-warehouse/blob/main/docs/standards/ERROR_CODES.md) concentra os significados compartilhados.
+As respostas de erro usam `application/problem+json` e o [contrato comum](https://github.com/Solierrr/docs-warehouse/blob/main/docs/standards/ERRORS.md), com o `errorCode` estável, o `traceId` para correlacionar o erro com os traces e o `errors` com os detalhes de validação. O [catálogo](https://github.com/Solierrr/docs-warehouse/blob/main/docs/standards/ERROR_CODES.md) concentra os significados compartilhados.
 
 | Código | Uso neste domínio |
 |---|---|

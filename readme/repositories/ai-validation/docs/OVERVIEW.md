@@ -21,7 +21,7 @@ A conferência dos certificados exige aprovação de segurança e das duas anál
 
 Esses números descrevem os critérios do produto implementados. A política de aceitação, inclusive o tratamento de datas ausentes ou inválidas, precisa de confirmação do responsável. <!-- PENDENTE: 2 -->
 
-A consulta de empresa remove a pontuação e exige 14 dígitos. Empresa ausente ou sem situação ativa é reprovada antes da análise das atividades. A classificação considera atividade principal e secundárias. Não há verificação local de dígitos verificadores.
+A consulta de empresa remove a pontuação do CNPJ e exige 14 dígitos, sem conferir localmente os dígitos verificadores, e reprova a empresa ausente ou sem situação ativa antes de analisar as atividades. A classificação considera a atividade principal e as secundárias.
 
 Documento ou empresa reprovados são resultados da análise, acompanhados de justificativa. Falha de autenticação, limite de chamadas ou indisponibilidade externa pode impedir a análise e é informada separadamente.
 

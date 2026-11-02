@@ -17,4 +17,4 @@ flowchart TD
  S --> F[Resposta e outcome]
 ```
 
-Token inválido produz 401. Corpo inválido produz 422. Falhas de ferramentas ou fallback de modelo são registradas no resultado do turno. O Mongo mantém checkpoints e o histórico é enviado ao serviço de mensagens.
+Um token inválido produz 401 e um corpo inválido produz 422, enquanto as falhas de ferramentas e a troca de modelo por alternativa ficam registradas no resultado do turno. O Mongo mantém os checkpoints da conversa, e o histórico é enviado ao serviço de mensagens.

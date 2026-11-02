@@ -27,4 +27,4 @@ sequenceDiagram
 
 ## Casos de erro
 
-Chave ausente ou inválida retorna 401. Chave de outro chamador retorna 403. Entrada inválida retorna 422. Falha do Google retorna erro de dependência.
+Uma chave ausente ou inválida retorna 401 e a chave de outro chamador retorna 403, enquanto uma entrada inválida retorna 422 e uma falha do Google retorna erro de dependência.

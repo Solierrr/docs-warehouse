@@ -18,7 +18,7 @@ flowchart LR
  G -->|HTTP e chave de serviço| MSG[api-messenger]
 ```
 
-`src/api/` contém rotas e schemas. `src/workflow/` implementa execução e revisão. `src/agents/` contém especialistas e prompts. `src/infra/` contém clientes externos. `src/rag/` mantém a ingestão e recuperação do FAQ.
+O código se divide entre `src/api/`, com as rotas e os schemas, `src/workflow/`, com a execução e a revisão das respostas, e `src/agents/`, com os especialistas e os prompts. Os clientes externos ficam em `src/infra/`, e `src/rag/` mantém a ingestão e a recuperação do FAQ.
 
 | Integração | Uso |
 |---|---|
@@ -31,4 +31,4 @@ flowchart LR
 
 JWT e persona ficam no contexto da requisição, fora do estado persistido. O runner usa lock em memória por conversa e compara o dono salvo no checkpoint. A leitura desse dono, porém, continua em caso de erro no checkpoint. Essa limitação não deve ser confundida com isolamento entre réplicas.
 
-A delegação operacional termina o grafo diretamente para preservar o texto da proposta. Os demais especialistas voltam ao roteador. A memória e os índices estão em `database/`. A versão vem de `version.txt`. O readiness verifica Mongo em dois segundos. A telemetria inclui etapas e custos, com rastreamento opcional.
+A delegação operacional encerra o grafo diretamente, para preservar o texto da proposta, enquanto os demais especialistas voltam ao roteador. A memória e os índices estão descritos em `database/`, a versão vem de `version.txt`, o readiness confere o Mongo com limite de dois segundos e a telemetria registra etapas e custos, com rastreamento opcional.

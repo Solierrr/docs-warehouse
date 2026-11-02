@@ -20,6 +20,6 @@ Os assistentes compartilham funções que aparecem em diferentes conversas. A bi
 
 Falha na avaliação de entrada bloqueia o processamento. Falha na revisão de saída devolve a resposta de contingência. O juiz admite uma nova tentativa por padrão antes de bloquear uma resposta reprovada. O serviço consumidor conecta essas etapas ao seu fluxo.
 
-A revisão não comprova um fato externo. O consumidor escolhe orientações, ferramentas e permissões. A biblioteca lê a identidade, mas não decide quem pode acessar os recursos do negócio.
+A revisão não comprova um fato externo, e o consumidor escolhe as orientações, as ferramentas e as permissões. A biblioteca lê a identidade, mas não decide quem pode acessar os recursos do negócio.
 
-As tarefas de delegação duram enquanto o processo está ativo. A continuidade da conversa depende do armazenamento do consumidor. Não há interface visual ou cadastro próprio.
+As tarefas de delegação duram enquanto o processo está ativo, e a continuidade da conversa depende do armazenamento do consumidor, já que a biblioteca não tem interface visual nem cadastro próprio.

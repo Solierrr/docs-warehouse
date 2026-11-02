@@ -6,6 +6,6 @@
 
 O workflow de ambiente declara QA em https://api-auth-xw6o.onrender.com e verificação de cluster de produção. Os procedimentos comuns estão em [QA_RENDER.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/QA_RENDER.md) e [PROD_GKE_ARGOCD.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/PROD_GKE_ARGOCD.md).
 
-Configure banco, Redis, chaves JWT, Firebase e o cliente de e-mail por ambiente. O readiness usa `/actuator/health/readiness`, com PostgreSQL como dependência. O liveness usa `/actuator/health/liveness`.
+Configure por ambiente o banco, o Redis, as chaves JWT, o Firebase e o cliente de e-mail. O readiness usa `/actuator/health/readiness`, com o PostgreSQL como dependência, e o liveness usa `/actuator/health/liveness`.
 
 O cliente transacional de e-mail precisa de URL, chave e endereços de confirmação e recuperação. Esses endereços devem ser aceitos pelo serviço de envio. A configuração e a compatibilidade de cabeçalhos efetivas precisam de confirmação. <!-- PENDENTE: 3 -->

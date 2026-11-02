@@ -8,7 +8,7 @@ O contrato está em [openapi.yaml](https://github.com/Solierrr/databricks-sync/b
 
 ## Autenticação
 
-Usar Bearer com o token fixo `SYNC_API_TOKEN`. O esquema chamado `bearerAuth` no contrato não significa JWT de pessoa. Health e readiness são públicos. Nenhuma rota aceita chave por chamador nesta main. <!-- PENDENTE: 2 -->
+As chamadas usam Bearer com o token fixo `SYNC_API_TOKEN`, e o esquema chamado `bearerAuth` no contrato não representa o JWT de uma pessoa. O health e o readiness são públicos, e nenhuma rota aceita chave por chamador nesta main. <!-- PENDENTE: 2 -->
 
 ## Operações
 
@@ -33,6 +33,6 @@ Consultar `status_url` devolvida pela API com o mesmo cabeçalho até `completed
 
 ## Erros
 
-Token inválido responde 401, job ocupado 409, configuração ausente 503 e execução com erro 500. Falha com resumo inclui `result`. Job inexistente responde 404. O formato é `application/problem+json`, conforme [erros HTTP](https://github.com/Solierrr/docs-warehouse/blob/main/docs/standards/ERRORS.md). `GET` de um job falho ainda responde com seu estado, sem se transformar por isso em 500.
+Um token inválido responde 401, um job ocupado responde 409, uma configuração ausente responde 503 e uma execução com erro responde 500, incluindo `result` quando há resumo, enquanto um job inexistente responde 404. O formato é `application/problem+json`, conforme os [erros HTTP](https://github.com/Solierrr/docs-warehouse/blob/main/docs/standards/ERRORS.md), e o `GET` de um job que falhou continua respondendo com o seu estado, sem se transformar em 500.
 
 As fontes são [rotas](https://github.com/Solierrr/databricks-sync/blob/main/app/routes/sync.py) e [autenticação](https://github.com/Solierrr/databricks-sync/blob/main/app/auth.py).

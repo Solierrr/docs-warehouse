@@ -48,6 +48,6 @@ A exportação obtém trava transacional, prepara staging, habilita e força RLS
 
 RLS chama `can_read` com escopo e identificador da linha. É necessário confirmar implementação da função, principais e privilégios no banco provisionado. Não inferir isolamento de usuário final apenas pela política criada. <!-- PENDENTE: 4 -->
 
-Decimais preservam Decimal exato. Tipos não reconhecidos interrompem a carga. Timestamps com timezone sem informação no valor recebem UTC. O destino guarda resultado atual, sem histórico de cargas próprio.
+Os decimais preservam o Decimal exato e um tipo não reconhecido interrompe a carga, enquanto os timestamps com timezone sem essa informação no valor recebem UTC. O destino guarda apenas o resultado atual, sem um histórico de cargas próprio.
 
 Fonte em [exportador](https://github.com/Solierrr/databricks-sync/blob/main/gold_synchronizer.py) e [manifesto](https://github.com/Solierrr/databricks-sync/blob/main/gold_export_manifest.json).

@@ -31,17 +31,17 @@ flowchart LR
 
 ## Protocolo e dados
 
-PostgreSQL e Neo4j recebem credenciais do ambiente. Não há autenticação JWT, chave de serviço ou endpoint HTTP próprio. O contexto integrado está em [feed de recomendações](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/RECOMMENDATION_FEED.md).
+O PostgreSQL e o Neo4j recebem as credenciais do ambiente, e a rotina não tem autenticação JWT, chave de serviço nem endpoint HTTP próprio. O contexto integrado está no [feed de recomendações](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/RECOMMENDATION_FEED.md).
 
 A conexão PostgreSQL usa REPEATABLE READ e somente leitura. O extrator acumula os dez datasets em memória com fetchall antes de gravar o grafo. `SYNC_BATCH_SIZE` limita o envio ao Neo4j, sem limitar a memória da extração.
 
 As queries ainda usam `users` e colunas `fk_*`, enquanto a main atual do cadastro passou a nomes como `user_account` e referências terminadas em `_id`. O job não executa migração nem adapta esses nomes. <!-- PENDENTE: 1 -->
 
-O modelo está em [NEO4J.md](../database/NEO4J.md). `graph_key` inclui fonte e versão, permitindo staging sem alterar nós da versão ativa. Cada execução recebe UUID próprio.
+O modelo está em [NEO4J.md](../database/NEO4J.md), e o `graph_key` inclui a fonte e a versão, o que permite montar o staging sem alterar os nós da versão ativa, com cada execução recebendo um UUID próprio.
 
 ## Consistência
 
-O schema é aplicado antes do lock. O lock em `SyncState` tem lease e token da execução. Ele é renovado após datasets e lotes, sem heartbeat durante uma consulta longa. Perder a posse impede a ativação pelo caminho protegido.
+O schema é aplicado antes do lock, que fica em `SyncState` com lease e o token da execução e é renovado depois de cada dataset e lote, sem heartbeat durante uma consulta longa. Quem perde a posse do lock não consegue ativar a versão pelo caminho protegido.
 
 Cada estágio devolve quantidade de linhas processadas. Ela deve coincidir com o dataset enviado, inclusive quando múltiplas linhas convergem no mesmo nó por MERGE. Isso detecta relações sem ponta, sem equivaler a contar nós únicos.
 
@@ -51,6 +51,6 @@ A ativação troca `active_version` e registra a anterior. Se a resposta se perd
 
 ## Observabilidade e versão
 
-Logs registram versão, contagens e falhas. Saúde é o resultado do processo e dos Jobs, sem rota de health. A imagem usa Python 3.14-slim e usuário sem privilégio. O workflow publica imagem na main.
+Os logs registram a versão, as contagens e as falhas, e a saúde é medida pelo resultado do processo e dos Jobs, já que não há rota de health. A imagem usa Python 3.14-slim com usuário sem privilégio, e o workflow publica a imagem a cada mudança na main.
 
 A main analisada é `0d39bf86`, em 2026-10-30. Fontes em [orquestrador](https://github.com/Solierrr/database-bootstrap/blob/main/src/main.py), [extração](https://github.com/Solierrr/database-bootstrap/blob/main/src/extract.sql), [configuração](https://github.com/Solierrr/database-bootstrap/blob/main/src/config.json) e [ativação](https://github.com/Solierrr/database-bootstrap/blob/main/src/graphs/snapshot/activate_snapshot.cypher).

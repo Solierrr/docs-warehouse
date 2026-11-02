@@ -45,11 +45,11 @@ flowchart LR
 | Notebook exportador chama sincronização | HTTP POST | Bearer fixo lido do secret scope |
 | Painéis consultam Gold | Dataset Databricks | Permissões de publicação e execução |
 
-Não há API HTTP própria, OpenAPI ou banco de negócio. Os objetos analíticos estão em [DATABRICKS.md](../database/DATABRICKS.md). O fluxo integrado está em [cópia analítica](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/ANALYTICS_SYNC.md), com diferenças atuais descritas aqui.
+O repositório não tem API HTTP, OpenAPI nem banco de negócio próprios, e os objetos analíticos estão em [DATABRICKS.md](../database/DATABRICKS.md). O fluxo integrado está na [cópia analítica](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/ANALYTICS_SYNC.md), e as diferenças atuais estão descritas aqui.
 
 ## Escrita e consistência
 
-`source_mode` aceita apenas `manual`. Bronze lê 25 abas, adapta cabeçalhos antigos e mantém outras colunas. Silver valida as fontes antes de escrever as 24 projeções. Gold calcula 19 tabelas. Substituições são por tabela, sem transação global Bronze, Silver e Gold.
+O `source_mode` aceita apenas `manual`. A Bronze lê 25 abas, adapta os cabeçalhos antigos e mantém as demais colunas, a Silver valida as fontes antes de escrever as 24 projeções e a Gold calcula 19 tabelas, com substituições tabela a tabela e sem uma transação global entre as três camadas.
 
 A proteção padrão permite substituir tabelas Delta gerenciadas existentes, mas recusa views e objetos de outro formato. `allow_replace_existing` remove explicitamente essa barreira. O parâmetro falso não significa proibir toda substituição.
 
@@ -65,4 +65,4 @@ A saída é substituída só após calcular todos os indicadores. Decimais viram
 
 O catálogo padrão do módulo é `workspace`, o job usa `analytics`, os painéis apontam para `workspace.gold` e o exportador atual exige `workspace.gold_core` com nomes diferentes. Não há adaptação automática entre esses contratos. <!-- PENDENTE: 1 -->
 
-O processamento informa contagens de rejeição e linhas por tabela no terminal. Não há rota de health ou serviço continuamente ativo. A main analisada é `4b1ce020`, em 2026-10-31. Fontes em [orquestrador](https://github.com/Solierrr/databricks-stocker/blob/main/pipelines/00_medallion/transformations/my_transformation.py), [Silver](https://github.com/Solierrr/databricks-stocker/blob/main/pipelines/00_medallion/transformations/note_silver.py), [executor local](https://github.com/Solierrr/databricks-stocker/blob/main/run_local.py) e [job](https://github.com/Solierrr/databricks-stocker/blob/main/exports/medallion_export_job.json).
+O processamento informa no terminal as contagens de rejeição e as linhas de cada tabela, sem rota de health nem serviço sempre ativo, e a main analisada é a `4b1ce020`, de 2026-10-31. As fontes principais são o [orquestrador](https://github.com/Solierrr/databricks-stocker/blob/main/pipelines/00_medallion/transformations/my_transformation.py), a [Silver](https://github.com/Solierrr/databricks-stocker/blob/main/pipelines/00_medallion/transformations/note_silver.py), o [executor local](https://github.com/Solierrr/databricks-stocker/blob/main/run_local.py) e o [job](https://github.com/Solierrr/databricks-stocker/blob/main/exports/medallion_export_job.json).

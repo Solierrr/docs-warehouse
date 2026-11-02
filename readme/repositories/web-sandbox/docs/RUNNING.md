@@ -8,7 +8,7 @@ Use Node.js 24, conforme o Dockerfile, e npm. O guia comum está em [TYPESCRIPT.
 
 Execute `npm ci`, `npm run dev:server` com configuração autorizada de QA e, em outro terminal, `npm run dev`. O frontend usa a porta 5174 e encaminha `/api/qa` para o servidor local na 5180.
 
-As variáveis Vite são URLs públicas e não devem conter chaves de serviço. `.env.local` não é carregado pelo processo Node. O `Makefile` não configura pastas para `make vault`.
+As variáveis do Vite são URLs públicas e nunca devem conter chaves de serviço, e o `.env.local` não é carregado pelo processo Node, enquanto o `Makefile` não configura pastas para o `make vault`.
 
 | Comando | Efeito |
 |---|---|

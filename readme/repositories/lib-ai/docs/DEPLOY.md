@@ -18,4 +18,4 @@ O [release-please](https://github.com/Solierrr/lib-ai/blob/main/release-please-c
 
 ## Adoção
 
-Publicar uma versão não altera serviços fixados em SHA Git. O checklist anterior apontava SHAs distintos entre agentes. Não foi tratado como estado atual de todos os consumidores. Cada um precisa atualizar e validar sua dependência. <!-- PENDENTE: 2 -->
+Publicar uma versão não altera os serviços fixados em um SHA do Git, e o checklist anterior apontava SHAs diferentes entre os agentes, informação que não foi tratada como o estado atual de todos os consumidores. Cada consumidor precisa atualizar e validar a sua dependência. <!-- PENDENTE: 2 -->

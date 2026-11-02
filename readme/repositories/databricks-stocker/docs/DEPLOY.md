@@ -4,7 +4,7 @@
 
 # Instalação e execução no workspace
 
-O repositório versiona notebooks, job, segurança e painéis. Esses arquivos não comprovam que foram importados, provisionados ou executados no Databricks. Não há Dockerfile ou deploy de servidor próprio.
+O repositório versiona os notebooks, o job, a segurança e os painéis, mas esses arquivos não comprovam que foram importados, provisionados ou executados no Databricks, e não há Dockerfile nem deploy de servidor próprio.
 
 ## Preparação do job
 
@@ -24,7 +24,7 @@ O produtor atual publica `gold` com nomes em inglês, enquanto o exportador exig
 
 ## Painéis
 
-Há duas definições `.lvdash.json`. Administração contém 19 datasets e fornecedor contém dez. As fontes declaradas apontam para `workspace.gold`. Confirmar o catálogo e a publicação efetiva após o job, que declara `analytics`. O README de origem ainda afirma ausência de painéis, apesar desses arquivos. <!-- PENDENTE: 2 -->
+Há duas definições `.lvdash.json`, a de administração com 19 datasets e a de fornecedor com dez, e as fontes declaradas apontam para `workspace.gold`, enquanto o job declara `analytics`, por isso o catálogo e a publicação efetiva precisam ser confirmados depois do job. O README de origem ainda diz que não há painéis, apesar desses arquivos. <!-- PENDENTE: 2 -->
 
 Não foram instalados jobs, enviados arquivos ou executadas chamadas nesta revisão. O processo comum está em [cópia dos dados para análise](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/ANALYTICS_SYNC.md).
 

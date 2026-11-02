@@ -84,12 +84,12 @@ Traduções usam `offer_translation_job`, com versão da origem, lease e token d
 
 O onboarding profissional guarda rascunho, snapshot, política e evidências. A aprovação promove a versão e atualiza o técnico. A validação automática vem desativada por padrão, e sua compatibilidade com o serviço externo precisa ser verificada. <!-- PENDENTE: 4 -->
 
-Arquivos não usam um único armazenamento. Fotos públicas de cadastros e faturas usam Cloudinary. Fotos de projeto ficam em `project_photo.content`. Documentos profissionais começam no PostgreSQL, e imagens validadas podem ser arquivadas no Cloudinary autenticado, com conferência de SHA-256 na leitura. Os detalhes estão no [fluxo de arquivos](../flows/MEDIA_UPLOAD.md).
+Os arquivos não ficam num único armazenamento. As fotos públicas de cadastros e as faturas vão para o Cloudinary, as fotos de projeto ficam em `project_photo.content` e os documentos profissionais começam no PostgreSQL, podendo ser arquivados no Cloudinary autenticado depois de validados, com conferência de SHA-256 na leitura, como detalha o [fluxo de arquivos](../flows/MEDIA_UPLOAD.md).
 
 ## Health, versão e observabilidade
 
 Liveness verifica o processo, readiness verifica PostgreSQL e Redis fica fora do health. A chain específica do Actuator libera as sondas. `pom.xml` fornece a versão do OpenAPI e de `/actuator/info`. A versão dos recursos de telemetria também pode vir de configuração de ambiente.
 
-Micrometer e OpenTelemetry exportam métricas, traces e logs por OTLP. `TraceIdResponseFilter` expõe `X-Trace-Id`, e `ProblemDetailFactory` acrescenta o trace válido ao erro. Operações Cloudinary têm observações próprias.
+O Micrometer e o OpenTelemetry exportam métricas, traces e logs por OTLP, o `TraceIdResponseFilter` expõe o `X-Trace-Id` e o `ProblemDetailFactory` acrescenta o trace válido ao erro, enquanto as operações no Cloudinary têm observações próprias.
 
 A análise usa a main em [`8469e06c`](https://github.com/Solierrr/api-core/commit/8469e06cddef66b77a00f922863b84c40dd53405), conferida em 2026-10-30.

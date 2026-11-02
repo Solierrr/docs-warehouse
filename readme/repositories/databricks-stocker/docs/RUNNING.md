@@ -15,7 +15,7 @@ python -m pip install -r requirements-local.txt
 python -B run_local.py
 ```
 
-O padrão usa `recovery/fornecedores.xlsx` e `recovery/admins.xlsx` e grava `local-output/gold_kpis.json`. As planilhas não foram abertas nem seus registros copiados para esta documentação. Para validar exemplos, usar cópias sintéticas autorizadas.
+O padrão lê `recovery/fornecedores.xlsx` e `recovery/admins.xlsx` e grava `local-output/gold_kpis.json`. As planilhas não foram abertas nem copiadas para esta documentação, e os exemplos devem ser validados com cópias sintéticas autorizadas.
 
 ```bash
 python -B run_local.py --fornecedores fornecedores.xlsx --admins admins.xlsx --output local-output/gold_kpis.json
@@ -25,7 +25,7 @@ No Windows, `rodar_local.bat` mantém a janela aberta para mostrar o resultado. 
 
 ## Saída
 
-O JSON contém `metadata` e `tables`, com lista por indicador. Datas são ISO, decimais são textos, inteiros são números e ausências são null. O fuso local é `America/Sao_Paulo`. Indicadores que usam data atual variam com o dia da execução.
+O JSON traz `metadata` e `tables`, com uma lista por indicador, as datas em ISO, os decimais como texto, os inteiros como números e as ausências como null. O fuso local é `America/Sao_Paulo`, e os indicadores que usam a data atual mudam conforme o dia da execução.
 
 Conferir `metadata.generated_at`, modo local e a indicação de filtro de fornecedor não aplicado. Um arquivo anterior pode continuar existindo se a execução nova falhar. O executor usa valores armazenados das fórmulas Excel, sem recalcular as fórmulas.
 

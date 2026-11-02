@@ -6,7 +6,7 @@
 
 Use Node.js 24 ou superior e npm 11 ou superior, conforme o manifesto. O guia comum está em [TYPESCRIPT.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/running/TYPESCRIPT.md).
 
-Execute `make install`. `make vault` exporta `/vite` quando necessário ao desenvolvimento. O build gera tokens, branding de e-mail, módulos, tipos e assets.
+Execute `make install` e, quando o desenvolvimento precisar, use o `make vault` para exportar a pasta `/vite`, sabendo que o build gera os tokens, o branding de e-mail, os módulos, os tipos e os assets.
 
 | Comando | Efeito |
 |---|---|
@@ -17,4 +17,4 @@ Execute `make install`. `make vault` exporta `/vite` quando necessário ao desen
 | `npm run storybook` | Catálogo local na porta 6006 |
 | `npm run test:observability` | Testes Node da entrada de observabilidade |
 
-Para conferir um consumidor local, construa e gere um tarball com `npm pack`. A aplicação precisa instalar novamente o arquivo atualizado. Ela não lê automaticamente os fontes da biblioteca.
+Para conferir a biblioteca num consumidor local, construa o pacote e gere um tarball com `npm pack`, e depois instale de novo o arquivo atualizado na aplicação, que não lê automaticamente os fontes da biblioteca.

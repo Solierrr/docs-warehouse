@@ -23,4 +23,4 @@ sequenceDiagram
 
 ## Casos de erro
 
-Coordenadas inválidas retornam 422. Fuso indeterminado retorna 404. Sem JWT válido, a chamada retorna 401. Se o JWKS não estiver disponível, a autenticação retorna 503.
+Coordenadas inválidas retornam 422 e um fuso indeterminado retorna 404, enquanto a falta de JWT válido retorna 401 e a indisponibilidade do JWKS faz a autenticação retornar 503.

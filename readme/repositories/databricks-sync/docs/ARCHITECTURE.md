@@ -35,9 +35,9 @@ flowchart LR
 
 ## Autenticação e concorrência
 
-O token fixo vem de `SYNC_API_TOKEN`, comparado por `hmac.compare_digest`. Não é JWT de pessoa nem `X-Service-Key`. Ausência de configuração responde 503 e credencial inválida responde 401. A adoção do padrão de chaves por chamador ainda precisa de decisão. <!-- PENDENTE: 2 -->
+O token fixo vem de `SYNC_API_TOKEN` e é comparado com `hmac.compare_digest`, sem ser um JWT de pessoa nem uma `X-Service-Key`. A ausência de configuração responde 503 e uma credencial inválida responde 401, e a adoção do padrão de chaves por chamador ainda depende de decisão. <!-- PENDENTE: 2 -->
 
-`JobManager` aceita uma execução por processo, compartilhada entre Bronze e Gold. Guarda até 20 jobs. Bronze assíncrona usa thread daemon. Reiniciar perde histórico e pode interromper execução. Múltiplas réplicas não compartilham esse lock. Gold acrescenta trava transacional PostgreSQL entre exportadores.
+O `JobManager` aceita uma execução por processo, compartilhada entre a Bronze e a Gold, guarda até 20 jobs e roda a Bronze assíncrona numa thread daemon. Reiniciar o processo perde o histórico e pode interromper uma execução, e várias réplicas não compartilham esse lock, enquanto a Gold acrescenta uma trava transacional no PostgreSQL entre os exportadores.
 
 ## Dados e falhas
 
@@ -51,4 +51,4 @@ Os contratos estão em [DATABRICKS.md](../database/DATABRICKS.md) e [POSTGRES.md
 
 `/health` verifica só processo e informa versão de `version.txt`, atualmente `0.2.0`. `/ready` confere PostgreSQL com SELECT 1 e metadados do warehouse pela API REST, com timeouts de 2 segundos nas conexões. Acrescenta AnalyticsDB se o host está configurado. Não liga o warehouse SQL nem comprova permissão de escrita ou exportação completa.
 
-Logs e progresso são locais. A main analisada é `c3c1c251`, em 2026-10-30. Fontes em [serviço Bronze](https://github.com/Solierrr/databricks-sync/blob/main/app/services/sync_service.py), [jobs](https://github.com/Solierrr/databricks-sync/blob/main/app/services/jobs.py), [exportação Gold](https://github.com/Solierrr/databricks-sync/blob/main/gold_synchronizer.py) e [prontidão](https://github.com/Solierrr/databricks-sync/blob/main/app/infra/readiness.py).
+Os logs e o progresso ficam locais, e a main analisada é a `c3c1c251`, de 2026-10-30. As fontes são o [serviço Bronze](https://github.com/Solierrr/databricks-sync/blob/main/app/services/sync_service.py), os [jobs](https://github.com/Solierrr/databricks-sync/blob/main/app/services/jobs.py), a [exportação Gold](https://github.com/Solierrr/databricks-sync/blob/main/gold_synchronizer.py) e a [prontidão](https://github.com/Solierrr/databricks-sync/blob/main/app/infra/readiness.py).

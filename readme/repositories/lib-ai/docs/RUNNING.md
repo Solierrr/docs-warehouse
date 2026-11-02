@@ -4,7 +4,7 @@
 
 # Execução local
 
-Requer Python 3.14 ou superior, uv, Git, make e shell compatível. No Windows, os alvos do Makefile usam Git Bash. O procedimento comum está em [execução Python](https://github.com/Solierrr/docs-warehouse/blob/main/readme/running/PYTHON.md).
+São necessários o Python 3.14 ou superior, o uv, o Git, o make e um shell compatível, e no Windows os alvos do Makefile usam o Git Bash. O procedimento comum está em [execução Python](https://github.com/Solierrr/docs-warehouse/blob/main/readme/running/PYTHON.md).
 
 ## Preparar e verificar
 
@@ -18,7 +18,7 @@ make test
 make build
 ```
 
-A instalação usa `uv sync --frozen --extra dev`, com suporte A2A. Os demais alvos executam Ruff, pytest e `uv build`. `make dev` não inicia servidor. Não há alvo `make openapi`.
+A instalação usa `uv sync --frozen --extra dev`, com o suporte A2A, e os demais alvos executam o Ruff, o pytest e o `uv build`. O `make dev` não inicia servidor, e não existe um alvo `make openapi`.
 
 Os testes ficam em `tests/`, separados por módulo. O CI usa Python 3.14, uv 0.12.22, dependências congeladas, cobertura e build da distribuição.
 
@@ -35,10 +35,10 @@ Os testes ficam em `tests/`, separados por módulo. O CI usa Python 3.14, uv 0.1
 | `LLM_MODEL_<PROVEDOR>` | Modelo, com precedência abaixo do argumento `model` |
 | `LLM_TEMPERATURE_OPENAI` | Temperatura enviada pelo adaptador correspondente quando definida |
 
-Valores repetidos são eliminados e marcadores de preenchimento são ignorados. O adaptador sem modelo padrão exige configuração explícita. Não registrar credenciais em logs.
+Os valores repetidos são eliminados e os marcadores de preenchimento são ignorados, e o adaptador sem modelo padrão exige configuração explícita. As credenciais nunca devem ser registradas em logs.
 
 ## Diagnóstico
 
-`RegistryKeysNotConfigured` indica ausência de chave. `RegistryKeysUnavailable` indica chaves excluídas, inválidas ou em cooldown. A seleção não espera o cooldown. A aplicação só tenta outro provedor se construiu uma cadeia de fallback.
+O `RegistryKeysNotConfigured` indica a ausência de chave, e o `RegistryKeysUnavailable` indica chaves excluídas, inválidas ou em cooldown, sem que a seleção espere o fim do cooldown. A aplicação só tenta outro provedor quando construiu uma cadeia de fallback.
 
 As fontes são [Makefile](https://github.com/Solierrr/lib-ai/blob/main/Makefile) e [CI](https://github.com/Solierrr/lib-ai/blob/main/.github/workflows/ci.yml).

@@ -23,6 +23,6 @@ flowchart TD
 
 ## Falhas e limites
 
-Falha de entrada bloqueia. Falha do juiz conta como reprovação. Criar os nós não executa o fluxo inteiro, pois as transições pertencem ao consumidor.
+Uma falha na entrada bloqueia a mensagem e uma falha do juiz conta como reprovação, mas criar os nós não executa o fluxo inteiro, porque as transições pertencem ao consumidor.
 
 Fonte em [implementação](https://github.com/Solierrr/lib-ai/blob/main/src/ai_lib/guardrails/nodes.py).

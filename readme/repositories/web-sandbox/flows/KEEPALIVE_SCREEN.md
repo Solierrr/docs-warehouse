@@ -13,4 +13,4 @@ flowchart TD
  C --> D[Operador valida serviço depois]
 ```
 
-Uma resposta opaca do navegador não comprova que o serviço está pronto. Falhas ficam restritas ao destino. A rotina agendada é documentada separadamente no repositório de keepalive.
+Uma resposta opaca do navegador não comprova que o serviço está pronto, e as falhas ficam restritas ao destino afetado. A rotina agendada está documentada separadamente, no repositório de keepalive.

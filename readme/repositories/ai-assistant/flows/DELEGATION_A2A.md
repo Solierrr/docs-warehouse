@@ -20,4 +20,4 @@ sequenceDiagram
  end
 ```
 
-A resposta não passa novamente pelo orquestrador ou juiz. Quando há decisão pendente, a próxima mensagem volta ao agente operacional. No debug sem persistência, a delegação é simulada.
+A resposta delegada não passa de novo pelo orquestrador nem pelo juiz, e quando há uma decisão pendente a próxima mensagem da pessoa volta direto ao agente operacional. No modo de debug sem persistência, a delegação é apenas simulada.

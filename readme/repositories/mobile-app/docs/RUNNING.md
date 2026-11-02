@@ -19,7 +19,7 @@ make devices
 make dev FLAVOR=qa
 ```
 
-`make dev` constrói, instala o APK debug e abre a Activity. `DEVICE` seleciona um aparelho. `make avds` lista emuladores e `make emulator AVD=nome` inicia um AVD. Android Studio também permite escolher a variante.
+O `make dev` constrói, instala o APK debug e abre a Activity, com a variável `DEVICE` selecionando o aparelho. O `make avds` lista os emuladores e o `make emulator AVD=nome` inicia um AVD, e o Android Studio também permite escolher a variante.
 
 `make vault` exporta `/service-urls`, mas o build não usa esse arquivo para trocar `BuildConfig`. Não colocar chaves de serviço no aplicativo. Obter `google-services.json` pelo procedimento autorizado e manter fora do versionamento. O plugin correspondente só é aplicado quando um dos arquivos previstos existe.
 
@@ -35,7 +35,7 @@ make lint FLAVOR=qa
 ./gradlew connectedQaDebugAndroidTest
 ```
 
-`make test` roda `testQaDebugUnitTest` e `testProdDebugUnitTest`. O lint usa ktlint e Android lint. Instrumentação exige dispositivo. Não há alvo OpenAPI ou servidor local do app.
+O `make test` roda `testQaDebugUnitTest` e `testProdDebugUnitTest`, e o lint usa o ktlint e o Android lint, enquanto a instrumentação exige um dispositivo. O app não tem alvo OpenAPI nem servidor local.
 
 Testes JVM cobrem autenticação, fila, sincronização, presença, leitura, projetos e perfil. O smoke de navegação fica em `app/src/androidTest/`.
 
@@ -43,6 +43,6 @@ Testes JVM cobrem autenticação, fila, sincronização, presença, leitura, pro
 
 Abrir QA, autorizar no navegador e aguardar o callback. Conferir projetos, perfil e conversas com dados sintéticos autorizados. Para conferir a fila, preparar mensagem sem rede, restaurar a conexão e acompanhar a confirmação.
 
-QA pode precisar acordar o servidor. Falha de callback exige conferir variante, redirect e state. Endereço compilado não muda pela troca de variável no servidor. Confirmar URLs de produção e geocodificação. <!-- PENDENTE: 2 -->
+O QA pode precisar acordar o servidor antes do uso, e uma falha de callback exige conferir a variante, o redirect e o state. O endereço compilado não muda quando a variável é trocada no servidor, e as URLs de produção e de geocodificação ainda precisam ser confirmadas. <!-- PENDENTE: 2 -->
 
 Fontes em [Makefile](https://github.com/Solierrr/mobile-app/blob/main/Makefile), [CI](https://github.com/Solierrr/mobile-app/blob/main/.github/workflows/ci.yml), [versões](https://github.com/Solierrr/mobile-app/blob/main/gradle/libs.versions.toml) e [wrapper](https://github.com/Solierrr/mobile-app/blob/main/gradle/wrapper/gradle-wrapper.properties).

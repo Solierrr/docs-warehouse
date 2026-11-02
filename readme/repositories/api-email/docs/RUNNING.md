@@ -14,7 +14,7 @@ Use Node.js 24 ou superior, npm e Docker com Compose para a captura SMTP local. 
 npm ci
 ```
 
-Copie `.env.example` para `.env` e preencha os dados locais. No PowerShell, use `Copy-Item .env.example .env`. Configure a chave do chamador local sem publicar seu conteúdo. O `.env` é ignorado pelo Git.
+Copie o `.env.example` para `.env`, com `Copy-Item .env.example .env` no PowerShell, e preencha os dados locais, configurando a chave do chamador local sem publicar o valor. O `.env` é ignorado pelo Git.
 
 | Nomes | Uso |
 |---|---|
@@ -28,7 +28,7 @@ Copie `.env.example` para `.env` e preencha os dados locais. No PowerShell, use 
 | `APP_ENV`, `NODE_ENV`, `HOST`, `PORT` | ambiente e escuta HTTP |
 | `DOCS_ENABLED`, `CORS_ALLOWED_ORIGINS` | documentação pública e origens do navegador |
 
-`make vault` existe, mas `VAULT_FOLDERS` está vazio. Sem fornecer as pastas autorizadas, o comando não gera `.env`. A obtenção das configurações de QA precisa ser confirmada. <!-- PENDENTE: 1 --> O procedimento comum está no [guia de segredos](https://github.com/Solierrr/docs-warehouse/blob/main/readme/infisical/README.md).
+O `make vault` existe, mas `VAULT_FOLDERS` está vazio, e sem as pastas autorizadas o comando não gera o `.env`, por isso a forma de obter as configurações de QA ainda precisa ser confirmada. <!-- PENDENTE: 1 --> O procedimento comum está no [guia de segredos](https://github.com/Solierrr/docs-warehouse/blob/main/readme/infisical/README.md).
 
 ## Servidor e caixa local
 

@@ -17,8 +17,8 @@ flowchart LR
  S --> P[GitHub Pages]
 ```
 
-`src/components/` contém o kit visual. `src/email/` atende renderização de e-mail no servidor. `src/tokens/` é a fonte do tema. `src/observability/` contém logger e exportação. `scripts/` gera tokens e branding e copia assets.
+A pasta `src/components/` contém o kit visual, a `src/email/` atende a renderização de e-mail no servidor, a `src/tokens/` é a fonte do tema e a `src/observability/` reúne o logger e a exportação, enquanto a `scripts/` gera os tokens e o branding e copia os assets.
 
-React e outras bibliotecas de UI são peer dependencies. O bundle externaliza os runtimes para evitar cópias no consumidor. Não há banco próprio. As entradas `/email` e `/observability` evitam carregar a raiz de componentes do navegador.
+O React e as outras bibliotecas de UI são peer dependencies, e o bundle externaliza esses runtimes para evitar cópias no consumidor. A biblioteca não tem banco próprio, e as entradas `/email` e `/observability` evitam carregar a raiz de componentes do navegador.
 
-O consumidor fornece Router e contexto de tradução quando necessários. `uiTranslations` fornece textos sem iniciar a internacionalização global. Os detalhes estão em [API.md](./API.md), [EMAIL.md](./EMAIL.md) e [OBSERVABILITY.md](./OBSERVABILITY.md).
+O consumidor fornece o Router e o contexto de tradução quando necessários, e o `uiTranslations` entrega os textos sem iniciar a internacionalização global. Os detalhes estão em [API.md](./API.md), [EMAIL.md](./EMAIL.md) e [OBSERVABILITY.md](./OBSERVABILITY.md).

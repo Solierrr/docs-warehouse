@@ -44,7 +44,7 @@ O limiar usa o contador sem paginação, portanto a popularidade é compartilhad
 
 ## Acesso e falhas
 
-`SupplierCacheService` lê e grava as respostas. `StringRedisTemplate` mantém os contadores. A conexão vem das variáveis `UPSTASH_CORE_*`, pela URL construída na configuração do Spring.
+O `SupplierCacheService` lê e grava as respostas em cache, e o `StringRedisTemplate` mantém os contadores de busca, com a conexão montada na configuração do Spring a partir das variáveis `UPSTASH_CORE_*`.
 
 Valor de tipo inesperado é tratado como ausência. Falhas de leitura, incremento e escrita são registradas em log e não impedem o resultado obtido do banco. Redis fica fora do readiness.
 

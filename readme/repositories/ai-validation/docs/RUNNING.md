@@ -17,7 +17,7 @@ make install
 make dev
 ```
 
-O servidor local usa a porta 8000. `make vault` consulta `/llm`. Configurações de acesso, URLs e origens também precisam estar no ambiente ou no `.env`. Não assumir que essa pasta sozinha contém toda configuração necessária. <!-- PENDENTE: 3 -->
+O servidor local usa a porta 8000, e o `make vault` consulta apenas a pasta `/llm`, por isso as configurações de acesso, as URLs e as origens também precisam estar no ambiente ou no `.env`, já que essa pasta sozinha não traz toda a configuração necessária. <!-- PENDENTE: 3 -->
 
 | Nome | Uso |
 |---|---|
@@ -45,6 +45,6 @@ make openapi
 
 Os alvos executam pytest com cobertura, Ruff, compileall e o exportador. O lint cobre `main.py`, `src/workflow` e `src/core/llm`, sem equivaler a lint completo da árvore. Os testes incluem rotas, consolidação, autenticação, modelos e replay.
 
-Sem JWKS configurado, as rotas protegidas retornam 503. Falha no download pode aparecer como documento reprovado. CORS deve permitir a origem do cliente. Erros de quota podem esgotar as chaves e os provedores de imagem disponíveis.
+Sem JWKS configurado, as rotas protegidas retornam 503, e uma falha no download da imagem pode aparecer como documento reprovado. O CORS precisa permitir a origem do cliente, e erros de quota podem esgotar as chaves e os provedores de imagem disponíveis.
 
 Fontes em [Makefile](https://github.com/Solierrr/ai-validation/blob/main/Makefile), [dependências](https://github.com/Solierrr/ai-validation/blob/main/requirements.txt) e [exportação](https://github.com/Solierrr/ai-validation/blob/main/scripts/export_openapi.py).

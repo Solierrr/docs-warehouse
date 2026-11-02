@@ -44,7 +44,7 @@ flowchart LR
 | Modelos | HTTPS pelos adaptadores | Chaves de provedor do ambiente |
 | Cadastro central pretende validar profissional | HTTP | Contrato ausente nesta main, sem integração ativa comprovada |
 
-`require_access_token` é dependência dos dois routers de negócio. `AUTH_REQUIRED` vem ativo por padrão. Sem JWKS configurado, retorna 503. A validação exige `exp` e `sub`, aceita apenas RS256 e rejeita `token_type` diferente de `access`, assumindo access quando o campo não existe. O issuer é conferido quando configurado.
+A dependência `require_access_token` protege os dois routers de negócio, e como `AUTH_REQUIRED` vem ligado por padrão, a falta de JWKS configurado responde 503. A validação exige `exp` e `sub`, aceita apenas RS256 e recusa `token_type` diferente de `access`, tratando o token como access quando o campo não existe, e confere o issuer quando ele está configurado.
 
 A função `require_caller` e a variável `SERVICE_KEY_API_CORE` existem. Nenhuma rota de validação desta main usa essa dependência. Definir uma chave não cria a rota profissional nem substitui a autenticação JWT. <!-- PENDENTE: 1 -->
 
@@ -58,8 +58,8 @@ O fallback externo só avança por erro reconhecido como rate limit. Chamadas de
 
 ## Observabilidade, health e versão
 
-Logs usam JSON. Debug administrativo fornece etapas e reexecução controlada, descritos no [fluxo de depuração](../flows/DEBUG_REPLAY.md). Não há persistência de negócio. Os limites e o debug são locais à instância.
+Os logs saem em JSON, e o debug administrativo mostra as etapas e permite uma reexecução controlada, como descreve o [fluxo de depuração](../flows/DEBUG_REPLAY.md). O serviço não guarda dados de negócio, e tanto os limites quanto o debug valem só para a instância em execução.
 
-`/health` retorna estado e versão, e `/ready` retorna estado. Nenhum deles consulta BrasilAPI, JWKS ou modelos. Isso não comprova que uma validação real será atendida.
+O `/health` retorna o estado e a versão, e o `/ready` retorna só o estado, sem consultar a BrasilAPI, o JWKS ou os modelos, por isso uma resposta positiva não comprova que uma validação real será atendida.
 
-A versão é lida de `version.txt`, atualmente `3.1.0`. A revisão analisada é `7855fc9f`, em 2026-10-30. Fontes em [bootstrap](https://github.com/Solierrr/ai-validation/blob/main/main.py), [JWT](https://github.com/Solierrr/ai-validation/blob/main/src/core/security/jwt.py), [grafo](https://github.com/Solierrr/ai-validation/blob/main/src/workflow/graph/graph.py), [settings](https://github.com/Solierrr/ai-validation/blob/main/src/core/config/settings.py) e [download](https://github.com/Solierrr/ai-validation/blob/main/src/workflow/nodes/security_guardrail_node.py).
+A versão é lida de `version.txt`, hoje `3.1.0`, e a revisão analisada é a `7855fc9f`, de 2026-10-30. As fontes principais são o [bootstrap](https://github.com/Solierrr/ai-validation/blob/main/main.py), o [JWT](https://github.com/Solierrr/ai-validation/blob/main/src/core/security/jwt.py), o [grafo](https://github.com/Solierrr/ai-validation/blob/main/src/workflow/graph/graph.py), as [settings](https://github.com/Solierrr/ai-validation/blob/main/src/core/config/settings.py) e o [download](https://github.com/Solierrr/ai-validation/blob/main/src/workflow/nodes/security_guardrail_node.py).

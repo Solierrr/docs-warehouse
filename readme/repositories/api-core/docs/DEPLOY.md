@@ -20,7 +20,7 @@ O checklist anterior registrava QA e produção disponíveis, mas também variá
 
 ## Partida e banco
 
-O runtime inclui Infisical CLI. `entrypoint.sh` usa Universal Auth quando recebe as duas credenciais correspondentes e, sem elas, inicia com as variáveis já injetadas. Segredos não entram na imagem.
+A imagem de runtime inclui o Infisical CLI, e o `entrypoint.sh` usa Universal Auth quando recebe as duas credenciais correspondentes e, sem elas, inicia com as variáveis já injetadas, sem que nenhum segredo entre na imagem.
 
 A partida agora aplica Flyway e valida as entidades. Em um banco novo, V1 a V3 criam o schema e as referências. Em banco existente, a estratégia de baseline e a compatibilidade dos consumidores precisam ser definidas antes da promoção dessa revisão. `baseline-on-migrate` está desativado. <!-- PENDENTE: 3 -->
 
@@ -32,11 +32,11 @@ O [Deployment](https://github.com/Solierrr/infra-gitops/blob/main/services/api-c
 
 O manifesto ainda usa `latest` e sondas TCP para startup, liveness e readiness. Essas sondas verificam abertura da porta e não reproduzem o readiness PostgreSQL da aplicação. Os caminhos HTTP do serviço são `/actuator/health/liveness` e `/actuator/health/readiness`. A versão efetiva e a adoção das sondas precisam ser conferidas com o responsável. <!-- PENDENTE: 5 -->
 
-O manifesto consultado não define `DOCS_ENABLED` explicitamente. A configuração pode vir do Secret, cujo conteúdo não foi consultado. A desativação do Swagger também não remove o controller `/dev/login`. A revisão desse atalho permanece uma decisão registrada. <!-- PENDENTE: 6 -->
+O manifesto consultado não define `DOCS_ENABLED` explicitamente, e essa configuração pode vir do Secret, cujo conteúdo não foi consultado. Desligar o Swagger também não remove o controller `/dev/login`, e a revisão desse atalho continua registrada como decisão pendente. <!-- PENDENTE: 6 -->
 
 ## Publicação e observabilidade
 
-Os workflows reutilizam a publicação de imagem e o release-please da organização. A versão de `pom.xml` acompanha OpenAPI e build info. O fluxo geral está em [RELEASE_AND_DEPLOY.md](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/RELEASE_AND_DEPLOY.md).
+Os workflows reutilizam a publicação de imagem e o release-please da organização, e a versão do `pom.xml` acompanha o OpenAPI e o build info. O fluxo geral está em [RELEASE_AND_DEPLOY.md](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/RELEASE_AND_DEPLOY.md).
 
 `environment-status.yml` consulta readiness no QA e verifica o cluster no job de produção. A existência do cluster não comprova a prontidão deste serviço. O endpoint OTLP, a identidade de ambiente e a versão de telemetria vêm da configuração do processo.
 

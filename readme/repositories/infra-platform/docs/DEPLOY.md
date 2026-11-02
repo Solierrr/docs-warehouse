@@ -4,7 +4,7 @@
 
 # Provisionamento
 
-A aplicação do plano Terraform cria ou altera recursos reais. O processo comum está em [PROD_GKE_ARGOCD.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/PROD_GKE_ARGOCD.md). Não há URL única para este repositório.
+A aplicação do plano Terraform cria ou altera recursos reais, e o processo comum está em [PROD_GKE_ARGOCD.md](https://github.com/Solierrr/docs-warehouse/blob/main/readme/deploy/PROD_GKE_ARGOCD.md), sem uma URL única para este repositório.
 
 Os charts versionados incluem Argo CD 10.4.2, Kong 3.4.1 e cert-manager 1.16.2. A composição usa valores do gateway na main por HTTP, portanto uma mudança nesse repositório pode alterar um plano posterior.
 

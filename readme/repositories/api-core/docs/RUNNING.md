@@ -16,7 +16,7 @@ Para chamadas JWT, o `api-auth` precisa publicar seu JWKS. Credenciais de Cloudi
 
 ## Variáveis
 
-`make vault` escreve `.env` com `/database`, `/redis`, `/cloudinary`, `/google`, `/otel` e `/service-keys`. O Spring importa esse arquivo como propriedades. O procedimento comum está no [guia de segredos](https://github.com/Solierrr/docs-warehouse/blob/main/readme/infisical/README.md).
+O `make vault` escreve o `.env` com as pastas `/database`, `/redis`, `/cloudinary`, `/google`, `/otel` e `/service-keys`, e o Spring importa esse arquivo como propriedades. O procedimento comum está no [guia de segredos](https://github.com/Solierrr/docs-warehouse/blob/main/readme/infisical/README.md).
 
 | Nomes | Uso |
 |---|---|
@@ -59,7 +59,7 @@ No Windows, os scripts do Makefile exigem ambiente compatível com Git Bash. O w
 | `make openapi` | exporta o contrato pelo teste `OpenApiExportTests` |
 | `make format` | informa que não há comando configurado |
 
-O [Swagger local](http://localhost:8080/docs) usa JWT no botão Authorize. O contrato servido fica em `/openapi.json`, sem os caminhos internos. A [coleção Bruno](https://github.com/Solierrr/api-core/blob/main/http/README.md) acompanha as rotas por domínio. Obtenha o token pelo fluxo de login do serviço de acesso. O atalho `/dev/login` existe, mas é provisório e está pendente de revisão. <!-- PENDENTE: 6 -->
+O [Swagger local](http://localhost:8080/docs) usa o JWT informado no botão Authorize, e o contrato servido fica em `/openapi.json`, sem os caminhos internos, enquanto a [coleção Bruno](https://github.com/Solierrr/api-core/blob/main/http/README.md) acompanha as rotas por domínio. O token vem do fluxo de login do serviço de acesso, e o atalho `/dev/login` existe, mas é provisório e está pendente de revisão. <!-- PENDENTE: 6 -->
 
 ## Testes
 
@@ -69,7 +69,7 @@ O perfil padrão de testes usa H2 e criação do schema por JPA, com Flyway desl
 
 ## Verificação e problemas conhecidos
 
-`GET /actuator/health/liveness` verifica processo. `GET /actuator/health/readiness` verifica PostgreSQL. `GET /actuator/info` expõe os metadados de build. Redis, tradução, recomendação e envio de e-mail não são checados pelo readiness.
+O `GET /actuator/health/liveness` verifica se o processo está no ar, o `GET /actuator/health/readiness` verifica o PostgreSQL e o `GET /actuator/info` expõe os metadados do build. O readiness não checa o Redis, a tradução, a recomendação nem o envio de e-mail.
 
 O endpoint de e-mail local usado como padrão pelo worker de convites difere da porta local do serviço de e-mail. Configure `API_EMAIL_URL` explicitamente. O worker ainda depende da chave legada para iniciar, mesmo quando a chave de serviço está presente. A tradução também mantém sua condição de credencial legada. <!-- PENDENTE: 6 -->
 

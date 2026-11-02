@@ -23,6 +23,6 @@ flowchart TD
 
 ## Falhas e limites
 
-Remoção da sessão leva à entrada e limpa a pilha. Uma rota não comprova integração de toda a área. Atalhos da lista de conversas ainda incluem ids de exemplo.
+A remoção da sessão leva à tela de entrada e limpa a pilha, mas a existência de uma rota não comprova a integração de toda a área, e os atalhos da lista de conversas ainda incluem ids de exemplo.
 
 Fonte em [implementação](https://github.com/Solierrr/mobile-app/blob/main/app/src/main/kotlin/com/project/solaria_mobile/presentation/navigation/AppNavHost.kt).

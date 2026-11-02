@@ -109,7 +109,7 @@ classDiagram
 
 ## `conversations`
 
-Um documento por conversa. `conversation_type` é `DIRECT`, `GROUP` ou `CHAT_BOT`. Um grupo que fica sem participantes é apagado, junto com as mensagens e os estados pessoais dele.
+Cada conversa é um documento, com `conversation_type` igual a `DIRECT`, `GROUP` ou `CHAT_BOT`, e um grupo que fica sem participantes é apagado junto com as suas mensagens e os estados pessoais ligados a ele.
 
 - `DIRECT` tem exatamente dois participantes, nunca fica numa comunidade e tem `direct_key` com os dois UUIDs ordenados e unidos por `|`.
 - `GROUP` nasce com dois ou mais participantes e o criador como `manager_user_id`. Com `community_id`, é um subgrupo. Pode ficar vazio, com gestor nulo.

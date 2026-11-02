@@ -4,11 +4,11 @@
 
 # API e delegação
 
-O contrato HTTP está no [`openapi.yaml`](https://github.com/Solierrr/ai-operational/blob/main/openapi.yaml). O [Swagger de QA](https://ai-operational.onrender.com/docs) e `/openapi.json` ficam expostos quando `DOCS_ENABLED` permite. O A2A e o debug ficam fora desse contrato.
+O contrato HTTP está no [`openapi.yaml`](https://github.com/Solierrr/ai-operational/blob/main/openapi.yaml), e o [Swagger de QA](https://ai-operational.onrender.com/docs) e o `/openapi.json` ficam expostos quando `DOCS_ENABLED` permite. O A2A e o debug ficam fora desse contrato.
 
 ## Autenticação
 
-`POST /chat` recebe `Authorization: Bearer <access-token>` do `api-auth`. O serviço valida assinatura RS256, expiração, identificador da pessoa e emissor configurado. Tokens de refresh são recusados. Fora de `LOCAL`, ausência da configuração JWKS responde 503. A conversa com dono diferente responde 403 quando o dono é identificado.
+`POST /chat` recebe `Authorization: Bearer <access-token>` emitido pelo `api-auth`, e o serviço confere a assinatura RS256, a expiração, o identificador da pessoa e o emissor configurado, recusando tokens de refresh. Fora do ambiente `LOCAL`, a falta de configuração do JWKS responde 503, e uma conversa de outro dono responde 403 quando o dono é identificado.
 
 As chamadas ao `api-core` usam esse mesmo JWT. Respostas e registros internos enviados ao `api-messenger` usam `X-Service-Key` com a chave do serviço.
 
@@ -64,7 +64,7 @@ Content-Type: application/json
 }
 ```
 
-O aceite só executa quando há proposta válida. Para encerramento de oferta ou cancelamento de pedido, use "confirmo". O protocolo está no [fluxo de aprovação](../flows/ACTION_APPROVAL.md).
+O aceite só executa alguma coisa quando existe uma proposta válida, e para encerrar uma oferta ou cancelar um pedido a pessoa precisa responder "confirmo". O protocolo completo está no [fluxo de aprovação](../flows/ACTION_APPROVAL.md).
 
 ## A2A
 
@@ -74,11 +74,11 @@ O consumidor deve descobrir o transporte pelo Agent Card e preservar o contexto 
 
 ## Debug
 
-O debug fica fora do Swagger. `DEBUG_ADMIN_SUBS` deve conter UUIDs válidos e `ENVIRONMENT` deve ser `LOCAL`, `DEV`, `QA` ou `PROD`. Sem isso, a resposta é 404. Token ausente ou inválido recebe 401, e pessoa fora da lista recebe 403.
+O debug fica fora do Swagger e só funciona quando `DEBUG_ADMIN_SUBS` contém UUIDs válidos e `ENVIRONMENT` é `LOCAL`, `DEV`, `QA` ou `PROD`, caso contrário a resposta é 404. Um token ausente ou inválido recebe 401, e uma pessoa fora da lista de administradores recebe 403.
 
 O turno normal de debug simula gravações no `api-core` e não lê nem atualiza fatos duráveis, mas grava conversa, mensagens e etapas no `api-messenger`. Seu checkpoint tem namespace próprio. O corpo pode incluir `custom` para reexecutar um nó de turno anterior com substituição de mensagens de sistema. Esse replay usa uma cópia temporária do checkpoint e não salva histórico remoto. As leituras de dados e chamadas de LLM continuam reais.
 
-O bloco `debug` mostra nós, prompts, chamadas e durações, com mascaramento por padrões. `prompt_complete` falso impede usar o prompt mascarado como substituto do original. Turno, nó ou ocorrência ausente produz 404. Reconstrução impossível produz 409, e entrada inválida produz 422. A implementação está em [`routes/debug.py`](https://github.com/Solierrr/ai-operational/blob/main/src/api/routes/debug.py).
+O bloco `debug` mostra nós, prompts, chamadas e durações, com mascaramento por padrões, e quando `prompt_complete` é falso o prompt mascarado não pode substituir o original. Um turno, nó ou ocorrência inexistente produz 404, uma reconstrução impossível produz 409 e uma entrada inválida produz 422, como implementado em [`routes/debug.py`](https://github.com/Solierrr/ai-operational/blob/main/src/api/routes/debug.py).
 
 ## Erros
 

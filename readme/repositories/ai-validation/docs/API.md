@@ -4,13 +4,13 @@
 
 # Contrato HTTP
 
-O contrato versionado fica em [openapi.yaml](https://github.com/Solierrr/ai-validation/blob/main/openapi.yaml). O serviço oferece `/docs` e `/openapi.json` quando `DOCS_ENABLED` permite. Não copiar o contrato para este documento.
+O contrato versionado fica em [openapi.yaml](https://github.com/Solierrr/ai-validation/blob/main/openapi.yaml), e o serviço oferece `/docs` e `/openapi.json` quando `DOCS_ENABLED` permite, por isso o contrato não é copiado para este documento.
 
 ## Autenticação
 
 Os dois endpoints de validação exigem `Authorization` com Bearer JWT por padrão. `AUTH_REQUIRED` pode desativar essa verificação, portanto a exposição real depende do ambiente. O resumo do bootstrap que chama as rotas de públicas está desatualizado em relação às dependências dos routers. <!-- PENDENTE: 3 -->
 
-Health e readiness são públicos. Debug é separado, exige JWT de administrador configurado e não aparece no OpenAPI. Não há rota profissional com chave de serviço nesta main. <!-- PENDENTE: 1 -->
+O health e o readiness são públicos, enquanto o debug é separado, exige o JWT de um administrador configurado e não aparece no OpenAPI. Esta main ainda não tem uma rota profissional protegida por chave de serviço. <!-- PENDENTE: 1 -->
 
 ## Grupos
 
@@ -33,7 +33,7 @@ Para empresas, enviar JSON com `cnpj` ao endpoint correspondente, usando dado si
 
 ## Resultados e erros
 
-Certificados retornam `ACCEPT` ou `REJECTED`. Empresas retornam `VALID` ou `INVALID`. Uma reprovação responde 200 e usa `reason` e `error_code`. Exemplos de código de resultado são `ILLEGIBLE_DOCUMENT`, `NAME_MISMATCH`, `EXPIRED_CERTIFICATE`, `INSUFFICIENT_WORKLOAD`, `INVALID_CNPJ_FORMAT` e `CNPJ_INACTIVE`.
+Os certificados retornam `ACCEPT` ou `REJECTED` e as empresas retornam `VALID` ou `INVALID`, e uma reprovação ainda responde 200, com o motivo em `reason` e `error_code`. Alguns códigos de resultado são `ILLEGIBLE_DOCUMENT`, `NAME_MISMATCH`, `EXPIRED_CERTIFICATE`, `INSUFFICIENT_WORKLOAD`, `INVALID_CNPJ_FORMAT` e `CNPJ_INACTIVE`.
 
 Falhas HTTP usam `application/problem+json` com `errorCode`, de acordo com o [contrato de erros](https://github.com/Solierrr/docs-warehouse/blob/main/docs/standards/ERRORS.md) e o [catálogo](https://github.com/Solierrr/docs-warehouse/blob/main/docs/standards/ERROR_CODES.md). Não confundir `error_code` do resultado com `errorCode` da falha HTTP.
 

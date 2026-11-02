@@ -16,4 +16,4 @@ Execute `make install` e `make dev`. O repositório não configura pastas para `
 | `npm run check` | Dry run de publicação do Wrangler |
 | `make test` | Não tem comando configurado |
 
-Abra uma rota `/documentos/<id>` e confira navegação, idioma e fallback. Um JSON inválido pode interromper o carregamento do catálogo. O tarball em `vendor/` precisa estar presente para `npm ci`.
+Abra uma rota `/documentos/<id>` e confira a navegação, o idioma e o fallback, lembrando que um JSON inválido pode interromper o carregamento do catálogo e que o tarball em `vendor/` precisa estar presente para o `npm ci`.

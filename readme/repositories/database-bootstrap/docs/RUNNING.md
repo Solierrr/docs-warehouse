@@ -16,7 +16,7 @@ make vault
 make install
 ```
 
-`make vault` lê `/database` e `/recommendation`, conforme o Makefile. O orquestrador não carrega `.env` por si só. Exportar as variáveis no shell ou fornecê-las ao container antes de executar. O texto antigo que apenas indicava um `.env` era insuficiente.
+O `make vault` lê as pastas `/database` e `/recommendation`, conforme o Makefile, mas o orquestrador não carrega o `.env` sozinho, por isso as variáveis precisam ser exportadas no shell ou passadas ao container antes da execução.
 
 ```bash
 set -a
@@ -25,7 +25,7 @@ set +a
 make dev
 ```
 
-`make dev` executa uma carga real que escreve no Neo4j. Não é servidor de desenvolvimento. Usar destinos descartáveis ou autorizados para essa finalidade.
+O `make dev` executa uma carga real que escreve no Neo4j, e não um servidor de desenvolvimento, por isso deve apontar para destinos descartáveis ou autorizados para essa finalidade.
 
 | Nome | Uso |
 |---|---|
@@ -37,11 +37,11 @@ make dev
 | `SYNC_MIN_DOMAIN_RETENTION_RATIO` | Mínimo relativo por domínio, padrão 0.5 |
 | `NEO4J_WAIT_SECONDS` | Espera inicial de conectividade, padrão 300 segundos |
 
-O ratio deve ficar entre zero e um. Configuração numérica inválida impede início. Conexão PostgreSQL usa timeout de 15 segundos e TLS require por padrão. Neo4j usa timeout de 10 segundos e pool de até cinco conexões.
+A proporção de queda precisa ficar entre zero e um, e uma configuração numérica inválida impede o início. A conexão com o PostgreSQL usa limite de 15 segundos e TLS `require` por padrão, e a do Neo4j usa limite de 10 segundos e um pool de até cinco conexões.
 
 ## Verificações
 
-`make lint` verifica Ruff e `make build` compila `src`. `make test` não tem comando configurado. A árvore desta main não contém a suíte `tests/` descrita nos textos antigos. O CI constrói o container, importa o módulo e confirma saída 64 sem configuração. Isso não é teste integrado do grafo.
+O `make lint` roda o Ruff, o `make build` compila `src` e o `make test` não tem comando configurado, porque esta main não tem a suíte `tests/` citada nos textos antigos. O CI constrói o container, importa o módulo e confirma a saída 64 sem configuração, o que não substitui um teste integrado do grafo.
 
 Não há `make openapi`, Swagger ou API própria.
 

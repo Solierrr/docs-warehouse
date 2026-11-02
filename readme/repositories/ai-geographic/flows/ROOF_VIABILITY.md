@@ -22,4 +22,4 @@ sequenceDiagram
  end
 ```
 
-O timeout é de vinte segundos. A falta de cobertura retorna uma informação ao especialista. Outras falhas de HTTP registram `SOLAR_DATA_UNAVAILABLE`.
+A consulta tem limite de vinte segundos, e a falta de cobertura solar volta ao especialista como uma informação, enquanto as outras falhas HTTP são registradas como `SOLAR_DATA_UNAVAILABLE`.

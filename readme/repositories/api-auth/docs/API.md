@@ -4,7 +4,7 @@
 
 # API
 
-O contrato está no [openapi.yaml](https://github.com/Solierrr/api-auth/blob/main/openapi.yaml). O Swagger usa `/docs`. Rotas de emissão aceitam credenciais próprias de cada fluxo. Operações autenticadas usam `Authorization: Bearer <access token>`.
+O contrato está no [openapi.yaml](https://github.com/Solierrr/api-auth/blob/main/openapi.yaml), com o Swagger em `/docs`. As rotas que emitem tokens aceitam as credenciais próprias de cada fluxo, e as operações autenticadas usam `Authorization: Bearer <access token>`.
 
 | Grupo | Uso |
 |---|---|
@@ -22,6 +22,6 @@ GET /auth/me
 Authorization: Bearer <access token>
 ```
 
-Os erros seguem [ERRORS.md](https://github.com/Solierrr/docs-warehouse/blob/main/docs/standards/ERRORS.md). Recuperação pode retornar `INVALID_OR_EXPIRED_TOKEN`, `PASSWORD_POLICY`, `EMAIL_NOT_CONFIGURED` e `EMAIL_UNAVAILABLE`. O contrato descreve os demais códigos sem necessidade de repetir cada parâmetro aqui.
+Os erros seguem [ERRORS.md](https://github.com/Solierrr/docs-warehouse/blob/main/docs/standards/ERRORS.md), e a recuperação de senha pode retornar `INVALID_OR_EXPIRED_TOKEN`, `PASSWORD_POLICY`, `EMAIL_NOT_CONFIGURED` e `EMAIL_UNAVAILABLE`. O contrato descreve os demais códigos, sem que seja preciso repetir aqui cada parâmetro.
 
 As rotas internas são liberadas pela configuração de segurança atual, o que difere do padrão entre serviços. <!-- PENDENTE: 2 -->

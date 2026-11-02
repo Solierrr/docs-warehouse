@@ -4,7 +4,7 @@
 
 # Execução local
 
-Usar Python 3.14, conforme o workflow de sincronização, pip, make e shell. O guia comum está em [Python](https://github.com/Solierrr/docs-warehouse/blob/main/readme/running/PYTHON.md). Não há Dockerfile nesta main.
+São necessários o Python 3.14, conforme o workflow de sincronização, além do pip, do make e de um shell, e o guia comum está em [Python](https://github.com/Solierrr/docs-warehouse/blob/main/readme/running/PYTHON.md). Esta main não tem Dockerfile.
 
 ## Preparar
 
@@ -17,7 +17,7 @@ make install
 make dev
 ```
 
-`make vault` lê `/database` e `/databricks`. A API carrega `.env` sem substituir variáveis já presentes no processo. Inicia na porta 8000. Obter as credenciais pelo processo autorizado e não registrar valores em exemplos.
+O `make vault` lê as pastas `/database` e `/databricks`, e a API carrega o `.env` sem substituir as variáveis já presentes no processo, iniciando na porta 8000. As credenciais devem ser obtidas pelo processo autorizado, sem que nenhum valor apareça em exemplos.
 
 | Variável | Papel |
 |---|---|
@@ -41,8 +41,8 @@ make build
 make openapi
 ```
 
-Os alvos executam pytest, Ruff, compileall e exportação do contrato. `make format` não tem comando configurado. O Swagger local fica em `http://localhost:8000/docs` quando habilitado.
+Os alvos executam o pytest, o Ruff, o compileall e a exportação do contrato, mas o `make format` não tem comando configurado. Quando habilitado, o Swagger local fica em `http://localhost:8000/docs`.
 
-Executar `python synchronizer.py` inicia carga Bronze real. `python gold_synchronizer.py` inicia exportação Gold real e espera configuração no ambiente. Esses comandos alteram destinos e não são verificações sem efeito.
+O `python synchronizer.py` inicia uma carga Bronze real, e o `python gold_synchronizer.py` inicia uma exportação Gold real com a configuração do ambiente, por isso esses comandos alteram os destinos e não servem como verificações sem efeito.
 
 O diagnóstico deve separar configuração ausente, token inválido, job ocupado e resultado parcial. Prontidão não substitui revisão do manifesto, da função de autorização e dos privilégios. Fontes em [Makefile](https://github.com/Solierrr/databricks-sync/blob/main/Makefile), [configuração](https://github.com/Solierrr/databricks-sync/blob/main/app/config.py) e [CLI](https://github.com/Solierrr/databricks-sync/blob/main/app/cli.py).

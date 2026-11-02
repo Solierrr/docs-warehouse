@@ -21,16 +21,16 @@ O aplicativo atende às pessoas que acompanham projetos e conversam com particip
 
 ## Regras
 
-Uma mensagem guardada para envio ainda não foi entregue. Mensagem recusada permite tentar novamente ou descartar. A fila pertence à pessoa que a criou. Sair ou trocar de conta apaga os dados locais, inclusive mensagens não enviadas.
+Uma mensagem guardada para envio ainda não foi entregue, e uma mensagem recusada pode ser reenviada ou descartada. A fila pertence a quem a criou, e sair ou trocar de conta apaga os dados locais, inclusive as mensagens não enviadas.
 
 A conversa que perdeu acesso permanece em leitura do conteúdo local e deixa de aceitar novos envios pelo aplicativo. O histórico de conversas com assistentes não fica guardado como histórico humano no banco do aparelho.
 
-O nome do projeto tem entre 3 e 160 caracteres. A descrição tem até 4000. Quando informado, o estado deve ser uma unidade federativa aceita e o CEP deve conter oito dígitos. As verificações do servidor continuam valendo.
+O nome do projeto tem entre 3 e 160 caracteres e a descrição tem até 4000, e quando informados o estado precisa ser uma unidade federativa aceita e o CEP precisa ter oito dígitos, sem dispensar as verificações do servidor.
 
 ## Telas e limites
 
 A navegação reúne início, projetos, conversas, chamados, agenda, mapa, perfis, conexões e configurações. A existência da tela não comprova integração remota.
 
-Agenda, locais salvos, chamados e notificações usam conteúdo de exemplo. Não há recebimento de push integrado. Busca de endereço só tem destino configurado no QA. Confirmar o escopo dessas áreas para distribuição. <!-- PENDENTE: 4 -->
+A agenda, os locais salvos, os chamados e as notificações usam conteúdo de exemplo, sem recebimento de push integrado, e a busca de endereço só tem destino configurado no QA. O escopo dessas áreas ainda precisa ser confirmado para a distribuição. <!-- PENDENTE: 4 -->
 
 Login, projetos, perfis e conversas já possuem integrações remotas. A descrição antiga que colocava todo o aplicativo sem APIs não representa esta versão.

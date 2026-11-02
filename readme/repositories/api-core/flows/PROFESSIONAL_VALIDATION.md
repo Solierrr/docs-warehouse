@@ -30,7 +30,7 @@ O upload admite categorias de evidência conhecidas, até 10 MiB por documento e
 
 O worker espera `/api/v1/professionals/validate`, envia Bearer de serviço e `X-Service-Key` quando configurado. Confere identificador de submissão, revisão, política, resultado dos critérios e referências de evidência. Uma resposta aprovada só promove a versão se a base aprovada ainda coincide. Caso contrário, segue para revisão manual.
 
-Na aprovação, o serviço atualiza pessoa, contato, técnico e registro profissional. Imagens validadas podem ser arquivadas em armazenamento autenticado. O catálogo público só apresenta técnicos com estado aprovado.
+Na aprovação, o serviço atualiza a pessoa, o contato, o técnico e o registro profissional, e as imagens validadas podem ser arquivadas num armazenamento autenticado. O catálogo público só mostra técnicos com o estado aprovado.
 
 ## Casos de erro
 

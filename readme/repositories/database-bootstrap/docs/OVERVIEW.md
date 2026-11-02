@@ -19,9 +19,9 @@ A disponibilidade efetiva de uma oferta é o menor valor entre a oferta e o esto
 
 ## Atualização
 
-Cada execução constrói uma versão separada. Antes de ativar, compara o volume de cada domínio com a versão ativa. Uma queda abaixo da proporção configurada bloqueia a troca. O limite padrão é metade do volume anterior. A política para quedas legítimas e primeira carga vazia precisa de confirmação. <!-- PENDENTE: 2 -->
+Cada execução constrói uma versão separada e, antes de ativá-la, compara o volume de cada domínio com a versão ativa, bloqueando a troca quando a queda passa da proporção configurada, que por padrão é metade do volume anterior. A política para quedas legítimas e para uma primeira carga vazia ainda precisa ser confirmada. <!-- PENDENTE: 2 -->
 
-A troca aponta para a versão nova e mantém a anterior. A limpeza remove versões mais antigas quando possível. Uma falha antes da ativação conserva a versão ativa. Falha na limpeza depois da ativação não desfaz a publicação.
+A troca aponta para a versão nova e mantém a anterior, enquanto a limpeza remove as versões mais antigas quando possível. Uma falha antes da ativação conserva a versão ativa, e uma falha na limpeza depois da ativação não desfaz a publicação.
 
 ## Limite de integração
 

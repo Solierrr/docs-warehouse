@@ -50,7 +50,7 @@ Os caminhos são relativos à raiz Kotlin do aplicativo.
 | Imagens públicas | HTTPS | Cliente sem interceptor de sessão |
 | Identificador de instalação | Firebase Installations | Configuração Firebase da variante |
 
-O contexto está em [login e token](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/LOGIN_AND_TOKEN.md). O app não usa `X-Service-Key`. A autorização de recurso pertence aos servidores.
+O contexto está em [login e token](https://github.com/Solierrr/docs-warehouse/blob/main/docs/flows/LOGIN_AND_TOKEN.md), e o app não usa `X-Service-Key`, porque a autorização de cada recurso pertence aos servidores.
 
 ## Sessão
 
@@ -60,15 +60,15 @@ OkHttp envia o token e usa `TokenAuthenticator` após 401. A renovação é sinc
 
 ## Dados e sincronização
 
-O Room guarda cinco tabelas em [SQLITE.md](../database/SQLITE.md). O banco próprio contraria a hipótese inicial do checklist. A versão atual é 3, com migração destrutiva de contingência. Preservação da fila entre versões precisa de decisão. <!-- PENDENTE: 1 -->
+O Room guarda cinco tabelas, descritas em [SQLITE.md](../database/SQLITE.md), e esse banco próprio contraria a hipótese inicial do checklist. A versão atual é a 3, com migração destrutiva de contingência, e a preservação da fila entre versões ainda depende de decisão. <!-- PENDENTE: 1 -->
 
 Eventos e catch-up usam versões. O cursor só avança por catch-up. Mudança da época do servidor limpa mensagens e cursor e refaz bootstrap, preservando a fila nesse caminho.
 
-O worker da fila vive no escopo da aplicação. Não há WorkManager. Envio eventual depende de processo ativo e conexão, sem promessa de entrega após encerrar o app.
+O worker da fila vive no escopo da aplicação, sem WorkManager, por isso o envio posterior depende de o processo estar ativo e conectado, sem garantia de entrega depois que o app é encerrado.
 
 ## Observabilidade e versão
 
-Diagnóstico e estados de rede distinguem sessão, servidor e conectividade. O parser converte status HTTP para `ErrorKind` e extrai `errors[].field`. Não traduz todo `errorCode` de negócio.
+O diagnóstico e os estados de rede distinguem a sessão, o servidor e a conectividade, e o parser converte o status HTTP para `ErrorKind` e extrai `errors[].field`, sem traduzir todos os `errorCode` de negócio.
 
 Gradle declara `versionName` 1.0 e `versionCode` 1, com sufixo no QA. A versão distribuída não foi inferida da tag antiga do checklist. <!-- PENDENTE: 3 -->
 

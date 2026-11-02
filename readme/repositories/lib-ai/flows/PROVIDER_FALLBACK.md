@@ -24,6 +24,6 @@ flowchart TD
 
 ## Falhas e limites
 
-A seleção falha imediatamente sem chave. Cooldown usa Retry-After numérico ou 60 segundos por padrão. Chave inválida é excluída pela vida do cliente. A classificação examina até cinco exceções encadeadas.
+Sem chave a seleção falha imediatamente, e o cooldown usa o Retry-After numérico ou 60 segundos por padrão. Uma chave inválida fica excluída durante toda a vida do cliente, e a classificação examina até cinco exceções encadeadas.
 
 Fonte em [implementação](https://github.com/Solierrr/lib-ai/blob/main/src/ai_lib/llm/leasing.py).
