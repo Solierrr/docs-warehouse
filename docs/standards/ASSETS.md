@@ -9,7 +9,7 @@ Toda imagem que um documento usa fica dentro da pasta do próprio repositório, 
 | Banner e ícones de stack | `assets/readme/banners/` e `assets/readme/stacks/` | cópia do [catálogo central](../../assets/readme/README.md), com o mesmo nome |
 | Prints de tela | `assets/screens/` | `web-sandbox`, `web-app` ou `mobile-app` rodando no QA ou local |
 | Mocks e imagens de exemplo | `assets/mocks/` | [`mocks-warehouse`](https://github.com/Solierrr/mocks-warehouse) |
-| Diagramas exportados, quando o Mermaid não serve | `assets/diagrams/` | gerados a partir de uma fonte que também fica no repositório |
+| Diagramas exportados, quando o Mermaid não serve, e imagens PNG das visões da galeria | `assets/diagrams/` | gerados a partir de uma fonte que também fica no repositório |
 
 ## Regras
 
