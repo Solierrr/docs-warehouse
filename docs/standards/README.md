@@ -11,6 +11,7 @@ Padrões que valem para todos os repositórios de código da organização. Cada
 | Versão e release | [VERSIONING.md](./VERSIONING.md) | templates `release-please-config.*.json` em [`github/workflow/common/`](../../github/workflow/common/) |
 | Autenticação entre serviços | [SERVICE_AUTH.md](./SERVICE_AUTH.md) | |
 | Health checks | [HEALTH.md](./HEALTH.md) | |
+| Testes | [TESTING.md](./TESTING.md) | |
 
 ## Documentação
 
